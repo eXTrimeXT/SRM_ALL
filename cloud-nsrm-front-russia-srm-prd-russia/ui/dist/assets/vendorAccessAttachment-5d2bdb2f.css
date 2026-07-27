@@ -1,0 +1,12 @@
+
+.accessAttachment .attBtn {
+  margin-bottom: 16px;
+}
+.required {
+  color: #ff4949;
+  padding-right: 4px;
+}
+.validDate .cell {
+  display: flex;
+  flex: 1;
+}

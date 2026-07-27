@@ -1,0 +1,28 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "ManagementAttachChange:scc_sup_management_attach_change": {
+	"keyField": "managementAttachChangeId",
+    "fields": {
+	  "managementAttachChangeId":"Long",
+      "categoryId": {
+        "type": "Long",
+        "dbName":"category_id",
+        "desc": "品类ID",
+        "virtual": false
+      },
+      "categoryCode": {
+        "type": "String",
+        "dbName":"category_code",
+        "desc": "品类编码",
+        "virtual": false
+      },
+      "categoryName": {
+        "type": "String",
+        "dbName":"category_name",
+        "desc": "品类名称",
+        "virtual": false
+      }
+    }
+  }
+}

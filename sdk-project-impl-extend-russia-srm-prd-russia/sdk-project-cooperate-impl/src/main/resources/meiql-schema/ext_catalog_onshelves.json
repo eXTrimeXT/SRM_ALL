@@ -1,0 +1,110 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "CatalogOnShelves": {
+    "keyField": "catalogOnShelvesId",
+    "repository": "catalogOnShelvesCustomRepository",
+    "fields": {
+      "extPriceLibraryStatus": "String:协议状态",
+      "extAreaId": "String:区域ID",
+      "extAreaCode": "String:区域编码",
+      "extAreaName": "String:区域名称",
+      "extGoodsCode": {
+        "convert": "seqGen:CATALOG_ON_SHELVES_GOODS_CODE",
+        "desc": "String:商品编号"
+      },
+      "extGoodsName": "String:商品名称",
+      "extReferencePrice": "BigDecimal:参考价",
+      "extShelfLife": "BigDecimal:质保期",
+      "extProtocolRowNo": "String:协议行号",
+      "extOrgIdList": "String:业务实体ID集合",
+      "extOrgCodeList": "String:业务实体编码集合",
+      "extOrgNameList": "String:业务实体名称集合",
+      "mixAmount": "BigDecimal:最小起订金额",
+      "requirementNum": {
+        "type": "BigDecimal",
+        "desc": "数量",
+        "virtual": true
+      },
+      "extIsGoods": {
+        "type": "String",
+        "desc": "是否商品(Y是，N否)",
+        "virtual": true
+      },
+      "extAgreementType": "String:协议性质",
+      "extMaterialType": "String:商品类型，默认值长城（CC）,京东（JD）"
+    }
+  },
+  "CatalogOnShelvesVendor": {
+    "keyField": "catalogOnShelvesId",
+    "repository": "catalogOnShelvesCustomRepository",
+    "fields": {
+      "extPriceLibraryStatus": "String:协议状态",
+      "extAreaId": "String:区域ID",
+      "extAreaCode": "String:区域编码",
+      "extAreaName": "String:区域名称",
+      "extGoodsCode": "String:商品编号",
+      "extGoodsName": "String:商品名称",
+      "extReferencePrice": "BigDecimal:参考价",
+      "extShelfLife": "BigDecimal:质保期",
+      "extProtocolRowNo": "String:协议行号",
+      "extOrgIdList": "String:业务实体ID集合",
+      "extOrgCodeList": "String:业务实体编码集合",
+      "extOrgNameList": "String:业务实体名称集合",
+      "mixAmount": "BigDecimal:最小起订金额",
+      "extAgreementType": "String:协议性质",
+      "extMaterialType": "String:商品类型，默认值长城（CC）,京东（JD）"
+    }
+  },
+  "CatalogOnShelvesAttach": {
+    "keyField": "attachId",
+    "repository": "catalogOnShelvesAttachCustomRepository",
+    "fields": {
+    }
+  },
+  "CatalogOnShelvesAttachVendor": {
+    "keyField": "attachId",
+    "repository": "catalogOnShelvesAttachCustomRepository",
+    "fields": {
+    }
+  },
+  "ShopCart": {
+    "keyField": "shopCartId",
+    "repository": "shopCartCustomRepository",
+    "fields": {
+      "extShelvesAttachId": "Long:主图",
+      "extOrderQuantityMinimum": "BigDecimal:最小起订量",
+      "extSecondCategoryId": "Long:二级品类ID",
+      "extSecondCategoryCode": "String:二级品类编码",
+      "extSecondCategoryName": "String:二级品类名称",
+      "extCeeaDeptid": "String:使用部门id",
+      "extDepartmentcode": "String:使用部门编码",
+      "extDepartment": "String:使用部门名称",
+      "extAddressId": "String:收货地址id",
+      "extAddress": "String:收货地址编码",
+      "extAddressName": "String:收货地址名称",
+      "extReceiver": "String:收货人",
+      "extReceiverContact": "String:收货人联系方式",
+      "extIsGoods": "String:是否商品(Y是，N否)",
+      "extAreaId": "String:区域ID",
+      "extAreaCode": "String:区域编码",
+      "extAreaName": "String:区域名称",
+      "deptLeaderUserId": "Long:部门领导用户id",
+      "deptLeaderUserNickname": "String:部门领导用户昵称",
+      "extReferencePrice": "BigDecimal:参考价",
+      "extCatalogOnShelvesId": "Long:采购目录上下架头表ID",
+      "extRejectReason": "String:驳回原因",
+      "extUseTo": "String:用途",
+      "brand": "String:品牌",
+      "extBuyTypeComment": "String:备注",
+      "extAttachId": "Long:附件id",
+      "extAttachName": "String:附件名称",
+      "extUserPhone": "String:使用人联系方式",
+      "extMaterialType": "String:商品类型，默认值长城（CC）,京东（JD）",
+      "extCloseComment": "String:关闭原因"
+    },
+    "relations": {
+      "extShelvesAttachId": "CatalogOnShelvesAttach"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "StorageReturn": {
+    "comment": "入库退货明细",
+    "repository": "extStorageReturnRepository",
+    "keyField" : "warehousingReturnDetailId",
+    "fields" : {
+      "extClosedCause": "String:关闭原因"
+    }
+  },
+  "StorageReturnVendor": {
+    "comment": "入库退货明细",
+    "repository": "extStorageReturnRepository",
+    "keyField" : "warehousingReturnDetailId",
+    "fields" : {
+      "extClosedCause": "String:关闭原因"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+
+.base-table[data-v-c134388a] {
+  min-height: 0;
+}
+.required[data-v-c134388a] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.header-wrapper[data-v-c134388a] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search-button[data-v-c134388a] {
+  color: #502c2c;
+  margin-left: 10px;
+  cursor: pointer;
+  font-weight: bolder;
+  margin-right: 10px;
+}
+.highlight[data-v-c134388a] {
+  color: #ef2f24;
+}

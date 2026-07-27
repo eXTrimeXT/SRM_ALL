@@ -1,0 +1,26 @@
+{
+    "_version": "1.0",
+    "_type": "CUSTOM",
+    "CateJournalCompany:ceea_sup_auth_cate_journal": {
+        "comment": "品类日志",
+		"keyField": "categoryJournalId",
+        "fields": {
+			"categoryJournalId":"Long",
+            "contactId": {
+                "type": "Long",
+                "dbName":"contact_id",
+                "desc": "联系人ID",
+                "virtual": false
+            },
+            "contactName": {
+                "type": "String",
+                "dbName":"contact_name",
+                "desc": "联系人名称",
+                "virtual": false
+            }
+        },
+        "relations": {
+            "npmSerciceCustoms": "[npmSerciceCustom:categoryJournalId]"
+        }
+    }
+}

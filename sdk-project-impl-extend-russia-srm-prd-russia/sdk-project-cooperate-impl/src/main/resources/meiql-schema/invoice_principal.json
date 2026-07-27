@@ -1,0 +1,22 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "InvoicePrincipal:scc_npm_invoice_principal": {
+    "comment": "发票主体",
+    "repository": "invoicePrincipalRepository",
+    "keyField" : "principalId",
+    "fields" : {
+      "principalId" : "Long:主键id",
+      "orgId" : "Long:业务实体ID",
+      "orgCode" : "String:业务实体编码",
+      "orgName" : "String:业务实体名称",
+      "principalCode" : "String:主体编码",
+      "principalName" : "String:主体名称",
+      "profitCenterCode" : "String:利润中心编码",
+      "profitCenterName" : "String:利润中心名称",
+      "@include": ":BaseFields"
+    },
+    "relations" : {
+    }
+  }
+}

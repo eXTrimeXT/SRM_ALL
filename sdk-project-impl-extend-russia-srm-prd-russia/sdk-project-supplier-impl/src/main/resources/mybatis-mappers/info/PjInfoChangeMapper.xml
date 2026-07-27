@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sup.ext.pjinfochange.mapper.PjInfoChangeMapper">
+
+    <select id="listTwoLevelWithDivisionCategory" parameterType="map" resultType="map">
+        select DISTINCT SUBSTRING_INDEX(m.classification_path,'-',2) categoryFullId
+        from meicloud_bpmp_material.mt_classification m
+        join (
+            select DISTINCT c.CATEGORY_ID
+            from meicloud_usrm_cloud_biz_supplier_cooperate.ceea_pr_division_category c
+            where c.PERSON_IN_CHARGE_USER_ID  = #{personInChargeUserId}
+            ) t on t.CATEGORY_ID = m.id
+    </select>
+</mapper>

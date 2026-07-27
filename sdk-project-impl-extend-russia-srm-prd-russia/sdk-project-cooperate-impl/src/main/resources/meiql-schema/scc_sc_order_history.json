@@ -1,0 +1,26 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "SccScOrderHistory:scc_sc_order_history": {
+    "comment": "历史订单表",
+    "keyField" : "orderHistoryId",
+    "fields" : {
+      "orderHistoryId": "Long:价格趋势id",
+      "materialCode": "String:物料编码",
+      "materialName": "String:物料名称",
+      "materialDescribe": "String:物料描述",
+      "brand": "String:品牌",
+      "areaCode": "String:区域",
+      "orgCode": "String:业务实体编码",
+      "orgName": "String:业务实体名称",
+      "noTaxPrice": "BigDecimal:未税价格",
+      "taxRate": "BigDecimal:税率",
+      "leadTime": "Date:到货周期",
+      "supCode": "String:供应商编码",
+      "supName": "String:供应商名称",
+      "supTel": "String:供应商联系方式",
+      "orderDate": "Date:订单日期",
+      "@include": ":BaseFields"
+    }
+  }
+}

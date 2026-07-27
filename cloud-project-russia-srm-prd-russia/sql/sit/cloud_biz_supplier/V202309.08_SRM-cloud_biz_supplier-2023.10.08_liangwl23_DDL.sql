@@ -1,0 +1,9 @@
+ALTER TABLE scc_sup_effect_form ADD EXT_SITE_FORM_FILE_ID bigint(20) COMMENT '现场评审附件ID';
+ALTER TABLE scc_sup_effect_form ADD EXT_SITE_FORM_FILE_NAME varchar(300) COMMENT '现场评审附件名称';
+ALTER TABLE scc_sup_effect_form ADD EXT_SITE_FORM_REMARKS varchar(500) COMMENT '现场评审说明';
+ALTER TABLE scc_sup_effect_form ADD EXT_SAMPLE_FILE_ID bigint(20) COMMENT '样品确认附件ID';
+ALTER TABLE scc_sup_effect_form ADD EXT_SAMPLE_FILE_NAME varchar(300) COMMENT '样品确认附件名称';
+ALTER TABLE scc_sup_effect_form ADD EXT_SAMPLE_FILE_REMARKS varchar(500) COMMENT '样品确认说明';
+ALTER TABLE scc_sup_effect_form ADD EXT_TRIAL_FILE_ID bigint(20) COMMENT '物料试用附件ID';
+ALTER TABLE scc_sup_effect_form ADD EXT_TRIAL_FILE_NAME varchar(300) COMMENT '物料试用附件名称';
+ALTER TABLE scc_sup_effect_form ADD EXT_TRIAL_FILE_REMARKS varchar(500) COMMENT '物料试用说明';

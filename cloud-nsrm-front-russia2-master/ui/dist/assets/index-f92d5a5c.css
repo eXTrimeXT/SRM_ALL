@@ -1,0 +1,42 @@
+.tableForm[data-v-ffa00e42] {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+}
+.tableForm .el-table[data-v-ffa00e42] {
+  height: 100%;
+}
+.butHeader[data-v-ffa00e42] {
+  padding: 10px;
+}
+.header[data-v-ffa00e42] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header .tabs[data-v-ffa00e42] {
+  display: flex;
+}
+.header .tabs .btn[data-v-ffa00e42] {
+  font-size: 12px;
+  padding: 0px 0 4px;
+  font-weight: normal;
+  height: 24px;
+  line-height: 24px;
+  cursor: pointer;
+  box-sizing: content-box;
+  color: #393E45;
+}
+.header .tabs .btn.active[data-v-ffa00e42] {
+  border-bottom: 2px solid #0077FF;
+  color: #0077FF;
+  font-weight: bold;
+}
+.header .tabs .btn + .btn[data-v-ffa00e42] {
+  margin-left: 32px;
+}
+.header .tabs .btn[data-v-ffa00e42]:hover {
+  color: #0077FF;
+}

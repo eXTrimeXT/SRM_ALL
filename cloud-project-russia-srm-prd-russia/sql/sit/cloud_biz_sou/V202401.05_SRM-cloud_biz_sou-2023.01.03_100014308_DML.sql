@@ -1,0 +1,1 @@
+ALTER TABLE scc_sou_vendor add REASON varchar(500) null comment '原因';

@@ -1,0 +1,32 @@
+.inquiry-detail-require-info-tab .required-column-label[data-v-bab54d8f] {
+  color: red;
+  margin-right: 5px;
+}.the-file-part .left-div[data-v-01268c0e],
+.the-file-part .right-div[data-v-01268c0e] {
+  width: 50%;
+  padding: 3px;
+  float: left;
+}
+.the-file-part .left-div > p[data-v-01268c0e],
+.the-file-part .right-div > p[data-v-01268c0e] {
+  margin: 0;
+}
+.the-file-part .left-div > p span[data-v-01268c0e],
+.the-file-part .right-div > p span[data-v-01268c0e] {
+  padding-right: 11px;
+}[data-v-f8ba576b] .the-inquiryDetail-detail .inquiry-detail-border-card > .el-tabs--border-card {
+  margin-right: 10px;
+}
+[data-v-f8ba576b] .the-inquiryDetail-detail .sub_header {
+  padding: 4px 11px;
+  background: #eee;
+}
+[data-v-f8ba576b] .the-inquiryDetail-detail .sub_header span {
+  padding-right: 11px;
+}
+[data-v-f8ba576b] .the-inquiryDetail-detail .el-table .el-date-editor {
+  width: 135px;
+}
+[data-v-f8ba576b] .the-inquiryDetail-detail .main-header {
+  border: none;
+}

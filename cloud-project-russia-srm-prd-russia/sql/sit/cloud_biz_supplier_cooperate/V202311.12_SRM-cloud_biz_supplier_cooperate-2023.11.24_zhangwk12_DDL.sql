@@ -1,0 +1,1 @@
+alter table scc_pr_requirement_line change IF_CREATE_FIX_PRICE FIX_PRICE_STATUS varchar(20) default 'DRAFT' not null comment '定价状态(EXT_PR_REQ_FIX_PRICE_STATUS)';

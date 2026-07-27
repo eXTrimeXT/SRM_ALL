@@ -1,0 +1,53 @@
+$countdown-size: 40px;
+$countdown-unit-width: $countdown-size - 5px;
+
+.countdown-wrap {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+
+  .title {
+    margin-top: 5px;
+    margin-bottom: 3px;
+    font-size: 14px;
+  }
+
+  .countdown-time-wrap {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    padding: 13px 0;
+
+    .number {
+      width: $countdown-size;
+      height: $countdown-size;
+      line-height: $countdown-size;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 3px;
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      flex-shrink: 0;
+
+      &.red {
+        background-color: rgba(217, 0, 27, 1);
+      }
+    }
+
+    .unit {
+      width: $countdown-unit-width;
+      height: $countdown-size;
+      line-height: $countdown-size;
+      text-align: center;
+      font-size: 14px;
+    }
+  }
+
+  .desc {
+    font-size: 12px;
+    color: #666565;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}

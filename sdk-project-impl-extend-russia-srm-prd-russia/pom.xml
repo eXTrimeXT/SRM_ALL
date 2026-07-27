@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.midea</groupId>
+    <artifactId>sdk-project-impl</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <revision>meiqing-V3.0.11.1</revision>
+    </properties>
+
+    <modules>
+        <module>sdk-project-entity</module>
+        <module>sdk-project-base-impl</module>
+        <module>sdk-project-supplier-impl</module>
+        <module>sdk-project-cooperate-impl</module>
+        <module>sdk-project-inq-impl</module>
+        <module>sdk-project-contract-impl</module>
+        <module>sdk-project-gateway-impl</module>
+        <module>sdk-project-performance-impl</module>
+        <module>sdk-project-ppap-impl</module>
+        <module>sdk-project-price-impl</module>
+        <module>sdk-project-report-impl</module>
+        <module>sdk-project-file-impl</module>
+        <module>sdk-project-rbac-impl</module>
+        <module>sdk-project-sou-impl</module>
+        <module>sdk-project-third</module>
+        <module>sdk-project-main</module>
+
+    </modules>
+
+    <repositories>
+        <!-- 长城MAVEN仓库3 -->
+        <repository>
+            <id>xiezuoyun</id>
+            <name>xiezuoyun</name>
+            <url>https://nexus.gwm.cn/repository/maven-public/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>meicloud-releases</id>
+            <url>https://repo.meicloud.com/repository/maven-releases/</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>meicloud-snapshots</id>
+            <uniqueVersion>false</uniqueVersion>
+            <url>https://repo.meicloud.com/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.2.7</version>
+                <configuration>
+                    <!--是否更新pom文件1-->
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

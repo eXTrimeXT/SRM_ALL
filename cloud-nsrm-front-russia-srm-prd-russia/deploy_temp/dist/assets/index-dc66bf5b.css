@@ -1,0 +1,12 @@
+.base_price_list_wrapper .order-uploader[data-v-2581ce21] {
+  display: inline-block;
+  margin: 0 10px;
+}
+.base_price_list_wrapper .block[data-v-2581ce21] {
+  display: flex;
+  justify-content: center;
+}
+.base_price_list_wrapper .el-table th > .cell {
+  display: flex;
+  justify-content: center;
+}

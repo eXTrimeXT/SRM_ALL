@@ -1,0 +1,25 @@
+.blackEdit[data-v-7039c08b] {
+  height: 100%;
+}
+.blackEdit[data-v-7039c08b] .table-wrapper {
+  padding-left: 0;
+  padding-right: 0;
+}
+.blackEdit .sub_header[data-v-7039c08b] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.blackEdit .el-table .el-date-editor[data-v-7039c08b] {
+  width: 135px;
+}
+.blackEdit .base-form[data-v-7039c08b] {
+  padding: 15px 30px 0;
+}
+.blackEdit .toRequired[data-v-7039c08b] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.blackEdit .edit_cond[data-v-7039c08b] {
+  color: #23adf4;
+  cursor: pointer;
+}

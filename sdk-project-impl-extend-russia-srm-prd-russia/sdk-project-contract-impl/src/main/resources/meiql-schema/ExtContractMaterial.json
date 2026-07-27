@@ -1,0 +1,11 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "ContractMaterial:scc_contract_material": {
+    "keyField": "contractMaterialId",
+    "fields": {
+      "extInvoiceType": "String",
+      "extFixPriceLineId":"Long"
+    }
+  }
+}

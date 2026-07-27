@@ -1,0 +1,237 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: supplier-nginx-config
+  namespace: srm-{{ .Values.global.env }}
+data:
+  #--挂载文件的内容格式如下，文件名称为“frontend.cnf”,文件内容为“hello”,需挂载多个文件则按如下格式填写多行即可
+  nginx.conf: |-
+    worker_processes auto;
+      events {
+      worker_connections  1024;
+      }
+      http {
+      include mime.types;
+      default_type application/octet-stream;
+      log_format main  '[$time_local] $request_time $body_bytes_sent "$remote_addr" $status "$request" "$http_cookie" "$http_menuid"';
+      #add_header X-Frame-Options SAMEORIGIN;
+      add_header X-XSS-Protection 1;
+      server_tokens off;
+      keepalive_timeout 65;
+      gzip on;
+      gzip_min_length 1000;
+      gzip_buffers 4 8k;
+      gzip_types text/plain application/x-javascript text/css application/xml text/javascript application/json application/javascript;
+      client_max_body_size 30M;
+      proxy_next_upstream error http_503;
+      upstream iamwww {
+        server {{ .Values.global.nginx.iam }} weight=1 fail_timeout=10s max_fails=1 ;
+      }
+      upstream ipaaswww {
+        server {{ .Values.global.nginx.ipaas }} weight=1 fail_timeout=10s max_fails=1 ;
+      }
+      upstream ideFlowwww {
+        server {{ .Values.global.nginx.ideFlow }} weight=1 fail_timeout=10s max_fails=1 ;
+      }
+      upstream eggwwww  {
+        server {{ .Values.global.nginx.egg }} weight=1 fail_timeout=10s max_fails=1 ;
+      }
+
+      server {
+      server_name localhost;
+      listen 10080;
+      #ui-form-generator
+      location / {
+      root   /apps/svr/cloud_srm_uigenerator;
+      index  index.html index.htm;
+    }
+    }
+      server {
+      server_name localhost;
+      listen 80;
+      #listen       443 ssl;
+      #ssl_session_cache    shared:SSL:1m;
+      #ssl_protocols TLSv1.2;
+      #ssl_session_timeout  5m;
+      #ssl_ciphers CHACHA20:AES128:AES256:GCM:!DH:!RC4:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS;
+      #add_header Strict-Transport-Security max-age=31536000;
+      #ssl_prefer_server_ciphers  on;
+      #ssl_certificate      /apps/svr/nginx/sslkey/meicloudweb.crt;
+      #ssl_certificate_key  /apps/svr/nginx/sslkey/meicloudweb.rsa;;
+      proxy_read_timeout 1800;
+      proxy_send_timeout 1800;
+      if ($time_iso8601 ~ "^(\d{4})-(\d{2})-(\d{2})") {
+      set $year $1;
+      set $month $2;
+      set $day $3;
+    }
+      access_log logs/access-$year-$month-$day.log  main;
+      location /egg {
+      proxy_pass http://eggwwww;
+      add_header 'Access-Control-Allow-Origin' '*';
+      add_header 'Access-Control-Allow-Methods' 'POST,GET,OPTIONS';
+      add_header 'Access-Control-Allow-Headers' 'Authorization';
+    }
+      location / {
+      add_header X-Frame-Options SAMEORIGIN;
+      root   /apps/svr/cloud_srm_application/ui;
+      index  index.html index.htm;
+    }
+      location /cloud-srm/api-ueditor/ {
+      rewrite ^/cloud-srm/api-ueditor/(.*)$ /$1 break;
+      proxy_pass   http://127.0.0.1:8851/;
+      proxy_set_header Host $host:$server_port;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header REMOTE-HOST $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      root   html;
+      index  index.html index.htm;
+    }
+      location ^~/flow/cloud-srm/ {
+      add_header X-Frame-Options SAMEORIGIN;
+      proxy_set_header service-tag dev;
+      proxy_pass  http://ipaaswww;
+      proxy_set_header Host $host:$server_port;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header REMOTE-HOST $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      root   html;
+      index  index.html index.htm;
+      rewrite ^/flow/(.*)$ /flow/api/$1 break;
+    }
+      location ^~/manage/ {
+      add_header X-Frame-Options SAMEORIGIN;
+      proxy_set_header service-tag dev;
+      proxy_pass  http://iamwww;
+      proxy_set_header Host $host:$server_port;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header REMOTE-HOST $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      root   html;
+      index  index.html index.htm;
+      rewrite ^/manage/(.*)$ /manage/$1 break;
+      }
+      location /upm/ {
+      add_header X-Frame-Options SAMEORIGIN;
+      proxy_pass  http://iamwww;
+      proxy_set_header Host $host:$server_port;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header REMOTE-HOST $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      root   html;
+      index  index.html index.htm;
+      }
+      location /jobs/ {
+      add_header X-Frame-Options SAMEORIGIN;
+      proxy_pass  http://iamwww;
+      proxy_set_header Host $host:$server_port;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header REMOTE-HOST $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      root   html;
+      index  index.html index.htm;
+      }
+      location /iam/ {
+      add_header X-Frame-Options SAMEORIGIN;
+      proxy_pass  http://iamwww;
+      proxy_set_header Host $host:$server_port;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header REMOTE-HOST $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      root   html;
+      index  index.html index.htm;
+      }
+      location /portal/ {
+      add_header X-Frame-Options SAMEORIGIN;
+      proxy_pass  http://iamwww;
+      proxy_set_header Host $host:$server_port;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header REMOTE-HOST $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      root   html;
+      index  index.html index.htm;
+      }
+    location ^~/ide-flow/ {
+        add_header X-Frame-Options SAMEORIGIN;
+        proxy_pass   http://ideFlowwww;
+
+        proxy_set_header Host $host:$server_port;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header REMOTE-HOST $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                    proxy_set_header X-Forwarded-Proto $scheme;
+        root   html;
+        index  index.html index.htm;
+        rewrite ^/ide-flow/(.*)$ /$1 break;
+      }
+        location /lcdp {
+         proxy_pass   http://ideFlowwww;
+        proxy_set_header Host $host:$server_port;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header REMOTE-HOST $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                    proxy_set_header X-Forwarded-Proto $scheme;
+        root   html;
+        index  index.html index.htm;
+      }
+
+      error_page   500 502 503 504  /50x.html;
+      location = /50x.html {
+      root   html;
+    }
+      location ^~/onlyoffice/ {
+      proxy_pass http://10.16.14.133:20080/;
+      #websocket
+      proxy_set_header host $host;
+      proxy_set_header X-Real-IP      $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+    }
+      location ^~/6.3.1-32/ {
+      proxy_pass http://10.16.14.133:20080/6.3.1-32/;
+      proxy_set_header host $host;
+      proxy_set_header X-Real-IP      $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+    }
+      location ^~/cache/files/ {
+      proxy_pass http://10.16.14.133:20080//cache/files/;
+      proxy_set_header host $host;
+      proxy_set_header X-Real-IP      $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+    }
+    #ui-form-generator
+      location /ui-form-generator {
+      root   /apps/svr/ui-form-generator;
+      index  index.html index.htm;
+    }
+    }
+
+    #inner oauth rbac
+      server {
+      server_name localhost;
+      listen 30080;
+      proxy_read_timeout 1800;
+      proxy_send_timeout 1800;
+
+    }
+    }
+
+    }

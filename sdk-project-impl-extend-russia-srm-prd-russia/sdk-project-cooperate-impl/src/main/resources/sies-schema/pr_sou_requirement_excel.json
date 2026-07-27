@@ -1,0 +1,259 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "PrSouProjectPlanForBuyerController": {
+    "batchSize": 500,
+    "threshold": 500,
+    "validator": "prSouProjectPlanImportValidator",
+    "processor": "prSouProjectPlanImportProcessor",
+    "sheets": [
+      {
+        "model": "ExtPrSouProjectPlan",
+        "sheetName": "项目计划",
+        "heads": {
+          "projectName": {
+            "title": "项目名称*"
+          },
+          "initDate": {
+            "title": "立项时间(年/月/日)*"
+          },
+          "departmentId": {
+            "title": "投资部门ID*"
+          },
+          "departmentName": {
+            "title": "投资部门名称"
+          },
+          "initAmount": {
+            "title": "立项金额*"
+          },
+          "planNo": {
+            "title": "计划编号*"
+          },
+          "planAddress": {
+            "title": "投资地点*"
+          },
+          "planLevel": {
+            "title": "项目级别*"
+          },
+          "planStatus": {
+            "title": "项目状态"
+          }
+        }
+      }
+    ]
+  },
+  "PrSouRequirementForBuyerController": {
+    "batchSize": 500,
+    "threshold": 500,
+    "validator": "prSouRequirementImportValidator",
+    "sheets": [
+      {
+        "model": "ExtPrSouRequirementHead",
+        "sheetName": "招标计划",
+        "heads": {
+          "demandType": {
+            "title": "*需求类型",
+            "required": true,
+            "enhance": {
+              "decorator": "dictDecorator",
+              "params": {
+                "code": "DEMAND_TYPE"
+              }
+            }
+          },
+          "projectMonth": {
+            "title": "*月份",
+            "required": true
+          },
+          "requireFrom": {
+            "title": "*需求来源",
+            "required": true,
+            "enhance": {
+              "decorator": "dictDecorator",
+              "params": {
+                "code": "PR_SOU_REQUIREMENT_FROM"
+              }
+            }
+          },
+          "categoryCode": {
+            "title": "*所属品类编码",
+            "required": true
+          },
+          "categoryName": {
+            "title": "所属品类名称"
+          },
+          "projectName": {
+            "title": "*项目名称",
+            "required": true
+          },
+          "orgCode": {
+            "title": "*申请公司编码",
+            "required": true
+          },
+          "orgName": {
+            "title": "*申请公司名称"
+          },
+          "techUsername": {
+            "title": "*技术负责人工号",
+            "required": true
+          },
+          "techFullName": {
+            "title": "技术负责人姓名"
+          },
+          "requireQuantity": {
+            "title": "*数量/规模",
+            "required": true
+          },
+          "totalAmountByTenKilo": {
+            "title": "*概算金额(万元)",
+            "required": true
+          },
+          "projectAddress": {
+            "title": "*项目所在地",
+            "required": true
+          },
+          "projectOverview": {
+            "title": "*项目概况及范围",
+            "required": true
+          },
+          "techRequire": {
+            "title": "*技术要求",
+            "required": true
+          },
+          "vendorQualificationRequire": {
+            "title": "*供应商资质要求",
+            "required": true
+          },
+          "performanceRequire": {
+            "title": "*业绩要求",
+            "required": true
+          },
+          "ifAppointBrand": {
+            "title": "*是否限定品牌",
+            "enhance": {
+              "decorator": "dictDecorator",
+              "params": {
+                "code": "YES_OR_NO"
+              }
+            }
+          },
+          "ifQualifyUnit": {
+            "title": "*是否限定单位",
+            "enhance": {
+              "decorator": "dictDecorator",
+              "params": {
+                "code": "YES_OR_NO"
+              }
+            }
+          },
+          "needPublic": {
+            "title": "*是否公示(是/否)",
+            "required": true,
+            "enhance": {
+              "decorator": "dictDecorator",
+              "params": {
+                "code": "YES_OR_NO"
+              }
+            }
+          },
+          "noPublicReasonChoose": {
+            "title": "*不公示原因",
+            "enhance": {
+              "decorator": "dictDecorator",
+              "params": {
+                "code": "PR_SOU_REQUIREMENT_NO_PUBLIC"
+              }
+            }
+          },
+          "noPublicReason": {
+            "title": "*具体原因说明"
+          },
+          "prefixTechDiscussion": {
+            "title": "*前置技术交流意向(是/否)",
+            "enhance": {
+              "decorator": "dictDecorator",
+              "params": {
+                "code": "YES_OR_NO"
+              }
+            }
+          },
+          "publicEndTime": {
+            "title": "公示截止时间(年/月/日 时:分:秒)"
+          },
+          "sendSouProfileEndDate": {
+            "title": "递交招标资料时间(年/月/日)"
+          },
+          "vendorName1": {
+            "title": "推荐单位名称1"
+          },
+          "vendorContactName1": {
+            "title": "联系人名称1"
+          },
+          "vendorPhone1": {
+            "title": "联系方式1"
+          },
+          "vendorEmail1": {
+            "title": "邮箱1"
+          },
+          "recommendFrom1": {
+            "title": "推荐单位来源1"
+          },
+          "vendorName2": {
+            "title": "推荐单位名称2"
+          },
+          "vendorContactName2": {
+            "title": "联系人名称2"
+          },
+          "vendorPhone2": {
+            "title": "联系方式2"
+          },
+          "vendorEmail2": {
+            "title": "邮箱2"
+          },
+          "recommendFrom2": {
+            "title": "推荐单位来源2"
+          },
+          "vendorName3": {
+            "title": "推荐单位名称3"
+          },
+          "vendorContactName3": {
+            "title": "联系人名称3"
+          },
+          "vendorPhone3": {
+            "title": "联系方式3"
+          },
+          "vendorEmail3": {
+            "title": "邮箱3"
+          },
+          "recommendFrom3": {
+            "title": "推荐单位来源3"
+          },
+          "noReportMonthPlanReason": {
+            "title": "*未报月度计划原因"
+          },
+          "investNo": {
+            "title": "投资编号"
+          }
+        }
+      },
+      {
+        "virtual": true,
+        "sheetName": "模板填写说明",
+        "ref": {
+          "type": "file",
+          "targetPath": "classpath*:sies-schema/sheet_PrSouRequirementForBuyerController.xlsx",
+          "targetIndex": 0
+        }
+      },
+      {
+        "virtual": true,
+        "sheetName": "公司编码",
+        "ref": {
+          "type": "file",
+          "targetPath": "classpath*:sies-schema/sheet_PrSouRequirementForBuyerController.xlsx",
+          "targetIndex": 1
+        }
+      }
+    ]
+  }
+}

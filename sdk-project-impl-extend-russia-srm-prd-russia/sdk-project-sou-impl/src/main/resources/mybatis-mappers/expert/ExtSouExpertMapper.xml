@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlResolve, SqlNoDataSourceInspection, SqlDialectInspection -->
+<mapper namespace="com.midea.cloud.srm.sou.expert.mapper.ExtSouExpertMapper">
+
+    <select id="queryExperts" resultType="com.midea.cloud.srm.model.sou.expert.vo.ExtSouExpertQueryVO">
+        SELECT expert.*, expert_apply.BU_ID,expert_apply.BU_CODE,expert_apply.BU_NAME
+        FROM scc_npm_sou_expert expert
+        LEFT JOIN scc_npm_sou_expert_apply expert_apply on expert.EXPERT_APPLY_ID = expert_apply.EXPERT_APPLY_ID
+        WHERE
+            1 = 1
+        <if test="expertApplyNo != null"> <!-- 申请编号 -->
+            AND expert_apply.EXPERT_APPLY_NO like concat('%', concat(#{expertApplyNo}, '%'))
+        </if>
+        <if test="applyTimeFrom != null"> <!-- 申请时间从 -->
+            AND expert_apply.APPLY_TIME >= #{applyTimeFrom}
+        </if>
+        <if test="applyTimeTo != null"> <!-- 申请时间到 -->
+            AND expert_apply.APPLY_TIME &lt;= #{applyTimeTo}
+        </if>
+        <if test="applyBy != null"> <!-- 申请人账号/昵称 -->
+            AND (
+                expert_apply.APPLY_BY LIKE concat('%', concat(#{applyBy}, '%'))
+                OR
+                expert_apply.APPLY_BY_NICKNAME LIKE concat('%', concat(#{applyBy}, '%'))
+            )
+        </if>
+        <if test="applyStatus != null"> <!-- 申请状态 -->
+            AND expert_apply.APPLY_STATUS = #{applyStatus}
+        </if>
+        <if test="hasQuite != null"> <!-- 是否退出 -->
+            AND expert.HAS_QUITE = #{hasQuite}
+        </if>
+    </select>
+
+</mapper>

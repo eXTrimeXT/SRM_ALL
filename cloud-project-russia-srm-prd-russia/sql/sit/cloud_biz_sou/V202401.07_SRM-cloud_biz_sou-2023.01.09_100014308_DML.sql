@@ -1,0 +1,1 @@
+ALTER TABLE scc_npm_sou_fix_price_head add dc varchar(10) null comment '是否代采';

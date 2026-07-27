@@ -1,0 +1,11 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "SccNpmProjectScoreHeader:scc_npm_project_score_header": {
+    "comment": "项目化绩效评分结果-头表",
+    "keyField": "scoreHeaderId",
+    "fields": {
+      "@include": ":sccNpmProjectScoreHeaderFields"
+    }
+  }
+}

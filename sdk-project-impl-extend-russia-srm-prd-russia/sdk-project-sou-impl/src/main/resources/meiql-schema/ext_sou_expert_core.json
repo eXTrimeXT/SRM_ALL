@@ -1,0 +1,98 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "ExtSouExpert:scc_npm_sou_expert": {
+    "comment": "专家库",
+    "keyField": "expertId",
+    "fields": {
+      "expertId": "Long:ID",
+      "@include": ":_ExtSouExpert"
+    }
+  },
+  "ExtSouExpertApply:scc_npm_sou_expert_apply": {
+    "comment": "专家申请",
+    "keyField": "expertApplyId",
+    "fields": {
+      "expertApplyId": "Long:主键",
+      "@include": ":_ExtSouExpertApply"
+    },
+    "relations": {
+      "orgList": "[ExtSouExpertOrgRelation:expertApplyId]",
+      "educationList": "[ExtSouExpertEducation:expertApplyId]",
+      "categoryList": "[ExtSouExpertCategoryRelation:expertApplyId]",
+      "workList": "[ExtSouExpertWork:expertApplyId]",
+      "workRelationList": "[ExtSouExpertWorkRelation:expertApplyId]",
+      "attachList": "[ExtSouExpertSceneFile:expertApplyId]"
+    }
+  },
+  "ExtSouExpertCategoryRelation:scc_npm_sou_expert_category": {
+    "comment": "专家申请适用品类",
+    "keyField": "expertCategoryId",
+    "fields": {
+      "expertCategoryId": "Long:ID",
+      "@include": ":_ExtSouExpertCategoryRelation"
+    }
+  },
+  "ExtSouExpertEducation:scc_npm_sou_expert_apply_edu": {
+    "comment": "专家申请适用品类",
+    "keyField": "expertEducationId",
+    "fields": {
+      "expertEducationId": "Long:ID",
+      "@include": ":_ExtSouExpertEducation"
+    }
+  },
+  "ExtSouExpertOrgRelation:scc_npm_sou_expert_org": {
+    "comment": "专家申请适用组织",
+    "keyField": "expertOrgId",
+    "fields": {
+      "expertOrgId": "Long:ID",
+      "@include": ":_ExtSouExpertOrgRelation"
+    }
+  },
+  "ExtSouExpertWork:scc_npm_sou_expert_work": {
+    "comment": "专家申请工作经历",
+    "keyField": "expertWorkId",
+    "fields": {
+      "expertWorkId": "Long:ID",
+      "@include": ":_ExtSouExpertWork"
+    }
+  },
+  "ExtSouExpertWorkRelation:scc_npm_sou_expert_work_relate": {
+    "comment": "专家申请亲属工作经历",
+    "keyField": "expertWorkRelateId",
+    "fields": {
+      "expertWorkRelateId": "Long:ID",
+      "@include": ":_ExtSouExpertWorkRelation"
+    }
+  },
+  "ExtSouExpertSceneFile": {
+    "repository": "souSceneFileRepository",
+    "keyField" : "sceneFileId",
+    "fields" : {
+      "sceneFileId": "Long",
+      "sceneKey":  {
+        "convert": "scene:SCENE_EXT_SOU_EXPERT"
+      },
+      "businessFiled": {
+        "convert": "businessId:expertApplyId"
+      },
+      "@include": ":SceneFileFields"
+    }
+  },
+  "ExtSouExpertScore:scc_npm_sou_expert_score": {
+    "comment": "专家评审信息",
+    "keyField": "expertScoreId",
+    "fields": {
+      "expertScoreId": "Long:ID",
+      "@include": ":_ExtSouExpertScore"
+    }
+  },
+  "ExtSouExpertScoreLine:scc_npm_sou_expert_score_line": {
+    "comment": "专家评审信息明细",
+    "keyField": "expertScoreLineId",
+    "fields": {
+      "expertScoreLineId": "Long:ID",
+      "@include": ":_ExtSouExpertScoreLine"
+    }
+  }
+}

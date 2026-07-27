@@ -1,0 +1,118 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "Answer:scc_sou_answer": {
+    "keyField": "answerId",
+    "comment": "澄清表",
+    "repository": "answerRepository",
+    "fields": {
+      "@include": ":AnswerFields",
+      "readNum": {
+        "type": "Integer",
+        "desc": "已读供应商数",
+        "virtual": true
+      },
+      "replayNum": {
+        "type": "Integer",
+        "desc": "已回复供应商数",
+        "virtual": true
+      }
+    },
+    "relations": {
+      "answerVendors": "[AnswerVendor:answerId]",
+      "sceneFiles": "[AnswerSceneFile:answerId]",
+      "replayFiles": "[AnswerReplaySceneFile:answerId]",
+      "innerFiles": "[AnswerInnerSceneFile:answerId]"
+    }
+  },
+  "AnswerVendor:scc_npm_sou_answer_vendor" : {
+    "keyField" : "answerVendorId",
+    "comment": "澄清供应商表",
+    "repository": "answerVendorRepository",
+    "fields" : {
+      "@include": ":AnswerVendorFields"
+    },
+    "relations": {
+      "replays": "[Replay:answerVendorId]"
+    }
+  },
+  "Question:scc_sou_question": {
+    "keyField": "questionId",
+    "comment": "质疑表",
+    "repository": "questionRepository",
+    "fields": {
+      "@include": ":QuestionFields",
+      "ifSignUpEnd": {
+        "type": "String",
+        "desc": "是否报名截止",
+        "virtual": true
+      }
+    },
+    "relations": {
+      "sceneFiles": "[QuestionSceneFile:questionId]",
+      "replayFiles": "[QuestionReplaySceneFile:questionId]"
+    }
+  },
+  "Replay:scc_npm_sou_replay": {
+    "keyField": "replayId",
+    "comment": "澄清回复表",
+    "repository": "replayRepository",
+    "fields": {
+      "@include": ":ReplayFields"
+    },
+    "relations": {
+      "answerId": "Answer",
+      "sceneFiles": "[ReplayFile:replayId]"
+    }
+  },
+  "ReplayFile:scc_npm_sou_replay_file": {
+    "keyField": "replayFileId",
+    "repository": "replayFileRepository",
+    "comment": "澄清回复附件表",
+    "fields": {
+      "@include": ":ReplayFileFields"
+    }
+  },
+  "AnswerReplaySceneFile": {
+    "repository": "souSceneFileRepository",
+    "keyField" : "sceneFileId",
+    "fields" : {
+      "sceneFileId": "Long",
+      "sceneKey":  {
+        "convert": "scene:SCENE_SOU_ANSWER_REPLAY_FILE_ATTACHMENT"
+      },
+      "businessFiled": {
+        "convert": "businessId:answerId"
+      },
+      "@include": ":SceneFileFields"
+    }
+  },
+  "AnswerInnerSceneFile": {
+    "repository": "souSceneFileRepository",
+    "keyField" : "sceneFileId",
+    "fields" : {
+      "sceneFileId": "Long",
+      "sceneKey":  {
+        "convert": "scene:SCENE_SOU_ANSWER_INNER_FILE_ATTACHMENT"
+      },
+      "businessFiled": {
+        "convert": "businessId:answerId"
+      },
+      "@include": ":SceneFileFields"
+    }
+  },
+  "QuestionReplaySceneFile": {
+    "repository": "souSceneFileRepository",
+    "keyField": "sceneFileId",
+    "fields": {
+      "sceneFileId": "Long",
+      "sceneKey": {
+        "convert": "scene:SCENE_SOU_QUESTION_REPLAY_FILE_ATTACHMENT"
+      },
+      "businessFiled": {
+        "convert": "businessId:questionId"
+      },
+      "@include": ":SceneFileFields"
+    }
+  }
+}

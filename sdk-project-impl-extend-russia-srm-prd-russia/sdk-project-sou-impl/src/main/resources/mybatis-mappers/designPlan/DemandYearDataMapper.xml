@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.designplans.mapper.DemandYearDataMapper">
+
+    <select id="queryCategoryByIds"  resultType="com.midea.cloud.srm.model.base.purchase.entity.PurchaseCategory">
+        select
+            a.master_id categoryId
+            from meicloud_bpmp_material.mt_classification a
+        <where>
+            AND a.level=4 AND a.classification_path IS NOT NULL
+            <if test="categoryIds != null and categoryIds.size() > 0">
+                AND SUBSTRING_INDEX(SUBSTRING_INDEX(a.classification_path, '-', 2), '-', -1) IN
+                <foreach item="categoryId" collection="categoryIds" open="(" separator="," close=")">
+                    #{categoryId}
+                </foreach>
+            </if>
+        </where>
+        UNION
+        select
+        a.master_id categoryId
+        from meicloud_bpmp_material.mt_classification a
+        <where>
+            AND a.level=4 AND a.classification_path IS NOT NULL
+            <if test="categoryIds != null and categoryIds.size() > 0">
+                AND SUBSTRING_INDEX(a.classification_path, '-', 1) IN
+            <foreach item="categoryId" collection="categoryIds" open="(" separator="," close=")">
+                #{categoryId}
+            </foreach>
+            </if>
+        </where>
+    </select>
+    <select id="queryLevel1purchaseCategory" resultType="com.midea.cloud.srm.model.base.purchase.entity.PurchaseCategory">
+        select
+        b.master_id categoryId,a.master_id parentId,a.object_code categoryCode,a.object_name categoryName
+        from meicloud_bpmp_material.mt_classification a
+        inner join (
+        select SUBSTRING_INDEX(mt.classification_path, '-', 1) category_id,mt.master_id
+        from meicloud_bpmp_material.mt_classification mt
+        <where>
+            AND mt.master_id IN
+            <foreach item="categoryId" collection="categoryIds" open="(" separator="," close=")">
+                #{categoryId}
+            </foreach>
+        </where>
+        ) b on a.master_id=b.category_id
+    </select>
+    <select id="queryLevel2purchaseCategory" resultType="com.midea.cloud.srm.model.base.purchase.entity.PurchaseCategory">
+        select
+        b.master_id categoryId,a.master_id parentId,a.object_code categoryCode,a.object_name categoryName
+        from meicloud_bpmp_material.mt_classification a
+        inner join (
+        select SUBSTRING_INDEX(SUBSTRING_INDEX(mt.classification_path, '-', 2), '-', -1) category_id,mt.master_id
+        from meicloud_bpmp_material.mt_classification mt
+        <where>
+            AND mt.master_id IN
+            <foreach item="categoryId" collection="categoryIds" open="(" separator="," close=")">
+                #{categoryId}
+            </foreach>
+        </where>
+        ) b on a.master_id=b.category_id
+    </select>
+</mapper>

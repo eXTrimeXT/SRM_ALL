@@ -1,0 +1,1 @@
+import{h as http}from"./index-17d0ccd5.js";const getUrl=path=>`${path}`,advancePaymentApi={prepaymentDetails:async data=>http({url:getUrl("/api-cm/contract/performInvoice/getPerInvoiceDetailPage"),method:"POST",data})};export{advancePaymentApi as a};

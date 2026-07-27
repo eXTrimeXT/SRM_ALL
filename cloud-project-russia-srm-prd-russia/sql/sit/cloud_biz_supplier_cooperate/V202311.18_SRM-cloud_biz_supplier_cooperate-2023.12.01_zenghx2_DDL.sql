@@ -1,0 +1,1 @@
+alter table scc_sc_order_detail change column `EXT_RETURN_REQUIREMNT` `EXT_RETURN_REQUIREMENT` VARCHAR(10) COMMENT '是否退回需求池，Y/N';

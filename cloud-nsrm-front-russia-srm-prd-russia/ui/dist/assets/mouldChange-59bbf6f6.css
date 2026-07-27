@@ -1,0 +1,26 @@
+.mouldScrapEdit[data-v-22b94f76] {
+  height: 100%;
+  padding-bottom: 50px;
+}
+.mouldScrapEdit[data-v-22b94f76] .table-wrapper {
+  padding-left: 0;
+  padding-right: 0;
+}
+.mouldScrapEdit .sub_header[data-v-22b94f76] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.mouldScrapEdit .el-table .el-date-editor[data-v-22b94f76] {
+  width: 135px;
+}
+.mouldScrapEdit .base-form[data-v-22b94f76] {
+  padding: 15px 30px 0;
+}
+.mouldScrapEdit .toRequired[data-v-22b94f76] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.mouldScrapEdit .edit_cond[data-v-22b94f76] {
+  color: #23adf4;
+  cursor: pointer;
+}

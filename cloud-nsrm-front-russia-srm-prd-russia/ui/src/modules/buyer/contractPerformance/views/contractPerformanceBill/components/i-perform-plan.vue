@@ -1,0 +1,204 @@
+<!-- 合同履行计划 -->
+<template>
+  <i-mini-table
+    :columns="columns"
+    :data="data"
+    border
+  />
+</template>
+
+<script lang="jsx">
+import IMiniTable from './i-mini-table.vue'
+import CPeopleSelector from '@/library/components/c-people-selector'
+import { Tooltip } from 'vxe-table'
+
+const IPersonSelector = {
+  props: ['value', 'row', 'disabled'],
+  data () {
+    return {
+      visible: false
+    }
+  },
+  components: { CPeopleSelector },
+  render (h) {
+    const listeners = {
+      'on-confirm': (data) => {
+        if (!data) {
+          return
+        }
+        const [user = {}] = data
+        this.row.nodePersonName = user.nickname || ''
+        this.row.nodePersonId = user.userId || ''
+        this.row.nodePersonBy = user.username || ''
+      },
+      'update:visible': (value) => (this.visible = value)
+    }
+    return (
+      <div>
+        <el-input value={this.value} disabled={this.disabled}>
+          <div slot="append">
+            <el-button
+              icon="el-icon-search"
+              disabled={this.disabled}
+              size="medium"
+              onClick={() => (this.visible = true)}
+            />
+          </div>
+        </el-input>
+        <c-people-selector on={{ ...listeners }} visible={this.visible} multiSelect={false} />
+      </div>
+    )
+  }
+}
+
+export default {
+  name: 'IPerformPlan',
+  components: {
+    IMiniTable
+  },
+  props: ['data', 'mode', 'dictClass', 'disabled'],
+  data () {
+    return {
+      fileInfo: {
+        fileModular: 'sup',
+        fileFunction: 'contractPerformanceBillEdit',
+        fileType: 'images'
+      },
+      columns: [
+        { prop: 'index', type: 'index', label: '节点', width: 50 },
+        {
+          prop: 'milestoneType',
+          label: this.$t('contract_mod.processNodeName'),
+          formatter: (...args) => {
+            return this.dictClass.getDictLabel('MILESTONE_SCHEDULE', args[2])
+          }
+        },
+        {
+          prop: 'planStatus',
+          label: '状态',
+          formatter: (...args) => {
+            return this.dictClass.getDictLabel('MILESTONE_STATE', args[2])
+          }
+        },
+        {
+          prop: 'nodePersonName',
+          label: this.$t('节点负责人'),
+          renderHeader: this._addStarToColumn,
+          width: 150,
+          render: (h, scope) => {
+            return (
+              <IPersonSelector
+                value={scope.row.nodePersonName}
+                row={scope.row}
+                disabled={this.disabled}
+              />
+            )
+          }
+        },
+        {
+          prop: 'planStartDate',
+          label: this.$t('计划开始时间'),
+          renderHeader: this._addStarToColumn,
+          width: 150,
+          render: (h, scope) => {
+            return (
+              <el-date-picker
+                v-model={scope.row.planStartDate}
+                type="date"
+                disabled={this.disabled}
+                value-format="yyyy-MM-dd"
+              />
+            )
+          }
+        },
+        {
+          prop: 'planEndDate',
+          label: this.$t('计划结束时间'),
+          renderHeader: this._addStarToColumn,
+          width: 150,
+          render: (h, scope) => {
+            return (
+              <el-date-picker
+                v-model={scope.row.planEndDate}
+                type="date"
+                disabled={this.disabled}
+                value-format="yyyy-MM-dd"
+              />
+            )
+          }
+        },
+        {
+          prop: 'remarks',
+          label: this.$t('特殊备注'),
+          width: 150,
+          render: (h, scope) => {
+            return (
+              <el-tooltip content={scope.row.remarks} placement="top">
+                <el-input
+                  type="text"
+                  v-model={scope.row.remarks}
+                  disabled={this.disabled}
+                  maxlength={30}
+                  show-word-limit
+                />
+              </el-tooltip>
+            )
+          }
+        },
+        {
+          prop: 'fileId',
+          label: this.$t('附件模板'),
+          render: (h, scope) => {
+            return (
+              <SrmCommonFile
+                default-file= {
+                  {
+                    fileId: scope.row.fileId,
+                    fileName: scope.row.fileName
+                  }
+                }
+                readonly={ true}
+              />
+            )
+          }
+        },
+        {
+          prop: 'operation',
+          label: this.$t('common.operation'),
+          render: (h, scope) => {
+            if (['UNDERWAY'].includes(scope.row.planStatus)) {
+              return (
+                <el-button type="text" disabled={this.disabled && this.mode !== 'manage'} onClick={() => this.handOver(scope.row, 'deliver')} >
+                  { this.$t('交付') }
+                </el-button>
+              )
+            }
+            if (['COMPLETE'].includes(scope.row.planStatus)) {
+              return (
+                <el-button type="text" onClick={() => this.handOver(scope.row, 'file')} >
+                  { `附件（${scope.row.filenum || 0}）` }
+                </el-button>
+              )
+            }
+            return null
+          }
+        }
+      ]
+    }
+  },
+  computed: {
+
+  },
+  watch: {},
+  created () {},
+  mounted () {
+  },
+  methods: {
+    handOver (row, type) {
+      this.$emit('handover', row, type)
+    }
+  }
+}
+</script>
+<style scoped lang="scss">
+</style>

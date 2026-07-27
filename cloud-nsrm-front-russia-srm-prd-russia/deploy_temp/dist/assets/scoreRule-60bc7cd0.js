@@ -1,0 +1,1 @@
+import{h as http}from"./index-17d0ccd5.js";const scoreRulePath="/api-sou/buyer/scoreRule",scoreRuleHttp={listPage:data=>http({url:`${scoreRulePath}/page`,method:"POST",data,loading:!0}),getDetail:id=>http({url:`${scoreRulePath}/${id}`,method:"GET",loading:!0})};export{scoreRuleHttp as s};

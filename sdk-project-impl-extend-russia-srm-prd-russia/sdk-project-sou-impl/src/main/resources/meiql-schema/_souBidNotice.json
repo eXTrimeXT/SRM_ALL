@@ -1,0 +1,102 @@
+{
+  "_version": "1.0",
+  "_type": "base",
+  "BidNoticeFields" : {
+    "keyField" : "bidNoticeId",
+    "fields" : {
+      "bidNoticeId" : "Long:中落标通知ID",
+      "type" : "String:类型",
+      "status": "String:单据状态",
+      "extOrgBuId" : "Long:板块ID",
+      "extOrgBuCode" : "String:板块编码",
+      "extOrgBuName" : "String:板块名称",
+      "extOrgOuId" : "Long:公司ID",
+      "extOrgOuCode" : "String:公司编码",
+      "extOrgOuName" : "String:公司名称",
+      "projectId" : "Long:项目ID",
+      "souName" : "String:项目名称",
+      "souNo" : "String:寻源单号",
+      "souType" : "String:寻源类型",
+      "extProjectNo" : "String:招标项目编号",
+      "demandDepartmentId" : "String:需求部门ID",
+      "demandDepartmentCode" : "String:需求部门编码",
+      "demandDepartmentName" : "String:需求部门名称",
+      "demandUserId" : "String:需求人id(可多选)",
+      "demandUserName" : "String:需求人工号",
+      "demandUserNickname" : "String:需求人名称",
+      "extTechPrincipal" : "String:招标技术负责人",
+      "extTechPhone" : "String:联系电话",
+      "remark" : "String:备注",
+      "discardReason" : "String:废弃原因",
+      "caId": "Long:定标申请ID",
+      "caNo": "String:定标申请单号",
+      "startBpmUsername":"String:bpm发起人账号",
+      "startBpmNickname":"String:bpm发起人名称",
+      "startBpmDiscardUsername":"String:废弃 bpm发起人账号",
+      "startBpmDiscardNickname":"String:废弃 bpm发起人名称",
+      "passTime": "Date:审批通过时间",
+      "applicantNo": {
+        "type": "String",
+        "desc": "合并申请单号",
+        "virtual": true
+      },
+      "applicantId": {
+        "type": "String",
+        "desc": "合并申请单Id",
+        "virtual": true
+      },
+      "@include": ":BaseFields"
+    }
+  },
+  "BidNoticeDetailFields" : {
+    "keyField" : "bidNoticeDetailId",
+    "fields" : {
+      "bidNoticeDetailId" : "Long:中/落标通知明细ID",
+      "bidNoticeId" : "Long:中/落标通知ID",
+      "lineNum" : "Integer:序号",
+      "vendorId" : "Long:供应商ID",
+      "vendorCode" : "String:供应商编码",
+      "vendorName" : "String:供应商名称",
+      "isWin" : "String:是否中标",
+      "winAmount" : "BigDecimal:中标金额（元）",
+      "contractSignUnitId" : "String:合同签署单位ID集合",
+      "contractSignUnitCode" : "String:合同签署单位编码集合",
+      "contractSignUnitCredit" : "String:合同签署单位统一社会信用代码集合",
+      "contractSignUnit" : "String:合同签署单位名称集合",
+      "contractPeriod" : "String:合同周期",
+      "isPerformanceEvaluated" : "String:是否履约评价",
+      "nonPerformanceReason" : "String:不履约评价的原因",
+      "isOnSiteInspected" : "String:是否现场考察",
+      "inspectId": "Long:现场考察ID",
+      "noticeAttachmentId" : "Long:通知书附件ID",
+      "noticeAttachmentName" : "String:通知书附件名称",
+      "isSend" : "String:是否发送",
+      "sendTime" : "Date:发送时间",
+      "isSign" : "String:是否已盖章",
+      "@include": ":BaseFields"
+    }
+  },
+  "BidNoticeInternalFields" : {
+    "keyField" : "internalId",
+    "fields" : {
+      "internalId" : "Long:内部通知ID",
+      "bidNoticeId" : "Long:中落标通知ID",
+      "lineNum" : "Integer:序号",
+      "extOrgBuId" : "Long:板块ID",
+      "extOrgBuCode" : "String:板块编码",
+      "extOrgBuName" : "String:板块名称",
+      "extOrgOuId" : "Long:公司ID",
+      "extOrgOuCode" : "String:公司编码",
+      "extOrgOuName" : "String:公司名称",
+      "demandDepartmentId" : "String:需求部门ID",
+      "demandDepartmentCode" : "String:需求部门编码",
+      "demandDepartmentName" : "String:需求部门名称",
+      "attachmentId" : "Long:通知书附件ID",
+      "attachmentName" : "String:通知书附件名称",
+      "isSend" : "String:是否发送",
+      "sendTime" : "Date:发送时间",
+      "isSign" : "String:是否已盖章",
+      "@include": ":BaseFields"
+    }
+  }
+}

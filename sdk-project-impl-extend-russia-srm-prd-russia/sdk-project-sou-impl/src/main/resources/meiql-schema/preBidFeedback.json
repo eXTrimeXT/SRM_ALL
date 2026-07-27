@@ -1,0 +1,88 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "PreBidFeedbackBuyer:scc_npm_pre_bid_feedback": {
+    "keyField": "bidFeedbackId",
+    "comment": "标前交流反馈表",
+    "repository": "preBidFeedbackBuyerRepository",
+    "fields": {
+      "@include": ":PreBidFeedbackFields"
+    },
+    "relations": {
+      "feedbackVendorList": "[PreBidFeedbackVendorBuyer:bidFeedbackId]",
+      "problemListFiles": "[PreBidProblemListSceneFile:bidFeedbackId]",
+      "problemFeedbackListFiles": "[PreBidBackAttach:bidFeedbackId]",
+      "reportListFiles": "[PreBidReportSceneFile:bidFeedbackId]"
+    }
+  },
+  "PreBidFeedbackVendorBuyer:scc_npm_pre_bid_feedback_vendor": {
+    "keyField": "bidFeedbackVendorId",
+    "comment": "标前交流反馈-技术交流供应商表",
+    "fields": {
+      "@include": ":PreBidFeedbackVendorFields"
+    },
+    "relations": {
+      "bidFeedbackId": "PreBidFeedback"
+    }
+  },
+  "PreBidFeedback:scc_npm_pre_bid_feedback": {
+    "keyField": "bidFeedbackId",
+    "comment": "标前交流反馈表",
+    "fields": {
+      "@include": ":PreBidFeedbackFields"
+    },
+    "relations": {
+      "feedbackVendorList": "[PreBidFeedbackVendor:bidFeedbackId]",
+      "problemListFiles": "[PreBidProblemListSceneFile:bidFeedbackId]",
+      "problemFeedbackListFiles": "[PreBidBackAttach:bidFeedbackId]",
+      "reportListFiles": "[PreBidReportSceneFile:bidFeedbackId]"
+    }
+  },
+  "PreBidFeedbackVendor:scc_npm_pre_bid_feedback_vendor": {
+    "keyField": "bidFeedbackVendorId",
+    "comment": "标前交流反馈-技术交流供应商表",
+    "fields": {
+      "@include": ":PreBidFeedbackVendorFields"
+    },
+    "relations": {
+      "bidFeedbackId": "PreBidFeedback"
+    }
+  },
+  "PreBidProblemListSceneFile": {
+    "repository": "souSceneFileRepository",
+    "keyField": "sceneFileId",
+    "fields": {
+      "sceneFileId": "Long",
+      "sceneKey": {
+        "convert": "scene:PRE_BID_PROBLEM_LIST_ATTACHMENT"
+      },
+      "businessFiled": {
+        "convert": "businessId:bidFeedbackId"
+      },
+      "@include": ":SceneFileFields"
+    }
+  },
+  "PreBidBackAttach:scc_npm_pre_bid_back_attach": {
+    "keyField": "backAttachId",
+    "comment": "标前反馈单问题清单反馈附件",
+    "fields": {
+      "@include": ":PreBidBackAttachFields"
+    },
+    "relations": {
+    }
+  },
+  "PreBidReportSceneFile": {
+    "repository": "souSceneFileRepository",
+    "keyField": "sceneFileId",
+    "fields": {
+      "sceneFileId": "Long",
+      "sceneKey": {
+        "convert": "scene:PRE_BID_REPORT_ATTACHMENT"
+      },
+      "businessFiled": {
+        "convert": "businessId:bidFeedbackId"
+      },
+      "@include": ":SceneFileFields"
+    }
+  }
+}

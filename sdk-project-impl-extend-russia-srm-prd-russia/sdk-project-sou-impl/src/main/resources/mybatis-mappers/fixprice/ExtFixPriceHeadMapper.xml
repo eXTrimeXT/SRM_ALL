@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlDialectInspection -->
+<mapper namespace="com.midea.cloud.srm.sou.fixprice.dao.ExtFixPriceHeadMapper">
+
+    <select id="listFixPrices" resultType="com.midea.cloud.srm.model.sou.fixprice.entity.ExtFixPriceHead">
+        SELECT fix_price.*
+        FROM scc_npm_sou_fix_price_head fix_price
+        WHERE
+            1 = 1
+        <if test="fixPriceNo != null"> <!-- 定价单号 -->
+            AND fix_price.FIX_PRICE_NO LIKE concat('%', concat(#{fixPriceNo}, '%'))
+        </if>
+        <if test="fixPriceStatus != null"> <!-- 定价状态 -->
+            AND fix_price.FIX_PRICE_STATUS = #{fixPriceStatus}
+        </if>
+        <if test="orgDepName != null"> <!-- 采购部门 -->
+            AND fix_price.ORG_DEP_NAME LIKE concat('%', concat(#{orgDepName}, '%'))
+        </if>
+        <if test="creationDateFrom != null"> <!-- 创建时间从 -->
+            AND fix_price.CREATION_DATE >= #{creationDateFrom}
+        </if>
+        <if test="creationDateTo != null"> <!-- 创建时间到 -->
+            AND fix_price.CREATION_DATE &lt;= #{creationDateTo}
+        </if>
+        <if test="creationDate != null"> <!-- 创建时间到 -->
+            AND date(fix_price.CREATION_DATE) = #{creationDate}
+        </if>
+        <if test="createdBy != null"> <!-- 创建人账号 -->
+            AND fix_price.CREATED_BY = #{createdBy}
+        </if>
+        <if test="itemCode != null"> <!-- 物料编码 -->
+            AND exists (
+                SELECT fix_line.FIX_PRICE_HEAD_ID from scc_npm_sou_fix_price_line fix_line
+                WHERE fix_line.FIX_PRICE_HEAD_ID = fix_price.FIX_PRICE_HEAD_ID
+                AND fix_line.ITEM_CODE LIKE concat('%', concat(#{itemCode}, '%'))
+            )
+        </if>
+        <if test="itemDesc != null"> <!-- 物料名称 -->
+            AND exists (
+            SELECT fix_line.FIX_PRICE_HEAD_ID from scc_npm_sou_fix_price_line fix_line
+            WHERE fix_line.FIX_PRICE_HEAD_ID = fix_price.FIX_PRICE_HEAD_ID
+            AND fix_line.ITEM_DESC LIKE concat('%', concat(#{itemDesc}, '%'))
+            )
+        </if>
+        <if test="fixPriceIds != null and fixPriceIds.size > 0">
+            AND fix_price.FIX_PRICE_HEAD_ID in
+            <foreach collection="fixPriceIds" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="vendorName != null and vendorName != ''">
+            and EXISTS (select 1 from scc_npm_sou_fix_price_line l where l.VENDOR_NAME like CONCAT('%',#{vendorName},'%')
+            and fix_price.FIX_PRICE_HEAD_ID = l.FIX_PRICE_HEAD_ID limit 1)
+        </if>
+
+        <if test="extMaterialModel != null and extMaterialModel != ''">
+            and EXISTS(select 1 from scc_npm_sou_fix_price_line l where l.EXT_MATERIAL_MODEL like CONCAT('%',#{extMaterialModel},'%')
+            and fix_price.FIX_PRICE_HEAD_ID = l.FIX_PRICE_HEAD_ID limit 1)
+        </if>
+        ORDER BY fix_price.FIX_PRICE_NO desc
+    </select>
+
+    <select id="listSouInqOrderItemsOrderCount" resultType="com.midea.cloud.srm.model.sou.fixprice.vo.ExtFixPriceInqOrderItemsQueryVO">
+        SELECT
+        count( oi.SOU_ITEM_ID ) ext_order_count,
+        oi.SOU_ITEM_ID,
+        oi.ROUND
+        FROM
+        scc_sou_order_item oi
+        WHERE
+        (oi.SOU_ITEM_ID, oi.ROUND) IN
+        <foreach collection="souItemIdRoundList" open="(" close=")" separator="," item="item">
+            (#{item.souItemId}, #{item.round})
+        </foreach>
+        AND oi.ORDER_STATUS = 'SUBMISSION'
+        GROUP BY oi.SOU_ITEM_ID, oi.ROUND
+    </select>
+
+    <select id="listSouInqOrderItems" resultType="com.midea.cloud.srm.model.sou.fixprice.vo.ExtFixPriceInqOrderItemsQueryVO">
+        SELECT
+            project.SOU_NO,
+            vendor.VENDOR_CODE,
+            vendor.VENDOR_NAME,
+            order_item.*
+        FROM scc_sou_order_item order_item
+        LEFT JOIN scc_sou_item sou_item on sou_item.sou_item_id = order_item.sou_item_id
+        LEFT JOIN scc_sou_inq_item inq_item on inq_item.sou_item_id = order_item.sou_item_id
+        LEFT JOIN scc_sou_inq_order_item inq_order_item on inq_order_item.order_item_id = order_item.order_item_id
+        LEFT JOIN scc_sou_project project on order_item.PROJECT_ID = project.PROJECT_ID
+        LEFT JOIN scc_sou_inq_project inq_project on order_item.PROJECT_ID = inq_project.PROJECT_ID
+        LEFT JOIN scc_sou_vendor vendor on vendor.PROJECT_ID = order_item.PROJECT_ID AND vendor.VENDOR_ID = order_item.VENDOR_ID
+        WHERE 1 = 1
+            AND project.SOU_TYPE = 'inq'
+            AND project.PROJECT_STATUS = 'PRICE_END'
+            AND order_item.SELECT_STATUS = 'WIN'
+            AND inq_order_item.FIX_PRICING != 'Y'
+            AND inq_order_item.HAS_FIX_PRICE != 'Y'
+        AND inq_order_item.LATEST_PRICE_TAG = 'Y'
+            AND inq_item.HAS_CLOSE = 'N'
+        <if test="orgOuId != null"> <!-- 申请部门 -->
+            AND sou_item.ORG_OU_ID = #{orgOuId}
+        </if>
+        <if test="souNo != null"> <!-- 询价单号 -->
+            AND project.SOU_NO LIKE concat('%', concat(#{souNo}, '%'))
+        </if>
+        <if test="itemCode != null"> <!-- 物料编码 -->
+            AND order_item.ITEM_CODE LIKE concat('%', concat(#{itemCode}, '%'))
+        </if>
+        <if test="buyerUsername != null"> <!-- 采购员 -->
+            AND (
+                project.CREATED_BY LIKE concat('%', concat(#{buyerUsername}, '%'))
+                OR
+                project.CREATED_FULL_NAME LIKE concat('%', concat(#{buyerUsername}, '%'))
+            )
+        </if>
+        <if test="createUserOrgOuId != null"> <!-- 创建人所在公司ID -->
+            AND inq_project.CREATE_USER_ORG_OU_ID = #{createUserOrgOuId}
+        </if>
+        order by project.SOU_NO desc
+    </select>
+
+    <select id="queryAgrrementInfo" parameterType="map" resultType="map">
+        SELECT DISTINCT i.MATERIAL_CODE materialCode, i.MATERIAL_ID materialId, a.SUPPLY_AREA supplyArea, g.BUY_ORG_CODE buyOrgCode, g.BUY_ORG_NAME buyOrgName
+        from scc_sou_jc_agreement a
+                 JOIN scc_sou_jc_agreement_info i on i.AGREEMENT_ID = a.AGREEMENT_ID
+                 JOIN scc_sou_jc_agreement_org g on g.AGREEMENT_ID = a.AGREEMENT_ID
+
+        where a.AGREEMENT_STATUS='EXECUTING'
+        and i.MATERIAL_ID IN
+        <foreach collection="materialIdList" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+
+          and g.BUY_ORG_CODE IN
+        <foreach collection="buyOrgCodeList" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+          and a.SUPPLY_AREA IN
+        <foreach collection="supplyAreaList" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

@@ -1,0 +1,21 @@
+.the-purInvoice-detail .sub_header[data-v-b84d0f09] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.the-purInvoice-detail .el-table .el-date-editor[data-v-b84d0f09] {
+  width: 135px;
+}
+.the-purInvoice-detail .btn_line[data-v-b84d0f09] {
+  margin: 0 0 10px 0;
+}
+.the-purInvoice-detail .topComment[data-v-b84d0f09] {
+  margin-top: 15px;
+  float: right;
+}
+.the-purInvoice-detail .input-number-precision[data-v-b84d0f09] {
+  width: 100%;
+}
+.the-purInvoice-detail .input-number-precision[data-v-b84d0f09] .el-input__inner {
+  text-align: left;
+  padding-left: 8px;
+}

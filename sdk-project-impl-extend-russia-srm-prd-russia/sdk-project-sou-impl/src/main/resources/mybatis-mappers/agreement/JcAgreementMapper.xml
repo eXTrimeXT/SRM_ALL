@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.agreement.mapper.JcAgreementMapper">
+
+    <select id="agreementList" resultType="com.midea.cloud.srm.model.sou.agreement.entity.SccSouJcAgreement">
+        SELECT
+            DISTINCT
+            t.*
+        FROM
+            scc_sou_jc_agreement t
+            LEFT JOIN scc_sou_jc_agreement_info ssjai ON t.AGREEMENT_ID  = ssjai.AGREEMENT_ID
+            LEFT JOIN scc_sou_jc_agreement_org ssjao ON t.AGREEMENT_ID = ssjao.AGREEMENT_ID
+        WHERE
+            t.AGREEMENT_TYPE = #{ja.agreementType,jdbcType=VARCHAR}
+            <if test="ja.agreementCode != null and ja.agreementCode != ''">
+                AND t.AGREEMENT_CODE LIKE CONCAT('%', #{ja.agreementCode,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.supName != null and ja.supName != ''">
+                AND t.SUP_NAME LIKE CONCAT('%', #{ja.supName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.buyPersonId != null">
+                AND t.BUY_PERSON_ID = #{ja.buyPersonId,jdbcType=BIGINT}
+            </if>
+            <if test="ja.agreementName != null and ja.agreementName != ''">
+                AND t.AGREEMENT_NAME LIKE CONCAT('%', #{ja.agreementName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.companyId != null">
+                AND t.COMPANY_ID = #{ja.companyId,jdbcType=BIGINT}
+            </if>
+            <if test="ja.createdFullName != null and ja.createdFullName != ''">
+                AND t.CREATED_FULL_NAME LIKE CONCAT('%', #{ja.createdFullName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.agreementStatus != null and ja.agreementStatus != ''">
+                AND t.AGREEMENT_STATUS = #{ja.agreementStatus,jdbcType=VARCHAR}
+            </if>
+            <if test="ja.getEffectiveStartDate != null">
+                AND t.EFFECTIVE_START_DATE <![CDATA[>=]]> #{ja.effectiveStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="ja.effectiveEndDate != null">
+                AND t.EFFECTIVE_END_DATE <![CDATA[<=]]> #{ja.effectiveEndDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="ja.operatorStartDate != null">
+                AND t.CREATION_DATE <![CDATA[>=]]> #{ja.operatorStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="ja.operatorEndDate != null">
+                AND t.CREATION_DATE <![CDATA[<=]]> #{ja.operatorEndDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="ja.supplyArea != null and ja.supplyArea != ''">
+                AND t.SUPPLY_AREA LIKE CONCAT('%', #{ja.supplyArea,jdbcType=VARCHAR}, '%')
+            </if>
+            <!--<if test="ja.agreementIds != null and ja.agreementIds.size() > 0">
+                AND t.AGREEMENT_ID IN
+                <foreach collection="ja.agreementIds" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>-->
+        <if test="ja.buyOrgId != null">
+            AND ssjao.BUY_ORG_ID = #{ja.buyOrgId,jdbcType=BIGINT}
+        </if>
+        <if test="ja.materialCode != null and ja.materialCode != ''">
+            AND ssjai.MATERIAL_CODE = #{ja.materialCode,jdbcType=VARCHAR}
+        </if>
+            ORDER BY LAST_UPDATE_DATE DESC
+    </select>
+
+    <select id="agreementIdList" resultType="java.lang.Long">
+        SELECT
+            aorg.AGREEMENT_ID
+        FROM
+            scc_sou_jc_agreement_org aorg
+            LEFT JOIN scc_sou_jc_agreement ja ON aorg.AGREEMENT_ID = ja.AGREEMENT_ID
+        WHERE
+            aorg.BUY_ORG_ID = #{ja.buyOrgId,jdbcType=BIGINT}
+            AND ja.AGREEMENT_TYPE = #{ja.agreementType,jdbcType=VARCHAR}
+        UNION
+        SELECT
+            ain.AGREEMENT_ID
+        FROM
+            scc_sou_jc_agreement_info ain
+            LEFT JOIN scc_sou_jc_agreement ja ON ain.AGREEMENT_ID = ja.AGREEMENT_ID
+        WHERE
+            ain.MATERIAL_CODE = #{ja.materialCode,jdbcType=VARCHAR}
+            AND ja.AGREEMENT_TYPE = #{ja.agreementType,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getAreList" resultType="com.midea.cloud.srm.model.sou.agreement.dto.AreGroupDto">
+        SELECT
+        ao.BUY_ORG_CODE AS buyOrgCode,
+        ag.SUPPLY_AREA AS supplyArea,
+        COUNT(*) AS num
+        FROM
+        scc_sou_jc_agreement_org ao
+        LEFT JOIN scc_sou_jc_agreement ag ON ao.AGREEMENT_ID = ag.AGREEMENT_ID
+        WHERE
+        ag.AGREEMENT_ID IN
+        <foreach collection="agreementIds" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+        AND	ag.AGREEMENT_STATUS IN ('DRAFT', 'APPROVING', 'APPROVED')
+        GROUP BY
+        ao.BUY_ORG_CODE,
+        ag.SUPPLY_AREA
+        HAVING
+        COUNT(*) > 1
+    </select>
+
+    <select id="getLinePageList" parameterType="com.midea.cloud.srm.model.sou.agreement.dto.LinePageDto" resultType="com.midea.cloud.srm.model.sou.agreement.dto.LinePageDto">
+        SELECT
+        ai.AGREEMENT_INFO_ID,
+        ai.AGREEMENT_ID,
+        ai.MATERIAL_LINE,
+        ai.MATERIAL_ID,
+        ai.MATERIAL_CODE,
+        ai.MATERIAL_NAME,
+        ai.GOODS_TYPE_ID,
+        ai.GOODS_TYPE_CODE,
+        ai.GOODS_TYPE_NAME,
+        ai.STANDARDS,
+        ai.BRAND,
+        ai.PRICE_TAX,
+        ai.TAX_RATE,
+        ai.RATE_PRICE,
+        ai.REFERENCE_PRICE,
+        ai.LEAD_TIME,
+        ai.SELL_BY_DATE,
+        ai.START_NUM,
+        ai.MULTIPLE_START_NUM,
+        ai.AGREEMENT_DES,
+        ai.IS_TIERED_PRICING,
+        ai.EXPECT_NUM,
+        ai.UNIT,
+        ssja.AGREEMENT_ID,
+        ssja.AGREEMENT_CODE,
+        ssja.COMPANY_ID,
+        ssja.COMPANY_CODE,
+        ssja.COMPANY_NAME,
+        ssja.AGREEMENT_NAME,
+        ssja.SUPPLY_AREA,
+        ssja.PAYMENT,
+        ssja.SUP_ID,
+        ssja.SUP_CODE,
+        ssja.SUP_NAME,
+        ssja.TRADING,
+        ssja.BUY_PERSON_ID,
+        ssja.BUY_PERSON_CODE,
+        ssja.BUY_PERSON_NAME,
+        ssja.PRICING_WAY,
+        ssja.INVOICE_TYPE,
+        ssja.PAY_WAY,
+        ssja.AGREEMENT_STATUS,
+        ssja.EFFECTIVE_START_DATE,
+        ssja.EFFECTIVE_END_DATE,
+        ssja.CURRENCY_TYPE,
+        ssja.AGREEMENT_FILE_ID,
+        ssja.AGREEMENT_FILE_NAME,
+        ssja.AGREEMENT_TYPE,
+        ssja.MIX_AMOUNT,
+        ssja.REMARK,
+        ssja.CHANGE_VERSION
+        FROM
+        scc_sou_jc_agreement_info ai
+        LEFT JOIN scc_sou_jc_agreement ssja ON ai.AGREEMENT_ID = ssja.AGREEMENT_ID
+        <where>
+            <if test='ja.catalogOnShelvesId != null and ja.catalogOnShelvesId == 1'>
+                AND ai.CATALOG_ON_SHELVES_ID is null
+            </if>
+            <if test="ja.agreementCode != null and ja.agreementCode != ''">
+                AND ssja.AGREEMENT_CODE like CONCAT('%', #{ja.agreementCode,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.supCode != null and ja.supCode != ''">
+                AND ssja.SUP_CODE like CONCAT('%', #{ja.supCode,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.supName != null and ja.supName != ''">
+                AND ssja.SUP_NAME like CONCAT('%', #{ja.supName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.materialCode != null and ja.materialCode != ''">
+                AND ai.MATERIAL_CODE like CONCAT('%', #{ja.materialCode,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.materialName != null and ja.materialName != ''">
+                AND ai.MATERIAL_NAME like CONCAT('%', #{ja.materialName,jdbcType=VARCHAR}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getValidPriceList" resultType="com.midea.cloud.srm.model.sou.agreement.dto.PriceAgreementDTO">
+        SELECT
+        ai.*, ao.BUY_ORG_ID companyId, a.SUPPLY_AREA, a.SUP_ID, a.SUP_CODE, a.SUP_NAME, a.CURRENCY_TYPE, a.INVOICE_TYPE,
+        a.PAYMENT, a.PAY_WAY, a.AGREEMENT_TYPE
+        FROM
+        scc_sou_jc_agreement_info ai
+        JOIN scc_sou_jc_agreement a ON ai.AGREEMENT_ID = a.AGREEMENT_ID
+        JOIN scc_sou_jc_agreement_org ao ON ao.AGREEMENT_ID = a.AGREEMENT_ID
+        WHERE a.AGREEMENT_STATUS = 'EXECUTING'
+        and a.EFFECTIVE_START_DATE &lt;= NOW()
+        and a.EFFECTIVE_END_DATE >= NOW()
+        and ai.MATERIAL_ID IN
+        <foreach collection="materialIds" open="(" separator="," close=")" item="materialId">
+            #{materialId}
+        </foreach>
+        and ao.BUY_ORG_ID IN
+        <foreach collection="orgIds" open="(" separator="," close=")" item="orgId">
+            #{orgId}
+        </foreach>
+    </select>
+
+    <select id="chMa" resultType="com.midea.cloud.srm.model.sou.agreement.dto.LinePageDto">
+        SELECT
+        ai.MATERIAL_CODE,
+        ssja.AGREEMENT_ID,
+        ssja.SUPPLY_AREA
+        FROM
+        scc_sou_jc_agreement_info ai
+        LEFT JOIN scc_sou_jc_agreement ssja ON ai.AGREEMENT_ID = ssja.AGREEMENT_ID
+        WHERE
+        ssja.AGREEMENT_STATUS IN ('DRAFT', 'EXECUTE', 'EXECUTING')
+        <if test="agreementCode != null and agreementCode != ''">
+            AND ssja.AGREEMENT_CODE != #{agreementCode,jdbcType=VARCHAR}
+        </if>
+        <if test="newMaterialCode != null and newMaterialCode != ''">
+            AND ai.MATERIAL_CODE = #{newMaterialCode,jdbcType=VARCHAR}
+        </if>
+        <if test="effectiveStartDate != null and effectiveEndDate != null">
+            AND ssja.EFFECTIVE_START_DATE &lt;= #{effectiveEndDate} and ssja.EFFECTIVE_END_DATE &gt;= #{effectiveStartDate}
+        </if>
+        group by
+        ai.MATERIAL_CODE,
+        ssja.AGREEMENT_ID,
+        ssja.SUPPLY_AREA
+    </select>
+
+    <select id="getMaxLineInfoNum" resultType="java.lang.Integer">
+        SELECT MAX(MATERIAL_LINE) FROM scc_sou_jc_agreement_info WHERE AGREEMENT_ID = #{agreementId,jdbcType=BIGINT}
+    </select>
+
+    <select id="getJcHeadLinePageList" resultType="com.midea.cloud.srm.model.sou.agreement.dto.SccSouJcAgreementDto">
+        SELECT
+            ssja.COMPANY_ID,
+            ssja.COMPANY_CODE,
+            ssja.COMPANY_NAME,
+            ssja.SUP_NAME,
+            ssja.SUPPLY_AREA,
+            ssjai.MATERIAL_ID,
+            ssjai.MATERIAL_CODE,
+            ssjai.MATERIAL_NAME,
+            ssjai.STANDARDS,
+            ssjai.UNIT,
+            ssja.EFFECTIVE_START_DATE,
+            ssja.EFFECTIVE_END_DATE,
+            ssja.BUY_PERSON_ID,
+            ssja.BUY_PERSON_CODE,
+            ssja.BUY_PERSON_NAME,
+            ssja.AGREEMENT_STATUS,
+            ssja.AGREEMENT_TYPE
+        FROM
+            scc_sou_jc_agreement_info ssjai
+            LEFT JOIN scc_sou_jc_agreement ssja ON ssjai.AGREEMENT_ID = ssja.AGREEMENT_ID
+        <where>
+            <if test="ja.companyCode != null and ja.companyCode != ''">
+                AND ssja.COMPANY_CODE = #{ja.companyCode,jdbcType=VARCHAR}
+            </if>
+            <if test="ja.materialCode != null and ja.materialCode != ''">
+                AND ssjai.MATERIAL_CODE = #{ja.materialCode,jdbcType=VARCHAR}
+            </if>
+
+
+            <if test="ja.materialName != null and ja.materialName != ''">
+                AND ssjai.MATERIAL_NAME LIKE CONCAT('%', #{ja.materialName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.standards != null and ja.standards != ''">
+                AND ssjai.STANDARDS LIKE CONCAT('%', #{ja.standards,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.supCode != null and ja.supCode != ''">
+                AND ssja.SUP_CODE LIKE CONCAT('%', #{ja.supCode,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.supName != null and ja.supName != ''">
+                AND ssja.SUP_NAME LIKE CONCAT('%', #{ja.supName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.supplyArea != null and ja.supplyArea != ''">
+                AND ssja.SUPPLY_AREA LIKE CONCAT('%', #{ja.supplyArea,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.agreementStatus != null and ja.agreementStatus != ''">
+                AND ssja.AGREEMENT_STATUS = #{ja.agreementStatus,jdbcType=VARCHAR}
+            </if>
+            <if test="ja.buyPersonCode != null and ja.buyPersonCode != ''">
+                AND ssja.BUY_PERSON_NAME = #{ja.buyPersonCode,jdbcType=VARCHAR}
+            </if>
+            <if test="ja.agreementType != null and ja.agreementType != ''">
+                AND ssja.AGREEMENT_TYPE = #{ja.agreementType,jdbcType=VARCHAR}
+            </if>
+        </where>
+        ORDER BY
+            ssja.LAST_UPDATE_DATE DESC
+    </select>
+
+    <select id="exportJcHtHeadLineData" resultType="com.midea.cloud.srm.model.sou.agreement.excel.ExportJcHtHeadLineData">
+        SELECT
+            ssja.AGREEMENT_CODE AS agreementCode,
+            ssja.AGREEMENT_NAME AS agreementName,
+            ssja.CHANGE_VERSION AS changeVersion,
+            ssja.COMPANY_NAME AS companyName,
+            ssja.SUP_NAME AS supName,
+            ssja.EFFECTIVE_START_DATE AS effectiveStartDate,
+            ssja.EFFECTIVE_END_DATE AS effectiveEndDate,
+            ssja.CREATION_DATE AS creationDate,
+            (
+                SELECT
+                    group_concat(aorg.BUY_ORG_NAME)
+                FROM
+                    scc_sou_jc_agreement_org aorg
+                WHERE
+                    aorg.AGREEMENT_ID = ssja.AGREEMENT_ID) AS orgName,
+            ssja.BUY_PERSON_NAME AS buyPersonName,
+            ssja.CREATED_FULL_NAME AS createdFullName,
+            ssja.AGREEMENT_STATUS AS agreementStatus,
+            ssja.INVOICE_TYPE AS invoiceType,
+            ssja.SUPPLY_AREA,
+            ssjai.MATERIAL_LINE AS materialLine,
+            ssjai.MATERIAL_CODE AS materialCode,
+            ssjai.MATERIAL_NAME AS materialName,
+            ssjai.GOODS_TYPE_NAME AS goodsTypeName,
+            ssjai.STANDARDS AS standards,
+            ssjai.UNIT AS unit,
+            ssjai.BRAND AS brand,
+            ssjai.TAX_RATE AS taxRate,
+            ssjai.IS_TIERED_PRICING AS isTieredPricing,
+            ssjai.PRICE_TAX AS priceTax,
+            ssjai.RATE_PRICE AS ratePrice,
+            ssjai.REFERENCE_PRICE AS referencePrice,
+            ssjai.LEAD_TIME AS leadTime,
+            ssjai.SELL_BY_DATE AS sellByDate,
+            ssjai.START_NUM AS startNum,
+            ssjai.MULTIPLE_START_NUM AS multipleStartNum,
+            ssjai.AGREEMENT_DES AS agreementDes
+        FROM
+            scc_sou_jc_agreement_info ssjai
+            LEFT JOIN scc_sou_jc_agreement ssja ON ssjai.AGREEMENT_ID = ssja.AGREEMENT_ID
+        <where>
+            <if test="ja.agreementType != null and ja.agreementType != ''">
+                AND ssja.AGREEMENT_TYPE = #{ja.agreementType,jdbcType=VARCHAR}
+            </if>
+            <if test="ja.agreementCode != null and ja.agreementCode != ''">
+                AND ssja.AGREEMENT_CODE like CONCAT('%', #{ja.agreementCode,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.supName != null and ja.supName != ''">
+                AND ssja.SUP_NAME like CONCAT('%', #{ja.supName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.buyPersonId != null">
+                AND ssja.BUY_PERSON_Id = #{ja.buyPersonId,jdbcType=BIGINT}
+            </if>
+            <if test="ja.agreementName != null and ja.agreementName != ''">
+                AND ssja.AGREEMENT_NAME like CONCAT('%', #{ja.agreementName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.companyId != null">
+                AND ssja.COMPANY_ID = #{ja.companyId,jdbcType=BIGINT}
+            </if>
+            <if test="ja.createdFullName != null and ja.createdFullName != ''">
+                AND ssja.CREATED_FULL_NAME like CONCAT('%', #{ja.createdFullName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="ja.effectiveStartDate != null">
+                AND ssja.EFFECTIVE_START_DATE <![CDATA[>=]]> #{ja.effectiveStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="ja.effectiveEndDate != null">
+                AND ssja.EFFECTIVE_END_DATE <![CDATA[<=]]> #{ja.effectiveEndDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="ja.agreementStatus != null and ja.agreementStatus != ''">
+                AND ssja.AGREEMENT_STATUS = #{ja.agreementStatus,jdbcType=VARCHAR}
+            </if>
+            <if test="ja.operatorStartDate != null">
+                AND ssja.CREATION_DATE <![CDATA[>=]]> #{ja.effectiveStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="ja.operatorEndDate != null">
+                AND ssja.CREATION_DATE <![CDATA[<=]]> #{ja.effectiveEndDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="ja.agreementIds != null and ja.agreementIds.size() > 0">
+                AND ssja.AGREEMENT_ID IN
+                <foreach collection="ja.agreementIds" open="(" separator="," close=")" item="item">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY ssja.LAST_UPDATE_DATE DESC
+    </select>
+    <select id="getjcInfoList" resultType="com.midea.cloud.srm.model.sou.agreement.entity.SccSouJcAgreementInfo">
+        SELECT distinct a.material_id,
+                        a.MATERIAL_CODE,
+                        a.MATERIAL_NAME
+        FROM scc_sou_jc_agreement_info a
+                 inner join scc_sou_jc_agreement b ON a.AGREEMENT_ID = b.AGREEMENT_ID
+        where b.SUP_CODE = 'JD001'
+          and b.AGREEMENT_STATUS in ('EXECUTE', 'EXECUTING')
+    </select>
+</mapper>

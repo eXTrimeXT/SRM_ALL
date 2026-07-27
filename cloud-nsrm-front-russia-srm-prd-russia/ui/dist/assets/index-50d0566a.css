@@ -1,0 +1,150 @@
+.ladder-price-form-row[data-v-50ac0dbb] {
+  display: flex;
+  margin-bottom: 10px;
+}
+.ladder-price-form-row .form-col[data-v-50ac0dbb]:not(:last-child) {
+  margin-right: 30px;
+}
+.ladder-price-form-row .form-col[data-v-50ac0dbb] {
+  height: 30px;
+  line-height: 30px;
+}
+.ladder-price-form-row .form-col .label[data-v-50ac0dbb] {
+  padding-right: 15px;
+}.inquiry-detail-require-info-tab .required-column-label[data-v-01c783a9] {
+  color: red;
+  margin-right: 5px;
+}.the-file-part .left-div[data-v-60f07d12],
+.the-file-part .right-div[data-v-60f07d12] {
+  width: 50%;
+  padding: 3px;
+  float: left;
+}
+.the-file-part .left-div > p[data-v-60f07d12],
+.the-file-part .right-div > p[data-v-60f07d12] {
+  margin: 0;
+}
+.the-file-part .left-div > p span[data-v-60f07d12],
+.the-file-part .right-div > p span[data-v-60f07d12] {
+  padding-right: 11px;
+}.requiredStart[data-v-6d816a6f] {
+  color: red;
+  margin-right: 4px;
+}[data-v-f580b585] .the-inquiryDetail-detail .inquiry-detail-border-card > .el-tabs--border-card {
+  margin-right: 10px;
+}
+[data-v-f580b585] .the-inquiryDetail-detail .sub_header {
+  padding: 4px 11px;
+  background: #eee;
+}
+[data-v-f580b585] .the-inquiryDetail-detail .sub_header span {
+  padding-right: 11px;
+}
+[data-v-f580b585] .the-inquiryDetail-detail .el-table .el-date-editor {
+  width: 135px;
+}
+[data-v-f580b585] .the-inquiryDetail-detail .main-header {
+  border: none;
+}.inquiry-tracking-info[data-v-c200e59c] {
+  padding: 10px 16px;
+  margin-top: 10px;
+}
+.inquiry-tracking-info .info-col-p[data-v-c200e59c] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.inquiry-tracking-info .info-col-p .value[data-v-c200e59c] {
+  padding-left: 15px;
+}.inquiry-tracking-top[data-v-d2dbbd64] {
+  display: flex;
+}
+.inquiry-tracking-top .inquiry-tracking-top-operation[data-v-d2dbbd64] {
+  width: 250px;
+}
+.inquiry-tracking-top .inquiry-tracking-top-form[data-v-d2dbbd64] {
+  flex: 1;
+}
+.inquiry-tracking-top .inquiry-tracking-top-form .label[data-v-d2dbbd64] {
+  display: inline-block;
+  margin-right: 10px;
+}
+.inquiry-tracking-top .inquiry-tracking-top-form .value-input[data-v-d2dbbd64] {
+  width: 111px;
+}
+.inquiry-tracking-top .inquiry-tracking-top-form .value-input.red .el-input__inner[data-v-d2dbbd64] {
+  color: #f44;
+}.edit-quote-time[data-v-a3d49141] {
+  display: inline-block;
+  margin: 0 5px;
+}.change-bid-supplier[data-v-dd547856] {
+  margin-top: 10px;
+}
+.change-bid-supplier .info-col-p[data-v-dd547856] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.change-bid-supplier .info-col-p .value[data-v-dd547856] {
+  padding-left: 15px;
+}
+.required[data-v-dd547856] {
+  color: red;
+  margin-right: 4px;
+}.form-wrapper-slot-text[data-v-c82febc8] {
+  height: 32px;
+  line-height: 32px;
+}
+.quote-selection-table-operation[data-v-c82febc8] {
+  margin: 12px 0;
+}
+.quote-selection-table-operation .el-button[data-v-c82febc8] {
+  height: 24px;
+  min-width: 56px;
+  border-radius: 2px;
+  padding: 1px 10px;
+}
+.dropdown-button-wrap[data-v-c82febc8] {
+  margin-left: 10px;
+}
+.mr-10[data-v-c82febc8] {
+  margin-right: 10px;
+}
+.price-line-chart-wrap[data-v-c82febc8] {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 20px;
+}.the-inquiryTrackingDetail-detail .cur-quote-deadline[data-v-12bb6738] {
+  padding-left: 16px;
+}
+.the-inquiryTrackingDetail-detail .sub_header[data-v-12bb6738] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.the-inquiryTrackingDetail-detail .el-table .el-date-editor[data-v-12bb6738] {
+  width: 135px;
+}
+.the-inquiryTrackingDetail-detail .the_top_header[data-v-12bb6738] {
+  border-bottom: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+}
+.the-inquiryTrackingDetail-detail .the_top_header p > span[data-v-12bb6738] {
+  padding-left: 11px;
+}
+.the-inquiryTrackingDetail-detail .the_progress[data-v-12bb6738] {
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+  border: none;
+}
+.the-inquiryTrackingDetail-detail .the_progress .el-steps[data-v-12bb6738] {
+  padding-bottom: 0;
+}
+.the-inquiryTrackingDetail-detail .the_baojia_dialog > div > .el-dialog__body[data-v-12bb6738] {
+  padding: 0 20px !important;
+}
+.the-inquiryTrackingDetail-detail .the_continue_dialog[data-v-12bb6738] {
+  position: relative;
+}

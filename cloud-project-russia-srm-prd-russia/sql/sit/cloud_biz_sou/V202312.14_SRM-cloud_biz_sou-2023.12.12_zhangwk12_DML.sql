@@ -1,0 +1,1 @@
+update scc_sou_project set ALLOW_PART_PRICE = 'Y' where SOU_TYPE = 'inq';

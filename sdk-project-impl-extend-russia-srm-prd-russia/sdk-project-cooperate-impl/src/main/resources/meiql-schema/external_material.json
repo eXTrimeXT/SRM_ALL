@@ -1,0 +1,26 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "ExternalMaterial:scc_npm_external_material": {
+    "comment": "外部物料与系统物料映射表",
+    "repository": "externalMaterialRepository",
+    "keyField": "externalMaterialId",
+    "fields": {
+      "externalMaterialId": "Long:主键",
+      "externalMaterialCode": "String:外部物料编码",
+      "externalMaterialName": "String:外部物料名称",
+      "materialId": "Long:物料id",
+      "materialCode": "String:物料编码",
+      "materialName": "String:物料名称",
+      "brand": "String:品牌",
+      "skuId": "String:sku编号",
+      "skuName": "String:sku名称",
+      "materialState": "String:外部物料上下架状态 (1上架 0下架)",
+      "externalMaterialUpdateDate": "Date:外部物料最后更新时间",
+      "materialUpdateDate": "Date:物料最后更新时间",
+      "mappingFlag": "String:是否已綁定（N否，Y是）",
+      "materialType": "String:商品类型,长城（CC）,京东（JD）",
+      "@include": ":BaseFields"
+    }
+  }
+}

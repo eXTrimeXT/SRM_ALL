@@ -1,0 +1,21 @@
+.monitorbizlogEdit[data-v-ca395607] {
+  height: 100%;
+}
+.monitorbizlogEdit .sub_header[data-v-ca395607] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.monitorbizlogEdit .el-table .el-date-editor[data-v-ca395607] {
+  width: 135px;
+}
+.monitorbizlogEdit .base-form[data-v-ca395607] {
+  padding: 15px 30px 0;
+}
+.monitorbizlogEdit .toRequired[data-v-ca395607] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.monitorbizlogEdit .edit_cond[data-v-ca395607] {
+  color: #23adf4;
+  cursor: pointer;
+}

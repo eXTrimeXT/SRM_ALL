@@ -1,0 +1,52 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "npmSerciceCustom:scc_npm_sercice_custom": {
+    "comment": "供应商-服务范围明细",
+	"keyField": "serciceCustomId",
+    "fields": {
+      "serciceCustomId": {
+        "type": "Long",
+        "dbName":"sercice_custom_id",
+        "desc": "ID",
+        "virtual": false
+      },
+      "categoryJournalId": {
+        "type": "Long",
+        "dbName":"category_journal_id",
+        "desc": "品类日志id",
+        "virtual": false
+      },
+      "fileId": {
+        "type": "Long",
+        "dbName":"file_id",
+        "desc": "文件id",
+        "virtual": false
+      },
+      "fileName": {
+        "type": "String",
+        "dbName":"file_name",
+        "desc": "文件名",
+        "virtual": false
+      },
+      "companyId": {
+        "type": "Long",
+        "dbName":"company_id",
+        "desc": "供应商ID",
+        "virtual": false
+      },
+      "mainCustom": {
+        "type": "String",
+        "dbName":"main_custom",
+        "desc": "主要客户",
+        "virtual": false
+      },
+      "performanceAmount": {
+        "type": "BigDecimal",
+        "dbName":"performance_amount",
+        "desc": "业绩额(万元)",
+        "virtual": false
+      }
+    }
+  }
+}

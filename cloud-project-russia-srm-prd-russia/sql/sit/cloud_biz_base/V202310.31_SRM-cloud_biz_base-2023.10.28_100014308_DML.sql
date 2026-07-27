@@ -1,0 +1,1 @@
+ALTER TABLE `scc_base_organization` ADD COLUMN `DEFAULT_INV` VARCHAR(2) NULL COMMENT '是否默认库存组织' COLLATE 'utf8mb4_general_ci' AFTER `ORGANIZATION_REGION`;

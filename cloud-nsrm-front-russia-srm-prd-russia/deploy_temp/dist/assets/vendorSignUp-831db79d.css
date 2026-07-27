@@ -1,0 +1,34 @@
+.the_vendorSignUp_wrapper[data-v-8275810f] {
+  padding-bottom: 40px;
+}
+.the_vendorSignUp_wrapper .the_progress[data-v-8275810f] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px 20px 20px;
+  background: #eee;
+}
+.the_vendorSignUp_wrapper .the_progress .head-info[data-v-8275810f] {
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+.the_vendorSignUp_wrapper .the_progress .head-info-item[data-v-8275810f] {
+  margin-top: 10px;
+}
+.the_vendorSignUp_wrapper .the_progress .flex-block[data-v-8275810f] {
+  display: flex;
+  justify-content: space-between;
+}
+.the_vendorSignUp_wrapper .the_progress .ml20[data-v-8275810f] {
+  margin-left: 20px;
+}
+.the_vendorSignUp_wrapper .input-number-precision[data-v-8275810f] {
+  width: 100%;
+}
+.the_vendorSignUp_wrapper .input-number-precision[data-v-8275810f] .el-input__inner {
+  text-align: left;
+  padding-left: 8px;
+}
+.the_vendorSignUp_wrapper .form-item-line[data-v-8275810f] {
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,162 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "effectForm:scc_sup_effect_form": {
+    "comment": "供方生效单据",
+    "repository": "effectFormCustomRepository",
+    "keyField": "effectFormId",
+    "fields": {
+      "effectFormId": {
+        "type": "Long",
+        "dbName": "effect_form_id",
+        "desc": "供方生效单据ID",
+        "virtual": false
+      },
+      "effectFormNumber": {
+        "type": "String",
+        "dbName": "effect_form_number",
+        "desc": "供方生效单号",
+        "convert": "seqGen:SEQ_EFFECT_FORM_CODE",
+        "virtual": false
+      },
+      "companyId": {
+        "type": "Long",
+        "dbName": "company_id",
+        "desc": "供应商ID",
+        "virtual": false
+      },
+      "companyCode": {
+        "type": "String",
+        "dbName": "company_code",
+        "desc": "供应商编码",
+        "virtual": false
+      },
+      "companyName": {
+        "type": "String",
+        "dbName": "company_name",
+        "desc": "供应商名称",
+        "virtual": false
+      },
+      "supplierType": {
+        "type": "String",
+        "dbName": "supplier_type",
+        "desc": "供应商类型--字典编码(SUPPLIER_TYPE)",
+        "virtual": false
+      },
+      "approveStatus": {
+        "type": "String",
+        "dbName": "approve_status",
+        "desc": "单据审批状态(DRAFT拟定、SUBMITTED已提交、REJECTED已驳回、APPROVED已审批,参考字典码APPROVE_STATUS_TYPE",
+        "virtual": false
+      },
+      "reviewFormId": {
+        "type": "Long",
+        "dbName": "review_form_id",
+        "desc": "资质审查单ID",
+        "virtual": false
+      },
+      "reviewFormNumber": {
+        "type": "String",
+        "dbName": "review_form_number",
+        "desc": "资质审查单号",
+        "virtual": false
+      },
+      "quaReviewType": {
+        "type": "String",
+        "dbName": "qua_review_type",
+        "desc": "资质审查类型,参考字典码QUA_REVIEW_TYPE",
+        "virtual": false
+      },
+      "reviewCreationDate": {
+        "type": "Date",
+        "dbName": "review_creation_date",
+        "desc": "资质审查单创建时间",
+        "virtual": false
+      },
+      "reviewFinishDate": {
+        "type": "Date",
+        "dbName": "review_finish_date",
+        "desc": "资质审查单完成时间",
+        "virtual": false
+      },
+      "importReminder": {
+        "type": "String",
+        "dbName": "import_reminder",
+        "desc": "引入提醒",
+        "virtual": false
+      },
+      "approveTime": {
+        "type": "Date",
+        "dbName": "APPROVE_TIME",
+        "desc": "审批时间",
+        "virtual": false
+      },
+      "extSiteFormFileId": {
+        "type": "Long",
+        "dbName": "ext_site_form_file_id",
+        "desc": "现场评审附件ID",
+        "virtual": false
+      },
+      "extSiteFormFileName": {
+        "type": "String",
+        "dbName": "ext_site_form_file_name",
+        "desc": "现场评审附件名称",
+        "virtual": false
+      },
+      "extSiteFormRemarks": {
+        "type": "String",
+        "dbName": "ext_site_form_remarks",
+        "desc": "现场评审说明",
+        "virtual": false
+      },
+      "extSampleFileId": {
+        "type": "Long",
+        "dbName": "ext_sample_file_id",
+        "desc": "样品确认附件ID",
+        "virtual": false
+      },
+      "extSampleFileName": {
+        "type": "String",
+        "dbName": "ext_sample_file_name",
+        "desc": "样品确认附件名称",
+        "virtual": false
+      },
+      "extSampleFileRemarks": {
+        "type": "String",
+        "dbName": "ext_sample_file_remarks",
+        "desc": "样品确认说明",
+        "virtual": false
+      },
+      "extTrialFileId": {
+        "type": "Long",
+        "dbName": "ext_trial_file_id",
+        "desc": "物料试用附件ID",
+        "virtual": false
+      },
+      "extTrialFileName": {
+        "type": "String",
+        "dbName": "ext_trial_file_name",
+        "desc": "物料试用附件名称",
+        "virtual": false
+      },
+      "extTrialFileRemarks": {
+        "type": "String",
+        "dbName": "ext_trial_file_remarks",
+        "desc": "物料试用说明",
+        "virtual": false
+      },
+      "@include": ":baseType"
+    },
+    "relations": {
+      "companyId": "sup_company_info_ide",
+      "effectFormRelationForms": "[effectFormRelationForm:effectFormId]",
+      "effectFormImportScenes": "[effectFormImportScene:effectFormId]",
+      "effectFormBankInfos": "[effectFormBankInfo:effectFormId]",
+      "fileRecordIdes": "[fileRecordIde:formId]",
+      "reviewFormId": "sup_auth_review_form_ide",
+      "effectFormFinanceInfos": "[effectFormFinanceInfo:effectFormId]",
+      "effectFormReqHeads": "[effectFormReqHead:effectFormId]",
+      "effectFormOrgCategorys": "[effectFormOrgCategory:effectFormId]"
+    }
+  }
+}

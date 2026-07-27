@@ -1,0 +1,232 @@
+{
+    "_version": "1.0",
+    "_type": "STANDARD",
+    "base_organization_ide:scc_base_organization": {
+        "comment": "组织信息",
+        "repository": "crudRepository",
+        "keyField": "organizationId",
+        "fields": {
+            "organizationId": {
+                "type": "Long",
+                "dbName": "organization_id",
+                "desc": "主键ID",
+                "virtual": false
+            },
+            "fullPathId": {
+                "type": "String",
+                "dbName": "full_path_id",
+                "desc": "组织全路径虚拟ID",
+                "virtual": false
+            },
+            "organizationTypeId": {
+                "type": "Long",
+                "dbName": "organization_type_id",
+                "desc": "组织类型ID",
+                "virtual": false
+            },
+            "organizationTypeCode": {
+                "type": "String",
+                "dbName": "organization_type_code",
+                "desc": "组织类型编码",
+                "virtual": false
+            },
+            "organizationTypeName": {
+                "type": "String",
+                "dbName": "organization_type_name",
+                "desc": "组织类型名称",
+                "virtual": false
+            },
+            "organizationName": {
+                "type": "String",
+                "dbName": "organization_name",
+                "desc": "组织名称",
+                "virtual": false
+            },
+            "organizationCode": {
+                "type": "String",
+                "dbName": "organization_code",
+                "desc": "组织编码",
+                "virtual": false
+            },
+            "parentOrganizationNames": {
+                "type": "String",
+                "dbName": "parent_organization_names",
+                "desc": "上层组织名称",
+                "virtual": false
+            },
+            "parentOrganizationIds": {
+                "type": "String",
+                "dbName": "parent_organization_ids",
+                "desc": "父关系ID集",
+                "virtual": false
+            },
+            "ceeaCompanyName": {
+                "type": "String",
+                "dbName": "ceea_company_name",
+                "desc": "公司名称",
+                "virtual": false
+            },
+            "ceeaCompanyShort": {
+                "type": "String",
+                "dbName": "ceea_company_short",
+                "desc": "公司简称",
+                "virtual": false
+            },
+            "ceeaCompanyCode": {
+                "type": "String",
+                "dbName": "ceea_company_code",
+                "desc": "公司代码",
+                "virtual": false
+            },
+            "startDate": {
+                "type": "LocalDate",
+                "dbName": "start_date",
+                "desc": "生效日期",
+                "virtual": false
+            },
+            "endDate": {
+                "type": "LocalDate",
+                "dbName": "end_date",
+                "desc": "失效日期",
+                "virtual": false
+            },
+            "enabled": {
+                "type": "String",
+                "dbName": "enabled",
+                "desc": "是否有效  Y:有效  N:无效",
+                "virtual": false
+            },
+            "erpOrgId": {
+                "type": "String",
+                "dbName": "erp_org_id",
+                "desc": "ERP组织ID",
+                "virtual": false
+            },
+            "organizationSite": {
+                "type": "String",
+                "dbName": "organization_site",
+                "desc": "组织地点(收货地点)",
+                "virtual": false
+            },
+            "ceeaOrganizationSiteId": {
+                "type": "Long",
+                "dbName": "ceea_organization_site_id",
+                "desc": "组织地点ID(收货地点ID)",
+                "virtual": false
+            },
+            "ceeaOrganizationSiteAddress": {
+                "type": "String",
+                "dbName": "ceea_organization_site_address",
+                "desc": "组织详细地点(收货详细地点)",
+                "virtual": false
+            },
+            "attributeCategory": {
+                "type": "String",
+                "dbName": "attribute_category",
+                "desc": "品类",
+                "virtual": false
+            },
+            "ceeaErpUnitId": {
+                "type": "String",
+                "dbName": "ceea_erp_unit_id",
+                "desc": "erp业务实体ID",
+                "virtual": false
+            },
+            "ceeaErpUnitCode": {
+                "type": "String",
+                "dbName": "ceea_erp_unit_code",
+                "desc": "erp业务实体code",
+                "virtual": false
+            },
+            "divisionKey": {
+                "type": "String",
+                "dbName": "division_key",
+                "desc": "事业部KEY",
+                "virtual": false
+            },
+            "division": {
+                "type": "String",
+                "dbName": "division",
+                "desc": "事业部",
+                "virtual": false
+            },
+            "divisionId": {
+                "type": "String",
+                "dbName": "division_id",
+                "desc": "事业部ID",
+                "virtual": false
+            },
+            "dataResource": {
+                "type": "String",
+                "dbName": "data_resource",
+                "desc": "数据来源",
+                "virtual": false
+            },
+            "ceeaReceivingLocationId": {
+                "type": "String",
+                "dbName": "ceea_receiving_location_id",
+                "desc": "收单地址ID",
+                "virtual": false
+            },
+            "ceeaReceivingLocation": {
+                "type": "String",
+                "dbName": "ceea_receiving_location",
+                "desc": "收单地址",
+                "virtual": false
+            },
+            "ceeaReceivingLocationAddres": {
+                "type": "String",
+                "dbName": "ceea_receiving_location_addres",
+                "desc": "收单地详细址点",
+                "virtual": false
+            },
+            "company": {
+                "type": "String",
+                "dbName": "company",
+                "desc": "公司ID",
+                "virtual": false
+            },
+            "ceeaCurrencyId": {
+                "type": "Long",
+                "dbName": "ceea_currency_id",
+                "desc": "币种设置表ID",
+                "virtual": false
+            },
+            "ceeaCurrencyCode": {
+                "type": "String",
+                "dbName": "ceea_currency_code",
+                "desc": "币种设置-货币编码",
+                "virtual": false
+            },
+            "ceeaCurrencyName": {
+                "type": "String",
+                "dbName": "ceea_currency_name",
+                "desc": "币种设置-货币名称",
+                "virtual": false
+            },
+            "ceeaBusinessCode": {
+                "type": "String",
+                "dbName": "ceea_business_code",
+                "desc": "业务实体编码(用于验收单推费控)",
+                "virtual": false
+            },
+            "ifProjectCompany": {
+                "type": "String",
+                "dbName": "if_project_company",
+                "desc": "是否项目公司",
+                "virtual": false
+            },
+            "@include": ":baseType"
+        }
+    },
+    "OrganizationRelation:scc_base_organization_rel": {
+        "comment": "组织关系",
+        "keyField": "relId",
+        "fields": {
+            "relId": "Long:主键",
+            "organizationId": "Long:组织ID",
+            "parentOrganizationId": "Long:父组织ID",
+            "@include": ":BaseFields"
+        }
+    }
+}

@@ -1,0 +1,58 @@
+
+.collapse-item-note {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.render-pix-form-collapse-errors-badge {
+  width: 100%;
+}
+.vendorGreen .companyInfo {
+  display: flex;
+  padding: 16px;
+  width: 100%;
+}
+.vendorGreen .render-form-container__fixed-footer{
+  padding-top:0px
+}
+.vendorGreen .render-form-container {
+  margin-bottom: 50px;
+}
+.scroll-area {
+  position: relative;
+}
+.info-fill-progress{
+  position: fixed !important;
+  width: 210px !important;
+  top: 104px !important;
+  right: 0px !important;
+  bottom: 0px !important;
+}
+.vendorGreen {
+  overflow: auto;
+  padding-right: 181px;
+}
+.order-form-contain .contract-progress{
+  top: 64px
+}
+.rdCapableList{
+  height: 80px;
+  margin-bottom: 20px;
+}
+.bzBox {
+  position: relative;
+}
+.bzTitle {
+  position: absolute;
+  top: -20px;
+  left: 4px;
+}
+.bzTitle::before{
+  content:'*';
+  margin-right:4px;
+  display: inline-block;
+  vertical-align: top;
+  color: #FF4A4D;
+  font-family: SimSun, sans-serif;
+}

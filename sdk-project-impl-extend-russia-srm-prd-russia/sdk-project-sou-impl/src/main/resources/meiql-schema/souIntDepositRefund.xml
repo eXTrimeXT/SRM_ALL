@@ -1,0 +1,50 @@
+<meiql _version="1.0" _type="standard">
+    <type name="SouIntDepositRefundBuyer">
+        <validators>
+            <action name="submit">
+                <validator type="request" msg="参数必填：reqHeadId">
+                    ql.notEmpty($rec["reqHeadId"])
+                </validator>
+                <validator type="request" msg="参数必填：applyId">
+                    ql.notEmpty($rec["applyId"])
+                </validator>
+                <validator type="request" msg="参数必填：vendorId">
+                    ql.notEmpty($rec["vendorId"])
+                </validator>
+                <validator type="request" msg="参数必填：vendorCode">
+                    ql.notEmpty($rec["vendorCode"])
+                </validator>
+                <validator type="request" msg="参数必填：vendorName">
+                    ql.notEmpty($rec["vendorName"])
+                </validator>
+                <validator type="request" msg="参数必填：refundBankAccount">
+                    ql.notEmpty($rec["refundBankAccount"])
+                </validator>
+                <validator type="request" msg="参数必填：refundBankAccountName">
+                    ql.notEmpty($rec["refundBankAccountName"])
+                </validator>
+                <validator type="request" msg="参数必填：refundBankName">
+                    ql.notEmpty($rec["refundBankName"])
+                </validator>
+                <validator type="request" msg="参数必填：refundBankNumber">
+                    ql.notEmpty($rec["refundBankNumber"])
+                </validator>
+                <validator type="request" msg="参数必填：refundAmount">
+                    ql.notEmpty($rec["refundAmount"])
+                </validator>
+                <validator type="request" msg="参数必填：refundReason">
+                    ql.notEmpty($rec["refundReason"])
+                </validator>
+                <!--仅可勾选已缴纳意向金的供应商发起退款且为未退款状态-->
+                <validator type="request" msg="退款失败：仅已缴纳意向金且为未退款状态">
+                    c = ql.newCond();
+                    ql.cond.notEq(c,"depositRefundStatus","NOT_REFUNDED");
+                    ql.cond.notEq(c,"depositStatus","PAID");
+                    ql.cond.eq(c,"applyId",$rec["applyId"]);
+                    existRec = ql.query("SouReqApplyBuyer",c);
+                    return ql.ge(count(existRec),0);
+                </validator>
+            </action>
+        </validators>
+    </type>
+</meiql>

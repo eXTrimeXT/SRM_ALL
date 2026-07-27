@@ -1,0 +1,14 @@
+<meiql _version="1.0" _type="standard">
+    <type name="SubmitBuyer">
+        <validators>
+            <action name="submit">
+                <validator type="request" msg="参数必填：单号不能为空">
+                    if (ql.notEmpty($rec["dataSubmitId"])) {
+                    return ql.notEmpty($rec["dataSubmitNo"]);
+                    }
+                    return true;
+                </validator>
+            </action>
+        </validators>
+    </type>
+</meiql>

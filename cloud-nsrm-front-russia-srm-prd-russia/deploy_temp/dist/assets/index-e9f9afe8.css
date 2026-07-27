@@ -1,0 +1,21 @@
+.datapermissionEdit[data-v-2388281c] {
+  height: 100%;
+}
+.datapermissionEdit .sub_header[data-v-2388281c] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.datapermissionEdit .el-table .el-date-editor[data-v-2388281c] {
+  width: 135px;
+}
+.datapermissionEdit .base-form[data-v-2388281c] {
+  padding: 15px 30px 0;
+}
+.datapermissionEdit .toRequired[data-v-2388281c] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.datapermissionEdit .edit_cond[data-v-2388281c] {
+  color: #23adf4;
+  cursor: pointer;
+}

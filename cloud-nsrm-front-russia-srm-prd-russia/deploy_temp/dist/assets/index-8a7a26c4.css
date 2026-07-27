@@ -1,0 +1,33 @@
+.quasupplierenoticeEdit[data-v-26194510] {
+  height: 100%;
+}
+.quasupplierenoticeEdit .sub_header[data-v-26194510] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.quasupplierenoticeEdit .el-table .el-date-editor[data-v-26194510] {
+  width: 135px;
+}
+.quasupplierenoticeEdit .base-form[data-v-26194510] {
+  padding: 15px 30px 0;
+}
+.quasupplierenoticeEdit .toRequired[data-v-26194510] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.quasupplierenoticeEdit .edit_cond[data-v-26194510] {
+  color: #23adf4;
+  cursor: pointer;
+}
+[data-v-26194510] .el-checkbox-group {
+  padding-top: 30px;
+}
+.form-container[data-v-26194510] {
+  padding-bottom: 50px;
+}
+.btn_line[data-v-26194510] {
+  margin: 0 0 8px 0;
+}
+.noticeStyle[data-v-26194510] {
+  padding-left: 11px;
+}

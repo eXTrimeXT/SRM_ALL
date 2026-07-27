@@ -1,0 +1,30 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "ExtPrSouRequirementVendorController:exportdata": {
+    "mediatorType": "export",
+    "processor": "extPrSouRequirementVendorExportProcessor",
+    "sheets": [
+      {
+        "sheetName": "招标计划-推荐单位",
+        "heads": {
+          "vendorName": {
+            "title": "推荐单位名称"
+          },
+          "contactName": {
+            "title": "联系人名称"
+          },
+          "phone": {
+            "title": "联系方式"
+          },
+          "email": {
+            "title": "邮箱"
+          },
+          "recommendFrom": {
+            "title": "推荐单位来源"
+          }
+        }
+      }
+    ]
+  }
+}

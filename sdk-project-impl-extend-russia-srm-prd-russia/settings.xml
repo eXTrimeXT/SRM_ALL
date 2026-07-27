@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+<!--  <localRepository>D:\maven\product-dev</localRepository>-->
+
+    <proxies>
+    </proxies>
+
+    <servers>
+        <server>
+            <id>maven-release</id>
+            <username>admin</username>
+            <password>jUA_~39_r-0e</password>
+        </server>
+        <server>
+            <id>maven-snapshots</id>
+            <username>admin</username>
+            <password>jUA_~39_r-0e</password>
+        </server>
+    </servers>
+    
+    <mirrors>
+	  <mirror>
+		  <id>gwmit</id>
+		  <mirrorOf>*</mirrorOf>
+		  <name>gwmit</name>
+		  <url>http://10.168.130.235:8081/repository/maven-public/</url>
+		</mirror>
+	  <mirror>
+		  <id>maven-snapshots</id>
+		  <mirrorOf>*</mirrorOf>
+		  <name>css maven-snapshots</name>
+		  <url>http://10.168.130.235:8081/repository/maven-public/</url>
+		</mirror>
+    </mirrors>
+    <profiles>
+        <profile>
+            <id>aliyunmaven</id>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>central</id>
+                    <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
+        <profile>
+            <id>meicloud</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <repositories>
+
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>maven-release</id>
+                    <name>ccs</name>
+                    <url>http://10.168.130.235:8081/repository/maven-releases/</url>
+                </pluginRepository>
+				<pluginRepository>
+                    <id>maven-snapshots</id>
+                    <name>ccs</name>
+                    <url>http://10.168.130.235:8081/repository/maven-snapshots/</url>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+
+    <!-- activeProfiles
+     | List of profiles that are active for all builds. -->
+    <activeProfiles>
+        <activeProfile>env-dev</activeProfile>
+        <activeProfile>aliyunmaven</activeProfile>
+    </activeProfiles>
+
+</settings>

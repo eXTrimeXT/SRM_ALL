@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.sourcing.vendor.mapper.ExtSouOrderMapper">
+<select id="getSouMarginRecord">
+    SELECT  a.*,b.REFUND_STATUS,b.REFUND_PAYMENT_DATE from
+    scc_npm_sou_margin_record a join scc_npm_sou_margin b
+    where 1=1
+    <if test="companyId != null and companyId !=''">
+        and a.VENDOR_ID = #{companyId} and b.VENDOR_ID = #{companyId}
+    </if>
+    <if test="projectId != null and projectId !=''">
+        and a.PROJECT_ID = #{projectId} and b.PROJECT_ID = #{projectId}
+    </if>
+    limit 1
+</select>
+</mapper>

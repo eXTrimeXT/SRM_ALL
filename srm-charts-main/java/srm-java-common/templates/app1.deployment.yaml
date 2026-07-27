@@ -1,0 +1,183 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: srm-java-{{ .Values.global.module }}-{{ .Values.global.env }}
+  namespace: dev
+  labels:
+    app: srm-java-{{ .Values.global.module }}-{{ .Values.global.env }}
+spec:
+  replicas: {{ .Values.app1.replicas.pet | default .Values.app1.replicas.default }}
+  selector:
+    matchLabels:
+      app: srm-java-{{ .Values.global.module }}-{{ .Values.global.env }}
+  template:
+    metadata:
+      labels:
+        app: srm-java-{{ .Values.global.module }}-{{ .Values.global.env }}
+    spec:
+      volumes:
+      - emptyDir: {}
+        name: apps-log
+      {{- if .Values.skywalking.enable }}
+      - emptyDir: {}
+        name: sw-agent
+      {{- end }}
+      {{- if .Values.app1.configmap.enable }}
+      - name: volumes-{{ .Values.app1.configmap.name }}
+        configMap:
+          name: {{ .Values.app1.configmap.name }}
+      {{- end }}
+
+      {{- if .Values.app1.persistentvolumeclaim.enable }}
+      - name: pvc-srm-java-{{ .Values.global.module }}-{{ .Values.global.env }}
+        persistentVolumeClaim:
+          claimName: pvc-srm-java-{{ .Values.global.module }}-{{ .Values.global.env }}
+      {{- end }}
+      {{- if  .Values.skywalking.enable  }}
+      initContainers:
+        - args:
+            - -c
+            - mkdir -p /skywalking/agent && cp -r /usr/skywalking/agent/* /skywalking/agent && chmod -R 777 /skywalking/agent/logs
+          command:
+            - sh
+          image: {{ .Values.skywalking.image }}
+          imagePullPolicy: IfNotPresent
+          name: sw-agent-sidecar
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 125m
+              memory: 256Mi
+          volumeMounts:
+            - mountPath: /skywalking/agent
+              name: sw-agent
+      {{- end }}
+
+
+      containers:
+        - name: srm-java-{{ .Values.global.module }}-{{ .Values.global.env }}
+          image: "{{ .Values.app1.repository }}:{{ get .Values.app1.tag .Values.global.env | default .Values.app1.tag.default }}"
+          imagePullPolicy: Always
+          command:
+            - /bin/sh
+          args:
+            - run.sh
+            - app.jar
+          ports:
+          {{- if .Values.app1.clusterIP.enable }}
+          {{- range .Values.app1.clusterIP.ports }}
+          - containerPort: {{ .port }}
+            name: {{ .name }}
+            protocol: {{ .protocol }}
+          {{- end }}
+          {{- end }}
+          {{- if (get .Values.app1.nodePort.enable $.Values.global.env | default .Values.app1.nodePort.enable.default) }}
+          {{- range .Values.app1.nodePort.ports }}
+          - containerPort: {{ .port }}
+            name: {{ .name }}
+            protocol: {{ .protocol }}
+          {{- end }}
+          {{- end }}
+          resources:
+            limits:
+              cpu: {{ .Values.app1.limits.cpu  }}
+              memory: {{ .Values.app1.limits.memory }}
+            requests:
+              cpu: {{ .Values.app1.requests.cpu }}
+              memory: {{ .Values.app1.requests.memory }}
+
+          volumeMounts:
+          - mountPath: /apps/logs/
+            name: apps-log
+          {{- if  .Values.skywalking.enable }}
+          - mountPath: /usr/skywalking/agent
+            name: sw-agent
+          {{- end }}
+
+          {{- if  .Values.app1.persistentvolumeclaim.enable }}
+          - name: pvc-srm-java-{{ .Values.global.module }}-{{ .Values.global.env }}
+            mountPath: {{ .Values.app1.persistentvolumeclaim.mountpath }}
+          {{- end }}
+
+          {{- if .Values.app1.configmap.enable  }}
+          {{- range .Values.app1.configmap.mounts }}
+          - name: volumes-{{ $.Values.app1.configmap.name }}
+            mountPath: {{ .mountPath }}
+            subPath: {{ .subPath }}
+          {{- end }}
+          {{- end }}
+
+          {{- if .Values.healthCheck.enabled }}
+          livenessProbe:
+            {{- if eq .Values.healthCheck.type "http" }}
+            httpGet:
+              path: {{ .Values.healthCheck.httpPath }}
+              port: {{ .Values.healthCheck.port }}
+            {{- else }}
+            tcpSocket:
+              port: {{ .Values.healthCheck.port }}
+            {{- end }}
+            initialDelaySeconds: {{ .Values.healthCheck.livenessInitialDelaySeconds }}
+            periodSeconds: {{ .Values.healthCheck.livenessPeriodSeconds }}
+            timeoutSeconds: {{ .Values.healthCheck.livenesstimeoutSeconds }}
+            successThreshold: {{ .Values.healthCheck.livenesssuccessThreshold }}
+            failureThreshold: {{ .Values.healthCheck.livenessfailureThreshold }}
+          readinessProbe:
+            {{- if eq .Values.healthCheck.type "http" }}
+            httpGet:
+              path: {{ .Values.healthCheck.httpPath }}
+              port: {{ .Values.healthCheck.port }}
+            {{- else }}
+            tcpSocket:
+              port: {{ .Values.healthCheck.port }}
+            {{- end }}
+            initialDelaySeconds: {{ .Values.healthCheck.readinessInitialDelaySeconds }}
+            periodSeconds: {{ .Values.healthCheck.readinessPeriodSeconds }}
+            timeoutSeconds: {{ .Values.healthCheck.readinesstimeoutSeconds }}
+            successThreshold: {{ .Values.healthCheck.readinesssuccessThreshold}}
+            failureThreshold: {{ .Values.healthCheck.readinessfailureThreshold }}
+          {{- end }}
+          env:
+            - name: TZ
+              value: Europe/Moscow
+            - name: aliyun_logs_app-stdout-log
+              value: stdout
+            - name: aliyun_logs_app-stdout-log_tags
+              value: app-name=srm-java-{{ .Values.global.module }}-{{ .Values.global.env }}
+            - name: aliyun_logs_app-file-log
+              value: /apps/logs/*.log
+            - name: aliyun_logs_app-file-log_tags
+              value: app-name=srm-java-{{ .Values.global.module }}-{{ .Values.global.env }}
+
+            {{- range .Values.app1.kvenv }}
+            - name: {{ .key }}
+              value: {{ (get .val $.Values.global.env) | default .val.default }}
+            {{- end }}
+            {{- if  .Values.skywalking.enable }}
+            - name: JAVA_TOOL_OPTIONS
+              value: "{{ .Values.skywalking.JAVA_TOOL_OPTIONS }}"
+            - name: SW_AGENT_NAME
+              value: "srm-java-{{ .Values.global.module }}-{{ .Values.global.env }}"
+            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
+              value: "{{ .Values.skywalking.BACKEND_SERVICES }}"
+            {{- end }}
+
+            {{- range .Values.app1.configmapenv }}
+            - name: {{ .key }}
+              valueFrom:
+                configMapKeyRef:
+                  key: {{ .subkey }}
+                  name: {{ .name }}
+            {{- end }}
+
+      {{- if get .Values.tolerations.enabled .Values.global.env | default .Values.tolerations.enabled.default }}
+      tolerations:
+        {{- range .Values.tolerations.keys }}
+        - effect: {{ .effect }}
+          key: {{ .key }}
+          operator: Equal
+          value: "{{ .value }}"
+        {{- end }}
+      {{- end }}

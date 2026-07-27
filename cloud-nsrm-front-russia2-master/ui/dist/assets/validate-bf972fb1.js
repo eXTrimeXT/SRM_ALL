@@ -1,0 +1,1 @@
+import{v as validEmail,a as validatePhone}from"./index-6b6051d8.js";function isEmail(s){return validEmail(s)}function isMobile(s){return validatePhone(s)}function isIE(){return!!(window.ActiveXobject||"ActiveXObject"in window)}function isIE11(){return!!/Trident\/7\./.test(navigator.userAgent)}export{isIE11 as a,isEmail as b,isMobile as c,isIE as i};

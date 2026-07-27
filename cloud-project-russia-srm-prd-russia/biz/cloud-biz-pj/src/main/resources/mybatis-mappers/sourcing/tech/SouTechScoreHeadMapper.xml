@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlResolve, SqlNoDataSourceInspection -->
+<mapper namespace="com.midea.cloud.srm.sou.sourcing.tech.dao.SouTechScoreHeadMapper">
+
+    <sql id="queryTechProgressReview_without_score_status">
+        select
+            project.PROJECT_ID,             <!-- 询价单ID -->
+            project.SOU_NO,                 <!-- 询价单号 -->
+            project.SOU_NAME,               <!-- 询价单名称 -->
+            project.PROJECT_STATUS,         <!-- 询价状态 -->
+            case when vendor_score_info.NEED_TECH_SCORE_VENDOR_COUNT = score_info.HAS_SCORE_VENDOR_COUNT then 'FINISHED' else 'UNFINISHED' end score_status,    <!-- 评分状态 -->
+            project.score_rule_type,        <!-- 评分规则 -->
+            project.current_round,          <!-- 当前轮次 -->
+            project.created_by,             <!-- 发布人账号 -->
+            project.created_full_name,      <!-- 发布人名称 -->
+            project.creation_date,          <!-- 创建时间 -->
+            project.publish_time,           <!-- 发布时间 -->
+            project.order_end_time          <!-- 报价截止时间 -->
+        from scc_sou_project project
+        left join scc_sou_process_config process_config
+            on process_config.PROCESS_CONFIG_ID = project.PROCESS_CONFIG_ID
+        left join scc_sou_group sou_group
+            on project.PROJECT_ID = sou_group.PROJECT_ID and sou_group.SCORE_AUTH like '%SOU_TECH%'
+        left join ( -- 查询应评分供应商数量(用于判断评分人员维度的评分状态)
+            select a.PROJECT_ID, ifnull(count(a.VENDOR_COUNT),0) need_tech_score_vendor_count from (
+            select sou_order.PROJECT_ID, count(sou_order.VENDOR_ID) vendor_count
+            from scc_sou_order sou_order where ORDER_STATUS = 'SUBMISSION'
+            group by PROJECT_ID, VENDOR_ID) a group by a.PROJECT_ID
+            ) vendor_score_info
+            on project.PROJECT_ID = vendor_score_info.PROJECT_ID
+        left join ( -- 查询已评分供应商数量(用于判断评分人员维度的评分状态)
+            select PROJECT_ID, GROUP_ID, ifnull(count(GROUP_ID),0) has_score_vendor_count from scc_sou_tech_score_head
+            where SCORE_STATUS = 'FINISHED' group by PROJECT_ID, GROUP_ID) score_info
+            on project.PROJECT_ID = score_info.PROJECT_ID and sou_group.GROUP_ID = score_info.GROUP_ID
+        where
+            exists (
+                select process_config.PROCESS_CONFIG_ID from scc_sou_process_config process_config
+                where process_config.PROCESS_CONFIG_ID = project.PROCESS_CONFIG_ID and process_config.TECH_MANAGEMENT = 'Y'
+            )
+            and project.TECH_OPEN = 'Y'
+            AND sou_group.USER_ID = #{queryParam.currentUserId}
+            and project.SOU_TYPE = #{souType}
+        <if test="queryParam.souNo != null"> <!-- 寻源单号 -->
+            AND project.SOU_NO like concat('%', concat(#{queryParam.souNo}, '%'))
+        </if>
+        <if test="queryParam.souName != null"> <!-- 寻源名称 -->
+            AND project.SOU_NAME like concat('%', concat(#{queryParam.souName}, '%'))
+        </if>
+        <if test="queryParam.projectStatus != null"> <!-- 寻源状态 -->
+            AND project.PROJECT_STATUS = #{queryParam.projectStatus}
+        </if>
+        <if test="queryParam.scoreRuleType != null"> <!-- 评分规则 -->
+            AND project.SCORE_RULE_TYPE = #{queryParam.scoreRuleType}
+        </if>
+        <if test="queryParam.createdBy != null"> <!-- 发布人 -->
+            AND project.CREATED_BY = #{queryParam.createdBy}
+        </if>
+        <if test="queryParam.scoreStatus != null"> <!-- 技术评分状态 -->
+            AND score_head.SCORE_STATUS = #{queryParam.scoreStatus}
+        </if>
+        <if test="queryParam.creationDateFrom != null"> <!-- 创建日期范围 -->
+            AND project.CREATION_DATE >= #{queryParam.creationDateFrom}
+        </if>
+        <if test="queryParam.creationDateTo != null"> <!-- 创建日期范围 -->
+            AND project.CREATION_DATE &lt;= #{queryParam.creationDateTo}
+        </if>
+        <if test="queryParam.publishTimeFrom != null"> <!-- 发布日期范围 -->
+            AND project.PUBLISH_TIME >= #{queryParam.publishTimeFrom}
+        </if>
+        <if test="queryParam.publishTimeTo != null"> <!-- 发布日期范围 -->
+            AND project.PUBLISH_TIME &lt;= #{queryParam.publishTimeTo}
+        </if>
+        <if test="queryParam.orderEndTimeFrom != null"> <!-- 报价截止日期范围 -->
+            AND project.ORDER_END_TIME >= #{queryParam.orderEndTimeFrom}
+        </if>
+        <if test="queryParam.orderEndTimeTo != null"> <!-- 报价截止日期范围 -->
+            AND project.ORDER_END_TIME &lt;= #{queryParam.orderEndTimeTo}
+        </if>
+        order by project.SOU_NO desc
+    </sql>
+
+    <select id="queryTechProgressReview" resultType="com.midea.cloud.srm.model.sou.openapi.sourcing.vo.tech.ApiSouTechProgressReviewVO">
+        <if test="queryParam.scoreStatus != null"> <!-- 技术评分状态 -->
+            select * from (<include refid="queryTechProgressReview_without_score_status"/>) a
+            where a.SCORE_STATUS = #{queryParam.scoreStatus}
+        </if>
+        <if test="queryParam.scoreStatus == null"> <!-- 技术评分状态 -->
+            <include refid="queryTechProgressReview_without_score_status"/>
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,40 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "BidNoticeAbandon:scc_npm_sou_bid_notice" : {
+    "keyField" : "bidNoticeId",
+    "comment":"中/落标废弃通知",
+    "repository":"bidNoticeAbandonRepository",
+    "fields" : {
+      "@include": ":BidNoticeFields",
+      "bidNoticeNo" : {
+        "convert": "seqGen:SEQ_SOU_ATN_NO",
+        "type": "String",
+        "dbName": "bid_notice_no",
+        "desc": "中/落标废弃通知单号"
+      },
+      "originalBidNoticeId" : "Long:原中落标通知ID",
+      "originalBidNoticeNo" : "String:原中/落标通知单号",
+      "abandonReason" : "String:中/落标废弃原因",
+      "discardType" : "String:废弃类型"
+    },
+    "relations" : {
+      "sceneFiles": "[BidNoticeAbandonSceneFile:bidNoticeId]"
+    }
+  },
+  "BidNoticeAbandonSceneFile": {
+    "repository": "souSceneFileRepository",
+    "comment":"中/落标废弃通知附件",
+    "keyField" : "sceneFileId",
+    "fields" : {
+      "sceneFileId": "Long",
+      "sceneKey":  {
+        "convert": "scene:SCENE_SOU_ATN_ATTACHMENT"
+      },
+      "businessFiled": {
+        "convert": "businessId:bidNoticeId"
+      },
+      "@include": ":SceneFileFields"
+    }
+  }
+}

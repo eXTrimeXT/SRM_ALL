@@ -1,0 +1,131 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "PurchaseRequirementHead:scc_pr_requirement_head": {
+    "comment": "采购申请头",
+    "repository": "purchaseRequirementRepository",
+    "keyField": "requirementHeadId",
+    "fields": {
+      "requirementHeadId": "Long:主键",
+      "@include": ":requirementHeadFields",
+      "ceeaUrgencyExplain": "String:加急原因",
+      "purchaseProject": "String:项目编号",
+      "demandDepartmentName": "String:主控部门名称，字典main_control_department",
+      "demandDepartmentCode": "String:主控部门字典值，字典main_control_department",
+      "ceeaPrType": "String:申请类型,字典application_form_type",
+      "extOrgBuId": "String:板块id",
+      "extOrgBuName": "String:板块名称",
+      "extOrgBuCode": "String:板块编码",
+      "extInPool": "String:是否领单，Y/N",
+      "extApproveTime": "LocalDateTime:审批时间",
+      "startBpmUsername": "String:bpm发起人账号",
+      "startBpmNickname": "String:bpm发起人名称",
+      "extBidFlag": "是否招标，Y/N",
+      "extIsAbnormal": "是否异常（N否，Y是。物料为jd商品时，商品的库存和上下架异常判断）",
+      "extExpectTotalAmount": "BigDecimal:预估总金额"
+    },
+    "relations": {
+      "reqLineList": "[PurchaseRequirementLine:requirementHeadId]",
+      "reqAttachList": "[PurchaseRequirementAttach:requirementHeadId]",
+      "souReqHead": "[ExtPrSouRequirementHead:requirementHeadId]"
+    }
+  },
+  "PurchaseRequirementLine:scc_pr_requirement_line": {
+    "comment": "采购申请行",
+    "repository": "purchaseRequirementLineRepository",
+    "keyField": "requirementLineId",
+    "fields": {
+      "requirementLineId": "Long:主键",
+      "@include": ":pequirementLineFields",
+      "brand": "String:品牌",
+      "extFeeSubject": "String:费用科目",
+      "extPoolStatus": "String:需求池状态,Y有效 N已关闭）",
+      "extClosedCause": "String:关闭原因",
+      "extClosedFileId": "Long:关闭附件id",
+      "extClosedFileName": "String:关闭附件名称",
+      "extAttachId": "Long:附件id",
+      "extAttachName": "String:附件名称",
+      "extProductFlag": "String:是否商品，Y是，N否",
+      "extPredictPrice": "BigDecimal:预估单价",
+      "extPredictAmount": "BigDecimal:预估总价",
+      "extUseDepartmentId": "String:使用部门ID",
+      "extUseDepartmentCode": "String:使用部门编码",
+      "extUseDepartmentName": "String:使用部门名称",
+      "extUserName": "String:使用人名称",
+      "extUserCode": "String:使用人工号",
+      "extUserPhone": "String:使用人联系方式",
+      "extPushUserName": "String:分单人名称",
+      "extPushUserCode": "String:分单人工号",
+      "extPushTime": "LocalDateTime:分单时间",
+      "extUseTo": "String:用途",
+      "extMaterialModel": "String:型号",
+      "extBuyType": "String:购买类型",
+      "extBuyTypeComment": "String:购买类型备注",
+      "extHistoryVendorFlag": "String:是否引出历史供应商，Y/N",
+      "extHistoryVendorCode1": "String:历史供应商编码1",
+      "extHistoryVendorName1": "String:历史供应商名称1",
+      "extHistoryVendorPrice1": "BigDecimal:历史供应商价格1",
+      "extHistoryVendorBrand1": "String:历史供应商品牌1",
+      "extHistoryOrderDetail1": "Long:历史供应商订单1",
+      "extHistoryVendorCode2": "String:历史供应商编码2",
+      "extHistoryVendorName2": "String:历史供应商名称2",
+      "extHistoryVendorPrice2": "BigDecimal:历史供应商价格2",
+      "extHistoryVendorBrand2": "String:历史供应商品牌2",
+      "extHistoryOrderDetail2": "Long:历史供应商订单2",
+      "extHistoryVendorCode3": "String:历史供应商编码3",
+      "extHistoryVendorName3": "String:历史供应商名称3",
+      "extHistoryVendorPrice3": "BigDecimal:历史供应商价格3",
+      "extHistoryVendorBrand3": "String:历史供应商品牌3",
+      "extHistoryOrderDetail3": "Long:历史供应商订单3",
+      "extAreaId": "String:区域ID",
+      "extAreaCode": "String:区域编码",
+      "extAreaName": "String:区域名称",
+      "extShareStock": "BigDecimal:共享库存",
+      "extActualStock": "BigDecimal:实时库存",
+      "extReceiver": "String:收货人",
+      "ifCreateInq": "String:是否已创建询比价",
+      "fixPriceStatus": "String:定价状态EXT_PR_REQ_FIX_PRICE_STATUS",
+      "extInqProjectId": "Long:询价单ID",
+      "extInqSouNo": "String:询价单号",
+      "extLeadTime": "Integer:供货周期",
+      "extInvoiceType": "String:发票类型",
+      "extWarrantyPeriod": "Integer:质保期",
+      "externalId": "String:外部行ID",
+      "edmOrgId": "String:组织ID",
+      "tenantId": "String:租户ID",
+      "extAdvancePaymentRemark": {
+        "type": "com.midea.cloud.srm.model.common.enums.Enable",
+        "desc": "预付款说明：Y/N"
+      },
+      "extUserPhone": "String:使用人联系方式",
+      "invoiceOrgName": {
+        "type": "String",
+        "desc": "开票主体",
+        "virtual": true
+      },
+      "materialType": {
+        "type": "String",
+        "desc": "规格类型",
+        "virtual": true
+      }
+    },
+    "relations": {
+      "requirementHeadId": "PurchaseRequirementHead"
+    }
+  },
+  "PurchaseRequirementAttach:ceea_pr_requirement_attach": {
+    "comment": "采购申请附件",
+    "keyField": "attachId",
+    "fields": {
+      "attachId": "Long:主键",
+      "@include": ":requirementAttachFields"
+    }
+  },
+  "SccPrReqEdmattachSync:scc_pr_req_edmattach_sync": {
+    "comment": "采购需求行表EMD附件同步记录表",
+    "keyField": "edmattachId",
+    "fields": {
+      "@include": ":sccPrReqEdmattachSyncFields"
+    }
+  }
+}

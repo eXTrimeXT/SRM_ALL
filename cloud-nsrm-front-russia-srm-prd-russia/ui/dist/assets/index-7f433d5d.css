@@ -1,0 +1,20 @@
+.mt-10[data-v-b017c4ef] {
+  margin-top: 10px;
+}
+.wrapper[data-v-b017c4ef] {
+  padding-bottom: 40px;
+}
+.wrapper[data-v-b017c4ef] .blue .el-input__inner {
+  color: #409eff;
+}[data-v-2c2f0cd3] .el-collapse {
+  height: 100%;
+}
+[data-v-2c2f0cd3] .el-collapse > div {
+  height: calc(100% - 40px);
+}
+[data-v-2c2f0cd3] .el-collapse > div .el-collapse-item__wrap {
+  height: calc(100% - 16px);
+}
+[data-v-2c2f0cd3] .el-collapse > div .el-collapse-item__content {
+  height: 100%;
+}

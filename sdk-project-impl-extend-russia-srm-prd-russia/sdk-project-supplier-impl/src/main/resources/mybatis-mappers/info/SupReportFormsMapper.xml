@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sup.mapper.SupReportFormsMapper">
+
+    <select id="getSupRfList" resultType="com.midea.cloud.srm.sup.dto.SupReportFormsDto">
+        SELECT t.* FROM (
+        SELECT tt.*, ifnull(round((ytbNum / tjNum)* 100, 2), 0) AS cy, ifnull(round((zbNum / ytbNum)* 100, 2), 0) AS zb FROM
+        (
+        SELECT
+        ssci.COMPANY_ID AS supId,
+        ssci.COMPANY_NAME AS supName,
+        ssci.COMPANY_CODE AS supCode,
+        ssgcu.CONTACT_NAME AS contactName,
+        ssgcu.CEEA_CONTACT_METHOD AS contactTel,
+        ssgcu.EMAIL AS contactEmail,
+        ssci.REGISTERED_CAPITAL AS registeredCapital,
+        ssci.REGIST_CURRENCY AS bzCode,
+        sma.AUTH_NUM AS zzLevel,
+        ssci.COMPANY_CREATION_DATE AS comUp,
+        round(DATEDIFF(CURDATE(), ssci.COMPANY_CREATION_DATE)/ 365, 2) AS comUpNum,
+        IFNULL(ssci.APPLICATION_DATE, ssci.CREATION_DATE) AS regDate,
+        ssci.COMPANY_ADDRESS AS address,
+        sbr.AREA_NAME AS province,
+        sbre.AREA_NAME AS city,
+        tsso.num AS ytbNum, -- 已投标 数量
+        ssve.num AS tjNum, -- 推荐数量
+        sbnde.num AS zbNum, -- 中标数量
+        snpshe.num AS hgNum, -- 合同数量
+        snpshea.num AS bhgNum, -- 不中标数量
+        iih.PROJECT_NAME AS projectName,
+        iih.PROJECT_NO AS projectCode,
+        iih.CATEGORY_NAME AS pl,
+        iih.CATEGORY_ID AS categoryId
+        FROM
+        (select * from meicloud_usrm_cloud_biz_supplier.scc_sup_company_info ci where ci.COMPANY_CODE  IS NOT NULL AND ci.COMPANY_CODE !='')   ssci
+        LEFT JOIN (SELECT COMPANY_ID, CONTACT_NAME, CEEA_CONTACT_METHOD, EMAIL FROM meicloud_usrm_cloud_biz_supplier.scc_sup_contact_info WHERE CEEA_DEFAULT_CONTACT = 'Y' GROUP BY COMPANY_ID) ssgcu ON ssgcu.COMPANY_ID = ssci.COMPANY_ID
+        LEFT JOIN (SELECT GROUP_CONCAT(AUTH_NUM) AS AUTH_NUM, COMPANY_ID FROM meicloud_usrm_cloud_biz_supplier.ceea_sup_management_attach GROUP BY COMPANY_ID) sma ON sma.COMPANY_ID = ssci.COMPANY_ID
+        LEFT JOIN meicloud_usrm_cloud_biz_base.scc_base_region sbr ON sbr.REGION_ID = ssci.COMPANY_PROVINCE
+        LEFT JOIN meicloud_usrm_cloud_biz_base.scc_base_region sbre ON sbre.REGION_ID = ssci.COMPANY_CITY
+
+        LEFT JOIN ( select sspo.VENDOR_ID,count(sspo.VENDOR_ID) as num from(
+            SELECT ssp.VENDOR_ID, ssp.PROJECT_ID FROM meicloud_usrm_cloud_biz_sou.ext_scc_sou_order sso
+        join meicloud_usrm_cloud_biz_sou.scc_sou_order ssp on ssp.ORDER_ID = sso.ORDER_ID
+        join meicloud_usrm_cloud_biz_sou.scc_sou_project sp on sp.CREATE_APPROVAL_STATUS='APPROVED'
+        and sp.PROJECT_ID = ssp.PROJECT_ID
+        where  sso.ORDER_STATUS in ('SUBMISSION','CANCEL') GROUP BY ssp.VENDOR_ID, ssp.PROJECT_ID) sspo  GROUP BY sspo.VENDOR_ID ) tsso ON tsso.VENDOR_ID = ssci.COMPANY_ID
+        LEFT JOIN ( SELECT COUNT(*) AS num, ssv.VENDOR_ID AS VENDOR_ID FROM meicloud_usrm_cloud_biz_sou.scc_sou_vendor ssv
+        join meicloud_usrm_cloud_biz_sou.scc_sou_project ssp on ssp.PROJECT_ID = ssv.PROJECT_ID and ssp.SOU_TYPE = 'recomm' and ssp.PROJECT_STATUS='APPROVED'
+        where not exists(
+        SELECT 1 FROM meicloud_usrm_cloud_biz_sou.scc_sou_vendor ssv1
+        join meicloud_usrm_cloud_biz_sou.scc_sou_recomm_vendor ssp1 on ssp1.PROJECT_ID = ssv1.PROJECT_ID
+        where ssp1.RCOMMEND_TYPE = 'ADD' and ssp1.ORIGINAL_EXT_RECOMMEND_NO = ssp.SOU_NO
+        and ssv1.VENDOR_ID = ssv.VENDOR_ID
+        )
+        GROUP BY ssv.VENDOR_ID) ssve ON ssve.VENDOR_ID = ssci.COMPANY_ID
+        LEFT JOIN ( SELECT COUNT(*) AS num, sbnd.vendor_id AS vendor_id FROM
+        meicloud_usrm_cloud_biz_sou.scc_npm_sou_bid_notice_detail sbnd  LEFT JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_bid_notice sbn ON sbnd.bid_notice_id = sbn.bid_notice_id
+        WHERE sbn.`status` = 'APPROVED' AND sbnd.is_win = 'Y' GROUP BY sbnd.vendor_id) sbnde ON sbnde.vendor_id = ssci.COMPANY_ID
+        LEFT JOIN ( SELECT COUNT(*) AS num, snpsh.COMPANY_ID AS COMPANY_ID  FROM meicloud_usrm_cloud_biz_performance.scc_npm_project_score_header snpsh
+        WHERE snpsh.PERFORMANCE_TYPE = 'PROJECT' AND snpsh.LEVEL_NAME IN ('合格', '合格待改善') GROUP BY snpsh.COMPANY_ID) snpshe ON snpshe.COMPANY_ID = ssci.COMPANY_ID
+        LEFT JOIN (SELECT COUNT(*) AS num, snpsh.COMPANY_ID AS COMPANY_ID FROM meicloud_usrm_cloud_biz_performance.scc_npm_project_score_header snpsh
+        WHERE snpsh.PERFORMANCE_TYPE = 'PROJECT' AND snpsh.LEVEL_NAME = '不合格' GROUP BY snpsh.COMPANY_ID) snpshea ON snpshea.COMPANY_ID = ssci.COMPANY_ID
+        LEFT JOIN (SELECT snsih.VENDOR_ID AS VENDOR_ID, snsii.PROJECT_NAME AS PROJECT_NAME, snsii.PROJECT_NO AS PROJECT_NO, snsii.CATEGORY_NAME AS CATEGORY_NAME,snsii.CATEGORY_ID AS CATEGORY_ID
+        FROM meicloud_usrm_cloud_biz_sou.scc_npm_sou_invite_item snsii
+        LEFT JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_invite_head snsih ON snsih.INVITE_HEAD_ID = snsii.INVITE_HEAD_ID
+        <where>
+            <!--品类-->
+
+            <if test="pa.categoryId != '' and pa.categoryId != null">
+                AND snsii.CATEGORY_ID = #{pa.categoryId}
+            </if>
+        </where>
+        <!-- GROUP BY snsih.VENDOR_ID -->
+           ) iih ON iih.VENDOR_ID = ssci.COMPANY_ID
+
+        <where>
+            <!--项目-->
+            <if test="pa.projectName != '' and pa.projectName != null">
+                AND iih.PROJECT_NAME LIKE CONCAT('%', #{pa.projectName,jdbcType=VARCHAR}, '%')
+            </if>
+        </where>
+
+        GROUP BY
+        ssci.COMPANY_ID
+        ) tt
+        ) t
+        <where>
+            <if test="pa.supName != '' and pa.supName != null">
+                AND t.supName LIKE CONCAT('%', #{pa.supName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.supCode != '' and pa.supCode != null">
+                AND t.supCode LIKE CONCAT('%', #{pa.supCode,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.contactName != '' and pa.contactName != null">
+                AND t.contactName LIKE CONCAT('%', #{pa.contactName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.contactTel != '' and pa.contactTel != null">
+                AND t.contactTel LIKE CONCAT('%', #{pa.contactTel,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.address != '' and pa.address != null">
+                AND t.address LIKE CONCAT('%', #{pa.address,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.province != '' and pa.province != null">
+                AND t.province LIKE CONCAT('%', #{pa.province,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.city != '' and pa.city != null">
+                AND t.city LIKE CONCAT('%', #{pa.city,jdbcType=VARCHAR}, '%')
+            </if>
+            <!--参与率-->
+            <if test="pa.cylStart != null">
+                AND t.cy <![CDATA[>=]]> #{pa.cylStart,jdbcType=DECIMAL}
+            </if>
+            <if test="pa.cylEnd != null">
+                AND t.cy <![CDATA[<=]]> #{pa.cylEnd,jdbcType=DECIMAL}
+            </if>
+            <!--项目名称-->
+            <if test="pa.projectName != '' and pa.projectName != null">
+                AND t.projectName LIKE CONCAT('%', #{pa.projectName,jdbcType=VARCHAR}, '%')
+            </if>
+            <!--中标率-->
+            <if test="pa.zblStart != null">
+                AND t.zb <![CDATA[>=]]> #{pa.zblStart,jdbcType=DECIMAL}
+            </if>
+            <if test="pa.zblEnd != null">
+                AND t.zb <![CDATA[<=]]> #{pa.zblEnd,jdbcType=DECIMAL}
+            </if>
+
+            <!--注册资金-->
+            <if test="pa.zcFundStart != null">
+                AND t.registeredCapital <![CDATA[>=]]> #{pa.zcFundStart}
+            </if>
+            <if test="pa.zcFundEnd != null">
+                AND t.registeredCapital <![CDATA[<=]]> #{pa.zcFundEnd}
+            </if>
+            <if test="pa.contactEmail != '' and pa.contactEmail != null">
+                AND t.contactEmail LIKE CONCAT('%', #{pa.contactEmail,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.clYearStart != '' and pa.clYearStart != null">
+                AND t.comUp <![CDATA[>=]]> #{pa.clYearStart,jdbcType=VARCHAR}
+            </if>
+            <if test="pa.clYearEnd != '' and pa.clYearEnd != null">
+                AND t.comUp <![CDATA[<=]]> #{pa.clYearEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="pa.zzLevel != '' and pa.zzLevel != null">
+                AND t.zzLevel REGEXP #{pa.zzLevel,jdbcType=VARCHAR}
+            </if>
+            <if test="pa.projectCode != '' and pa.projectCode != null">
+                AND t.projectCode LIKE CONCAT('%', #{pa.projectCode,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.categoryId != '' and pa.categoryId != null">
+                AND t.categoryId =#{pa.categoryId}
+            </if>
+
+        </where>
+    </select>
+
+    <select id="getSupRfLists" resultType="com.midea.cloud.srm.sup.dto.SupReportFormsDto">
+        SELECT t.* FROM (
+        SELECT
+            tt.*,
+            round((ytbNum / tjNum)*100, 2) AS cy,
+            round((zbNum / ytbNum)*100, 2) AS zb
+        FROM (
+            SELECT
+                ssci.COMPANY_ID AS supId,
+                ssci.COMPANY_NAME AS supName,
+                ssci.COMPANY_CODE AS supCode,
+                ssgcu.USERNAME AS contactName,
+                ssgcu.PHONE AS contactTel,
+                ssgcu.EMAIL AS contactEmail,
+                ssci.REGISTERED_CAPITAL AS registeredCapital,
+                ssci.REGIST_CURRENCY AS bzCode,
+                (
+                    SELECT
+                        GROUP_CONCAT(sma.AUTH_NUM)
+                    FROM
+                        meicloud_usrm_cloud_biz_supplier.ceea_sup_management_attach sma
+                    WHERE
+                        sma.COMPANY_ID = ssci.COMPANY_ID) AS zzLevel,
+                ssci.COMPANY_CREATION_DATE AS comUp,
+                round(DATEDIFF(CURDATE(), ssci.COMPANY_CREATION_DATE)/365, 2) AS comUpNum,
+                ssci.APPLICATION_DATE AS regDate,
+                ssci.COMPANY_ADDRESS AS address,
+        (SELECT sbr.AREA_NAME FROM meicloud_usrm_cloud_biz_base.scc_base_region sbr WHERE sbr.REGION_ID = ssci.COMPANY_PROVINCE) AS province,
+        (SELECT sbr.AREA_NAME FROM meicloud_usrm_cloud_biz_base.scc_base_region sbr WHERE sbr.REGION_ID = ssci.COMPANY_CITY) AS city,
+                (
+                    SELECT
+                        COUNT(*)
+                    FROM
+                    (
+                        SELECT
+                        sso.VENDOR_ID,
+                        sso.PROJECT_ID,
+                        COUNT(*)
+                    FROM
+                        meicloud_usrm_cloud_biz_sou.scc_sou_order sso
+                    GROUP BY
+                        sso.VENDOR_ID,
+                        sso.PROJECT_ID) t
+                    WHERE
+                        t.VENDOR_ID = ssci.COMPANY_ID
+                ) AS ytbNum,
+                (
+                    SELECT
+                        COUNT(*)
+                    FROM
+                        meicloud_usrm_cloud_biz_sou.scc_sou_vendor ssv
+                    WHERE
+                        ssv.VENDOR_ID = ssci.COMPANY_ID
+                ) AS tjNum,
+                (
+                    SELECT
+                        COUNT(*)
+                    FROM
+                        meicloud_usrm_cloud_biz_sou.scc_npm_sou_bid_notice_detail sbnd
+                        LEFT JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_bid_notice sbn ON sbnd.bid_notice_id = sbn.bid_notice_id
+                    WHERE
+                        sbn.`status` = 'APPROVED'
+                        AND sbnd.is_win = 'Y'
+                        AND sbnd.vendor_id = ssci.COMPANY_ID
+                ) AS zbNum,
+                (
+                    SELECT
+                        COUNT(*)
+                    FROM
+                        meicloud_usrm_cloud_biz_performance.scc_npm_project_score_header snpsh
+                    WHERE
+                        snpsh.COMPANY_ID = ssci.COMPANY_ID
+                        AND snpsh.PERFORMANCE_TYPE = 'PROJECT'
+                        AND snpsh.LEVEL_NAME IN ('合格', '合格待改善')) AS hgNum,
+                (
+                    SELECT
+                        COUNT(*)
+                    FROM
+                        meicloud_usrm_cloud_biz_performance.scc_npm_project_score_header snpsh
+                    WHERE
+                        snpsh.COMPANY_ID = ssci.COMPANY_ID
+                        AND snpsh.PERFORMANCE_TYPE = 'PROJECT'
+                        AND snpsh.LEVEL_NAME = '不合格') AS bhgNum
+            FROM
+                meicloud_usrm_cloud_biz_supplier.scc_sup_company_info ssci
+                LEFT JOIN meicloud_usrm_cloud_biz_supplier.scc_sup_green_channel_user ssgcu ON ssgcu.COMPANY_ID = ssci.COMPANY_ID
+        ) tt ) t
+        <where>
+            <if test="pa.supName != '' and pa.supName != null">
+                AND t.supName LIKE CONCAT('%', #{pa.supName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.supCode != '' and pa.supCode != null">
+                AND t.supCode LIKE CONCAT('%', #{pa.supCode,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.contactName != '' and pa.contactName != null">
+                AND t.contactName LIKE CONCAT('%', #{pa.contactName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.contactTel != '' and pa.contactTel != null">
+                AND t.contactTel LIKE CONCAT('%', #{pa.contactTel,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.address != '' and pa.address != null">
+                AND t.address LIKE CONCAT('%', #{pa.address,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.province != '' and pa.province != null">
+                AND t.province LIKE CONCAT('%', #{pa.province,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.city != '' and pa.city != null">
+                AND t.city LIKE CONCAT('%', #{pa.city,jdbcType=VARCHAR}, '%')
+            </if>
+            <!--参与率-->
+            <if test="pa.cylStart != null">
+                AND t.cy <![CDATA[>=]]> #{pa.cylStart,jdbcType=DECIMAL}
+            </if>
+            <if test="pa.cylEnd != null">
+                AND t.cy <![CDATA[<=]]> #{pa.cylEnd,jdbcType=DECIMAL}
+            </if>
+            <!-- 项目名称
+            <if test="pa.projectName != '' and pa.projectName != null">
+                AND t.projectName LIKE CONCAT('%', #{pa.projectName,jdbcType=VARCHAR}, '%')
+            </if>-->
+            <!--中标率-->
+            <if test="pa.zblStart != null">
+                AND t.zb <![CDATA[>=]]> #{pa.zblStart,jdbcType=DECIMAL}
+            </if>
+            <if test="pa.zblEnd != null">
+                AND t.zb <![CDATA[<=]]> #{pa.zblEnd,jdbcType=DECIMAL}
+            </if>
+            <!-- 品类
+            <if test="pa.pl != '' and pa.pl != null">
+                AND t.pl LIKE CONCAT('%', #{pa.pl,jdbcType=VARCHAR}, '%')
+            </if>-->
+            <!--注册资金-->
+            <if test="pa.zcFundStart != null">
+                AND t.registeredCapital <![CDATA[>=]]> #{pa.zcFundStart}
+            </if>
+            <if test="pa.zcFundEnd != null">
+                AND t.registeredCapital <![CDATA[<=]]> #{pa.zcFundEnd}
+            </if>
+            <if test="pa.contactEmail != '' and pa.contactEmail != null">
+                AND t.contactEmail LIKE CONCAT('%', #{pa.contactEmail,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.clYearStart != '' and pa.clYearStart != null">
+                AND t.comUp <![CDATA[>=]]> #{pa.clYearStart,jdbcType=VARCHAR}
+            </if>
+            <if test="pa.clYearEnd != '' and pa.clYearEnd != null">
+                AND t.comUp <![CDATA[<=]]> #{pa.clYearEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="pa.zzLevel != '' and pa.zzLevel != null">
+                AND t.zzLevel LIKE CONCAT('%', #{pa.zzLevel,jdbcType=VARCHAR}, '%')
+            </if>
+            <!--<if test="pa.projectCode != '' and pa.projectCode != null">
+                AND t.projectCode LIKE CONCAT('%', #{pa.projectCode,jdbcType=VARCHAR}, '%')
+            </if>-->
+            <if test="pa.supIdList != null and pa.supIdList.size() > 0">
+                AND t.supId IN
+                <foreach collection="pa.supIdList" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="supReportFormsInfoList" resultType="com.midea.cloud.srm.sup.dto.SupReportFormsInfoDto">
+        SELECT * FROM (
+        SELECT
+        snsii.PROJECT_NO AS zbCode,
+        snsih.VENDOR_ID AS supId,
+        snsih.VENDOR_NAME AS supName,
+        snsih.CREATION_DATE ,
+        snsii.PROJECT_NAME AS projectName,
+        snsii.CATEGORY_NAME AS pl,
+        snsii.IS_BID AS sfBid,
+        snsii.IS_SUCC_BID AS sfBidder,
+        bn.win_amount AS bidderMoney,
+        <!--slh.SCORE AS htGetScore,
+        slh.LEVEL_NAME AS htResult,
+        slh.SUPPLIER_REMARK AS htDealResult,-->
+        soprd.EXT_TENDER_NAME AS tbPerson,
+        soprd.EXT_TENDER_PHONE AS tbTel,
+        soprd.PROJECT_STATUS AS projectStatus
+        FROM
+        meicloud_usrm_cloud_biz_sou.scc_npm_sou_invite_item snsii
+        LEFT JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_invite_head snsih ON snsih.INVITE_HEAD_ID = snsii.INVITE_HEAD_ID
+        LEFT JOIN (
+        SELECT
+        snsbnd.win_amount,
+        snsbn.ext_project_no
+        FROM
+        meicloud_usrm_cloud_biz_sou.scc_npm_sou_bid_notice_detail snsbnd
+        LEFT JOIN
+        meicloud_usrm_cloud_biz_sou.scc_npm_sou_bid_notice snsbn ON
+        snsbnd.bid_notice_id = snsbn.bid_notice_id
+        WHERE
+        snsbnd.vendor_id = #{pa.supId,jdbcType=BIGINT}
+        ) bn ON bn.ext_project_no = snsii.PROJECT_NO
+        <!--LEFT JOIN (
+            SELECT
+                snpsh.COMPANY_ID,
+                snpsh.BID_CODE,
+                snpsh.SCORE,
+                snpsh.LEVEL_NAME,
+                snpsh.SUPPLIER_REMARK
+            FROM
+                meicloud_usrm_cloud_biz_performance.scc_npm_project_score_header snpsh
+            WHERE
+                snpsh.PERFORMANCE_TYPE = 'PROJECT'
+              AND snpsh.COMPANY_ID = #{pa.supId,jdbcType=BIGINT}
+        ) slh ON slh.BID_CODE = snsii.PROJECT_NO-->
+        LEFT JOIN (
+        SELECT
+        sord.EXT_TENDER_NAME ,
+        sord.EXT_TENDER_PHONE,
+        spro.EXT_PROJECT_NO,
+        case spro.PROJECT_STATUS when 'ARCHIVE_DONE' THEN '完成'
+        when 'ABANDON' then '取消' ELSE '进行中' end PROJECT_STATUS
+        FROM
+        meicloud_usrm_cloud_biz_sou.scc_sou_order sord
+        JOIN meicloud_usrm_cloud_biz_sou.scc_sou_project spro ON spro.PROJECT_ID = sord.PROJECT_ID
+        WHERE
+        sord.VENDOR_ID = #{pa.supId,jdbcType=BIGINT}
+        ) soprd ON soprd.EXT_PROJECT_NO = snsii.PROJECT_NO
+        ) t
+        <where>
+            <if test="pa.supId != null">
+                AND t.supId = #{pa.supId,jdbcType=BIGINT}
+            </if>
+            <if test="pa.projectName != '' and pa.projectName != null">
+                AND t.projectName LIKE CONCAT('%', #{pa.projectName,jdbcType=VARCHAR}, '%')
+            </if>
+
+            <if test="pa.pl != '' and pa.pl != null">
+                AND t.pl LIKE CONCAT('%', #{pa.pl,jdbcType=VARCHAR}, '%')
+            </if>
+
+            <if test="pa.projectCode != '' and pa.projectCode != null">
+                AND t.zbCode LIKE CONCAT('%', #{pa.projectCode,jdbcType=VARCHAR}, '%')
+            </if>
+        </where>
+        ORDER BY t.CREATION_DATE DESC
+    </select>
+
+    <select id="projectScoreHeaderList" resultType="com.midea.cloud.srm.sup.dto.SupReportFormsInfoDto">
+        SELECT
+            snpsh.BID_CODE AS zbCode,
+            snpsh.SCORE AS htGetScore,
+            snpsh.LEVEL_NAME AS htResult,
+            snpsh.SUPPLIER_REMARK AS htDealResult,
+            snpsh.PROJECT_STATUS as htStatus
+        FROM
+            meicloud_usrm_cloud_biz_performance.scc_npm_project_score_header snpsh
+        WHERE
+            snpsh.PERFORMANCE_TYPE = 'PROJECT'
+            AND snpsh.COMPANY_ID = #{supId,jdbcType=BIGINT}
+    </select>
+
+    <select id="getContractHeadList" resultType="java.lang.String">
+        SELECT
+            ch.CONTRACT_HEAD_ID
+        FROM
+            meicloud_usrm_cloud_biz_contract.scc_contract_head ch
+        WHERE
+            ch.vendor_id = #{supId,jdbcType=BIGINT}
+          AND ch.SOURCE_NUMBER = #{projectNo,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getSupList" resultType="java.lang.Long">
+        SELECT
+            snsih.VENDOR_ID
+        FROM
+            meicloud_usrm_cloud_biz_sou.scc_npm_sou_invite_item snsii
+            LEFT JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_invite_head snsih ON snsih.INVITE_HEAD_ID = snsii.INVITE_HEAD_ID
+        <where>
+            <if test="pa.projectName != '' and pa.projectName != null">
+                AND snsii.PROJECT_NAME LIKE CONCAT('%', #{pa.projectName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.projectCode != '' and pa.projectCode != null">
+                AND snsii.PROJECT_NO LIKE CONCAT('%', #{pa.projectCode,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pa.pl != null and pa.pl != ''">
+                AND snsii.CATEGORY_NAME LIKE CONCAT('%', #{pa.pl,jdbcType=VARCHAR}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,1 @@
+alter table scc_npm_sou_expert_apply add IF_GREEN_PERSON_UPDATE char(1) default 'N' not null comment '绿色通道个人更新状态';

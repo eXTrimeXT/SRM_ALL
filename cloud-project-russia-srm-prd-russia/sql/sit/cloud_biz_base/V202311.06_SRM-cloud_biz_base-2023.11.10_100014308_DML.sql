@@ -1,0 +1,2 @@
+ALTER TABLE `scc_base_org_company_address` ADD COLUMN `ADDRESS_REGION` VARCHAR(100) NULL COMMENT '地址区域' COLLATE 'utf8mb4_general_ci' AFTER `IS_ACTIVE`;
+ALTER TABLE `scc_base_org_company_address` ADD COLUMN `IS_DEFAULT` VARCHAR(2) NULL COMMENT '是否默认(Y-是,N-否)' COLLATE 'utf8mb4_general_ci' AFTER `ADDRESS_REGION`;

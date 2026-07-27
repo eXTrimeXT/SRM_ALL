@@ -1,0 +1,1 @@
+alter table scc_sou_inq_order_item add FIX_PRICING char default 'N' null comment '是否被定价单引用';

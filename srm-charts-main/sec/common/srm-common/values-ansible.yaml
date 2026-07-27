@@ -1,0 +1,35 @@
+global:
+  #--填写管理员分配的namespace名称,注意所有配置不能使用符号"_"
+  env:  {{env}}
+  name: srm
+  domain: {{srm.charts.common.domain}}
+  profiles: {{srm.charts.common.profiles}}
+  namespace: {{global_k8s_namespace}}
+  ingress:
+    enable: {{global_app_domain_enable}}
+    allInOne: false
+  jasypt:
+    password: {{global.app.encryptor.password}}
+  nginx:
+    ipaas: {{srm.charts.common.nginx.ipaas}}
+    iam: {{srm.charts.common.nginx.iam}}
+    ideFlow: {{srm.charts.common.nginx.ideFlow}}
+    egg: {{srm.charts.common.nginx.egg}}
+  redis:
+    ip: {{global.redis.host}}
+    db: {{srm.charts.redis.db}}
+    password: {{global.redis.password}}
+    port: {{global.redis.port}}
+  nacos:
+    config:
+      serverAddr: {{global.nacos.url}}
+      namespace: {{global.nacos.namespace}}
+      group: srm
+    global_group: {{global.nacos.global_group}}
+    discovery:
+      serverAddr: {{global.nacos.url}}
+      namespace: {{global.nacos.namespace}}
+      group: {{global.nacos.group}}
+    global_group: {{global.nacos.global_group}}
+      #ip: {{srm.charts.common.nacos.discovery.ip}}
+    #port: {{srm.charts.common.nacos.discovery.port}}

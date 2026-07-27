@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.biz.pj.sou.sourcing.select.dao.SouSelectMapper">
+
+    <select id="querySelectList"
+            resultType="com.midea.cloud.srm.model.pj.sou.openapi.comp.vo.select.ApiSouSelectItemQueryVO">
+        select
+        order_item.ORDER_ITEM_ID,               <!-- 报价行ID -->
+        order_item.PROJECT_ID,                  <!-- 寻源单ID -->
+        order_item.SOU_ITEM_ID,                 <!-- 物料需求行ID -->
+        order_item.ORDER_ID,                    <!-- 报价单ID -->
+        order_item.order_round,                       <!-- 轮次 -->
+        order_item.ORDER_STATUS,                <!-- 寻源单状态 -->
+        order_item.VENDOR_ID,                   <!-- 供应商ID -->
+        order_item.LAST_UPDATE_DATE,
+        vendor.VENDOR_CODE,                   <!-- 供应商ID -->
+        vendor.VENDOR_NAME,                   <!-- 供应商ID -->
+        order_item.MONTHLY_PRODUCTION,                   <!-- 供应商ID -->
+        order_item.ORDER_NOTAX_PRICE,           <!-- 报价不含税单价 -->
+        order_item.ORDER_TAX_PRICE,              <!-- 报价含税单价 -->
+        project.ORDER_END_TIME,              <!-- 报价结束时间 -->
+        item.ITEM_DESC,              <!-- 物料名称 -->
+        item.AFFILIATED_UNIT,              <!-- 所属单位 -->
+        item.METERING_UNIT,
+        vendor.VENDOR_NAME              <!-- 供应商名称 -->
+        from scc_sou_order_item order_item
+        left join scc_sou_item item on order_item.SOU_ITEM_ID = item.SOU_ITEM_ID
+        left join scc_sou_vendor vendor on vendor.VENDOR_ID = order_item.VENDOR_ID and vendor.PROJECT_ID = #{projectId}
+        left join scc_sou_project project on project.PROJECT_ID = order_item.PROJECT_ID
+        where
+        order_item.ORDER_STATUS = 'SUBMISSION'
+        and order_item.PROJECT_ID =#{projectId}
+        <if test="itemCode != null and itemCode.length() > 0"> <!-- 物料编码 -->
+            and order_item.ITEM_CODE like concat('%', concat(#{itemCode}, '%'))
+        </if>
+        <if test="itemDesc != null and itemDesc.length() > 0"> <!-- 物料名称 -->
+            and order_item.ITEM_DESC like concat('%', concat(#{itemDesc}, '%'))
+        </if>
+        <if test="orgOuCode != null and orgOuCode.length() > 0"> <!-- 业务实体编码 -->
+            and item.ORG_OU_CODE = #{orgOuCode}
+        </if>
+        <if test="orgOuName != null and orgOuName.length() > 0"> <!-- 业务实体名称 -->
+            and item.ORG_OU_NAME like concat('%', concat(#{orgOuName}, '%'))
+        </if>
+        <if test="orgInvCode != null and orgInvCode.length() > 0"> <!-- 库存组织编码 -->
+            and item.ORG_INV_CODE = #{orgInvCode}
+        </if>
+        <if test="orgInvName != null and orgInvName.length() > 0"> <!-- 库存组织编码 -->
+            and item.ORG_INV_NAME like concat('%', concat(#{orgInvName}, '%'))
+        </if>
+        <if test="itemGroup != null and itemGroup.length() > 0"> <!-- 物料组合 -->
+            and item.ITEM_GROUP like concat('%', concat(#{itemGroup}, '%'))
+        </if>
+        <if test="vendorId != null"> <!-- 供应商ID -->
+            and order_item.VENDOR_ID = #{vendorId}
+        </if>
+        <if test="vendorName != null and vendorName.length() > 0"> <!-- 供应商名称 -->
+            and vendor.VENDOR_NAME like concat('%', concat(#{vendorName}, '%'))
+        </if>
+        <if test="winStatus != null"> <!-- 本轮入围情况 -->
+            and order_item.WIN_STATUS = #{winStatus}
+        </if>
+        <if test="selectStatus != null"> <!-- 评选结果 -->
+            and order_item.SELECT_STATUS = #{selectStatus}
+        </if>
+        <if test="round != null"> <!-- 轮次 -->
+            and order_item.ROUND = #{round}
+        </if>
+        <if test="ranking != null"> <!-- 排名 -->
+            and order_item.RANKING = #{ranking}
+        </if>
+        <if test="onlySubmitOrder != null and onlySubmitOrder.name().equals('Y')"> <!-- 是否只查询已报价的供应商 -->
+            and order_item.ORDER_STATUS = 'SUBMISSION'
+        </if>
+        <if test="excludeCurrentRound != null and excludeCurrentRound.name().equals('Y')"> <!-- 是否排除最新轮次数据 -->
+            and order_item.ROUND != project.CURRENT_ROUND
+        </if>
+        <if test="quoteTimeFrom != null"> <!-- 报价截止日期范围 -->
+            AND project.ORDER_END_TIME >= #{quoteTimeFrom}
+        </if>
+        <if test="quoteTimeTo != null"> <!-- 报价截止日期范围 -->
+            AND project.ORDER_END_TIME &lt;= #{quoteTimeTo}
+        </if>
+        <if test="quoteFrom != null"> <!-- 报价范围 -->
+            AND order_item.ORDER_TAX_PRICE >= #{quoteFrom}
+        </if>
+        <if test="quoteTo != null"> <!-- 报价范围 -->
+            AND order_item.ORDER_TAX_PRICE &lt;= #{quoteTo}
+        </if>
+    </select>
+
+    <select id="queryWinNoticeList"
+            resultType="com.midea.cloud.srm.model.pj.sou.openapi.comp.vo.select.ApiSouSelectResultVO">
+        select
+        order_item.order_result_id,               <!-- 报价行ID -->
+        order_item.PROJECT_ID,                  <!-- 寻源单ID -->
+        order_item.SOU_ITEM_ID,                 <!-- 物料需求行ID -->
+        order_item.ORDER_ID,                    <!-- 报价单ID -->
+        order_item.PERIOD_VENDOR_ID,                       <!-- 轮次 -->
+        order_item.THIRD_VENDOR_ID,                <!-- 寻源单状态 -->
+        order_item.SECOND_VENDOR_ID,                   <!-- 供应商ID -->
+        order_item.MAX_VENDOR_ID,                   <!-- 供应商ID -->
+        order_item.AFFILIATED_UNIT,                   <!-- 供应商ID -->
+        order_item.MONTHLY_PRODUCTION,                   <!-- 供应商ID -->
+        order_item.MAX_PRICE,           <!-- 报价不含税单价 -->
+        order_item.SECOND_PRICE,              <!-- 报价含税单价 -->
+        order_item.THIRD_PRICE,              <!-- 报价结束时间 -->
+        order_item.PERIOD_PRICE,              <!-- 物料名称 -->
+        order_item.MONTH_TOTAL_AMOUNT,              <!-- 物料名称 -->
+        order_item.MAX_VENDOR_NAME,              <!-- 物料名称 -->
+        order_item.SECOND_VENDOR_NAME,              <!-- 物料名称 -->
+        order_item.THIRD_VENDOR_NAME,              <!-- 物料名称 -->
+        order_item.PERIOD_VENDOR_NAME,              <!-- 物料名称 -->
+        order_item.win_status,              <!-- 物料名称 -->
+        order_item.select_status,              <!-- 物料名称 -->
+        order_item.ORDER_REMARK,              <!-- 物料名称 -->
+        order_item.SELECT_REMARK,              <!-- 物料名称 -->
+        order_item.WIN_NOTICE_REMARK,              <!-- 物料名称 -->
+        order_item.RESULT_STATUS,              <!-- 物料名称 -->
+        order_item.WIN_NOTICE_STATUS,              <!-- 物料名称 -->
+        order_item.ITEM_DESC,              <!-- 物料名称 -->
+        order_item.ORDER_ROUND,              <!-- 物料名称 -->
+        order_item.WIN_VENDOR_ID,              <!-- 物料名称 -->
+        order_item.WIN_VENDOR_NAME,              <!-- 物料名称 -->
+        order_item.WIN_VENDOR_PRICE,              <!-- 物料名称 -->
+        order_item.DIFFERENCE_RATE              <!-- 供应商名称 -->
+        from scc_sou_order_result order_item
+        where
+        order_item.PROJECT_ID =#{projectId}
+        and order_item.select_status ='WIN'
+        <if test="itemCode != null and itemCode.length() > 0"> <!-- 物料编码 -->
+            and order_item.ITEM_CODE like concat('%', concat(#{itemCode}, '%'))
+        </if>
+        <if test="itemDesc != null and itemDesc.length() > 0"> <!-- 物料名称 -->
+            and order_item.ITEM_DESC like concat('%', concat(#{itemDesc}, '%'))
+        </if>
+        <if test="vendorId != null"> <!-- 供应商ID -->
+            and order_item.VENDOR_ID = #{vendorId}
+        </if>
+        <if test="winStatus != null"> <!-- 本轮入围情况 -->
+            and order_item.WIN_STATUS = #{winStatus}
+        </if>
+        <if test="selectStatus != null"> <!-- 评选结果 -->
+            and order_item.SELECT_STATUS = #{selectStatus}
+        </if>
+        <if test="round != null"> <!-- 轮次 -->
+            and order_item.ROUND = #{round}
+        </if>
+        <if test="ranking != null"> <!-- 排名 -->
+            and order_item.RANKING = #{ranking}
+        </if>
+        <if test="onlySubmitOrder != null and onlySubmitOrder.name().equals('Y')"> <!-- 是否只查询已报价的供应商 -->
+            and order_item.ORDER_STATUS = 'SUBMISSION'
+        </if>
+        <if test="excludeCurrentRound != null and excludeCurrentRound.name().equals('Y')"> <!-- 是否排除最新轮次数据 -->
+            and order_item.ROUND != project.CURRENT_ROUND
+        </if>
+        <if test="quoteFrom != null"> <!-- 报价范围 -->
+            AND order_item.ORDER_TAX_PRICE >= #{quoteFrom}
+        </if>
+        <if test="quoteTo != null"> <!-- 报价范围 -->
+            AND order_item.ORDER_TAX_PRICE &lt;= #{quoteTo}
+        </if>
+    </select>
+
+    <select id="queryHisItemList"
+            resultType="com.midea.cloud.srm.model.pj.sou.openapi.comp.vo.select.ApiSouSelectItemQueryVO">
+        select
+        order_item.ORDER_ITEM_ID,               <!-- 报价行ID -->
+        order_item.PROJECT_ID,                  <!-- 寻源单ID -->
+        order_item.SOU_ITEM_ID,                 <!-- 物料需求行ID -->
+        order_item.ORDER_ID,                    <!-- 报价单ID -->
+        order_item.order_round,                       <!-- 轮次 -->
+        order_item.ORDER_STATUS,                <!-- 寻源单状态 -->
+        order_item.VENDOR_ID,                   <!-- 供应商ID -->
+        order_item.ORDER_NOTAX_PRICE,           <!-- 报价不含税单价 -->
+        order_item.ORDER_TAX_PRICE,              <!-- 报价含税单价 -->
+        project.ORDER_END_TIME,              <!-- 报价结束时间 -->
+        item.ITEM_DESC,              <!-- 物料名称 -->
+        item.AFFILIATED_UNIT,              <!-- 所属单位 -->
+        vendor.VENDOR_NAME              <!-- 供应商名称 -->
+        from scc_sou_order_item_his order_item
+        left join scc_sou_item item on order_item.SOU_ITEM_ID = item.SOU_ITEM_ID
+        left join scc_sou_vendor vendor  on order_item.PROJECT_ID = vendor.PROJECT_ID  AND  order_item.vendor_id = vendor.vendor_id
+        left join scc_sou_project project on order_item.PROJECT_ID = project.PROJECT_ID
+        where
+         order_item.ORDER_STATUS = 'SUBMISSION'
+        and order_item.PROJECT_ID =#{projectId}
+        <if test="itemCode != null and itemCode.length() > 0"> <!-- 物料编码 -->
+            and order_item.ITEM_CODE like concat('%', concat(#{itemCode}, '%'))
+        </if>
+        <if test="itemDesc != null and itemDesc.length() > 0"> <!-- 物料名称 -->
+            and order_item.ITEM_DESC like concat('%', concat(#{itemDesc}, '%'))
+        </if>
+        <if test="orgOuCode != null and orgOuCode.length() > 0"> <!-- 业务实体编码 -->
+            and item.ORG_OU_CODE = #{orgOuCode}
+        </if>
+        <if test="orgOuName != null and orgOuName.length() > 0"> <!-- 业务实体名称 -->
+            and item.ORG_OU_NAME like concat('%', concat(#{orgOuName}, '%'))
+        </if>
+        <if test="orgInvCode != null and orgInvCode.length() > 0"> <!-- 库存组织编码 -->
+            and item.ORG_INV_CODE = #{orgInvCode}
+        </if>
+        <if test="orgInvName != null and orgInvName.length() > 0"> <!-- 库存组织编码 -->
+            and item.ORG_INV_NAME like concat('%', concat(#{orgInvName}, '%'))
+        </if>
+        <if test="itemGroup != null and itemGroup.length() > 0"> <!-- 物料组合 -->
+            and item.ITEM_GROUP like concat('%', concat(#{itemGroup}, '%'))
+        </if>
+        <if test="vendorId != null"> <!-- 供应商ID -->
+            and order_item.VENDOR_ID = #{vendorId}
+        </if>
+        <if test="vendorName != null and vendorName.length() > 0"> <!-- 供应商名称 -->
+            and vendor.VENDOR_NAME like concat('%', concat(#{vendorName}, '%'))
+        </if>
+        <if test="winStatus != null"> <!-- 本轮入围情况 -->
+            and order_item.WIN_STATUS = #{winStatus}
+        </if>
+        <if test="selectStatus != null"> <!-- 评选结果 -->
+            and order_item.SELECT_STATUS = #{selectStatus}
+        </if>
+        <if test="round != null"> <!-- 轮次 -->
+            and order_item.ROUND = #{round}
+        </if>
+        <if test="ranking != null"> <!-- 排名 -->
+            and order_item.RANKING = #{ranking}
+        </if>
+        <if test="onlySubmitOrder != null and onlySubmitOrder.name().equals('Y')"> <!-- 是否只查询已报价的供应商 -->
+            and order_item.ORDER_STATUS = 'SUBMISSION'
+        </if>
+        <if test="excludeCurrentRound != null and excludeCurrentRound.name().equals('Y')"> <!-- 是否排除最新轮次数据 -->
+            and order_item.ROUND != project.CURRENT_ROUND
+        </if>
+        <if test="quoteTimeFrom != null"> <!-- 报价截止日期范围 -->
+            AND project.ORDER_END_TIME >= #{quoteTimeFrom}
+        </if>
+        <if test="quoteTimeTo != null"> <!-- 报价截止日期范围 -->
+            AND project.ORDER_END_TIME &lt;= #{quoteTimeTo}
+        </if>
+        <if test="quoteFrom != null"> <!-- 报价范围 -->
+            AND order_item.ORDER_TAX_PRICE >= #{quoteFrom}
+        </if>
+        <if test="quoteTo != null"> <!-- 报价范围 -->
+            AND order_item.ORDER_TAX_PRICE &lt;= #{quoteTo}
+        </if>
+        <if test="affiliatedUnit != null"> <!-- 所属单位 -->
+            AND order_item.AFFILIATED_UNIT &lt;= #{affiliatedUnit}
+        </if>
+    </select>
+
+    <select id="querySelectResultList"
+            resultType="com.midea.cloud.srm.model.pj.sou.openapi.comp.vo.select.ApiSouSelectResultVO">
+        select
+        order_item.ORDER_ITEM_ID,               <!-- 报价行ID -->
+        order_item.PROJECT_ID,                  <!-- 寻源单ID -->
+        order_item.SOU_ITEM_ID,                 <!-- 物料需求行ID -->
+        order_item.ORDER_ID,                    <!-- 报价单ID -->
+        order_item.ORDER_STATUS,                <!-- 寻源单状态 -->
+        order_item.VENDOR_ID,                   <!-- 供应商ID -->
+        order_item.ORDER_TAX_PRICE,              <!-- 报价含税单价 -->
+        order_item.MONTHLY_PRODUCTION,              <!-- 月约产量 -->
+        order_item.order_round,              <!-- 报价次数 -->
+        project.ORDER_END_TIME,              <!-- 报价结束时间 -->
+        item.ITEM_DESC,              <!-- 物料名称 -->
+        item.AFFILIATED_UNIT,              <!-- 所属单位 -->
+        vendor.VENDOR_NAME              <!-- 供应商名称 -->
+        from scc_sou_order_item order_item
+        left join scc_sou_item item on order_item.SOU_ITEM_ID = item.SOU_ITEM_ID
+        left join scc_sou_vendor vendor on vendor.PROJECT_ID = #{projectId}
+        left join scc_sou_project project on project.PROJECT_ID = order_item.PROJECT_ID
+        where
+
+        order_item.PROJECT_ID =#{projectId}
+
+    </select>
+
+
+
+    <select id="biddingSuccessResltList"
+            resultType="com.midea.cloud.srm.model.pj.sou.openapi.comp.vo.select.BiddingSuccessResltVO">
+        SELECT
+            resu.sou_item_id ,
+            resu.WIN_VENDOR_ID,
+            resu.WIN_VENDOR_NAME,  -- 中标单位
+            resu.win_vendor_price, -- 中标价格
+            resu.WIN_NOTICE_REMARK, -- 备注
+            ven.linkman_name,-- 联系人
+            ven.phone, -- 联系电话
+            souItem.item_desc, -- 物资名称
+            orderItem.METERING_UNIT, -- 计量单位
+            orderItem.AFFILIATED_UNIT,-- 单位名称
+            project.CREATED_FULL_NAME,  -- 招标负责人
+            project.sou_no -- 项目编号
+        FROM scc_sou_order_result  resu
+                 LEFT join  scc_sou_vendor ven ON  resu.WIN_VENDOR_ID = ven.vendor_id  AND resu.project_id = ven.project_id
+                 LEFT JOIN  scc_sou_item souItem ON  resu.sou_item_id = souItem.sou_item_id
+                 LEFT JOIN scc_sou_order_item orderItem ON resu.sou_item_id = orderItem.sou_item_id AND resu.project_id = orderItem.project_id AND resu.WIN_VENDOR_ID = orderItem.vendor_id
+                 LEFT JOIN scc_sou_project project ON resu.project_id = project.project_id
+        WHERE
+            resu.select_status = 'WIN'
+          AND resu.project_id = #{projectId}
+    </select>
+
+
+
+
+
+
+</mapper>

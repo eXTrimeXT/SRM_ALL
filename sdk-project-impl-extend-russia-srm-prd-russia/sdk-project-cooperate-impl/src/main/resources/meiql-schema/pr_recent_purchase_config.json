@@ -1,0 +1,68 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "PrRecentPurchaseConfig:scc_npm_pr_recent_purchase_config": {
+    "comment": "近期采购配置",
+    "repository": "prRecentPurchaseConfigRepository",
+    "keyField" : "configId",
+    "fields" : {
+      "configId" : "Long:主键id",
+      "configNum" :  {
+        "convert": "seqGen:SEQ_PURCHASE_BASE_RULE",
+        "type": "String",
+        "dbName": "config_num",
+        "desc": "单据号"
+      },
+      "orgId" : "Long:业务实体ID",
+      "orgCode" : "String:业务实体编码",
+      "orgName" : "String:业务实体名称",
+      "amount" : "BigDecimal:配置金额",
+      "multiple" : "BigDecimal:倍数",
+      "startTime" : "Date:开始时间",
+      "endTime" : "Date:结束时间",
+      "validDays" : "Integer:有效天数",
+      "comment" : "String:参考信息",
+      "createdByDepartment" : "String:创建人部门",
+      "@include": ":BaseFields"
+    }
+  },
+  "PrRecentPurchaseData:scc_npm_pr_recent_purchase_data": {
+    "comment": "近期采购数据",
+    "keyField" : "dataId",
+    "fields" : {
+      "dataId" : "Long:主键id",
+      "configId" : "Long:配置id",
+      "orgId" : "Long:业务实体ID",
+      "orgCode" : "String:业务实体编码",
+      "orgName" : "String:业务实体名称",
+      "vendorId" : "Long:供应商ID",
+      "vendorName" : "String:供应商名称",
+      "vendorCode" : "String:供应商编码",
+      "materialId" : "Long:物料ID",
+      "materialCode" : "String:物料编码",
+      "materialName" : "String:物料名称",
+      "materialModel" : "String:规格型号",
+      "unit" : "String:单位",
+      "unitCode" : "String:单位编码",
+      "orderNum" : "BigDecimal:订单数量",
+      "taxPrice" : "BigDecimal:含税单价",
+      "noTaxPrice" : "BigDecimal:未税单价",
+      "taxRate" : "BigDecimal:税率",
+      "orderAmount" : "BigDecimal:采购金额",
+      "taxAmount" : "BigDecimal:税额",
+      "deliveryCycle" : "BigDecimal:到货周期",
+      "startTime" : "Date:开始时间",
+      "endTime" : "Date:结束时间",
+      "status" : "String:状态",
+      "createdByDepartment" : "String:创建人部门",
+      "leadTime" : "Integer:供货周期",
+      "invoiceType" : "String:发票类型",
+      "warrantyPeriod" : "Integer:质保期",
+      "advancePaymentRemark" : {
+        "type": "com.midea.cloud.srm.model.common.enums.Enable",
+        "desc": "预付款说明：Y/N"
+      },
+      "@include": ":BaseFields"
+    }
+  }
+}

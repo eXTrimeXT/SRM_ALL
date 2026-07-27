@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<meiql _version="1.0" _type="custom">
+    <type name="CompanyInfo">
+        <validators>
+            <action name="save,vendorSubmit">
+                <validator type="request" msg="联系人信息不能不为空！请完善联系人信息后重试。">
+                    return ql.notEmpty($rec["contactInfos"]);
+                </validator>
+            </action>
+            <action name="save,vendorSubmit,vendorSave,greenSave,greenSubmit">
+                <validator type="request" msg="当前单据不存在">
+                    if(ql.isNull($rec["companyId"])){
+                        return true;
+                    }
+                    c = ql.newCond();
+                    ql.cond.eq(c,"companyId",$rec["companyId"]);
+                    return ql.exists("CompanyInfo",c);
+                </validator>
+                <validator type="request" msg="企业名称重复">
+                    if(ql.isEmpty($rec["companyName"])){
+                        return true;
+                    }
+                    if($rec["overseasRelation"] == "PERSONAL"){
+                        return true;
+                    }
+                    c = ql.newCond();
+                    ql.cond.eq(c,"companyName",$rec["companyName"]);
+                    if(ql.notNull($rec["companyId"])){
+                        ql.cond.notEq(c,"companyId",$rec["companyId"]);
+                    }
+                    return !ql.exists("CompanyInfo",c);
+                </validator>
+                <validator type="request" msg="身份证号已存在">
+                    if(ql.isEmpty($rec["idNumber"])){
+                        return true;
+                    }
+                    c = ql.newCond();
+                    ql.cond.eq(c,"idNumber",$rec["idNumber"]);
+                    if(ql.notNull($rec["companyId"])){
+                        ql.cond.notEq(c,"companyId",$rec["companyId"]);
+                    }
+                    return !ql.exists("CompanyInfo",c);
+                </validator>
+                <validator type="request" msg="统一社会信用代码重复">
+                    if(ql.isEmpty($rec["lcCode"])){
+                        return true;
+                    }
+                    c = ql.newCond();
+                    ql.cond.eq(c,"lcCode",$rec["lcCode"]);
+                    if(ql.notNull($rec["companyId"])){
+                        ql.cond.notEq(c,"companyId",$rec["companyId"]);
+                    }
+                    return !ql.exists("CompanyInfo",c);
+                </validator>
+            </action>
+            <action name="save,vendorSubmit,vendorSave">
+                <validator type="request" msg="待审/已审批单据，不允许修改">
+                    if(ql.isNull($rec["companyId"])){
+                        return true;
+                    }
+                    c = ql.newCond();
+                    ql.cond.eq(c,"companyId",$rec["companyId"]);
+                    ql.cond.notEq(c,"status","APPROVED");
+                    ql.cond.notEq(c,"status","SUBMITTED");
+                    return ql.exists("CompanyInfo",c);
+                </validator>
+            </action>
+            <action name="vendorWithdraw">
+                <validator type="request" range="list" msg="数据不能为空">
+                    return ql.notEmpty($recs);
+                </validator>
+                <validator type="request" msg="供应商ID不能为空">
+                    return ql.notNull($rec["companyId"]);
+                </validator>
+                <validator type="request" msg="只有待审核状态才能进行操作！">
+                    c = ql.newCond();
+                    ql.cond.eq(c,"companyId",$rec["companyId"]);
+                    ql.cond.notEq(c,"status","SUBMITTED");
+                    return !ql.exists("CompanyInfo",c);
+                </validator>
+            </action>
+            <action name="greenSubmit">
+                <validator type="request" msg="请至少维护一条联系人信息">
+                    return ql.notEmpty($rec["contactInfos"]);
+                </validator>
+                <validator type="request" msg="请至少维护一条银行信息">
+                    return ql.notEmpty($rec["bankInfos"]);
+                </validator>
+                <validator type="request" msg="注册账号信息不能为空">
+                    return ql.notEmpty($rec["userInfo"]);
+                </validator>
+            </action>
+            <action name="approve">
+                <validator type="request" msg="供应商ID不能为空">
+                    return ql.notNull($rec["companyId"]);
+                </validator>
+                <validator type="request" msg="只有已提交状态才能进行审批！">
+                    return $rec["status"]!="SUBMITTED";
+                </validator>
+            </action>
+            <action name="reject">
+                <validator type="request" msg="供应商ID不能为空">
+                    return ql.notNull($rec["companyId"]);
+                </validator>
+                <validator type="request" msg="只有已提交状态才能进行审批！">
+                    return $rec["status"]!="SUBMITTED";
+                </validator>
+            </action>
+        </validators>
+    </type>
+    <type name="BankInfo">
+        <validators>
+            <action name="save">
+                <validator type="request" range="list" msg="银行信息存在重复,请检查!">
+                    if($pRec["overseasRelation"] == "OUT"){
+                        return true;
+                    }
+                    return ql.notRepeat($recs, "bankAccount", "currencyCode");
+                </validator>
+                <validator type="request" range="list" msg="请在银行信息栏勾选确认主账户,有且只有一个">
+                    if($pRec["overseasRelation"] == "OUT"){
+                        return true;
+                    }
+                    return ql.valueCount($recs, "ceeaMainAccount", "Y", 1, 1);
+                </validator>
+            </action>
+            <!--指定请求的来源action-->
+            <action name="save" reqAction="CompanyInfo:greenSubmit">
+                <validator type="request" msg="请选择银行信息对应的银行代码">
+                    if($pRec["overseasRelation"] == "OUT"){
+                        return true;
+                    }
+                    return ql.notEmpty($rec["bankCode"]);
+                </validator>
+                <validator type="request" msg="请选择银行信息对应的银行名称">
+                    if($pRec["overseasRelation"] == "OUT"){
+                        return true;
+                    }
+                    return ql.notEmpty($rec["bankName"]);
+                </validator>
+                <validator type="request" msg="请选择银行信息对应的开户行名称">
+                    if($pRec["overseasRelation"] == "OUT"){
+                        return true;
+                    }
+                    return ql.notEmpty($rec["openingBank"]);
+                </validator>
+                <validator type="request" msg="请选择银行信息对应的分行编码">
+                    if($pRec["overseasRelation"] == "OUT"){
+                        return true;
+                    }
+                    return ql.notEmpty($rec["unionCode"]);
+                </validator>
+            </action>
+        </validators>
+    </type>
+    <type name="CateJournalCompany">
+        <injects>
+            <inject action="beforeCreate,beforeUpdate">
+                for rec in $recs {
+                    rec["formType"] = "SUPPLIER_REGISTRATION";
+                }
+            </inject>
+        </injects>
+    </type>
+    <type name="ContactInfo">
+        <validators>
+            <action name="save">
+                <!--指定请求的来源action-->
+                <validator type="request" range="list" msg="联系人信息中必须有且只有一个默认联系人，请检查后重试！">
+                    return ql.valueCount($recs, "ceeaDefaultContact", "Y", 1, 1);
+                </validator>
+            </action>
+            <!--指定请求的来源action-->
+            <action name="save" reqAction="CompanyInfo:greenSubmit">
+                <validator type="request" msg="请维护联系人信息的姓名">
+                    return ql.notEmpty($rec["contactName"]);
+                </validator>
+            </action>
+        </validators>
+    </type>
+    <type name="FinanceInfo">
+        <injects>
+            <inject action="beforeCreate,beforeUpdate">
+                if(ql.notEmpty($pRec)){
+                    for rec in $recs {
+                        rec["companyId"] = $pRec["companyId"];
+                        rec["businessId"] = $pRec["companyId"];
+                        rec["companyCode"] = $pRec["companyCode"];
+                        rec["companyName"] = $pRec["companyName"];
+                    }
+                }
+            </inject>
+        </injects>
+        <validators>
+            <action name="save" reqAction="CompanyInfo:greenSubmit,CompanyInfo:greenSave">
+                <!--列表校验，这样就不会逐条记录循环校验-->
+                <validator type="request" range="list" msg="不可维护重复的财务信息数据">
+                    if(ql.isEmpty($recs)){
+                        return true;
+                    }
+                    return ql.notRepeat($recs, "orgCode","factoryCode","companyCode","clearCurrency","paymentMethod","paymentTerms");
+                </validator>
+            </action>
+        </validators>
+    </type>
+    <type name="User">
+        <validators>
+            <!--指定请求的来源action-->
+            <action name="save" reqAction="CompanyInfo:greenSubmit">
+                <validator type="request" msg="昵称不能为空">
+                    return ql.notEmpty($rec["nickname"]);
+                </validator>
+                <validator type="request" msg="邮箱不能为空">
+                    return ql.notEmpty($rec["email"]);
+                </validator>
+            </action>
+        </validators>
+    </type>
+    <type name="SiteInfo">
+        <validators>
+            <action name="save" reqAction="CompanyInfo:greenSubmit">
+                <!--列表校验，这样就不会逐条记录循环校验-->
+                <validator type="request" range="list" msg="相同的业务实体下地点名称不能重复！">
+                    return ql.notRepeat($recs, "orgId", "vendorSiteCode");
+                </validator>
+                <validator type="request" msg="请选择地点对应的业务实体">
+                    return ql.notNull($rec["orgId"]);
+                </validator>
+                <validator type="request" msg="请选择地点对应的地点名称">
+                    return ql.notEmpty($rec["vendorSiteCode"]);
+                </validator>
+                <validator type="request" msg="请选择地点对应的国家">
+                    return ql.notEmpty($rec["country"]);
+                </validator>
+                <validator type="request" msg="请选择地点对应的详细地址">
+                    return ql.notEmpty($rec["addressDetail"]);
+                </validator>
+            </action>
+        </validators>
+    </type>
+    <type name="ManagementAttach">
+        <validators>
+            <action name="save" reqAction="CompanyInfo:greenSave">
+                <validator type="request" msg="非法的认证时间">
+                    if(ql.isNull($rec["authDate"])){
+                        return true;
+                    }
+                    return ql.notEmpty($rec["authDate"]);
+                </validator>
+                <validator type="request" msg="非法的证件有效期">
+                    if(ql.isNull($rec["endDate"])){
+                        return true;
+                    }
+                    return ql.notEmpty($rec["endDate"]);
+                </validator>
+            </action>
+        </validators>
+    </type>
+</meiql>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.midea</groupId>
+        <artifactId>cloud-biz</artifactId>
+        <version>meiqing-V3.0.11.1</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.midea</groupId>
+    <artifactId>sdk-project-main</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <revision>meiqing-V3.0.11.1</revision>
+    </properties>
+  <modules>
+      <module>sou-main</module>
+      <module>base-main</module>
+      <module>supplier-cooperate-main</module>
+      <module>supplier-main</module>
+      <module>rbac-main</module>
+      <module>gateway-main</module>
+      <module>perf-main</module>
+      <module>cm-main</module>
+  </modules>
+
+</project>

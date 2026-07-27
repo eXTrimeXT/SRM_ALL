@@ -1,0 +1,58 @@
+.topComment[data-v-1eaa06c1] {
+  margin-top: 15px;
+  float: right;
+}.ladder-price-form-row[data-v-8bc789cd] {
+  display: flex;
+  margin-bottom: 10px;
+}
+.ladder-price-form-row .form-col[data-v-8bc789cd]:not(:last-child) {
+  margin-right: 30px;
+}
+.ladder-price-form-row .form-col[data-v-8bc789cd] {
+  height: 30px;
+  line-height: 30px;
+}
+.ladder-price-form-row .form-col .label[data-v-8bc789cd] {
+  padding-right: 15px;
+}.approval-bidding-header[data-v-b28222b1] {
+  margin: 15px 0 10px;
+}
+.import-btn[data-v-b28222b1] {
+  display: inline-block;
+  margin: 0 15px;
+}
+.import-btn[data-v-b28222b1] .el-button {
+  min-width: 56px;
+  height: 24px;
+  line-height: 22px;
+  font-size: 12px;
+  border-radius: 2px;
+  padding: 1px 14px;
+}.topComment[data-v-fa0b61c4] {
+  text-align: center;
+  margin-top: 10px;
+}
+.el-dialog__body[data-v-fa0b61c4] {
+  padding-top: 0 !important;
+}
+.the_approval_btns button[data-v-fa0b61c4] {
+  float: right;
+  margin: 5px;
+}
+.check[data-v-fa0b61c4]:hover {
+  cursor: pointer;
+}
+.the_btn_wrapper[data-v-fa0b61c4] {
+  display: inline-block;
+  width: 111px;
+}
+.importbtn[data-v-fa0b61c4] .el-button {
+  min-width: 56px;
+  height: 24px;
+  line-height: 22px;
+  font-size: 14px;
+  border-radius: 2px;
+  padding: 1px 14px;
+}.el-dialog__body[data-v-c7070444] {
+  padding-top: 0 !important;
+}

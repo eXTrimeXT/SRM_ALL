@@ -1,0 +1,19 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "OperationLog:scc_contract_operation_log": {
+    "keyField": "operationLogId",
+    "fields": {
+      "operationLogId":"String",
+      "contractHeadId":"Long",
+      "operationType":"String",
+      "operationDesc":"String",
+      "@include": ":BaseFields"
+    },
+    "relations":{
+      "contractHeadId":"ContractHead"
+    }
+  }
+}
+
+

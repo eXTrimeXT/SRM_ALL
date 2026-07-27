@@ -1,0 +1,140 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: srm-js-{{ .Values.global.module }}-{{ .Values.global.env }}
+  namespace: srm-{{ .Values.global.env }}
+  labels:
+    app: srm-js-{{ .Values.global.module }}-{{ .Values.global.env }}
+spec:
+  replicas: {{ .Values.app1.replicas.pet | default .Values.app1.replicas.default }}
+  selector:
+    matchLabels:
+      app: srm-js-{{ .Values.global.module }}-{{ .Values.global.env }}
+  template:
+    metadata:
+      labels:
+        app: srm-js-{{ .Values.global.module }}-{{ .Values.global.env }}
+    spec:
+      volumes:
+        - emptyDir: {}
+          name: apps-log
+        {{- if .Values.app1.configmap.enable }}
+        - name: volumes-{{ .Values.app1.configmap.name }}
+          configMap:
+            name: {{ .Values.app1.configmap.name }}
+        {{- end }}
+
+      {{- if .Values.app1.persistentvolumeclaim.enable }}
+      - name: pvc-srm-js-{{ .Values.global.module }}-{{ .Values.global.env }}
+        persistentVolumeClaim:
+          claimName: pvc-srm-js-{{ .Values.global.module }}-{{ .Values.global.env }}
+      {{- end }}
+      containers:
+        - name: srm-js-{{ .Values.global.module }}-{{ .Values.global.env }}
+          image: "{{ .Values.app1.repository }}:{{ get .Values.app1.tag .Values.global.env | default .Values.app1.tag.default }}"
+          imagePullPolicy: Always
+          command:
+            - /usr/bin/openresty
+          args:
+            - -g
+            - "daemon off;"
+          ports:
+          {{- if .Values.app1.clusterIP.enable }}
+          {{- range .Values.app1.clusterIP.ports }}
+          - containerPort: {{ .port }}
+            name: {{ .name }}
+            protocol: {{ .protocol }}
+          {{- end }}
+          {{- end }}
+          {{- if (get .Values.app1.nodePort.enable $.Values.global.env | default .Values.app1.nodePort.enable.default) }}
+          {{- range .Values.app1.nodePort.ports }}
+          - containerPort: {{ .port }}
+            name: {{ .name }}
+            protocol: {{ .protocol }}
+          {{- end }}
+          {{- end }}
+          resources:
+            limits:
+              cpu: {{ .Values.app1.limits.cpu  }}
+              memory: {{ .Values.app1.limits.memory }}
+            requests:
+              cpu: {{ .Values.app1.requests.cpu }}
+              memory: {{ .Values.app1.requests.memory }}
+
+          volumeMounts:
+            - mountPath: /apps/logs/
+              name: apps-log
+
+            {{- if .Values.app1.configmap.enable  }}
+            {{- range .Values.app1.configmap.mounts }}
+            - name: volumes-{{ $.Values.app1.configmap.name }}
+              mountPath: {{ .mountPath }}
+              subPath: {{ .subPath }}
+            {{- end }}
+            {{- end }}
+
+          {{- if  .Values.app1.persistentvolumeclaim.enable }}
+          - name: pvc-srm-js-{{ .Values.global.module }}-{{ .Values.global.env }}
+            mountPath: {{ .Values.app1.persistentvolumeclaim.mountpath }}
+          {{- end }}
+
+          {{- if .Values.healthCheck.enabled }}
+          livenessProbe:
+            {{- if eq .Values.healthCheck.type "http" }}
+            httpGet:
+              path: {{ .Values.healthCheck.httpPath }}
+              port: {{ .Values.healthCheck.port }}
+            {{- else }}
+            tcpSocket:
+              port: {{ .Values.healthCheck.port }}
+            {{- end }}
+            initialDelaySeconds: {{ .Values.healthCheck.livenessInitialDelaySeconds }}
+            periodSeconds: {{ .Values.healthCheck.livenessPeriodSeconds }}
+            timeoutSeconds: {{ .Values.healthCheck.livenesstimeoutSeconds }}
+            successThreshold: {{ .Values.healthCheck.livenesssuccessThreshold }}
+            failureThreshold: {{ .Values.healthCheck.livenessfailureThreshold }}
+          readinessProbe:
+            {{- if eq .Values.healthCheck.type "http" }}
+            httpGet:
+              path: {{ .Values.healthCheck.httpPath }}
+              port: {{ .Values.healthCheck.port }}
+            {{- else }}
+            tcpSocket:
+              port: {{ .Values.healthCheck.port }}
+            {{- end }}
+            initialDelaySeconds: {{ .Values.healthCheck.readinessInitialDelaySeconds }}
+            periodSeconds: {{ .Values.healthCheck.readinessPeriodSeconds }}
+            timeoutSeconds: {{ .Values.healthCheck.readinesstimeoutSeconds }}
+            successThreshold: {{ .Values.healthCheck.readinesssuccessThreshold}}
+            failureThreshold: {{ .Values.healthCheck.readinessfailureThreshold }}
+          {{- end }}
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+            - name: aliyun_logs_app-file-log
+              value: /apps/logs/*.log
+            - name: aliyun_logs_app-file-log_tags
+              value: app-name=srm-js-{{ .Values.global.module }}-{{ .Values.global.env }}
+
+            {{- range .Values.app1.kvenv }}
+            - name: {{ .key }}
+              value: {{ (get .val $.Values.global.env) | default .val.default }}
+            {{- end }}
+            {{- range .Values.app1.configmapenv }}
+            - name: {{ .key }}
+              valueFrom:
+                configMapKeyRef:
+                  key: {{ .subkey }}
+                  name: {{ .name }}
+            {{- end }}
+
+      {{- if .Values.tolerations.enabled }}
+      tolerations:
+        {{- range .Values.tolerations.keys }}
+        - effect: {{ .effect }}
+          key: {{ .key }}
+          operator: Equal
+          value: "{{ .value }}"
+        {{- end }}
+      {{- end }}
+

@@ -1,0 +1,41 @@
+{
+    "_version": "1.0",
+    "_type": "CUSTOM",
+    "pjEntryConfigNode:scc_sup_entry_config_node": {
+        "comment": "供应商准入流程-节点定义表",
+        "keyField": "entryConfigNodeId",
+        "fields": {
+            "entryConfigNodeId": {
+                "type": "Long",
+                "dbName":"entry_config_node_id",
+                "desc": "ID",
+                "virtual": false
+            },
+            "entryConfigId": {
+                "type": "Long",
+                "dbName":"entry_config_id",
+                "desc": "准入流程ID",
+                "virtual": false
+            },
+            "nodeCode": {
+                "type": "String",
+                "dbName":"node_code",
+                "desc": "节点编码",
+                "virtual": false
+            },
+            "nodeName": {
+                "type": "String",
+                "dbName":"node_name",
+                "desc": "节点名称",
+                "virtual": false
+            },
+            "enableFlag": {
+                "type": "String",
+                "dbName":"enable_flag",
+                "desc": "启用状态(Y/N)",
+                "virtual": false
+            },
+            "@include": ":BaseFields"
+        }
+    }
+}

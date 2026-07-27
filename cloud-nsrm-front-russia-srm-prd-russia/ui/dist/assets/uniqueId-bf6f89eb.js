@@ -1,0 +1,1 @@
+import{d as getDefaultExportFromCjs,aO as toString_1}from"./index-17d0ccd5.js";var toString=toString_1,idCounter=0;function uniqueId(prefix){var id=++idCounter;return toString(prefix)+id}var uniqueId_1=uniqueId;const uniqueId$1=getDefaultExportFromCjs(uniqueId_1);export{uniqueId$1 as u};

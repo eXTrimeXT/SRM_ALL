@@ -1,0 +1,1 @@
+alter table ceea_sc_online_invoice_detail add column EXT_SYNC_EAS varchar(10) comment '是否同步给EAS,Y/N';

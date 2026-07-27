@@ -1,0 +1,11 @@
+delete
+from scc_rbac_permission
+where PERMISSION_ID in (
+                        447999125446656,447999125446657,447998938134528,447945456992256
+    );
+
+insert into scc_rbac_permission (PERMISSION_ID, PARENT_PERMISSION_ID, FUNCTION_ID, PERMISSION_NAME, PERMISSION_TYPE, PERMISSION_CODE, PERMISSION, SORT, ICON_PATH, ORG_CONTROL_DIM, ENABLE_CATEGORY_DIVISION, ENABLE_ATTACH_MANAGE, ENABLE_BUSI_STATE_CONTROL, ENABLE_WORK_FLOW, START_DATE, END_DATE, CREATED_ID, CREATED_BY, CREATION_DATE, CREATED_BY_IP, CREATED_FULL_NAME, LAST_UPDATED_ID, LAST_UPDATED_BY, LAST_UPDATE_DATE, LAST_UPDATED_BY_IP, LAST_UPDATED_FULL_NAME, TENANT_ID, VERSION)
+values  (447999125446656, -1, 7188440820285440, '二开-绩效评分列表查询', 'INTERFACE', '/pj/perf/score-man-scoring-v1/listScoreManScoringPage-7188440820285440', '/pj/perf/score-man-scoring-v1/listScoreManScoringPage', null, null, null, null, null, null, null, null, null, 344486404481093, 'CCAdmin', '2023-11-02 17:07:19', '10.254.103.115', '长城管理员', null, null, '2023-11-02 17:07:19', '10.254.103.115', '长城管理员', null, 0),
+        (447999125446657, -1, 7188440820285440, '二开-绩效评分提交', 'INTERFACE', '/pj/perf/score-man-scoring-v1/saveScoreManScoring-7188440820285440', '/pj/perf/score-man-scoring-v1/saveScoreManScoring', null, null, null, null, null, null, null, null, null, 344486404481093, 'CCAdmin', '2023-11-02 17:07:19', '10.254.103.115', '长城管理员', null, null, '2023-11-02 17:07:19', '10.254.103.115', '长城管理员', null, 0),
+        (447998938134528, -1, 7188456199684096, '二开-通知供应商接口', 'INTERFACE', '/pj/scoreproject/scoreItems/notifyScorers-7188456199684096', '/pj/scoreproject/scoreItems/notifyScorers', null, null, null, null, null, null, null, null, null, 344486404481093, 'CCAdmin', '2023-11-02 17:05:47', '10.254.103.115', '长城管理员', null, null, '2023-11-02 17:05:47', '10.254.103.115', '长城管理员', null, 0),
+        (447945456992256, -1, 6946525947363328, '二开-品类弹框二开接口', 'INTERFACE', '/pj/category/listPageByParmForComponent-6946525947363328', '/pj/category/listPageByParmForComponent', null, null, null, null, null, null, null, null, null, 344486404481093, 'CCAdmin', '2023-11-02 09:50:33', '10.254.103.115', '长城管理员', null, null, '2023-11-02 09:50:33', '10.254.103.115', '长城管理员', null, 0);

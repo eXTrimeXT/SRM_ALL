@@ -1,0 +1,40 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "PrPushConfig:scc_npm_pr_push_config": {
+    "comment": "自动分单",
+    "repository": "prPushConfigRepository",
+    "keyField" : "configId",
+    "fields" : {
+      "configId" : "Long:主键id",
+      "status" : "String:状态Y/N",
+      "orgId" : "Long:业务实体ID",
+      "orgCode" : "String:业务实体编码",
+      "orgName" : "String:业务实体名称",
+      "pushDate" : "String:执行周期",
+      "pushTime" : "String:执行时间",
+      "notifyFlag" : "String:是否通知，Y/N",
+      "notifyType" : "String:短信触发人员",
+      "creatorOrgName" : "String:创建人组织",
+      "pushUserId" : "Long:分单用户id",
+      "pushUserName" : "String:分单用户名称",
+      "pushUserCode" : "String:分单用户编码",
+      "@include": ":BaseFields"
+    },
+    "relations" : {
+      "notifyList":"[PrPushNotify:configId]"
+    }
+  },
+  "PrPushNotify:scc_npm_pr_push_notify": {
+    "comment": "通知人员",
+    "keyField" : "id",
+    "fields" : {
+      "id" : "Long:主键id",
+      "configId" : "Long:配置id",
+      "userCode" : "String:人员工号",
+      "userName" : "String:人员名称",
+      "userMobile" : "String:人员电话",
+      "@include": ":BaseFields"
+    }
+  }
+}

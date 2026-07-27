@@ -1,0 +1,1 @@
+ALTER TABLE `scc_sup_auth_review_form` ADD COLUMN `EXT_USE_TYPE` VARCHAR(50) NULL COMMENT '供应商用途分类';

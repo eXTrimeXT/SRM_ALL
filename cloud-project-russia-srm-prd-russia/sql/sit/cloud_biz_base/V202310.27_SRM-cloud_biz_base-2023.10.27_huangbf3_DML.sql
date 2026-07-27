@@ -1,0 +1,6 @@
+ALTER TABLE `ceea_base_erp_branch_bank`
+    CHANGE COLUMN `COUNTRY_CODE` `COUNTRY_CODE` VARCHAR(30) NULL COMMENT '国家编码（erp字段）' COLLATE 'utf8mb4_general_ci' AFTER `BRANCH_BANK_ID`;
+ALTER TABLE `ceea_base_erp_branch_bank`
+    CHANGE COLUMN `BRANCH_BANK_TYPE` `BRANCH_BANK_TYPE` VARCHAR(40) NULL COMMENT '分行类型（erp字段）' COLLATE 'utf8mb4_general_ci' AFTER `ALT_BRANCH_BANK_NAME`;
+ALTER TABLE `ceea_base_erp_branch_bank`
+    CHANGE COLUMN `ADDR_DETAIL` `ADDR_DETAIL` VARCHAR(4000) NULL COMMENT '分行详细地址（erp字段）' COLLATE 'utf8mb4_general_ci' AFTER `DESCR`;

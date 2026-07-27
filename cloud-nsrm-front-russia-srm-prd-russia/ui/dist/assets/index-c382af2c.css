@@ -1,0 +1,21 @@
+.vendor-info-wrap .el-row[data-v-862bc84e] {
+  margin-bottom: 11px;
+}
+.vendor-info-wrap .el-row .info-col[data-v-862bc84e] {
+  font-size: 12px;
+  padding-left: 110px !important;
+  position: relative;
+  color: #333;
+  line-height: 22px;
+  min-height: 22px;
+}
+.vendor-info-wrap .el-row .info-col span[data-v-862bc84e] {
+  position: absolute;
+  display: inline-block;
+  line-height: 22px;
+  left: 0;
+  width: 110px;
+  text-align: right;
+  color: #999;
+  padding-right: 11px;
+}

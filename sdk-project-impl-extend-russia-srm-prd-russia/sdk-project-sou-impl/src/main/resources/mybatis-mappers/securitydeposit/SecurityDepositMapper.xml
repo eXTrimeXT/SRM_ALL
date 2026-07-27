@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.securitydeposit.mapper.SecurityDepositMapper">
+    <select id="list">
+        select
+        m.PROJECT_ID ,
+        p.EXT_ORG_BU_NAME,
+        p.EXT_ORG_OU_NAME,
+        r.RECORD_ID ,
+        p.SOU_NAME,
+        r.MARGIN_ID,
+        p.EXT_PROJECT_NO,
+        m.VENDOR_CODE ,
+        m.VENDOR_NAME mVendorName,
+        m.HANDER_MODE,
+        m.CAUSE_DESC,
+        EXT_APPLICANT_DEPART,
+        p.CREATED_FULL_NAME,
+        m.PAY_AMOUNT,
+        p.EXT_EARNEST_AMOUNT receivableAmount,
+        p.EXT_EARNEST_AMOUNT paymentAmount,
+        m.PAY_BANK,
+        m.BANK_LINE,
+        m.PAY_ACCOUNT,
+        m.MARGIN_STATUS,
+        m.TRANS_TIME,
+        m.NO_PAY_CAUSE,
+        m.PAY_NAME,
+        r.VENDOR_NAME refundVendor,
+        r.REFUND_BANK ,
+        r.REFUND_BANK_NUM ,
+        r.REFUND_ACCOUNT ,
+        m.REFUND_STATUS ,
+        m.REFUND_PAYMENT_DATE ,
+        cr.CREATION_DATE,
+        cr.DESCRIPTION chargeDescription,
+        r.DESCRIPTION refundDescription,
+        r.AMOUNT refundAmount,
+        plan.PUBLISH_TIME ,
+        plan.BUS_END_TIME,
+        cr.VENDOR_NAME chargeVendor,
+        cr.AMOUNT chargeAmount
+        from scc_npm_sou_margin m
+        left join scc_sou_project p on p.PROJECT_ID=m.PROJECT_ID
+        left join scc_npm_sou_plan plan on p.PROJECT_ID = plan.PROJECT_ID and plan.PLAN_TYPE = 'PLAN'
+        left JOIN (SELECT r.* from scc_npm_sou_margin_record r
+        JOIN (SELECT MAX(rr.RECORD_ID) RECORD_ID FROM scc_npm_sou_margin_record rr WHERE rr.type = 'REFUND' GROUP BY rr.MARGIN_ID) tr
+        ON tr.RECORD_ID = r.RECORD_ID) r
+        on m.MARGIN_ID = r.MARGIN_ID
+
+        LEFT JOIN scc_npm_sou_margin_record cr ON cr.`TYPE`='CHARGE' AND cr.MARGIN_ID = m.MARGIN_ID
+        WHERE m.MARGIN_STATUS='PAY' AND m.YEAR_FLAG='N'
+
+        /*  and p.SOU_NO='BID2024062800462'*/
+
+        <if test="souName != null  and souName!='' ">
+            AND p.SOU_NAME LIKE CONCAT(CONCAT('%', #{souName}),'%')
+        </if>
+        <if test="extProjectNo != null and extProjectNo != '' ">
+            AND p.EXT_PROJECT_NO LIKE CONCAT(CONCAT('%', #{extProjectNo}),'%')
+        </if>
+        <if test="createdFullName != null and createdFullName != ''">
+            AND p.CREATED_FULL_NAME LIKE CONCAT(CONCAT('%', #{createdFullName}),'%')
+        </if>
+        <if test="payAmount != null" >
+            AND m.PAY_AMOUNT = ${payAmount}
+        </if>
+        <if test="extOrgBuName != null and extOrgBuName != ''" >
+            AND p.EXT_ORG_BU_NAME LIKE CONCAT(CONCAT('%', #{extOrgBuName}),'%')
+        </if>
+        <if test="extOrgOuName != null and extOrgOuName != ''" >
+            AND p.EXT_ORG_OU_NAME LIKE CONCAT(CONCAT('%', #{extOrgOuName}),'%')
+        </if>
+        <if test="mVendorName != null and mVendorName != ''" >
+            AND m.VENDOR_NAME LIKE CONCAT(CONCAT('%', #{mVendorName}),'%')
+        </if>
+        <if test="refundVendor != null and refundVendor != ''" >
+            AND r.VENDOR_NAME LIKE CONCAT(CONCAT('%', #{refundVendor}),'%')
+        </if>
+        <if test="extApplicantDepart != null and extApplicantDepart != ''" >
+            AND EXT_APPLICANT_DEPART LIKE CONCAT(CONCAT('%', #{extApplicantDepart}),'%')
+        </if>
+        <!--<if test="orderEndTime != null and orderEndTime != ''" >
+            and convert(ORDER_END_TIME,char) like concat(concat('%',#{orderEndTime}),'%')
+        </if>-->
+        <if test="transTime != null and transTime != ''" >
+            and convert(TRANS_TIME,char) like concat(concat('%',#{transTime}),'%')
+        </if>
+        <!--      <if test="creationDate != null and creationDate != ''" >
+                  and convert(CREATION_DATE,char) like concat(concat('%',#{creationDate}),'%')
+              </if>-->
+        <if test="payName != null and payName != ''" >
+            AND m.PAY_NAME LIKE CONCAT(CONCAT('%', #{payName}),'%')
+        </if>
+        <if test="busEndTime != null and busEndTime != ''" >
+            and convert(plan.BUS_END_TIME,char) like concat(concat('%',#{busEndTime}),'%')
+        </if>
+        <if test="refundPaymentDate != null and refundPaymentDate != ''" >
+            and convert(m.REFUND_PAYMENT_DATE,char) like concat(concat('%',#{refundPaymentDate}),'%')
+        </if>
+        <if test="refundAmount != null " >
+            AND r.AMOUNT = #{refundAmount}
+        </if>
+        <if test="chargeVendor != null and chargeVendor != ''" >
+            AND cr.VENDOR_NAME LIKE CONCAT(CONCAT('%', #{chargeVendor}),'%')
+        </if>
+        <if test="chargeAmount != null " >
+            AND cr.AMOUNT = #{chargeAmount}
+        </if>
+        <if test="creationDate != null and creationDate != ''" >
+            and convert(cr.CREATION_DATE,char) like concat(concat('%',#{creationDate}),'%')
+        </if>
+        <choose>
+            <when test="refund != null and refund != ''" >
+                <if test='refund == "Y"' >
+                    <choose>
+                        <when test="refundSuccess != null and refundSuccess != ''">
+                            <if test='refundSuccess == "Y" '>
+                                and REFUND_STATUS = 'REFUNDED'
+                            </if>
+                            <if test='refundSuccess == "N" '>
+                                and ( REFUND_STATUS = 'REFUND_FAILED' or REFUND_STATUS = 'REFUNDING')
+                            </if>
+                        </when >
+                        <otherwise>
+                            and (REFUND_STATUS = 'REFUNDED' or REFUND_STATUS = 'REFUND_FAILED' or REFUND_STATUS = 'REFUNDING')
+                        </otherwise>
+                    </choose>
+                </if>
+                <if test='refund == "N" '>
+                    and   REFUND_STATUS = 'NOT_REFUNDED'
+                </if>
+            </when>
+            <when  test="refundSuccess != null and refundSuccess != ''">
+                <if test=' refundSuccess=="Y" '>
+                    and REFUND_STATUS = 'REFUNDED'
+                </if>
+                <if test=' refundSuccess=="N" '>
+                    and ( REFUND_STATUS = 'REFUND_FAILED' or REFUND_STATUS = 'REFUNDING' or REFUND_STATUS = 'NOT_REFUNDED')
+                </if>
+            </when>
+
+        </choose>
+        group by m.MARGIN_ID
+        order by p.LAST_UPDATE_DATE desc
+    </select>
+</mapper>

@@ -1,0 +1,20 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "PrVendorConfig:scc_npm_pr_vendor_config": {
+    "comment": "历史供应商",
+    "repository": "prVendorConfigRepository",
+    "keyField": "configId",
+    "fields": {
+      "configId" : "Long:主键id",
+      "orgId" : "Long:业务实体ID",
+      "orgCode" : "String:业务实体编码",
+      "orgName" : "String:业务实体名称",
+      "rangFlag" : "String:是否参照本单元，Y/N",
+      "status" : "String:启用状态，Y/N",
+      "areaCodes" : "String:区域编码集，逗号分割",
+      "comment" : "String:备注",
+      "@include": ":BaseFields"
+    }
+  }
+}

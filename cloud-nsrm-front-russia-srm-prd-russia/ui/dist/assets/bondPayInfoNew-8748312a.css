@@ -1,0 +1,12 @@
+.bond-info-wrap .el-row[data-v-5d189f70] {
+  margin-bottom: 11px;
+}
+.bond-info-wrap .el-row .info-col[data-v-5d189f70] {
+  font-size: 14px;
+  position: relative;
+  line-height: 22px;
+  min-height: 22px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

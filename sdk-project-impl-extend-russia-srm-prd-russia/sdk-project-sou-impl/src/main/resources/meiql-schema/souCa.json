@@ -1,0 +1,84 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "Ca:scc_npm_sou_ca" : {
+    "keyField" : "caId",
+    "comment":"定标申请",
+    "repository":"caRepository",
+    "fields" : {
+      "@include": ":CaFields",
+      "caNo" : {
+        "convert": "seqGen:SEQ_SOU_CA_NO",
+        "type": "String",
+        "dbName": "ca_no",
+        "desc": "定标申请单号"
+      }
+    },
+    "relations" : {
+      "caOrders": "[CaOrder:caId]",
+      "caSuppliers": "[CaSupplier:caId]",
+      "caSelectionResults": "[CaSelectionResult:caId]",
+      "sceneFiles": "[CaSceneFile:caId]",
+      "caTenderTimes": "[CaTenderTime:caId]",
+      "caNegotiates": "[CaNegotiate:caId]",
+      "caPrices": "[CaPrice:caId]"
+    }
+  },
+  "CaOrder:scc_npm_sou_ca_order" : {
+    "keyField" : "caOrderId",
+    "comment":"供应商投标",
+    "fields" : {
+      "@include": ":CaOrderFields"
+    }
+  },
+  "CaSupplier:scc_npm_sou_ca_supplier" : {
+    "keyField" : "caSupplierId",
+    "comment":"供应商总体情况",
+    "fields" : {
+      "@include": ":CaSupplierFields"
+    }
+  },
+  "CaSelectionResult:scc_npm_sou_ca_selection_result" : {
+    "keyField" : "selectionResultId",
+    "comment":"供应商选定结果表",
+    "fields" : {
+      "@include": ":CaSelectionResultFields"
+    }
+  },
+  "CaSceneFile": {
+    "repository": "souSceneFileRepository",
+    "comment":"定标申请附件",
+    "keyField" : "sceneFileId",
+    "fields" : {
+      "sceneFileId": "Long",
+      "sceneKey":  {
+        "convert": "scene:SCENE_SOU_CA_ATTACHMENT"
+      },
+      "businessFiled": {
+        "convert": "businessId:caId"
+      },
+      "@include": ":SceneFileFields"
+    }
+  },
+  "CaTenderTime:scc_npm_sou_ca_tender_time" : {
+    "keyField" : "tenderTimeId",
+    "comment":"定标申请投标时间表",
+    "fields" : {
+      "@include": ":CaTenderTimeFields"
+    }
+  },
+  "CaNegotiate:scc_npm_sou_ca_negotiate" : {
+    "keyField" : "negotiateId",
+    "comment":"定标申请谈判情况表",
+    "fields" : {
+      "@include": ":CaNegotiateFields"
+    }
+  },
+  "CaPrice:scc_npm_sou_ca_price" : {
+    "keyField" : "caPriceId",
+    "comment":"定标申请历史价格",
+    "fields" : {
+      "@include": ":CaPriceFields"
+    }
+  }
+}

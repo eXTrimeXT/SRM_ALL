@@ -1,0 +1,1 @@
+ALTER TABLE scc_npm_sou_purfix_price_line ADD COLUMN SIGN_CONTRACT_FLAG varchar(5) DEFAULT NULL COMMENT '是否已签订合同';

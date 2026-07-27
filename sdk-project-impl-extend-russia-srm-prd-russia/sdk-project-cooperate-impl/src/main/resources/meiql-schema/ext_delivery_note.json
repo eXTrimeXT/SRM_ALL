@@ -1,0 +1,98 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "DeliveryNote": {
+    "comment": "送货单",
+    "repository": "extDeliveryNoteRepository",
+    "keyField": "deliveryId",
+    "fields": {
+      "extStatus": "String:补充状态",
+      "extVendorContacts": "String:供应商联系人",
+      "extVendorPhone": "String:供应商联系人电话",
+      "extPurchaserNo" : "String:采购员工号",
+      "extPurchaserId" : "Long:采购员id",
+      "extPurchaserName" : "String:采购员名称",
+      "extPurchaserOrgName" : "String:采购员单位名称",
+      "extPurchaserPhone" : "String:采购员电话",
+      "extPurchaserEmail" : "String:采购员邮箱",
+      "extExpressType": "String:物流货运方式",
+      "extExpressNo": "String:物流快递单号",
+      "extExpressMan": "String:物流配送人员",
+      "extExpressPhone": "String:物流联系方式",
+      "extDepartmentId": "String:申请部门id",
+      "extDepartmentCode": "String:申请部门编码",
+      "extDepartmentName": "String:申请部门名称",
+      "extApplicantName": "String:申请人名称",
+      "extApplicantCode": "String:申请人工号",
+      "extApplyDate": "Date:申请日期",
+      "extUnTaxAmount": "BigDecimal:未税总金额",
+      "extInTaxAmount": "BigDecimal:含税总金额",
+      "extCurrencyId": "Long:币种id",
+      "extCurrencyCode": "String:币种编码",
+      "extCurrencyName": "String:币种名称",
+      "extReceiveContact": "String:收货人",
+      "extReceiveTelephone": "String:收货人联系方式",
+      "extJdOrderId": "Long:生成此送货单的京东订单id"
+    }
+  },
+  "DeliveryNoteDetail": {
+    "comment": "送货单明细",
+    "keyField": "deliveryNoteDetailId",
+    "fields": {
+      "extDetailStatus": "String:补充状态",
+      "extCancelQty": "BigDecimal:已取消数量",
+      "extCancelReason": "String:取消原因",
+      "extFinishTime": "LocalDateTime:完成时间",
+      "extStorageQty": "BigDecimal:EAS入库数量",
+      "extStorageTime": "LocalDateTime:EAS入库时间",
+      "extReceiveTime": "LocalDateTime:EAS收货时间"
+    }
+  },
+  "DeliveryNoteVendor": {
+    "comment": "送货单",
+    "repository": "extDeliveryNoteRepository",
+    "keyField": "deliveryId",
+    "fields": {
+      "extStatus": "String:补充状态",
+      "extVendorContacts": "String:供应商联系人",
+      "extVendorPhone": "String:供应商联系人电话",
+      "extPurchaserNo" : "String:采购员工号",
+      "extPurchaserId" : "Long:采购员id",
+      "extPurchaserName" : "String:采购员名称",
+      "extPurchaserOrgName" : "String:采购员单位名称",
+      "extPurchaserPhone" : "String:采购员电话",
+      "extPurchaserEmail" : "String:采购员邮箱",
+      "extExpressType": "String:物流货运方式",
+      "extExpressNo": "String:物流快递单号",
+      "extExpressMan": "String:物流配送人员",
+      "extExpressPhone": "String:物流联系方式",
+      "extDepartmentId": "String:申请部门id",
+      "extDepartmentCode": "String:申请部门编码",
+      "extDepartmentName": "String:申请部门名称",
+      "extApplicantName": "String:申请人名称",
+      "extApplicantCode": "String:申请人工号",
+      "extApplyDate": "Date:申请日期",
+      "extUnTaxAmount": "BigDecimal:未税总金额",
+      "extInTaxAmount": "BigDecimal:含税总金额",
+      "extCurrencyId": "Long:币种id",
+      "extCurrencyCode": "String:币种编码",
+      "extCurrencyName": "String:币种名称",
+      "extReceiveContact": "String:收货人",
+      "extReceiveTelephone": "String:收货人联系方式"
+    }
+  },
+  "DeliveryNoteDetailVendor": {
+    "comment": "送货单明细",
+    "repository": "extDeliveryNoteDetailRepository",
+    "keyField": "deliveryNoteDetailId",
+    "fields": {
+      "extDetailStatus": "String:补充状态",
+      "extCancelReason": "String:取消原因",
+      "extCancelQty": "BigDecimal:已取消数量",
+      "extFinishTime": "LocalDateTime:完成时间",
+      "extStorageQty": "BigDecimal:EAS入库数量",
+      "extStorageTime": "LocalDateTime:EAS入库时间",
+      "extReceiveTime": "LocalDateTime:EAS收货时间"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+.detail-form-wrap[data-v-78609e7c] {
+  padding: 15px 0;
+}.tip-icon[data-v-d9644ced] {
+  vertical-align: inherit;
+  font-size: 12px;
+  color: #96999C;
+  margin-left: 5px;
+}
+.icondrag[data-v-d9644ced] {
+  cursor: move;
+}.tip-icon[data-v-2061b55a] {
+  vertical-align: inherit;
+  font-size: 12px;
+  color: #96999C;
+  margin-left: 5px;
+}
+.condition-desc[data-v-2061b55a] {
+  font-size: 12px;
+}.tip-icon[data-v-8696c359] {
+  vertical-align: inherit;
+  font-size: 12px;
+  color: #96999C;
+  margin-left: 5px;
+}
+.condition-name-button[data-v-8696c359] {
+  max-width: 100%;
+}
+.condition-name-button[data-v-8696c359] > span {
+  display: inline-block;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.icondrag[data-v-8696c359] {
+  cursor: move;
+}.flex-container[data-v-8b954af8] {
+  padding-bottom: 50px;
+}

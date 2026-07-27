@@ -1,0 +1,78 @@
+.registCurrency[data-v-4670a281] {
+  background-color: #f5f7fa;
+}
+[data-v-4670a281] .el-input-group__append {
+  background-color: #ffffff;
+}
+[data-v-4670a281] .el-tab-pane {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.app-main .el-container[data-v-4670a281] {
+  overflow: auto;
+  padding-right: 181px;
+}
+[data-v-4670a281] .topComment {
+  text-align: center;
+  margin-top: 10px;
+}
+[data-v-4670a281] .toRequired {
+  color: #ff4949;
+  padding-right: 4px;
+  margin-left: 6px;
+}
+.the-vendorGreenChannelDetail-detail[data-v-4670a281] {
+  position: relative;
+}
+.the-vendorGreenChannelDetail-detail .sub_header[data-v-4670a281] {
+  margin: 0 0 8px 0;
+}
+.the-vendorGreenChannelDetail-detail .el-table .el-date-editor[data-v-4670a281] {
+  width: 135px;
+}
+.the-vendorGreenChannelDetail-detail .stepDiv[data-v-4670a281] {
+  padding: 15px 10px;
+}
+.info-fill-progress[data-v-4670a281] {
+  position: fixed;
+  width: 210px;
+  top: 104px;
+  right: 0px;
+  bottom: 0px;
+  background: #fff;
+}
+.info-fill-progress .progressTitle[data-v-4670a281] {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 30px;
+  background: #f7f9fa;
+  font-size: 14px;
+}
+.info-fill-progress .progressCont[data-v-4670a281] {
+  padding: 6px;
+}
+.info-fill-progress .progressCont .progressItem[data-v-4670a281] {
+  padding: 8px 10px;
+  border-radius: 3px;
+}
+.info-fill-progress .progressCont .progressItem .progress-title[data-v-4670a281] {
+  font-size: 14px;
+}
+.info-fill-progress .progressCont .progressItem .progress-bar[data-v-4670a281] {
+  height: 15px;
+}
+.info-fill-progress .progressCont .progressItem.current[data-v-4670a281] {
+  background: #f5f5f5;
+}
+[data-v-4670a281] .companyInfoFill {
+  padding-bottom: 40px;
+}
+[data-v-4670a281] .dimension > :first-child {
+  display: none;
+}
+[data-v-4670a281] .el-checkbox:last-of-type {
+  height: 30px !important;
+}
+[data-v-4670a281] .categoryName .el-input__inner::-webkit-input-placeholder {
+  color: #303133 !important;
+}

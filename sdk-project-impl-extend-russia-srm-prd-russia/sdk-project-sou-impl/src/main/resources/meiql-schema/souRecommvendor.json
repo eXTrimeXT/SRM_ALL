@@ -1,0 +1,54 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "RecommvendorProject:scc_sou_project" : {
+    "keyField" : "projectId",
+    "comment":"寻源核心-供应商推荐主表",
+    "repository": "recommvendorRepository",
+    "fields" : {
+      "@include": ":RecommvendorProjectFields"
+    },
+    "relations" : {
+      "recommvendorList": "[Recommvendor:projectId]",
+      "recommvendorFileList": "[RecommvendorFile:projectId]",
+      "recommvendorProjectExtend": "[RecommvendorProjectExtend:projectId]",
+      "recommvendorDemandList": "[RecommvendorDemand:projectId]"
+    }
+  },
+  "RecommvendorDemand:scc_npm_sou_demand" : {
+    "keyField" : "demandId",
+    "comment":"寻源核心-供应商推荐申请单号关联表",
+    "fields" : {
+      "@include": ":RecommvendorDemandFields"
+    }
+  },
+  "Recommvendor:scc_sou_vendor" : {
+    "keyField" : "souVendorId",
+    "comment":"寻源核心-供应商推荐供应商表",
+    "repository": "recommvendorRepository",
+    "fields" : {
+      "@include": ":RecommvendorFields"
+    }
+  },
+  "RecommvendorProjectExtend:scc_sou_recomm_vendor" : {
+    "keyField" : "recommendedVendorId",
+    "comment":"寻源核心-供应商推荐供应商扩展表",
+    "repository": "recommvendorProjectExtendRepository",
+    "fields" : {
+      "@include": ":RecommvendorProjectExtendFields",
+      "extRecommendNo" : {
+        "convert": "eqGen:SEQ_RECOMMVENDOR",
+        "type": "String",
+        "dbName": "ext_recommend_no",
+        "desc": "推荐供应商单号"
+      }
+    }
+  },
+  "RecommvendorFile:scc_sou_file": {
+    "keyField" : "recommendedVendorId",
+    "comment":"寻源核心-供应商推荐附件表",
+    "fields" : {
+      "@include": ":RecommvendorFileFields"
+    }
+  }
+}

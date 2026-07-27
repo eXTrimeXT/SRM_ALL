@@ -1,0 +1,30 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "Borrow:scc_npm_borrow": {
+    "comment": "借阅申请",
+    "repository": "borrowRepository",
+    "keyField": "borrowId",
+    "fields": {
+      "@include": ":borrowFields",
+      "borrowNum" : {
+        "convert": "seqGen:SEQ_BORROW_NO",
+        "type": "String",
+        "dbName": "borrow_num",
+        "desc": "借阅申请单号"
+      }
+    },
+    "relations" : {
+      "attachList":"[BorrowAttach:borrowId]"
+    }
+  },
+  "BorrowAttach:scc_npm_borrow_attach": {
+    "comment": "借阅附件",
+    "keyField": "borrowAttachId",
+    "fields": {
+      "@include": ":borrowAttachFields"
+    },
+    "relations" : {
+    }
+  }
+}

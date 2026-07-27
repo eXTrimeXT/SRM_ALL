@@ -1,0 +1,1 @@
+alter table scc_sou_inq_order_item add ADVANCE_PAYMENT_REMARK char(1) default 'N' not null comment '预付款说明';

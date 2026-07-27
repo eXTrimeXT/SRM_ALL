@@ -1,0 +1,22 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "PerAcceptance:scc_cont_per_acceptance": {
+    "repository": "perAcceptanceExtRepository",
+    "comment": "合同履约验收单",
+    "keyField" : "perAcceptanceId",
+    "fields" : {
+      "startBpmUsername":"String:bpm发起人账号",
+      "startBpmNickname":"String:bpm发起人名称",
+      "extHrSectorCode": "String:创建人所属板块代码",
+      "extHrSectorId": "Long:创建人所属板块ID",
+      "extHrSectorName": "String:创建人所属板块名称",
+      "extHrDeptName": "String:创建人所属部门名称",
+      "extHrDeptId": "Long:创建人所属部门Id",
+      "extHrDeptCode": "String:创建人所属部门代码",
+      "extHrCompanyName": "String:创建人所属公司名称",
+      "extHrCompanyId": "Long:创建人所属公司Id",
+      "extHrCompanyCode": "String:创建人所属公司代码"
+    }
+  }
+}

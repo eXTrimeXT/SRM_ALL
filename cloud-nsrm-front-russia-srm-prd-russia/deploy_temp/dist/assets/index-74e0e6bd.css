@@ -1,0 +1,14 @@
+.the-returnedGoodsNoticeDetail-buyer-detail .sub_header[data-v-2a63e151] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.the-returnedGoodsNoticeDetail-buyer-detail .el-table .el-date-editor[data-v-2a63e151] {
+  width: 135px;
+}
+.the-returnedGoodsNoticeDetail-buyer-detail .el-input-number--mini[data-v-2a63e151] {
+  width: 100%;
+}
+.el-form-item .el-input-number--mini .el-input-number__increase,
+.el-form-item .el-input-number--mini .el-input-number__decrease {
+  height: 24px !important;
+}

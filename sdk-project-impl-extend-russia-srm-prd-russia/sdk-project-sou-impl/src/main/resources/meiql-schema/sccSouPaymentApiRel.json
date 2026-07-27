@@ -1,0 +1,16 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "sccSouPaymentApiRel:scc_sou_payment_api_rel": {
+    "comment": "批量付款及自动提交审批业务关联表",
+    "keyField": "paymentApiId",
+    "fields": {
+      "paymentApiId": "Long:主键",
+      "businessId": "Long:业务主键",
+      "businessCode": "String:业务代码",
+      "requestItemId": "String:关联代码",
+      "businessType": "String:类型代码：BID-保证金，REQ-意向金",
+      "@include": ":BaseFields"
+    }
+  }
+}

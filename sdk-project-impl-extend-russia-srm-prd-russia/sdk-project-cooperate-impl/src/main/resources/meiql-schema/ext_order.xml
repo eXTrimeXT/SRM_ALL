@@ -1,0 +1,104 @@
+<meiql _version="1.0" _type="custom">
+    <type name="Order">
+        <validators>
+            <action name="saveOrder,submitOrder">
+                <validator type="request" range="list" msg="参数缺失">
+                    return ql.notEmpty($recs);
+                </validator>
+                <validator type="request" msg="仅支持一条数据">
+                    return count($recs) == 1;
+                </validator>
+                <validator type="request" msg="单据状态不能为空">
+                    return ql.notEmpty($rec["orderStatus"]);
+                </validator>
+                <validator type="request" msg="传参状态错误">
+                    return ql.in($rec["orderStatus"], "DRAFT", "SUBMITTED", "UNDER_APPROVAL","APPROVED_INVALID");
+                </validator>
+                <validator type="request" msg="供应商不能为空">
+                    return ql.notEmpty($rec["vendorCode"]) &amp;&amp; ql.notNull($rec["vendorId"]) &amp;&amp; ql.notEmpty($rec["vendorName"]);
+                </validator>
+                <validator type="request" msg="业务实体不能为空">
+                    return ql.notEmpty($rec["ceeaOrgId"]) &amp;&amp; ql.notNull($rec["ceeaOrgCode"]) &amp;&amp; ql.notEmpty($rec["ceeaOrgName"]);
+                </validator>
+                <validator type="request" msg="供应商不能为空">
+                    return ql.notEmpty($rec["vendorId"]) &amp;&amp; ql.notNull($rec["vendorCode"]) &amp;&amp; ql.notEmpty($rec["vendorName"]);
+                </validator>
+                <validator type="request" msg="是否供应商确认不能为空">
+                    return ql.notEmpty($rec["ceeaIfSupplierConfirm"]);
+                </validator>
+                <validator type="request" msg="订单状态为待供方确认时，ceeaIfSupplierConfirm必须为Y">
+                    if ($rec["orderStatus"] == "APPROVED_INVALID") {
+                        return $rec["ceeaIfSupplierConfirm"] == "Y";
+                    }
+                    return true;
+                </validator>
+                <validator type="request" msg="订单日期不能为空">
+                    return ql.notNull($rec["ceeaPurchaseOrderDate"]);
+                </validator>
+                <validator type="request" msg="收货地址不能为空">
+                    return ql.notEmpty($rec["receiveAddress"]);
+                </validator>
+                <validator type="request" msg="订单明细不能为空">
+                    if ($rec["orderStatus"] == "DRAFT") {
+                        return true;
+                    }
+                    return ql.notEmpty(ql.clearDel($rec["detailList"]));
+                </validator>
+                <validator type="request" msg="当前状态不能修改">
+                    if (ql.notNull($rec["orderId"])) {
+                        c = ql.newCond();
+                        ql.cond.eq(c,"orderId", $rec["orderId"]);
+                        r = ql.query("Order", c);
+                        return ql.notEmpty(r) &amp;&amp; (r[0]["orderStatus"] == "DRAFT" || r[0]["orderStatus"] == "REJECT" || r[0]["orderStatus"] == "WITHDRAW" || r[0]["orderStatus"] == "REFUSED");
+                    }
+                    return true;
+                </validator>
+            </action>
+
+            <action name="delete">
+                <validator type="request" range="list" msg="参数缺失">
+                    return ql.notEmpty($recs);
+                </validator>
+                <validator type="request" msg="单据id不能为空">
+                    return ql.notEmpty($rec["orderId"]);
+                </validator>
+                <validator type="db" range="list" msg="单据不存在">
+                    return ql.notEmpty($recs);
+                </validator>
+                <validator type="db" msg="单据状态不为[拟定]，请检查!">
+                    return ql.in($rec["orderStatus"], "DRAFT", "REJECT", "WITHDRAW");
+                </validator>
+            </action>
+
+        </validators>
+    </type>
+
+    <type name="OrderDetail">
+        <validators>
+            <action name="create,update">
+                <validator type="request" range="list" msg="订单明细缺失">
+                    return ql.notEmpty($recs);
+                </validator>
+                <validator type="request" msg="订单数量必须大于0">
+                    return ql.notNull($rec["orderNum"]) &amp;&amp; ql.gt($rec["orderNum"], 0);
+                </validator>
+                <validator type="request" msg="未税单价不可为空">
+                    return ql.notNull($rec["ceeaUnitNoTaxPrice"]);
+                </validator>
+                <validator type="request" msg="税率不可为空">
+                    return ql.notNull($rec["ceeaTaxRate"]);
+                </validator>
+                <validator type="request" msg="币种名称不可为空">
+                    return ql.notNull($rec["currencyName"]);
+                </validator>
+                <validator type="request" msg="采购申请明细id不能为空">
+                    if ($rec["ceeaIfRequirement"] == "Y") {
+                        return ql.notNull($rec["ceeaRequirementLineId"]);
+                    }
+                    return true;
+                </validator>
+            </action>
+        </validators>
+    </type>
+
+</meiql>

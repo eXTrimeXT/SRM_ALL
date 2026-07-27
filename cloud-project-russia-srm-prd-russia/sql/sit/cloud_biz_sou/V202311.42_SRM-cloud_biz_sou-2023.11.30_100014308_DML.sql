@@ -1,0 +1,1 @@
+ALTER TABLE scc_sou_jc_agreement_info add CATALOG_ON_SHELVES_ID bigint(20) null comment '商城id' after UNIT;

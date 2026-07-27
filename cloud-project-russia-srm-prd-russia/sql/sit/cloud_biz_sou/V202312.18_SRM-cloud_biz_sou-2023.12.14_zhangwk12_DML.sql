@@ -1,0 +1,1 @@
+update scc_sou_process_config set PUBLISH_SCOPE = 'INVITE_TENDER' where PROCESS_CONFIG_ID = 10000000003;

@@ -1,0 +1,21 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "NpmSouProject:scc_sou_project" : {
+    "keyField" : "projectId",
+    "comment":"寻源核心-招标主表",
+    "fields" : {
+      "@include": ":RecommvendorProjectFields"
+    },
+    "relations" : {
+      "demandList": "[NpmSouDemand:projectId]"
+    }
+  },
+  "NpmSouDemand:scc_npm_sou_demand" : {
+    "keyField" : "demandId",
+    "comment":"寻源核心-申请单号关联表",
+    "fields" : {
+      "@include": ":RecommvendorDemandFields"
+    }
+  }
+}

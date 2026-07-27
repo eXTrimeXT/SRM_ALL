@@ -1,0 +1,33 @@
+.demo-drawer__content[data-v-344b9602] {
+  padding: 10px 15px;
+}
+.demo-drawer__content .edit-input[data-v-344b9602] {
+  width: 300px;
+}
+.demo-drawer__footer[data-v-344b9602] {
+  margin-top: 20px;
+  text-align: center;
+}
+.form-fill-style[data-v-344b9602] {
+  padding: 15px;
+}
+.tabItem[data-v-344b9602] {
+  padding: 10px;
+  position: relative;
+  margin-bottom: 50px;
+}
+.tabItem .optDiv[data-v-344b9602] {
+  padding: 0px 0 16px;
+}
+.tabItem .addTabBtn[data-v-344b9602] {
+  position: absolute;
+  left: 10px;
+  top: -24px;
+  z-index: 100;
+}
+.page-bar[data-v-344b9602] {
+  height: auto !important;
+}
+.noShow[data-v-344b9602] > :first-child {
+  display: none;
+}

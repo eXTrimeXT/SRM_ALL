@@ -1,0 +1,31 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "SccScHistoryPriceTemp:scc_sc_history_price_temp": {
+    "comment": "历史价格接口接收表",
+    "keyField" : "rowId",
+    "fields" : {
+      "rowId": "Long:主键",
+      "materialCode": "String:物料编码",
+      "materialName": "String:物料名称",
+      "areaCode": "String:区域(名称)",
+      "brand": "String:品牌",
+      "materialDescribe": "String:物料描述",
+      "orgCode": "String:业务实体编码",
+      "orgName": "String:业务实体名称",
+      "taxRate": "String:税率",
+      "noTaxPrice": "String:未税价格",
+      "leadTime": "Date:到货周期",
+      "supCode": "String:供应商编码",
+      "supName": "String:供应商名称",
+      "supTel": "String:供应商联系方式",
+      "orderDate": "Date:订单日期",
+      "processSerialNum": "String:处理序号",
+      "processStatus": "String:处理状态，PENDING：未处理，COMPLETED：处理完成，PROCESSING：处理中，ERROR：处理错误，RETRY：需重试",
+      "processMessage": "String:处理信息",
+      "processDate": "Date:处理时间",
+      "processGroupId": "Long:处理批次号",
+      "@include": ":BaseFields"
+    }
+  }
+}

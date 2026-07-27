@@ -1,0 +1,9 @@
+{
+  "skipUrls": [
+    "/SouReqHead/souReqlistPage",
+    "/SouReqHead/souReqgetById",
+    "/Recruit/visitList",
+    "/Recruit/visitDetail",
+    "/RecruitVendor/visitEnroll"
+  ]
+}

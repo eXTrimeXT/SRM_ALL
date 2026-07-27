@@ -1,0 +1,70 @@
+.table-header[data-v-c68c74ae] {
+  background: #F1F2F2;
+  border: 1px solid #DCDDDE;
+  padding: 10px 15px;
+}
+.table-body[data-v-c68c74ae] {
+  border: 1px solid #DCDDDE;
+  padding: 10px 15px;
+}
+.title[data-v-c68c74ae] {
+  display: flex;
+  padding: 10px 0;
+}
+.title i[data-v-c68c74ae] {
+  display: block;
+  width: 4px;
+  height: 14px;
+  background: #0077FF;
+  margin-right: 15px;
+  margin-top: 5px;
+}
+.detail-wd[data-v-c68c74ae] {
+  height: 30px;
+  border: 1px dashed #96999C;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.the-performanceModelDetail-detail .form-container2[data-v-c68c74ae] {
+  padding: 5px;
+}
+.the-performanceModelDetail-detail .modelDimLineInfo .dimCont[data-v-c68c74ae] {
+  margin-bottom: 35px;
+}
+.the-performanceModelDetail-detail .modelDimLineInfo .dimCont .el-form[data-v-c68c74ae] {
+  background-color: #f4f5f7;
+  padding-top: 20px;
+}
+.the-performanceModelDetail-detail .modelDimLineInfo .dimCont .el-form .el-form-item__label[data-v-c68c74ae] {
+  line-height: 32px !important;
+}
+.the-performanceModelDetail-detail .dimSelect .optionFirst[data-v-c68c74ae] {
+  padding: 0 !important;
+  text-align: center;
+  background-color: #f5f7fa;
+}
+.the-performanceModelDetail-detail .sub_header[data-v-c68c74ae] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.the-performanceModelDetail-detail .el-table .el-date-editor[data-v-c68c74ae] {
+  width: 135px;
+}
+.the-performanceModelDetail-detail .the_display_content .srm-row .srm-col[data-v-c68c74ae] {
+  margin-bottom: 10px;
+  line-height: 28px;
+  height: 28px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  white-space: nowrap;
+}
+.the-performanceModelDetail-detail .the_display_content .the_display_footer[data-v-c68c74ae] {
+  text-align: center !important;
+}
+.toRequired[data-v-c68c74ae] {
+  color: #ff4949;
+  padding-right: 2px;
+}

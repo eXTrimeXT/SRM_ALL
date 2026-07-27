@@ -1,0 +1,24 @@
+.page-cont[data-v-ac2630be] {
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+  padding: 20px;
+}
+.page-cont h3[data-v-ac2630be],
+.page-cont p[data-v-ac2630be] {
+  margin: 0;
+}
+.page-cont .title[data-v-ac2630be] {
+  font-style: normal;
+  margin: 0;
+  line-height: 40px;
+  font-size: 18px;
+  text-align: center;
+}
+.page-cont .sec1[data-v-ac2630be] {
+  font-size: 12px;
+  color: #595959;
+}
+.page-cont .sec1 p[data-v-ac2630be] {
+  line-height: 20px;
+}

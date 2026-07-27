@@ -1,0 +1,13 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "PayPlan:scc_contract_pay_plan": {
+    "keyField": "payPlanId",
+    "fields": {
+      "payPlanId": "Long",
+      "extAcceptanceDate": "Date",
+      "extAcceptanceRatio":"Integer",
+      "extWireTransferRatio":"Integer"
+    }
+  }
+}

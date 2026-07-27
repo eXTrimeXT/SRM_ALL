@@ -1,0 +1,15 @@
+.international[data-v-5254d82e] {
+  height: 100%;
+}
+.international .lang[data-v-5254d82e] {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.international .lang i[data-v-5254d82e] {
+  margin-right: 2px;
+  font-size: 25px;
+}
+.international .lang span[data-v-5254d82e] {
+  font-size: 14px;
+}

@@ -1,0 +1,16 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "OrderFileCheck:scc_sou_order_file_check": {
+    "keyField": "orderFileCheckId",
+    "comment":"寻源核心-围串标识别流水表",
+    "repository": "orderFileCheckRepository",
+    "fields": {
+      "orderFileCheckId": "Long",
+      "projectId": "Long",
+      "filePartType": "String",
+      "serialNum": "String",
+      "@include": ":BaseFields"
+    }
+  }
+}

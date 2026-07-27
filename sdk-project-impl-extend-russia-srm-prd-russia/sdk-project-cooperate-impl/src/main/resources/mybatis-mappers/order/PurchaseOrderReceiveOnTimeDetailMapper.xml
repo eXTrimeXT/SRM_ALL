@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.supcooperate.ext.order.mapper.PurchaseOrderReceiveOnTimeDetailMapper">
+    <select id="queryReceiveOnTimeDetail" resultType="com.midea.cloud.srm.model.supcooperate.ext.order.OrderReceiveDetail"
+            parameterType="com.midea.cloud.srm.model.supcooperate.ext.order.OrderReceiveOnTimeDetailQueryParam">
+        SELECT
+        od.ORDER_DETAIL_ID AS orderDetailId,
+        o.VENDOR_NAME AS vendorName,
+        o.VENDOR_CODE AS vendorCode,
+        o.EXT_PURCHASER_ORG_CODE AS extPurchaserOrgCode,
+        o.EXT_PURCHASER_ORG_NAME AS extPurchaserOrgName,
+        o.CEEA_ORG_CODE AS ceeaOrgCode,
+        o.CEEA_ORG_NAME AS  ceeaOrgName,
+        od.EXT_USE_DEPARTMENT_CODE AS extUseDepartmentCode,
+        od.EXT_USE_DEPARTMENT_NAME AS extUseDepartmentName,
+        od.MATERIAL_CODE AS materialCode,
+        od.MATERIAL_NAME AS materialName,
+        od.SPECIFICATION AS specification,
+        o.EXT_APPLY_DATE AS extApplyDate,
+        o.CEEA_PURCHASE_ORDER_DATE AS ceeaPurchaseOrderDate,
+        o.ORDER_NUMBER AS orderNumber,
+        n.DELIVERY_NUMBER AS deliveryNumber,
+        od.DELIVERY_DATE AS deliveryDate,
+        od.EXT_DELIVERY_CYCLE AS  extDeliveryCycle,
+        od.UNIT AS unit,
+        od.EXT_BRAND AS extBrand,
+        o.CEEA_EMP_NO AS ceeaEmpNo,
+        o.CEEA_EMP_USER_ID AS ceeaEmpUseId,
+        o.CEEA_EMP_USERNAME AS ceeaEmpUsername,
+        od.REQUIREMENT_QUANTITY AS requirementQuantity,
+        od.ORDER_NUM AS orderNum,
+        od.STORAGE_NUM AS storageNum,
+        od.RECEIVE_NUM AS receiveNum,
+        od.RECEIVE_SUM AS receiveSum,
+        od.EXT_DETAIL_STATUS AS orderDetailStatus,
+        nd.EXT_DETAIL_STATUS AS deliveryNoteDetailStatus,
+        od.CLOSED_CAUSE AS orderCancelReason,
+
+        o.EXT_VENDOR_CONTACTS,
+        o.EXT_VENDOR_PHONE,
+        o.CEEA_PURCHASE_TYPE,
+        od.EXT_USER_NAME,
+        od.EXT_USER_CODE,
+        nd.EXT_STORAGE_TIME,
+        od.CATEGORY_NAME,
+        nd.EXT_RECEIVE_TIME,
+        <!--eas收货时间-->
+        coalesce
+        (
+        GREATEST(nd.EXT_STORAGE_TIME , nd.EXT_RECEIVE_TIME),
+        nd.EXT_RECEIVE_TIME,
+        nd.EXT_STORAGE_TIME
+        ) AS easReceiveTime,
+        <!--eas收货时间-->
+        <!--采购类型-->
+        rl.EXT_BUY_TYPE
+        FROM
+        scc_sc_order_detail od JOIN scc_sc_order o ON od.ORDER_ID = o.ORDER_ID and o.ORDER_STATUS not in ('REFUSED', 'REFUSED')
+        left join scc_pr_requirement_line rl on rl.REQUIREMENT_LINE_ID= od.CEEA_REQUIREMENT_LINE_ID
+            LEFT JOIN (
+        SELECT
+        nd.*
+        FROM
+        scc_sc_delivery_note_detail nd
+        JOIN (
+        SELECT
+        DELIVERY_NOTE_DETAIL_ID
+        FROM
+        (
+        SELECT COALESCE
+        ( GREATEST( nd.EXT_STORAGE_TIME, nd.EXT_RECEIVE_TIME ), nd.EXT_RECEIVE_TIME, nd.EXT_STORAGE_TIME ) AS easReceiveTime,
+        ORDER_DETAIL_ID,
+        DELIVERY_NOTE_DETAIL_ID
+        FROM
+        scc_sc_delivery_note_detail nd
+        ORDER BY
+        easReceiveTime DESC
+        ) temp
+        GROUP BY
+        ORDER_DETAIL_ID
+        ) t ON t.DELIVERY_NOTE_DETAIL_ID = nd.DELIVERY_NOTE_DETAIL_ID
+        ) nd ON nd.ORDER_DETAIL_ID = od.ORDER_DETAIL_ID
+
+
+        LEFT JOIN scc_sc_delivery_note n ON n.DELIVERY_NOTE_ID =  nd.DELIVERY_NOTE_ID
+        WHERE
+        1=1
+
+        <!--eas收货时间 取max(EXT_STORAGE_TIME,EXT_RECEIVE_TIME)的一组记录(ORDER_DETAIL_ID分组键)中max的一条(2次max)-->
+        <!---->
+
+
+        <!--订单日期-->
+        <if test="ceeaPurchaseOrderDate!=null and !ceeaPurchaseOrderDate.isEmpty()">
+            AND
+            o.CEEA_PURCHASE_ORDER_DATE &lt; #{ceeaPurchaseOrderDate[1]}
+            AND o.CEEA_PURCHASE_ORDER_DATE &gt;= #{ceeaPurchaseOrderDate[0]}
+        </if>
+        <!--采购员-->
+        <if test="ceeaEmpUsername!=null">
+            AND o.CEEA_EMP_USERNAME LIKE CONCAT('%',#{ceeaEmpUsername},'%')
+        </if>
+        <!--供应商名称-->
+        <if test="vendorName!=null">
+            AND o.VENDOR_NAME LIKE CONCAT('%',#{vendorName},'%')
+        </if>
+        <!--供应商代码-->
+        <if test="vendorCode!=null">
+            AND o.VENDOR_CODE = #{vendorCode}
+        </if>
+        <!-- 申请单位 -->
+        <if test="ceeaOrgCode!=null">
+            AND o.CEEA_ORG_CODE = #{ceeaOrgCode}
+        </if>
+        <!-- 申请单位ID -->
+        <if test="ceeaOrgId!=null">
+            AND o.CEEA_ORG_ID = #{ceeaOrgId}
+        </if>
+
+        <!-- 采购员 -->
+        <if test="ceeaEmpNo!=null">
+            AND o.CEEA_EMP_NO = #{ceeaEmpNo}
+        </if>
+        <!--订单编号-->
+        <if test="orderNumber!=null">
+            AND o.ORDER_NUMBER LIKE CONCAT('%',#{orderNumber},'%')
+        </if>
+        <!--物料编码-->
+        <if test="materialCode!=null">
+            AND od.MATERIAL_CODE LIKE CONCAT('%',#{materialCode},'%')
+        </if>
+        <!--交货日期-->
+        <if test="deliveryDate!=null and !deliveryDate.isEmpty()">
+            AND
+            od.DELIVERY_DATE &lt; #{deliveryDate[1]}
+            AND od.DELIVERY_DATE &gt;= #{deliveryDate[0]}
+        </if>
+    </select>
+
+    <select id="queryReceiveOnTimeDetail2" resultType="com.midea.cloud.srm.model.supcooperate.ext.order.OrderReceiveDetail"
+            parameterType="com.midea.cloud.srm.model.supcooperate.ext.order.OrderReceiveOnTimeDetailQueryParam">
+        SELECT
+
+        o.CEEA_ORG_ID  AS ceeaOrgId,
+        o.CEEA_ORG_CODE AS ceeaOrgCode,
+        o.VENDOR_CODE AS vendorCode,
+        o.CEEA_EMP_NO AS ceeaEmpNo,
+        <!--eas收货时间-->
+        coalesce
+        (
+        GREATEST(nd.EXT_STORAGE_TIME , nd.EXT_RECEIVE_TIME),
+        nd.EXT_RECEIVE_TIME,
+        nd.EXT_STORAGE_TIME
+        ) AS easReceiveTime,
+
+        <!--eas收货时间-->
+        <!--收货日期-->
+        od.DELIVERY_DATE
+        FROM
+        scc_sc_order_detail od JOIN scc_sc_order o ON od.ORDER_ID = o.ORDER_ID
+        left join scc_pr_requirement_line rl on rl.REQUIREMENT_LINE_ID= od.CEEA_REQUIREMENT_LINE_ID
+        LEFT JOIN scc_sc_delivery_note_detail nd ON nd.ORDER_DETAIL_ID = od.ORDER_DETAIL_ID
+
+
+        LEFT JOIN scc_sc_delivery_note n ON n.DELIVERY_NOTE_ID =  nd.DELIVERY_NOTE_ID
+        WHERE
+        1=1
+
+        <!--eas收货时间 取max(EXT_STORAGE_TIME,EXT_RECEIVE_TIME)的一组记录(ORDER_DETAIL_ID分组键)中max的一条(2次max)-->
+        and
+        nd. DELIVERY_NOTE_DETAIL_ID in
+        (
+        select
+        DELIVERY_NOTE_DETAIL_ID from
+        (
+        select
+        coalesce
+        (
+        GREATEST(nd.EXT_STORAGE_TIME , nd.EXT_RECEIVE_TIME),
+        nd.EXT_RECEIVE_TIME,
+        nd.EXT_STORAGE_TIME
+        ) AS easReceiveTime,ORDER_DETAIL_ID,DELIVERY_NOTE_DETAIL_ID
+        from scc_sc_delivery_note_detail nd
+        order by easReceiveTime desc
+        ) temp
+        group by ORDER_DETAIL_ID
+        )
+        <!---->
+        <foreach collection="list" item="item" open="and ( " separator="or" close=")">
+            (
+            o.VENDOR_CODE = #{item.vendorCode}
+            AND o.CEEA_ORG_CODE = #{item.ceeaOrgCode}
+            AND o.CEEA_ORG_ID = #{item.ceeaOrgId}
+            AND o.CEEA_EMP_NO = #{item.ceeaEmpNo}
+            )
+        </foreach>
+    </select>
+</mapper>

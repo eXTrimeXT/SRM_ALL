@@ -1,0 +1,20 @@
+<meiql _version="1.0" _type="standard">
+    <type name="SouInviteHistoryBuyer">
+        <validators>
+            <action name="publicInvite,notPublicInvite">
+                <validator type="request" msg="参数必填：inviteHeadId">
+                    ql.notEmpty($rec["inviteHeadId"])
+                </validator>
+                <validator type="request" msg="参数必填：项目名称不能为空">
+                    ql.notEmpty($rec["projectName"])
+                </validator>
+                <validator type="request" msg="参数必填：供应商信息不能为空">
+                    ql.notEmpty($rec["vendorId"])
+                </validator>
+                <validator type="request" msg="参数必填：手机号码不能为空">
+                    ql.notEmpty($rec["phone"])
+                </validator>
+            </action>
+        </validators>
+    </type>
+</meiql>

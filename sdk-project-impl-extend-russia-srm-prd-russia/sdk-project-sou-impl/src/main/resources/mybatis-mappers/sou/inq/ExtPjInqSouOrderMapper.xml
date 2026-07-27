@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress ALL -->
+<mapper namespace="com.midea.cloud.srm.sou.inq.ext.dao.ExtPjInqSouOrderMapper">
+
+    <select id="listVendorOrderHis" resultType="com.midea.cloud.srm.model.sou.sourcing.entity.SouOrderItem">
+        SELECT order_item.*
+        FROM scc_sou_order_item order_item
+        LEFT JOIN scc_sou_project project on order_item.PROJECT_ID = project.PROJECT_ID
+        LEFT JOIN scc_sou_inq_project inq_project on inq_project.PROJECT_ID = order_item.PROJECT_ID
+        LEFT JOIN scc_sou_item sou_item on order_item.SOU_ITEM_ID = sou_item.SOU_ITEM_ID
+        left join scc_sou_inq_item inq_item on order_item.SOU_ITEM_ID=inq_item.SOU_ITEM_ID
+        WHERE 1 = 1
+            AND project.SOU_TYPE = 'inq'
+            AND order_item.ORDER_STATUS IN ('SUBMISSION', 'CANCEL')
+          <!--品牌-->
+          <if test="extBrand!=null">
+              and inq_item.EXT_BRAND  like concat('%', concat(#{extBrand}, '%'))
+          </if>
+        <if test="vendorId != null"> <!-- 供应商ID -->
+            AND order_item.VENDOR_ID = #{vendorId}
+        </if>
+        <if test="vendorName != null"> <!-- 供应商名称 -->
+            AND exists (
+                SELECT * from scc_sou_vendor vendor
+                WHERE vendor.PROJECT_ID = order_item.PROJECT_ID
+                AND vendor.VENDOR_ID = order_item.VENDOR_ID AND vendor.VENDOR_NAME LIKE concat('%', concat(#{vendorName}, '%'))
+            )
+        </if>
+        <if test="souNo != null"> <!-- 询价单号 -->
+            AND project.SOU_NO like concat('%', concat(#{souNo}, '%'))
+        </if>
+        <if test="itemCode != null"> <!-- 物料编码 -->
+            AND sou_item.ITEM_CODE like concat('%', concat(#{itemCode}, '%'))
+        </if>
+        <if test="itemDesc != null"> <!-- 物料名称 -->
+            AND sou_item.ITEM_DESC like concat('%', concat(#{itemDesc}, '%'))
+        </if>
+        <if test="forBuyer"> <!-- 采购商端(只有评选中和询价结束，才允许查看历史报价) -->
+            AND (
+                project.CURRENT_ROUND > order_item.ROUND
+                OR
+                inq_project.EXT_PROJECT_STATUS IN ('EVALUATING', 'PRICE_END')
+            )
+        </if>
+        order by project.SOU_NO desc, sou_item.SORT_INDEX asc
+    </select>
+
+    <select id="querySouProjects" resultType="com.midea.cloud.srm.model.sou.sourcing.entity.SouProject">
+        SELECT
+            sou_project.*
+        FROM scc_sou_project sou_project
+        LEFT JOIN scc_sou_inq_project inq_project on inq_project.PROJECT_ID = sou_project.PROJECT_ID
+        WHERE
+            sou_project.SOU_TYPE = 'inq'
+        <if test="souNo != null"> <!-- 寻源单号 -->
+            AND sou_project.SOU_NO LIKE concat('%', concat(#{souNo}, '%'))
+        </if>
+        <if test="souName != null"> <!-- 寻源单名称 -->
+            AND sou_project.SOU_NAME LIKE concat('%', concat(#{souName}, '%'))
+        </if>
+        <if test="extProjectStatus != null"> <!-- 寻源状态 -->
+            AND inq_project.EXT_PROJECT_STATUS = #{extProjectStatus}
+        </if>
+        <if test="scoreRuleType != null"> <!-- 评分规则 -->
+            AND sou_project.SCORE_RULE_TYPE = #{scoreRuleType}
+        </if>
+        <if test="createdId != null"> <!-- 创建人ID -->
+            AND sou_project.CREATED_ID = #{createdId}
+        </if>
+        <if test="createdBy != null"> <!-- 创建人账号 -->
+            AND (
+                sou_project.CREATED_BY LIKE concat('%', concat(#{createdBy}, '%'))
+                OR
+                sou_project.CREATED_FULL_NAME LIKE concat('%', concat(#{createdBy}, '%'))
+            )
+        </if>
+        <if test="createApprovalStatus != null"> <!-- 立项审核状态 -->
+            AND sou_project.CREATE_APPROVAL_STATUS = #{createApprovalStatus}
+        </if>
+        <if test="creationDateFrom != null"> <!-- 创建时间从 -->
+            AND sou_project.CREATION_DATE >= #{creationDateFrom}
+        </if>
+        <if test="creationDateTo != null"> <!-- 创建时间到 -->
+            AND sou_project.CREATION_DATE &lt;= #{creationDateTo}
+        </if>
+        <if test="publishTimeFrom != null"> <!-- 发布时间从 -->
+            AND sou_project.PUBLISH_TIME >= #{publishTimeFrom}
+        </if>
+        <if test="publishTimeTo != null"> <!-- 发布时间到 -->
+            AND sou_project.PUBLISH_TIME &lt;= #{publishTimeTo}
+        </if>
+        <if test="itemCode != null"> <!-- 物料编码 -->
+            AND exists (
+                SELECT item.PROJECT_ID from scc_sou_item item
+                WHERE item.PROJECT_ID = sou_project.PROJECT_ID
+                AND item.ITEM_CODE LIKE concat('%', concat(#{itemCode}, '%'))
+            )
+        </if>
+        <if test="itemDesc != null"> <!-- 物料名称 -->
+            AND exists (
+                SELECT item.PROJECT_ID from scc_sou_item item
+                WHERE item.PROJECT_ID = sou_project.PROJECT_ID
+                AND item.ITEM_DESC LIKE concat('%', concat(#{itemDesc}, '%'))
+            )
+        </if>
+        <if test="extMaterialModel != null"> <!-- 物料规格 -->
+            AND exists (
+                SELECT inq_item.PROJECT_ID from scc_sou_inq_item inq_item
+                WHERE inq_item.PROJECT_ID = sou_project.PROJECT_ID
+                AND inq_item.EXT_MATERIAL_MODEL LIKE concat('%', concat(#{extMaterialModel}, '%'))
+            )
+        </if>
+        <if test="createUserOrgOuName != null"> <!-- 创建人所在公司 -->
+            AND (
+                inq_project.CREATE_USER_ORG_OU_CODE LIKE concat('%', concat(#{createUserOrgOuName}, '%'))
+                OR
+                inq_project.CREATE_USER_ORG_OU_NAME LIKE concat('%', concat(#{createUserOrgOuName}, '%'))
+            )
+        </if>
+        ORDER BY sou_project.SOU_NO desc
+    </select>
+
+    <select id="listOrders" resultType="com.midea.cloud.srm.model.sou.openapi.sourcing.vo.order.ApiSouOrderQueryVO">
+        SELECT
+            sou_project.PROJECT_ID,             <!-- 寻源单ID -->
+            sou_project.PROCESS_CONFIG_ID,      <!-- 流程配置ID -->
+            sou_project.SOU_NO,                 <!-- 寻源单号 -->
+            sou_project.SOU_NAME,               <!-- 寻源单标题 -->
+            sou_project.CURRENT_ROUND,          <!-- 当前轮次 -->
+            sou_project.PUBLISH_SCOPE,          <!-- 发布范围 -->
+            sou_project.PROJECT_STATUS,         <!-- 寻源单状态 -->
+            sou_order.ORDER_NO,                 <!-- 报价单号 -->
+            sou_order.ORDER_STATUS,             <!-- 报价单状态 -->
+            sou_project.SIGN_UP_END_TIME,       <!-- 报名截止时间 -->
+            sou_project.ORDER_START_TIME,       <!-- 报价开始时间 -->
+            sou_project.ORDER_END_TIME,         <!-- 报价截止时间 -->
+            sou_project.PUBLISH_TIME,           <!-- 发布时间 -->
+            sou_project.ALLOW_WITHDRAW,         <!-- 是否允许撤回报价 -->
+            sou_project.CREATED_BY,             <!-- 创建人 -->
+            sou_order.CREATED_FULL_NAME,        <!-- 创建人昵称 -->
+            sou_order.LAST_UPDATED_FULL_NAME,   <!-- 修改人昵称 -->
+            vendor.JOIN_ROUND,                  <!-- 供应商加入的轮次 -->
+            case when vendor.SIGN_UP_STATUS is null then 'NO_SIGN_UP' else vendor.SIGN_UP_STATUS end sign_up_status <!-- 报名状态 -->
+        FROM scc_sou_project sou_project
+        LEFT JOIN scc_sou_inq_project inq_project on sou_project.PROJECT_ID = inq_project.PROJECT_ID
+        LEFT JOIN scc_sou_order sou_order
+            ON sou_project.PROJECT_ID = sou_order.PROJECT_ID
+            AND sou_order.ROUND = sou_project.CURRENT_ROUND
+            AND sou_order.VENDOR_ID = #{queryParam.vendorId}
+        LEFT JOIN scc_sou_vendor vendor
+            on vendor.PROJECT_ID = sou_project.PROJECT_ID and vendor.VENDOR_ID = #{queryParam.vendorId}
+        WHERE
+            sou_project.PROJECT_STATUS NOT IN ('DRAFT') <!-- 拟定的不能查询出来 -->
+            and sou_project.SOU_TYPE = #{souType} <!-- 寻源类型 -->
+        <if test="queryParam.souNo != null and queryParam.souNo.length() > 0"> <!-- 寻源单号 -->
+            AND sou_project.SOU_NO LIKE concat('%', concat(#{queryParam.souNo}, '%'))
+        </if>
+        <if test="queryParam.souName != null and queryParam.souName.length() > 0"> <!-- 寻源单名称 -->
+            AND sou_project.SOU_NAME LIKE concat('%', concat(#{queryParam.souName}, '%'))
+        </if>
+        <if test="queryParam.extProjectStatus != null"> <!-- 寻源单状态 -->
+            AND inq_project.EXT_PROJECT_STATUS = #{queryParam.extProjectStatus}
+        </if>
+        <!-- 如果是公开招标则所有供应商均能看到；如果是邀请招标，供应商只能看到自己被邀请的单据 -->
+        <!-- 而且考虑到界面上有物料查询，如果是邀请招标，供应商必须要对指定物料有报价权限才能够看到询价单 -->
+            AND ( sou_project.PUBLISH_SCOPE = 'OPEN_TENDER'
+            AND EXISTS( SELECT * FROM scc_sou_item sou_item where sou_item.PROJECT_ID = sou_project.PROJECT_ID
+        <if test="queryParam.itemDesc != null and queryParam.itemDesc.length() > 0"> <!-- 物料名称 -->
+                AND sou_item.ITEM_DESC LIKE concat('%', concat(#{queryParam.itemDesc}, '%'))
+        </if>
+            )
+            OR sou_project.PUBLISH_SCOPE = 'INVITE_TENDER'
+            AND EXISTS(
+                SELECT PROJECT_ID
+                FROM scc_sou_vendor
+                WHERE PROJECT_ID = sou_project.PROJECT_ID
+                AND VENDOR_ID = #{queryParam.vendorId}
+        <if test="queryParam.itemId != null"> <!-- 物料ID -->
+            AND EXISTS (
+            SELECT sou_item.SOU_ITEM_ID
+            FROM scc_sou_item sou_item
+            WHERE sou_item.PROJECT_ID = sou_project.PROJECT_ID
+            AND sou_item.ITEM_ID = #{queryParam.itemId}
+            )
+        </if>
+        <if test="(queryParam.itemDesc != null and queryParam.itemDesc.length() > 0)
+              or (queryParam.extensions.itemCode != null and queryParam.extensions.itemCode.length() > 0)
+              or (queryParam.extensions.extBrand != null and queryParam.extensions.extBrand.length() > 0)
+              or (queryParam.extensions.extMaterialModel != null and queryParam.extensions.extMaterialModel.length() > 0)
+">           and exists
+            (
+            SELECT temp1.SOU_ITEM_ID
+            FROM scc_sou_item temp1
+            join scc_sou_inq_item temp2
+            on temp1.SOU_ITEM_ID=temp2.SOU_ITEM_ID
+            WHERE temp1.PROJECT_ID = sou_project.PROJECT_ID
+        <if test="queryParam.itemDesc != null and queryParam.itemDesc.length() > 0"> <!-- 物料名称 -->       and temp1.ITEM_DESC LIKE concat('%', concat(#{queryParam.itemDesc}, '%'))
+        </if><if test="
+            queryParam.extensions.itemCode != null and queryParam.extensions.itemCode.length() > 0"> <!-- 物料编码 -->       and temp1.ITEM_CODE  LIKE concat('%', concat(#{queryParam.extensions.itemCode}, '%'))
+        </if>
+        <if test="queryParam.extensions.extBrand != null and queryParam.extensions.extBrand.length() > 0"> <!-- 品牌 -->
+            and temp2.EXT_BRAND LIKE concat('%', concat(#{queryParam.extensions.extBrand}, '%'))
+        </if>
+        <if test="queryParam.extensions.extMaterialModel != null and queryParam.extensions.extMaterialModel.length() > 0"> <!-- 规格型号 -->
+            and temp2.EXT_MATERIAL_MODEL LIKE concat('%', concat(#{queryParam.extensions.extMaterialModel}, '%'))
+        </if>
+            )
+        </if>
+
+       <!-- <if test="queryParam.itemDesc != null and queryParam.itemDesc.length() > 0"> &lt;!&ndash; 物料名称 &ndash;&gt;
+            AND EXISTS (
+            SELECT sou_item.SOU_ITEM_ID
+            FROM scc_sou_item sou_item
+            WHERE sou_item.PROJECT_ID = sou_project.PROJECT_ID
+            AND sou_item.ITEM_DESC LIKE concat('%', concat(#{queryParam.itemDesc}, '%'))
+            )
+        </if>
+
+        <if test="queryParam.extensions.itemCode != null and queryParam.extensions.itemCode.length() > 0"> &lt;!&ndash; 物料编码 &ndash;&gt;
+            AND EXISTS (
+            SELECT sou_item.SOU_ITEM_ID
+            FROM scc_sou_item sou_item
+            WHERE sou_item.PROJECT_ID = sou_project.PROJECT_ID
+            AND sou_item.ITEM_CODE LIKE concat('%', concat(#{queryParam.extensions.itemCode}, '%'))
+            )
+        </if>
+
+        <if test="queryParam.extensions.extBrand != null and queryParam.extensions.extBrand.length() > 0"> &lt;!&ndash; 品牌 &ndash;&gt;
+            AND EXISTS (
+            SELECT sou_item.SOU_ITEM_ID
+            FROM scc_sou_inq_item sou_item
+            WHERE sou_item.PROJECT_ID = sou_project.PROJECT_ID
+            AND sou_item.EXT_BRAND LIKE concat('%', concat(#{queryParam.extensions.extBrand}, '%'))
+            )
+        </if>
+
+        <if test="queryParam.extensions.extMaterialModel != null and queryParam.extensions.extMaterialModel.length() > 0"> &lt;!&ndash; 规格型号 &ndash;&gt;
+            AND EXISTS (
+            SELECT sou_item.SOU_ITEM_ID
+            FROM scc_sou_inq_item sou_item
+            WHERE sou_item.PROJECT_ID = sou_project.PROJECT_ID
+            AND sou_item.EXT_MATERIAL_MODEL LIKE concat('%', concat(#{queryParam.extensions.extMaterialModel}, '%'))
+            )
+        </if>
+-->
+        )
+        )
+        <!-- 下面进行报价单状态筛选 -->
+        <if test="queryParam.orderStatus != null">
+            <if test="queryParam.orderStatus.name().equals('DRAFT')"> <!-- 待报价:要么不存在报价单，要么最新的报价单是待报价状态 -->
+                AND (
+                sou_order.PROJECT_ID IS NULL
+                OR
+                sou_order.ORDER_STATUS = 'DRAFT'
+                )
+            </if>
+            <!-- 已报价、已撤回、已作废  SouOrderStatusEnum-->
+            <if test="queryParam.orderStatus.name().equals('SUBMISSION') or queryParam.orderStatus.name().equals('WITHDRAW') or queryParam.orderStatus.name().equals('CANCEL')">
+                AND sou_order.ORDER_STATUS = #{queryParam.orderStatus}
+            </if>
+            <!-- 价格确认相关状态：待添加 -->
+        </if>
+        <if test="queryParam.createUserOrgOuName != null"> <!-- 公司 -->
+            AND inq_project.CREATE_USER_ORG_OU_NAME LIKE concat('%', concat(#{queryParam.createUserOrgOuName}, '%'))
+        </if>
+        <if test="queryParam.buyerNickName !=null">
+            AND sou_project.CREATED_FULL_NAME LIKE concat('%', concat(#{queryParam.buyerNickName}, '%'))
+        </if>
+
+        order by sou_project.ORDER_END_TIME DESC, sou_project.SOU_NO desc
+    </select>
+
+    <select id="querySouItemsOrderCount" resultType="com.midea.cloud.srm.model.extapi.sou.inq.vo.ExtInqSouItemQueryVO">
+        SELECT
+        count( oi.SOU_ITEM_ID ) ORDER_COUNT,
+        oi.SOU_ITEM_ID,
+        oi.ROUND
+        FROM
+        scc_sou_order_item oi
+        WHERE
+        (oi.SOU_ITEM_ID, oi.ROUND) IN
+        <foreach collection="souItemIdRoundList" open="(" close=")" separator="," item="item">
+            (#{item.souItemId}, #{item.round})
+        </foreach>
+        AND oi.ORDER_STATUS = 'SUBMISSION'
+        GROUP BY oi.SOU_ITEM_ID, oi.ROUND
+    </select>
+
+    <select id="querySouItems" resultType="com.midea.cloud.srm.model.extapi.sou.inq.vo.ExtInqSouItemQueryVO">
+        SELECT * FROM (
+            SELECT
+                sou_project.SOU_NO,
+                sou_project.PROJECT_STATUS,
+                sou_project.CURRENT_ROUND,
+                sou_item.*,
+                inq_item.EXT_MATERIAL_MODEL,
+                sou_project.CREATED_BY BUYER_USERNAME,
+                sou_project.CREATED_FULL_NAME BUYER_NICK_NAME,
+                sou_project.creation_date SOU_CREATION_DATE,
+                sou_project.ORDER_END_TIME,
+                sou_project.EXT_APPLICANT,
+                sou_project.EXT_ORG_OU_ID
+            FROM scc_sou_item sou_item
+            LEFT JOIN scc_sou_inq_item inq_item ON sou_item.SOU_ITEM_ID = inq_item.SOU_ITEM_ID
+            LEFT JOIN scc_sou_project sou_project ON sou_item.PROJECT_ID = sou_project.PROJECT_ID
+            WHERE
+            sou_project.SOU_TYPE = 'inq'
+            <if test="souNo != null"> <!-- 询价单号 -->
+                AND sou_project.SOU_NO LIKE concat('%', concat(#{souNo}, '%'))
+            </if>
+            <if test="projectStatus != null and projectStatus != ''"><!-- 项目状态 -->
+                AND sou_project.PROJECT_STATUS = #{projectStatus}
+            </if>
+            <if test="buyerUsername != null"> <!-- 创建人账号 -->
+                AND sou_project.CREATED_BY = #{buyerUsername}
+            </if>
+            <if test="itemCode != null"> <!-- 物料编码 -->
+                AND sou_item.ITEM_CODE LIKE concat('%', concat(#{itemCode}, '%'))
+            </if>
+            <if test="itemDesc != null"> <!-- 物料名称 -->
+                AND sou_item.ITEM_DESC LIKE concat('%', concat(#{itemDesc}, '%'))
+            </if>
+            <if test="extMaterialModel != null"> <!-- 规格型号 -->
+                AND inq_item.EXT_MATERIAL_MODEL LIKE concat('%', concat(#{extMaterialModel}, '%'))
+            </if>
+            <if test="souCreationDateFrom != null"> <!-- 询价创建时间从 -->
+                AND sou_project.CREATION_DATE >= #{souCreationDateFrom}
+            </if>
+            <if test="souCreationDateTo != null"> <!-- 询价创建时间到 -->
+                AND sou_project.CREATION_DATE &lt;= #{souCreationDateTo}
+            </if>
+            <if test="orderEndTimeFrom != null"> <!-- 询价报价截止时间从 -->
+                AND sou_project.ORDER_END_TIME >= #{orderEndTimeFrom}
+            </if>
+            <if test="orderEndTimeTo != null"> <!-- 询价报价截止时间到 -->
+                AND sou_project.ORDER_END_TIME &lt;= #{orderEndTimeTo}
+            </if>
+        ) tt
+        WHERE 1 = 1
+        <if test="orderCount != null"> <!-- 报价次数 -->
+            AND tt.ORDER_COUNT = #{orderCount}
+        </if>
+        ORDER BY tt.SOU_NO desc, tt.SOU_ITEM_ID asc
+    </select>
+
+</mapper>

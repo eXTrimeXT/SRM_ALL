@@ -1,0 +1,23 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "ContactInfo:scc_sup_contact_info": {
+    "comment": "供应商-联系人",
+	"keyField": "contactInfoId",
+    "fields": {
+	  "contactInfoId":"Long",
+      "socialSecurityCertificateFileId": {
+        "type": "Long",
+        "dbName":"social_security_certificate_file_id",
+        "desc": "社保证明文件id",
+        "virtual": false
+      },
+      "socialSecurityCertificateFileName": {
+        "type": "String",
+        "dbName":"social_security_certificate_file_name",
+        "desc": "社保证明文件名称",
+        "virtual": false
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "SouFinanceCompany:scc_sou_finance_company" : {
+    "keyField" : "fcId",
+    "comment":"财务-公司信息",
+    "fields" : {
+      "fcId" : "Long:主键",
+      "profitCenterCode" : "String:利润中心代码",
+      "profitCenterName" : "String:利润中心名称",
+      "companyName" : "String:公司名称",
+      "companyCode" : "String:公司编码（SAP）",
+      "buCode" : "String:板块编码",
+      "accountName" : "String:开户户名",
+      "account" : "String:账号",
+      "centerCode" : "String:成本中心代码",
+      "centerName" : "String:成本中心名称",
+      "skDept" : "String:司库部门",
+      "skDeptName" : "String:司库部门名称",
+      "@include": ":BaseFields"
+    },
+    "relations" : {
+    }
+  }
+}

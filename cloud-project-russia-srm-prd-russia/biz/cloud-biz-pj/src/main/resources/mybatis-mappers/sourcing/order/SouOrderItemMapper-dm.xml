@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.sourcing.order.dao.SouOrderItemMapper">
+
+    <select id="getByParamCountWinning" resultType="com.midea.cloud.srm.model.supplier.info.dto.BidFrequency">
+        select COUNT(*)                             FREQUENCY,
+               DATE_FORMAT(ssp.CREATION_DATE, '%Y') BYEAR,
+               ssoi.CATEGORY_ID
+        FROM scc_sou_order_item ssoi
+                 inner join scc_sou_item ssi on ssi.SOU_ITEM_ID = ssoi.SOU_ITEM_ID
+                 inner join scc_sou_vendor ssv on ssv.PROJECT_ID = ssoi.PROJECT_ID and ssv.VENDOR_ID = ssoi.VENDOR_ID
+                 inner join scc_sou_project ssp on ssoi.PROJECT_ID = ssp.PROJECT_ID
+             -- 已定价
+        where ssp.PROJECT_STATUS = 'PRICE_END'
+          -- 审批状态已审批
+          and ssp.CREATE_APPROVAL_STATUS = 'APPROVED'
+          -- 已中标
+          and ssoi.SELECT_STATUS = 'WIN'
+          and TO_CHAR(ssp.CREATION_DATE, 'YYYY') >= TO_CHAR(ADD_MONTHS(sysdate, -24), 'YYYY')
+          and ssoi.CATEGORY_ID = #{categoryId}
+          and ssoi.VENDOR_ID = #{vendorId}
+        group by 'BYEAR', ssoi.CATEGORY_ID
+        order by 'BYEAR'
+    </select>
+
+</mapper>

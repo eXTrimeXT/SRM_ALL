@@ -1,0 +1,15 @@
+
+.pdf-contain[data-v-3ea6d927] {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  min-width: 1110px;
+  height: calc(100% - 5px);
+}
+.wrapper[data-v-3ea6d927] {
+  position: absolute;
+  left: 300px;
+}
+.watermark[data-v-3ea6d927] {
+  color: #fff;
+}

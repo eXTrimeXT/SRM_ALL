@@ -1,0 +1,15 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "ExtMaterial:meicloud_bpmp_material.mt_part": {
+    "comment": "物料中台",
+    "keyField": "id",
+    "fields": {
+      "id": "Long:主键",
+      "objectCode": "String:物料编码",
+      "objectName": "String:物料名称",
+      "materialType": "String:物料规格"
+
+    }
+  }
+}

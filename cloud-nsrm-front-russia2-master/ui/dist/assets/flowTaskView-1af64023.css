@@ -1,0 +1,28 @@
+
+.order-list-btn[data-v-8ca4460e] {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  width: 100%;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 100;
+}
+.order-form-contain[data-v-8ca4460e] {
+  display: block;
+  /* width: 100%;
+  margin: 0 0 58px 0;
+  height: 100%; */
+  /* min-width: 840px; */
+}
+.order-form-contain > .el-container.flex-container[data-v-8ca4460e] {
+  /* height: 100%; */
+}
+.blankPage[data-v-8ca4460e]{
+  margin:100px 50px;
+  font-size:20px;
+  line-height:40px;
+  text-align:center;
+}

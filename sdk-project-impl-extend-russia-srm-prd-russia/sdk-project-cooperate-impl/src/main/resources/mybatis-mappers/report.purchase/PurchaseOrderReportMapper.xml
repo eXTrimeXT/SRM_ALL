@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.supcooperate.report.purchase.mapper.PurchaseOrderReportMapper">
+
+    <select id="listPurchaseOrderProcess" parameterType="map" resultType="com.midea.cloud.srm.model.supcooperate.report.purchase.dto.PurchaseOrderProcessDto">
+        SELECT
+            h.REQUIREMENT_HEAD_ID,
+            h.REQUIREMENT_HEAD_NUM,
+            h.APPLY_DATE,
+            h.EXT_APPROVE_TIME,
+            l.REQUIREMENT_DATE,
+            h.CREATED_FULL_NAME APPLY_FULL_NAME,
+            l.EXT_USER_NAME,
+            h.ORG_NAME,
+            h.AUDIT_STATUS,
+            l.MATERIAL_ID,
+            l.MATERIAL_CODE,
+            l.MATERIAL_NAME,
+            l.EXT_MATERIAL_MODEL,
+            l.UNIT_CODE,
+            l.UNIT,
+            l.REQUIREMENT_QUANTITY,
+            l.EXT_BUY_TYPE,
+            l.EXT_USE_DEPARTMENT_NAME,
+            l.EXT_AREA_CODE,
+            l.RECEIVE_ADDRESS,
+            l.EXT_RECEIVER,
+            l.RECEIVE_TELEPHONE,
+            l.EXT_CLOSED_CAUSE,
+            ot.CEEA_REQUIREMENT_LINE_ID,
+            ot.CEEA_REQUIREMENT_HEAD_NUM,
+            ot.ORDER_ID,
+            ot.ORDER_NUMBER,
+            ot.EXT_WARRANTY_PERIOD,
+            ot.DELIVERY_DATE,
+            ot.EXT_DELIVERY_CYCLE,
+            ot.VENDOR_ID,
+            ot.VENDOR_CODE,
+            ot.VENDOR_NAME,
+            CONCAT(l.CEEA_PERFORM_USER_NAME,'-',l.CEEA_PERFORM_USER_NICKNAME) CEEA_EMP_USERNAME,
+            ot.CEEA_EMP_USERNAME,
+            ot.EXT_PURCHASER_ORG_NAME,
+            ot.EXT_PURCHASER_PHONE,
+            ot.ORDER_NUM,
+            ot.CEEA_PURCHASE_ORDER_DATE,
+            ot.COMMENTS,
+            ot.ORDER_DETAIL_ID,
+            ot.CLOSED_CAUSE,
+            dt.DELIVERY_NOTE_ID,
+            dt.DELIVERY_NUMBER,
+            dt.EXT_EXPRESS_NO,
+            dt.DELIVERY_QUANTITY,
+            dt.DELIVERY_TIME,
+            dt.RECEIVED_TIME,
+            dt.RECEIVED_NUM,
+            dt.WAREHOUSE_QUANTITY,
+            dt.EXT_STORAGE_TIME,
+            dt.EXT_STORAGE_QTY
+        FROM
+            scc_pr_requirement_head h
+                LEFT JOIN scc_npm_pr_require_head eh on eh.REQUIREMENT_HEAD_ID = h.REQUIREMENT_HEAD_ID
+                JOIN scc_pr_requirement_line l ON l.REQUIREMENT_HEAD_ID = h.REQUIREMENT_HEAD_ID
+                LEFT JOIN (
+                SELECT
+                    d.CEEA_REQUIREMENT_LINE_ID,
+                    d.CEEA_REQUIREMENT_HEAD_NUM,
+                    o.ORDER_ID,
+                    o.ORDER_NUMBER,
+                    d.EXT_WARRANTY_PERIOD,
+                    d.ORDER_DETAIL_ID,
+                    d.DELIVERY_DATE,
+                    d.EXT_DELIVERY_CYCLE,
+                    o.VENDOR_ID,
+                    o.VENDOR_CODE,
+                    o.VENDOR_NAME,
+                    o.CEEA_EMP_USERNAME,
+                    o.EXT_PURCHASER_ORG_NAME,
+                    o.EXT_PURCHASER_PHONE,
+                    d.ORDER_NUM,
+                    o.CEEA_PURCHASE_ORDER_DATE,
+                    o.COMMENTS,
+                    o.CLOSED_CAUSE
+                FROM
+                    scc_sc_order o
+                        JOIN scc_sc_order_detail d ON d.ORDER_ID = o.ORDER_ID
+                <!--WHERE o.ORDER_STATUS IN ( 'CLOSED', 'APPROVED', 'ONGOING', 'APPROVED_INVALID' )-->
+            ) ot ON ot.CEEA_REQUIREMENT_LINE_ID = l.REQUIREMENT_LINE_ID
+                LEFT JOIN (
+                SELECT
+                    n.DELIVERY_NOTE_ID,
+                    n.DELIVERY_NUMBER,
+                    n.EXT_EXPRESS_NO,
+                    d.ORDER_DETAIL_ID,
+                    d.DELIVERY_QUANTITY,
+                    n.DELIVERY_DATE DELIVERY_TIME,
+                    d.RECEIVED_TIME,
+                    d.RECEIVED_NUM,
+                    d.WAREHOUSE_QUANTITY,
+                    d.EXT_STORAGE_TIME,
+                    d.EXT_STORAGE_QTY
+                FROM
+                    scc_sc_delivery_note n
+                        JOIN scc_sc_delivery_note_detail d ON d.DELIVERY_NOTE_ID = n.DELIVERY_NOTE_ID
+                WHERE
+                    n.DELIVERY_NOTE_STATUS IN ( 'DELIVERED', 'FINISHED' )) dt ON dt.ORDER_DETAIL_ID = ot.ORDER_DETAIL_ID
+        <where>
+            and eh.REQUIREMENT_HEAD_ID is NULL and h.EXT_BID_FLAG = 'N'
+            <if test="applyFullName != null and applyFullName != ''">and h.CREATED_FULL_NAME like concat('%', #{applyFullName}, '%')</if>
+            <if test="requirementHeadNum != null and requirementHeadNum != ''">and h.REQUIREMENT_HEAD_NUM like concat('%', #{requirementHeadNum}, '%')</if>
+            <if test="extUserName != null and extUserName != ''">and l.EXT_USER_NAME like concat('%', #{extUserName}, '%')</if>
+            <if test="orgName != null and orgName != ''">and h.ORG_NAME like concat('%', #{orgName}, '%')</if>
+            <if test="extUseDepartmentName != null and extUseDepartmentName != ''">and l.EXT_USE_DEPARTMENT_NAME like concat('%', #{extUseDepartmentName}, '%')</if>
+            <if test="materialId != null and materialId != ''">and l.MATERIAL_ID = #{materialId}</if>
+            <if test="materialName != null and materialName != ''">and l.MATERIAL_NAME like concat('%', #{materialName}, '%')</if>
+            <if test="extMaterialModel != null and extMaterialModel != ''">and l.EXT_MATERIAL_MODEL like concat('%', #{extMaterialModel}, '%')</if>
+            <if test="extBuyType != null and extBuyType != ''">and l.EXT_BUY_TYPE = #{extBuyType}</if>
+            <if test="ceeaEmpUsername != null and ceeaEmpUsername != ''">and ot.CEEA_EMP_USERNAME like concat('%', #{ceeaEmpUsername}, '%')</if>
+            <if test="orderNumber != null and orderNumber != ''">and ot.ORDER_NUMBER like concat('%', #{orderNumber}, '%')</if>
+            <if test="vendorName != null and vendorName != ''">and ot.VENDOR_NAME like concat('%', #{vendorName}, '%')</if>
+            <if test="applyDateFrom != null">and h.APPLY_DATE >= #{applyDateFrom}</if>
+            <if test="applyDateTo != null"><![CDATA[and h.APPLY_DATE <= #{applyDateTo}]]></if>
+        </where>
+        ORDER BY h.APPLY_DATE DESC
+    </select>
+</mapper>

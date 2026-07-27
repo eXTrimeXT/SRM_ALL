@@ -1,0 +1,13 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "RelationSupBuyer:ceea_sup_vendor_association": {
+    "keyField": "associationId",
+    "comment": "关联供应商表",
+    "repository": "relationSuppliersRepository",
+    "fields": {
+      "@include": ":RelationSuppliersFields"
+    },
+    "relations": {}
+  }
+}

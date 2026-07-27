@@ -1,0 +1,27 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "CaHistoryPrice:scc_npm_sou_ca_price": {
+    "comment": "定标历史价格库",
+    "keyField" : "caPriceId",
+    "fields" : {
+      "caPriceId": "Long:ID",
+      "caId": "Long:定标申请单ID",
+      "bidPriceId": "Long:招标价格库ID",
+      "souName": "String:项目名称",
+      "projectNo": "String:项目编号",
+      "itemDesc": "String:名称",
+      "specification": "String:规格型号",
+      "brand": "String:品牌",
+      "priceTax": "String:含税单价（万元）",
+      "fixedPriceTax" : "BigDecimal:固定含税单价（万元）",
+      "region" : "String:区域",
+      "souPrincipalUserId" : "Long:招标负责人ID",
+      "souPrincipalUserName" : "String:招标负责人账号",
+      "souPrincipal" : "String:招标负责人",
+      "bidDate" : "Date:定标时间",
+      "@include": ":BaseFields"
+    }
+  }
+
+}

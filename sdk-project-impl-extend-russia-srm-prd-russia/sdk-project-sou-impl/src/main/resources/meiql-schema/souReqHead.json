@@ -1,0 +1,155 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "SouReqHeadBuyer:scc_npm_sou_req_head": {
+    "keyField": "reqHeadId",
+    "comment": "寻源需求单头表",
+    "repository": "reqHeadBuyerRepository",
+    "fields": {
+      "@include": ":SouReqHeadFields"
+    },
+    "relations": {
+      "souReqApplyList": "[SouReqApplyBuyer:reqHeadId]",
+      "fileUploads": "[SouReqSceneFile:reqHeadId]"
+    }
+  },
+  "SouReqApplyBuyer:scc_npm_sou_req_apply": {
+    "keyField": "applyId",
+    "comment": "寻源需求单报名",
+    "repository": "reqHeadApplyBuyerRepository",
+    "fields": {
+      "@include": ":SouReqApplyFields"
+    },
+    "relations": {
+      "reqHeadId": "SouReqHead",
+      "fileUploads": "[SouReqApplySceneFile:applyId]"
+    }
+  },
+  "SouInfoHistoryBuyer:scc_npm_sou_info_history": {
+    "keyField": "infoHistoryId",
+    "comment": "寻源单公示信息修改历史",
+    "repository": "infoHistoryBuyerRepository",
+    "fields": {
+      "@include": ":SouInfoHistoryFields"
+    },
+    "relations": {
+      "reqHeadId": "SouReqHead"
+    }
+  },
+  "SouIntDepositInvoiceBuyer:scc_npm_sou_intention_deposit_invoice": {
+    "keyField": "invoiceId",
+    "comment": "寻源单意向金开票",
+    "fields": {
+      "@include": ":SouIntDepositInvoiceFields"
+    },
+    "relations": {
+      "reqHeadId": "SouReqHead",
+      "applyId": "SouReqApply"
+    }
+  },
+  "SouIntDepositRefundBuyer:scc_npm_sou_intention_deposit_refund": {
+    "keyField": "refundId",
+    "comment": "寻源单意向金退款",
+    "repository": "intDepositRefundBuyerRepository",
+    "fields": {
+      "@include": ":SouIntDepositRefundFields"
+    },
+    "relations": {
+      "reqHeadId": "SouReqHead",
+      "applyId": "SouReqApply"
+    }
+  },
+  "SouReqSceneFile": {
+    "repository": "souSceneFileRepository",
+    "keyField": "sceneFileId",
+    "fields": {
+      "sceneFileId": "Long",
+      "sceneKey": {
+        "convert": "scene:SCENE_SOU_REQ_ATTACHMENT"
+      },
+      "businessFiled": {
+        "convert": "businessId:reqHeadId"
+      },
+      "@include": ":ExtSceneFileFields"
+    }
+  },
+  "SouReqApplySceneFile": {
+    "repository": "souSceneFileRepository",
+    "keyField": "sceneFileId",
+    "fields": {
+      "sceneFileId": "Long",
+      "sceneKey": {
+        "convert": "scene:SCENE_SOU_REQ_APPLY_ATTACHMENT"
+      },
+      "businessFiled": {
+        "convert": "businessId:applyId"
+      },
+      "@include": ":ExtSceneFileFields"
+    }
+  },
+  "SouReqApply:scc_npm_sou_req_apply": {
+    "keyField": "applyId",
+    "comment": "寻源需求单报名(供应商)",
+    "repository": "reqHeadApplyRepository",
+    "fields": {
+      "@include": ":SouReqApplyFields"
+    },
+    "relations": {
+      "reqHeadId": "SouReqHead",
+      "fileUploads": "[SouReqApplySceneFile:applyId]"
+    }
+  },
+  "SouReqHead:scc_npm_sou_req_head": {
+    "keyField": "reqHeadId",
+    "comment": "寻源需求单头表(供应商)",
+    "repository": "reqHeadRepository",
+    "fields": {
+      "@include": ":SouReqHeadFields"
+    },
+    "relations": {
+      "souReqApplyList": "[SouReqApplyBuyer:reqHeadId]",
+      "fileUploads": "[SouReqSceneFile:reqHeadId]"
+    }
+  },
+  "SouIntDepositInvoice:scc_npm_sou_intention_deposit_invoice": {
+    "keyField": "invoiceId",
+    "comment": "寻源单意向金开票(供应商)",
+    "repository": "intDepositInvoiceRepository",
+    "fields": {
+      "@include": ":SouIntDepositInvoiceFields"
+    },
+    "relations": {
+      "reqHeadId": "SouReqHead",
+      "applyId": "SouReqApply"
+    }
+  },
+  "SouIntDepositRefund:scc_npm_sou_intention_deposit_refund": {
+    "keyField": "refundId",
+    "comment": "寻源单意向金退款(供应商)",
+    "fields": {
+      "@include": ":SouIntDepositRefundFields"
+    },
+    "relations": {
+      "reqHeadId": "SouReqHead",
+      "applyId": "SouReqApply"
+    }
+  },
+  "SouInvoiceInfoBuyer:scc_npm_sou_invoice_info": {
+    "keyField": "invoiceInfoId",
+    "comment": "开票信息表",
+    "fields": {
+      "@include": ":SouInvoiceInfoFields"
+    },
+    "relations": {
+    }
+  },
+  "SouInvoiceInfo:scc_npm_sou_invoice_info": {
+    "keyField": "invoiceInfoId",
+    "comment": "开票信息表(供应商)",
+    "fields": {
+      "@include": ":SouInvoiceInfoFields"
+    },
+    "relations": {
+    }
+  }
+}

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlNoDataSourceInspection, SqlDialectInspection -->
+<mapper namespace="com.midea.cloud.srm.supcooperate.ext.requirement.souplan.mapper.ExtPrSouRequirementHeadMapper">
+
+    <select id="querySouPrPool" resultType="com.midea.cloud.srm.model.supcooperate.ext.requirement.souplan.vo.ExtPrSouRequirementPoolQueryVO">
+        SELECT
+            pr_head.*
+        FROM
+            scc_npm_pr_require_head sou_pr_head
+        left join scc_pr_requirement_head pr_head on sou_pr_head.REQUIREMENT_HEAD_ID = pr_head.REQUIREMENT_HEAD_ID
+        where
+            1 = 1
+            AND pr_head.AUDIT_STATUS in ('APPROVED','ABANDONED')
+        <if test="demandType != null"> <!-- 需求类型 -->
+            AND pr_head.DEMAND_TYPE = #{demandType}
+        </if>
+        <if test="categoryCode != null"> <!-- 品类 -->
+            AND (
+                pr_head.CATEGORY_CODE LIKE concat('%', concat(#{categoryCode}, '%'))
+                OR
+                pr_head.CATEGORY_NAME LIKE concat('%', concat(#{categoryCode}, '%'))
+            )
+        </if>
+        <if test="projectName != null"> <!-- 项目名称 -->
+            AND sou_pr_head.PROJECT_NAME LIKE concat('%', concat(#{projectName}, '%'))
+        </if>
+        <if test="projectAddress != null"> <!-- 项目所在地 -->
+            AND sou_pr_head.PROJECT_ADDRESS LIKE concat('%', concat(#{projectAddress}, '%'))
+        </if>
+        <if test="techUsername != null"> <!-- 技术负责人账号 -->
+            AND exists (
+                SELECT sou_pr_group.REQUIREMENT_HEAD_ID FROM scc_npm_pr_require_group sou_pr_group
+                WHERE sou_pr_group.REQUIREMENT_HEAD_ID = sou_pr_head.REQUIREMENT_HEAD_ID
+                AND sou_pr_group.GROUP_TYPE LIKE '%TECH%'
+                AND sou_pr_group.USERNAME = #{techUsername}
+            )
+        </if>
+        <if test="souUsername != null"> <!-- 招标负责人账号 -->
+            AND exists (
+                SELECT sou_pr_group.REQUIREMENT_HEAD_ID FROM scc_npm_pr_require_group sou_pr_group
+                WHERE sou_pr_group.REQUIREMENT_HEAD_ID = sou_pr_head.REQUIREMENT_HEAD_ID
+                AND sou_pr_group.GROUP_TYPE LIKE '%SOU%'
+                AND sou_pr_group.USERNAME = #{souUsername}
+            )
+        </if>
+        <if test="souUserDeptName != null"> <!-- 招标负责人所在科室 -->
+            AND exists (
+                SELECT sou_pr_group.REQUIREMENT_HEAD_ID FROM scc_npm_pr_require_group sou_pr_group
+                WHERE sou_pr_group.REQUIREMENT_HEAD_ID = sou_pr_head.REQUIREMENT_HEAD_ID
+                AND sou_pr_group.GROUP_TYPE LIKE '%SOU%'
+                AND sou_pr_group.DEPARTMENT_NAME LIKE concat('%', concat(#{souUserDeptName}, '%'))
+            )
+        </if>
+        <if test="applyDateFrom != null"> <!-- 申请日期从 -->
+            AND pr_head.APPLY_DATE >= #{applyDateFrom}
+        </if>
+        <if test="applyDateTo != null"> <!-- 申请日期到 -->
+            AND pr_head.APPLY_DATE &lt;= #{applyDateTo}
+        </if>
+        <if test="applyBy != null"> <!-- 申请人 -->
+            AND (
+                pr_head.APPLY_BY LIKE concat('%', concat(#{applyBy}, '%'))
+                OR
+                pr_head.APPLY_BY_NICKNAME LIKE concat('%', concat(#{applyBy}, '%'))
+            )
+        </if>
+        <if test="departmentId != null"> <!-- 申请部门 -->
+            AND (
+                pr_head.CEEA_DEPARTMENT_ID LIKE concat('%', concat(#{departmentId}, '%'))
+                OR
+                pr_head.CEEA_DEPARTMENT_NAME LIKE concat('%', concat(#{departmentId}, '%'))
+            )
+        </if>
+        <if test="vendorUsername != null"> <!-- 供应商负责人 -->
+            AND exists (
+            SELECT sou_pr_group.REQUIREMENT_HEAD_ID FROM scc_npm_pr_require_group sou_pr_group
+            WHERE sou_pr_group.REQUIREMENT_HEAD_ID = sou_pr_head.REQUIREMENT_HEAD_ID
+            AND sou_pr_group.GROUP_TYPE LIKE '%VENDOR%'
+            AND sou_pr_group.USERNAME = #{vendorUsername}
+            )
+        </if>
+        <if test="vendorUserDeptName != null"> <!-- 供应商负责人所在科室 -->
+            AND exists (
+            SELECT sou_pr_group.REQUIREMENT_HEAD_ID FROM scc_npm_pr_require_group sou_pr_group
+            WHERE sou_pr_group.REQUIREMENT_HEAD_ID = sou_pr_head.REQUIREMENT_HEAD_ID
+            AND sou_pr_group.GROUP_TYPE LIKE '%VENDOR%'
+            AND sou_pr_group.DEPARTMENT_NAME LIKE concat('%', concat(#{vendorUserDeptName}, '%'))
+            )
+        </if>
+        <if test="requirementHeadNum != null"> <!-- 申请单号 -->
+            AND pr_head.REQUIREMENT_HEAD_NUM LIKE concat('%', concat(#{requirementHeadNum}, '%'))
+        </if>
+        <if test="hasAssigned != null"> <!-- 是否已分配 -->
+            AND sou_pr_head.HAS_ASSIGNED = #{hasAssigned}
+        </if>
+        <if test="requireFrom != null"> <!-- 需求来源 -->
+            AND sou_pr_head.REQUIRE_FROM = #{requireFrom}
+        </if>
+        <if test="hasSendSouProfile != null"> <!-- 是否已提交招标资料 -->
+            AND sou_pr_head.HAS_SEND_SOU_PROFILE = #{hasSendSouProfile}
+        </if>
+        <if test="sendSouProfileEndDateFrom != null"> <!-- 递交招标资料时间从 -->
+            AND sou_pr_head.SEND_SOU_PROFILE_END_DATE >= #{sendSouProfileEndDateFrom}
+        </if>
+        <if test="sendSouProfileEndDateTo != null"> <!-- 递交招标资料时间到 -->
+            AND sou_pr_head.SEND_SOU_PROFILE_END_DATE &lt;= #{sendSouProfileEndDateFrom}
+        </if>
+        <if test="projectMonth != null"> <!-- 月份 -->
+            AND sou_pr_head.PROJECT_MONTH = #{projectMonth}
+        </if>
+        <if test="orgBuCode != null"> <!-- 板块 -->
+            AND (
+                sou_pr_head.ORG_BU_CODE LIKE concat('%', concat(#{orgBuCode}, '%'))
+                OR
+                sou_pr_head.ORG_BU_NAME LIKE concat('%', concat(#{orgBuCode}, '%'))
+            )
+        </if>
+        <if test="orgCode != null"> <!-- 公司 -->
+            AND (
+                pr_head.ORG_CODE LIKE concat('%', concat(#{orgCode}, '%'))
+                OR
+                pr_head.ORG_NAME LIKE concat('%', concat(#{orgCode}, '%'))
+            )
+        </if>
+        <if test="prefixTechDiscussion != null"> <!-- 前置交流意向 -->
+            AND sou_pr_head.PREFIX_TECH_DISCUSSION = #{prefixTechDiscussion}
+        </if>
+        <if test="publicEndTimeFrom != null"> <!-- 公示截止时间从 -->
+            AND sou_pr_head.PUBLIC_END_TIME >= #{publicEndTimeFrom}
+        </if>
+        <if test="publicEndTimeTo != null"> <!-- 公示截止时间到 -->
+            AND sou_pr_head.PUBLIC_END_TIME &lt;= #{publicEndTimeTo}
+        </if>
+        <if test="souReqStatus != null"> <!-- 需求状态 -->
+            AND sou_pr_head.SOU_REQ_STATUS = #{souReqStatus}
+        </if>
+        <if test="hasCreateSouReq != null"> <!-- 是否已创建寻源需求 -->
+            AND sou_pr_head.HAS_CREATE_SOU_REQ = #{hasCreateSouReq}
+        </if>
+        <if test="approvalPassTimeFrom != null"> <!-- 审批通过时间从 -->
+            AND sou_pr_head.APPROVAL_PASS_TIME >= #{approvalPassTimeFrom}
+        </if>
+        <if test="approvalPassTimeTo != null"> <!-- 审批通过时间到 -->
+            AND sou_pr_head.APPROVAL_PASS_TIME &lt;= #{approvalPassTimeTo}
+        </if>
+        <if test="needPublic != null"> <!-- 是否公示 -->
+            AND sou_pr_head.NEED_PUBLIC = #{needPublic}
+        </if>
+          <if test="ifAppointBrand != null and ifAppointBrand != ''">
+              and sou_pr_head.IF_APPOINT_BRAND = #{ifAppointBrand}
+          </if>
+        <if test="ifQualifyUnit != null and ifQualifyUnit != ''">
+            and sou_pr_head.IF_QUALIFY_UNIT = #{ifQualifyUnit}
+        </if>
+        <if test="specialSouType != null and specialSouType != ''">
+            and sou_pr_head.SPECIAL_SOU_TYPE = #{specialSouType}
+        </if>
+        <if test="noPublicReasonChoose != null and noPublicReasonChoose != ''">
+            and sou_pr_head.NO_PUBLIC_REASON_CHOOSE = #{noPublicReasonChoose}
+        </if>
+
+        <if test="noPublicReason != null and noPublicReason != ''">
+            and sou_pr_head.NO_PUBLIC_REASON like CONCAT('%',#{noPublicReason},'%')
+        </if>
+        <if test="vendorName != null and vendorName != ''">
+            and EXISTS (select * from scc_npm_pr_require_vendor v where v.REQUIREMENT_HEAD_ID = sou_pr_head.REQUIREMENT_HEAD_ID and v.VENDOR_NAME like CONCAT('%',#{vendorName},'%'))
+        </if>
+
+
+<!--        ORDER BY sou_pr_head.SUBMIT_APPROVAL_TIME desc-->
+        ORDER BY sou_pr_head.APPROVAL_PASS_TIME desc, pr_head.REQUIREMENT_HEAD_ID desc
+    </select>
+
+</mapper>

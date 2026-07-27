@@ -1,0 +1,161 @@
+.the_settingGuide_wrapper[data-v-75a797ed] {
+  min-width: 800px;
+  padding: 0 !important;
+}
+.the_settingGuide_wrapper .the_header[data-v-75a797ed] {
+  border-bottom: 1px solid #E8E9EA;
+  padding-left: 16px;
+}
+.the_settingGuide_wrapper .the_header .right[data-v-75a797ed] {
+  display: flex;
+  align-items: center;
+  height: 48px;
+}
+.the_settingGuide_wrapper .the_header .right .the_first[data-v-75a797ed] {
+  font-size: 16px;
+  font-weight: bold;
+  color: #161C24;
+  height: 24px;
+  line-height: 24px;
+}
+.the_settingGuide_wrapper .the_header .right .the_second[data-v-75a797ed] {
+  font-size: 12px;
+  color: #73777C;
+  margin-left: 8px;
+  height: 20px;
+  line-height: 20px;
+}
+.the_settingGuide_wrapper .the_steps_wrapper[data-v-75a797ed] {
+  min-height: 450px;
+}
+.guide-content[data-v-75a797ed] {
+  position: relative;
+  margin: 0 auto;
+}
+.common-sec[data-v-75a797ed] {
+  min-height: 100px;
+  position: relative;
+  z-index: 4;
+  display: -webkit-flex;
+  display: flex;
+  display: inline-flex;
+  flex-direction: row;
+  width: 100%;
+}
+.common-sec.forwardDir[data-v-75a797ed] {
+  background: #ffffff;
+}
+.common-sec.reverseDir[data-v-75a797ed] {
+  background: #FAFBFB;
+}
+.common-sec .icon-div[data-v-75a797ed] {
+  width: 150px;
+  position: relative;
+  margin-right: 22px;
+  padding: 16px 0;
+}
+.common-sec .icon-div span[data-v-75a797ed] {
+  display: block;
+  text-align: right;
+  margin-right: 36px;
+}
+.common-sec .icon-div span.icon-div-text[data-v-75a797ed] {
+  font-size: 14px;
+  color: #161C24;
+  line-height: 24px;
+  font-weight: bold;
+}
+.common-sec .icon-div span.statusText[data-v-75a797ed] {
+  font-size: 12px;
+  color: #73777C;
+  line-height: 20px;
+}
+.common-sec .icon-div .status-div[data-v-75a797ed] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 100%;
+}
+.common-sec .icon-div .status-div .line[data-v-75a797ed] {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  content: " ";
+  right: 9px;
+  top: 0px;
+  z-index: 5;
+  border-right: 1px dashed #DCDDDE;
+}
+.common-sec .icon-div .status-div.first-icon .line[data-v-75a797ed] {
+  top: 20px;
+}
+.common-sec .icon-div .status-div.last-icon .line[data-v-75a797ed] {
+  height: 20px;
+}
+.common-sec .icon-div .statuIcon[data-v-75a797ed] {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  right: 0;
+  top: 17px;
+  z-index: 6;
+  color: #52c718;
+  background: #fff;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 20px;
+}
+.common-sec .icon-div .statuIcon.todo[data-v-75a797ed] {
+  background: #C5C6C8;
+  color: #fff;
+  font-size: 12px;
+}
+.common-sec .icon-div .statuIcon.currentStatus[data-v-75a797ed] {
+  background: #0077FF;
+  color: #fff;
+  font-size: 12px;
+}
+.common-sec .icon-div[data-v-75a797ed]::after {
+  position: absolute;
+  content: " ";
+}
+.common-sec .content-div[data-v-75a797ed] {
+  padding: 16px 0;
+  flex: 1;
+}
+.common-sec .content-div .pross-steps .icon-flag[data-v-75a797ed] {
+  color: #0077FF;
+  margin-right: 6px;
+}
+.common-sec .content-div .pross-steps .icon-flag.not-finished[data-v-75a797ed] {
+  color: #C5C6C8;
+}
+.common-sec .content-div .pross-steps .btn-link[data-v-75a797ed] {
+  color: #0077FF;
+  padding-right: 90px;
+  position: relative;
+  font-size: 14px;
+  line-height: 24px;
+}
+.common-sec .content-div .pross-steps .btn-link[data-v-75a797ed]::after {
+  position: absolute;
+  content: " ";
+  width: 80px;
+  font-size: 0px;
+  height: 1px;
+  background: #E8E9EA;
+  right: 3px;
+  top: 10px;
+}
+.common-sec .content-div .pross-steps .btn-link[data-v-75a797ed]:last-child::after {
+  display: none;
+}
+.common-sec .content-div .steps-des p[data-v-75a797ed] {
+  margin: 0;
+  font-size: 12px;
+  color: #73777C;
+  line-height: 20px;
+  letter-spacing: 0;
+}

@@ -1,0 +1,1 @@
+ALTER TABLE scc_base_black_company MODIFY COLUMN DATA_SOURCE varchar(50)  DEFAULT 'SRM' NULL COMMENT '数据来源';

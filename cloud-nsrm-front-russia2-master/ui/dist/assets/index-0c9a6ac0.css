@@ -1,0 +1,25 @@
+#example-ul li[data-v-d065eec5] {
+  list-style: none;
+}
+.the_global_info[data-v-d065eec5] {
+  height: 440px;
+  overflow: auto;
+  line-height: 1.5;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  padding: 11px;
+}
+.the_global_info .el-row[data-v-d065eec5] {
+  padding: 11px;
+}
+.the_global_info .el-row .el-col > span[data-v-d065eec5] {
+  padding-right: 11px;
+}
+.the_loginfo[data-v-d065eec5] {
+  height: 300px;
+  overflow: auto;
+  line-height: 1.5;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  padding: 11px;
+}

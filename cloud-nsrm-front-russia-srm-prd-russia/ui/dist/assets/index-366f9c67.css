@@ -1,0 +1,34 @@
+body .el-scrollbar__wrap[data-v-81d8d339] {
+  height: 100% !important;
+}
+.org-type-page .org-type-header[data-v-81d8d339] {
+  height: 100px;
+  padding-top: 10px;
+}
+.org-type-page .org-type-header-icon[data-v-81d8d339] {
+  text-align: right;
+  padding-top: 20px;
+}
+.org-type-page .org-type-header-icon i[data-v-81d8d339] {
+  font-size: 30px;
+  color: #409eff;
+}
+.org-type-page .org-type-header-des[data-v-81d8d339] {
+  font-size: 14px;
+  padding-bottom: 15px;
+}
+.org-type-page .org-type-header-des p[data-v-81d8d339] {
+  margin: 0;
+  line-height: 24px;
+}
+.org-type-page .org-type-table-List[data-v-81d8d339] {
+  padding-bottom: 20px;
+  flex: 1;
+}
+.org-type-page .warp-tip[data-v-81d8d339] {
+  padding: 10px;
+}
+.org-type-page .warp-tip p[data-v-81d8d339] {
+  margin: 0;
+  line-height: 22px;
+}

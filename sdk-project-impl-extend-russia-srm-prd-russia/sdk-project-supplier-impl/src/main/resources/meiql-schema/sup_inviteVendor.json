@@ -1,0 +1,26 @@
+{
+  "_version": "1.0",
+  "_type": "plugin",
+  "InviteVendor:scc_sup_invite_vendor": {
+    "comment": "邀请供应商注册表",
+    "repository": "pjInviteVendorPluginRepository",
+    "keyField": "inviteVendorId",
+    "fields": {
+      "inviteVendorId" : "Long",
+      "inviteVendorNo" : {
+        "convert": "seqGen:SEQ_SUP_INVITE_VENDOR_NO"
+      },
+      "inviteStatus" : ":状态",
+      "inviteReason" : ":邀请原因，字典值",
+      "remark" : ":备注",
+      "contactPerson" : ":联系人",
+      "contactEmail" : ":联系邮箱",
+      "phoneNumber" : ":手机号码",
+      "vendorName" : ":供应商名称",
+      "socialCreditCode" : ":统一社会信用代码",
+      "publishDate" : "Date:发布(邀请)时间",
+      "vendorId" : ":注册后的供应商ID",
+      "@include": ":BaseFields"
+    }
+  }
+}

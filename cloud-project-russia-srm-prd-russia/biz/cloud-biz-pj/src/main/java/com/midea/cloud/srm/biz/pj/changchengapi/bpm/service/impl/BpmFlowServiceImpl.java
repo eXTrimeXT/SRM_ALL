@@ -1,0 +1,146 @@
+package com.midea.cloud.srm.biz.pj.changchengapi.bpm.service.impl;
+
+import com.alibaba.cloud.commons.lang.StringUtils;
+import com.alibaba.fastjson.JSONObject;
+import com.midea.cloud.common.enums.YesOrNo;
+import com.midea.cloud.common.utils.JsonUtil;
+import com.midea.cloud.common.workflow.WorkflowThirdService;
+import com.midea.cloud.component.context.container.SpringContextHolder;
+import com.midea.cloud.srm.feign.pj.base.BaseExtClient;
+import com.midea.cloud.srm.feign.pj.pj.PjBpmClient;
+import com.midea.cloud.srm.model.base.dict.entity.DictItem;
+import com.midea.cloud.srm.model.pj.changchengapi.bpm.BpmCreateResult;
+import com.midea.cloud.srm.model.pj.changchengapi.bpm.BpmResultDTO;
+import com.midea.cloud.srm.model.pj.changchengapi.bpm.BpmStartProcessParam;
+import com.midea.cloud.srm.model.workflow.dto.FlowCallbackDTO;
+import com.midea.cloud.srm.model.workflow.dto.FlowResponseDTO;
+import com.midea.cloud.srm.model.workflow.service.IFlowBusinessCallbackService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author huangbf3
+ * BPM 外部接口实现类
+ */
+@Slf4j
+@Service
+public class BpmFlowServiceImpl implements IFlowBusinessCallbackService, WorkflowThirdService {
+    @Autowired
+    private BaseExtClient baseExtClient;
+
+    @Autowired
+    PjBpmClient pjBpmClient;
+
+
+    @Override
+    public void submitFlow(Long businessId, String param) throws Exception {
+
+    }
+
+    @Override
+    public void passFlow(Long businessId, String param) throws Exception {
+        log.info("-------------------------------------------");
+        log.info("businessId:"+businessId);
+        log.info("param:"+param);
+    }
+
+    @Override
+    public void rejectFlow(Long businessId, String param) throws Exception {
+
+    }
+
+    @Override
+    public void withdrawFlow(Long businessId, String param) throws Exception {
+
+    }
+
+    @Override
+    public void destoryFlow(Long businessId, String param) throws Exception {
+
+    }
+
+    @Override
+    public String getVariableFlow(Long businessId, String param) throws Exception {
+        return null;
+    }
+
+    /**
+     *
+     * @param businessId
+     * @param param
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public String getDataPushFlow(Long businessId, String param) throws Exception {
+        //需自定义开发
+        log.info("---------getDataPushFlow-----------");
+        log.info("businessId:"+businessId);
+        log.info("param:"+param);
+
+        JSONObject dataPushFlowJsn = new JSONObject();
+        dataPushFlowJsn.put("head",new JSONObject());
+        dataPushFlowJsn.put("detail",new JSONObject());
+        return JsonUtil.entityToJsonStr(dataPushFlowJsn);
+    }
+
+    @Override
+    public FlowCallbackDTO getDataPushFlow(FlowCallbackDTO flowCallbackDTO) throws Exception {
+        log.info("-------------getDataPushFlow-----------------");
+        log.info("flowCallbackDTO:"+JSONObject.toJSONString(flowCallbackDTO));
+        IFlowBusinessCallbackService iFlowBusinessCallbackService = null;
+
+        Class clazz = Class.forName(flowCallbackDTO.getServiceBean());
+        Object bean = SpringContextHolder.getApplicationContext().getBean(clazz);
+        iFlowBusinessCallbackService = (IFlowBusinessCallbackService) bean;
+
+        String flowData = iFlowBusinessCallbackService.getDataPushFlow(flowCallbackDTO.getBusinessId(), flowCallbackDTO.getParam());
+        flowCallbackDTO.setFlowParam(flowData);
+        return flowCallbackDTO;
+    }
+
+    /**
+     * 提交时开始推送BPM审批
+     * @param flowCallbackDTO  取值getDataPushFlow方法返回的数据，用以组装给BPM创建流程的参数
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public FlowResponseDTO startThird(FlowCallbackDTO flowCallbackDTO) throws Exception {
+        log.info("--------------startThird----------------");
+        log.info("flowCallbackDTO:"+ JSONObject.toJSONString(flowCallbackDTO));
+
+        // 查询流程配置是否启用，没启用的直接返回一个InstanceId
+        String businessType = flowCallbackDTO.getBusinessType();
+        Map<String, Object> mapParam =new HashMap<>(16);
+        mapParam.put("businessType",businessType);
+        Boolean isOpen = baseExtClient.getIsEnableFlow(JSONObject.toJSONString(mapParam));
+
+        BpmResultDTO<BpmCreateResult> resultDTO ;
+        FlowResponseDTO flowResponseDTO = new FlowResponseDTO();
+        if(isOpen){
+            DictItem dictItem = baseExtClient.getDictItem("BPM2_ZBUSINESS_TYPE",flowCallbackDTO.getBusinessType());
+            if(dictItem!=null&& StringUtils.equals(dictItem.getItemDescription(), YesOrNo.YES.getValue())){
+                BpmStartProcessParam bpmParam = JSONObject.parseObject(flowCallbackDTO.getFlowParam(),BpmStartProcessParam.class);
+                bpmParam = bpmParam==null?new BpmStartProcessParam():bpmParam;
+                resultDTO = pjBpmClient.startProcessByCategoty(flowCallbackDTO.getBusinessId(),flowCallbackDTO.getBusinessType(),bpmParam);
+            }else{
+                resultDTO = pjBpmClient.createProcessByCategory(JSONObject.parseObject(flowCallbackDTO.getFlowParam())
+                        ,flowCallbackDTO.getBusinessId().toString(),flowCallbackDTO.getBusinessType());
+            }
+            log.info("返回的信息===" + JSONObject.toJSONString(resultDTO));
+            flowResponseDTO.setInstanceId(resultDTO.getData()==null?null:resultDTO.getData().getProcessInstId());
+        }else{
+            flowResponseDTO.setInstanceId(flowCallbackDTO.getBusinessId().toString());
+        }
+        flowResponseDTO.setBusinessId(flowCallbackDTO.getBusinessId());
+        flowResponseDTO.setFlowParam(flowCallbackDTO.getFlowParam());
+        flowResponseDTO.setParam(null);
+        flowResponseDTO.setDealStatus(null);
+        return flowResponseDTO;
+    }
+}

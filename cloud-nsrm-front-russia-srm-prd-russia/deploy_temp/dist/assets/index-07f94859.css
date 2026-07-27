@@ -1,0 +1,45 @@
+.org-type-page .org-type-header[data-v-ca53e87c] {
+  height: 220px;
+  padding-top: 10px;
+}
+.org-type-page .org-type-header-icon[data-v-ca53e87c] {
+  text-align: right;
+  padding-top: 20px;
+}
+.org-type-page .org-type-header-icon i[data-v-ca53e87c] {
+  font-size: 30px;
+  color: #409eff;
+}
+.org-type-page .org-type-header-des[data-v-ca53e87c] {
+  font-size: 14px;
+  padding-bottom: 15px;
+}
+.org-type-page .org-type-header-des p[data-v-ca53e87c] {
+  margin: 0;
+  line-height: 24px;
+}
+.org-type-page .org-type-table-List[data-v-ca53e87c] {
+  padding-bottom: 20px;
+  flex: 1;
+}
+.org-type-page .warp-tip[data-v-ca53e87c] {
+  padding: 10px;
+}
+.org-type-page .warp-tip p[data-v-ca53e87c] {
+  margin: 0;
+  line-height: 22px;
+}.attr-config-page[data-v-b838b461] {
+  padding: 10px;
+  padding-bottom: 60px;
+}
+.attr-config-page .page-body .preview-sec .preview-title[data-v-b838b461] {
+  margin-bottom: 20px;
+}
+.attr-config-page .page-body .preview-sec .preview-title span[data-v-b838b461] {
+  font-size: 18px;
+  line-height: 30px;
+  display: inline-block;
+  margin-right: 20px;
+}.page-body .preview-body .el-upload {
+  display: block;
+}

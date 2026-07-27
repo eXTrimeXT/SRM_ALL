@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlResolve, SqlNoDataSourceInspection, SqlDialectInspection -->
+<mapper namespace="com.midea.cloud.srm.sou.extfiles.service.mapper.ExtFileMapper">
+    <select id="listFile" parameterType="map" resultType="com.midea.cloud.srm.model.file.upload.entity.Fileupload">
+        select f.FILEUPLOAD_ID, f.FILE_SOURCE_NAME, f.FILE_SIZE, f.CREATED_BY, f.CREATED_ID, f.CREATED_BY_IP, f.CREATION_DATE, f.CREATED_FULL_NAME from meicloud_usrm_cloud_biz_base.scc_file_fileupload f
+
+        <where>
+            <if test="fileuploadIdList != null and fileuploadIdList.size() > 0">
+                and f.FILEUPLOAD_ID IN
+                <foreach collection="fileuploadIdList" item="item" separator="," open="(" close=")">#{item}</foreach>
+            </if>
+        </where>
+    </select>
+</mapper>

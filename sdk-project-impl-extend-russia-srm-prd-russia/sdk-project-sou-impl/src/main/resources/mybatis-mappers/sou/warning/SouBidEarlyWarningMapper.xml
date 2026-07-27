@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.bid.earlywarnings.mapper.SouBidEarlyWarningMapper">
+
+    <select id="listPlan" parameterType="map" resultType="com.midea.cloud.srm.model.sou.sourcing.entity.ExtSouPlan">
+        SELECT p.* from scc_npm_sou_plan p
+                            join scc_npm_sou_plan a on a.PROJECT_ID = p.PROJECT_ID and a.PLAN_TYPE='ACTUAL'
+        where p.PLAN_TYPE='PLAN'
+        <if test="publishTime != null">
+            and p.PUBLISH_TIME >= #{publishTime}
+            and a.PUBLISH_TIME is NULL
+        </if>
+        <if test="techOpenTime != null">
+            and p.TECH_OPEN_TIME is not NULL
+            and a.TECH_OPEN_TIME is NULL
+            and a.PUBLISH_TIME is not NULL
+            and (DATEDIFF(NOW(),a.PUBLISH_TIME) - DATEDIFF(p.TECH_OPEN_TIME,p.PUBLISH_TIME)) IN (1,3)
+        </if>
+        <if test="priceOpenTime != null">
+            and p.PRICE_OPEN_TIME is not NULL
+            and a.PRICE_OPEN_TIME is NULL
+            and a.PUBLISH_TIME is not NULL
+            and (DATEDIFF(NOW(),a.PUBLISH_TIME) - DATEDIFF(p.PRICE_OPEN_TIME,p.PUBLISH_TIME)) IN (1,3)
+        </if>
+        <if test="evaluationTime != null">
+            and p.TECH_EVALUATION_TIME is not NULL
+            and a.TECH_EVALUATION_TIME is NULL
+            and a.TECH_OPEN_TIME is not NULL
+            and (DATEDIFF(NOW(),a.TECH_OPEN_TIME) - DATEDIFF(p.TECH_EVALUATION_TIME,p.TECH_OPEN_TIME)) IN (1,3)
+        </if>
+        <if test="sumReportTime != null">
+            and p.SUM_REPORT_TIME is not null
+            and a.SUM_REPORT_TIME is NULL
+            and (a.TECH_EVALUATION_TIME is not NULL OR a.PRICE_OPEN_TIME IS NOT NULL)
+            and (DATEDIFF(NOW(),IFNULL(a.TECH_EVALUATION_TIME,a.PRICE_OPEN_TIME)) - DATEDIFF(p.SUM_REPORT_TIME,IFNULL(p.TECH_EVALUATION_TIME,p.PRICE_OPEN_TIME))) IN (1,3)
+        </if>
+        <if test="picketageTime != null">
+            and p.PICKETAGE_TIME is not null
+            and a.PICKETAGE_TIME is NULL
+            and a.SUM_REPORT_TIME is not null
+            and (DATEDIFF(NOW(),a.SUM_REPORT_TIME) - DATEDIFF(p.PICKETAGE_TIME,p.SUM_REPORT_TIME)) IN (1,3)
+        </if>
+        <if test="winLossTime != null">
+            and p.PUBLISH_WIN_LOSS_TIME is not null
+            and a.PUBLISH_WIN_LOSS_TIME is NULL
+            and a.PICKETAGE_TIME is not null
+            and (DATEDIFF(NOW(),a.PICKETAGE_TIME) - DATEDIFF(p.PUBLISH_WIN_LOSS_TIME,p.PICKETAGE_TIME)) IN (1,3)
+        </if>
+
+
+    </select>
+</mapper>

@@ -1,0 +1,19 @@
+.the-sampleConfirmedDetail-detail .el-table .el-date-editor[data-v-cd4d7073] {
+  width: 135px;
+}
+.the-sampleConfirmedDetail-detail .el-collapse-item__content > .el-button[data-v-cd4d7073] {
+  margin-bottom: 5px;
+}
+.the-sampleConfirmedDetail-detail .addBtn[data-v-cd4d7073] {
+  margin-bottom: 8px;
+}
+[data-v-cd4d7073] .base-table {
+  min-height: 150px;
+}
+[data-v-cd4d7073] .table-wrapper {
+  padding-left: 0px;
+}
+.required[data-v-cd4d7073] {
+  color: #ff4949;
+  padding-right: 2px;
+}

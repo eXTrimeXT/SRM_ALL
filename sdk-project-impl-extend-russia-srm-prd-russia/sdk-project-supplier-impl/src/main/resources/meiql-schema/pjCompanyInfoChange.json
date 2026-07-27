@@ -1,0 +1,149 @@
+{
+    "_version": "1.0",
+    "_type": "CUSTOM",
+    "CompanyInfoChange:scc_sup_company_info_change": {
+        "comment": "供应商信息表",
+		"keyField": "companyChangeId",
+        "fields": {
+			"companyChangeId":"Long",
+            "sunshineFileId": {
+                "type": "String",
+                "dbName":"sunshine_file_id",
+                "desc": "阳光协议文件ID",
+                "virtual": false
+            },
+            "sunshineFileName": {
+                "type": "String",
+                "dbName":"sunshine_file_name",
+                "desc": "阳光协议文件名",
+                "virtual": false
+            },
+            "groupCountry": {
+                "type": "String",
+                "dbName":"group_country",
+                "desc": "集团所属国家",
+                "virtual": false
+            },
+            "totalAssets": {
+                "type": "BigDecimal",
+                "dbName":"total_assets",
+                "desc": "总资产(万元)",
+                "virtual": false
+            },
+            "currentAssets": {
+                "type": "BigDecimal",
+                "dbName":"current_assets",
+                "desc": "流动资产(万元)",
+                "virtual": false
+            },
+            "fixedAssets": {
+                "type": "BigDecimal",
+                "dbName":"fixed_assets",
+                "desc": "固定资产(万元)",
+                "virtual": false
+            },
+            "avgAnnualOutput": {
+                "type": "BigDecimal",
+                "dbName":"avg_annual_output",
+                "desc": "近三年年均产值(万元)",
+                "virtual": false
+            },
+            "avgAnnualProfit": {
+                "type": "BigDecimal",
+                "dbName":"avg_annual_profit",
+                "desc": "近三年年均净利润(万元)",
+                "virtual": false
+            },
+            "focusFlag": {
+                "type": "String",
+                "dbName":"focus_flag",
+                "desc": "是否重点关注",
+                "virtual": false
+            },
+            "positionLimitFlag": {
+                "type": "String",
+                "dbName":"position_limit_flag",
+                "desc": "是否单位受限",
+                "virtual": false
+            },
+            "categoryLimitFlag": {
+                "type": "String",
+                "dbName":"category_limit_flag",
+                "desc": "是否品类受限",
+                "virtual": false
+            },
+            "timeLimitFlag": {
+                "type": "String",
+                "dbName":"time_limit_flag",
+                "desc": "是否时间受限",
+                "virtual": false
+            },
+            "limitDate": {
+                "type": "date",
+                "dbName":"limit_date",
+                "desc": "限制日期",
+                "virtual": false
+            },
+            "contractVerification": {
+                "type": "String",
+                "dbName":"contract_verification",
+                "desc": "锲约验证",
+                "virtual": false
+            },
+            "biddingFlag": {
+                "type": "String",
+                "dbName":"bidding_flag",
+                "desc": "是否竞价",
+                "virtual": false
+            },
+            "keySupervisionFlag": {
+                "type": "String",
+                "dbName":"key_supervision_flag",
+                "desc": "是否重点监督",
+                "virtual": false
+            },
+            "accountGroup": {
+                "type": "String",
+                "dbName":"account_group",
+                "desc": "账户组",
+                "virtual": false
+            },
+            "partner": {
+                "type": "String",
+                "dbName":"partner",
+                "desc": "贸易伙伴",
+                "virtual": false
+            },
+            "gscpStatus": {
+                "type": "String",
+                "dbName":"gscp_status",
+                "desc": "GSCP状态",
+                "virtual": false
+            },
+            "pjCompanyStatus": {
+                "type": "String",
+                "dbName":"pj_company_status",
+                "desc": "二开-供应商状",
+                "virtual": false
+            },
+            "extSex": {
+                "type": "String",
+                "dbName":"ext_sex",
+                "desc": "性别",
+                "virtual": false
+            },
+            "extIdCardOppositeFileId": {
+                "type": "Long",
+                "dbName":"ext_id_card_opposite_file_id",
+                "desc": "身份证反面文件id",
+                "virtual": false
+            },
+            "extIdCardOppositeFileName": {
+                "type": "String",
+                "dbName":"ext_id_card_opposite_file_name",
+                "desc": "身份证反面文件名",
+                "virtual": false
+            }
+        }
+    }
+}

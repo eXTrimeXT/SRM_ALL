@@ -1,0 +1,1 @@
+ALTER TABLE scc_sou_ch_ledger MODIFY NEXT_SUGGEST varchar(50) null comment '下轮项目建议及注意事项';

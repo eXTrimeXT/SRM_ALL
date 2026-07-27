@@ -1,0 +1,24 @@
+.form-fill-style[data-v-6975f5ac] {
+  padding: 15px;
+}
+.tabItem[data-v-6975f5ac] {
+  padding: 10px;
+  position: relative;
+  margin-bottom: 50px;
+}
+.tabItem .optDiv[data-v-6975f5ac] {
+  padding: 10px 0;
+}
+.tabItem .optDiv .el-switch[data-v-6975f5ac],
+.tabItem .optDiv .el-button[data-v-6975f5ac] {
+  margin-right: 10px;
+}
+.tabItem .addTabBtn[data-v-6975f5ac] {
+  position: absolute;
+  right: 10px;
+  top: 9px;
+  z-index: 100;
+}
+.page-bar[data-v-6975f5ac] {
+  height: auto !important;
+}

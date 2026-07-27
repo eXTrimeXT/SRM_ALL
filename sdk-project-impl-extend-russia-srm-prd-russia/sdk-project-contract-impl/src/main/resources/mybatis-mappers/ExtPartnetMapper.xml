@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.cm.contract.mapper.ExtPartnerMapper">
+     <select id="getByContractId">
+         select  CONTRACT_HEAD_ID from scc_contract_head
+         where STAMP_CONTRACT_FILEUPLOAD_ID =#{contractId}
+     </select>
+    <update id="updateStampState">
+        update scc_contract_partner
+        set EXT_STAMP_STATUS = "STAMP"
+        where CONTRACT_HEAD_ID = #{contractId} and PARTNER_NAME = #{tenantName}
+    </update>
+    <update id="updateUnStampState">
+        update scc_contract_partner
+        set EXT_STAMP_STATUS = "UNSTAMP"
+        where  PARTNER_ID =#{partnerId}
+    </update>
+    <select id="getById">
+        select PARTNER_NAME,PARTNER_TYPE,EXT_STAMP_STATUS,EXT_EMPLOYEE_NUMBER from scc_contract_partner
+        where  CONTRACT_HEAD_ID = #{id}
+    </select>
+    <select id="selectById">
+        select CREATION_DATE,EXT_CONTRACT_HANDLER_NAME,CONTRACT_NAME from scc_contract_head
+        where  CONTRACT_HEAD_ID = #{contractId}
+    </select>
+    <select id="queryContractExpirationReminder" resultType="com.midea.cloud.srm.model.contract.dto.ContractHeadSourceDto">
+        SELECT distinct h.SOURCE_NUMBER as sourceNumber,
+        i.PROJECT_NAME as projectName,
+        h.EXT_CONTRACT_HANDLER_ACCOUNT as extContractHandlerAccount,
+        u.USERNAME as extInviteHeadAccount,
+        h.EFFECTIVE_DATE_TO as effectiveDateTo
+        FROM meicloud_usrm_cloud_biz_contract.scc_contract_head h
+        INNER JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_invite_item i ON h.SOURCE_NUMBER = i.PROJECT_NO
+        INNER JOIN meicloud_usrm_cloud_rbac.scc_rbac_user u ON h.EXT_INVITE_HEAD_ID = u.USER_ID
+        WHERE h.EFFECTIVE_DATE_TO =  DATE_ADD(CURDATE(), INTERVAL #{month} MONTH)
+        and h.EXT_CYCLE=#{extCycle}
+        and h.CONTRACT_STATUS=#{contractStatus}
+        group by projectName,extContractHandlerAccount,extInviteHeadAccount,effectiveDateTo
+    </select>
+
+    <select id="queryContractList" resultType="com.midea.cloud.srm.model.contract.dto.ContractHeadSourceDto">
+        SELECT distinct h.SOURCE_NUMBER as sourceNumber,
+                        h.EXT_INVITE_HEAD_ID as extInviteHeadAccount,
+                        h.EXT_CONTRACT_HANDLER_ACCOUNT as extContractHandlerAccount,
+                        h.EFFECTIVE_DATE_TO as effectiveDateTo
+        FROM meicloud_usrm_cloud_biz_contract.scc_contract_head h
+        WHERE h.EFFECTIVE_DATE_TO =  DATE_ADD(CURDATE(), INTERVAL #{month} MONTH)
+          and h.EXT_CYCLE=#{extCycle}
+          and h.CONTRACT_STATUS=#{contractStatus}
+        group by extContractHandlerAccount,extContractHandlerAccount,effectiveDateTo
+    </select>
+</mapper>

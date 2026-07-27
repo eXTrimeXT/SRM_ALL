@@ -1,0 +1,214 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "PjVendorInformationController": {
+    "batchSize": 500,
+    "threshold": 500,
+    "validator": "companyInfoPersonImportValidator",
+    "processor": "companyInfoPersonImportProcessor",
+    "sheets": [
+      {
+        "model": "CompanyInfo",
+        "sheetName": "供应商基础数据",
+        "heads": {
+          "companyCode": {
+            "title": "供应商编码（MDM）"
+          },
+          "companyName": {
+            "title": "个人姓名*",
+            "required": true
+          },
+          "companyShortName": {
+            "title": "个人简称"
+          },
+          "idNumber": {
+            "title": "身份证号码*",
+            "required": true
+          },
+          "businessStartDate": {
+            "title": "身份证开始时间*",
+            "required": true
+          },
+          "businessEndDate": {
+            "title": "身份证结束时间*",
+            "required": true
+          },
+          "extSex": {
+            "title": "性别*",
+            "required": true
+          },
+          "statusName": {
+            "title": "供应商状态"
+          },
+          "businessScope": {
+            "title": "主营范围"
+          },
+          "companyCountry": {
+            "title": "主营地址（国家/地区）"
+          },
+          "companyProvince": {
+            "title": "省份/州"
+          },
+          "companyCity": {
+            "title": "城市"
+          },
+          "companyAddress": {
+            "title": "详细地址"
+          }
+        }
+      },
+      {
+        "model": "ContactInfo",
+        "sheetName": "联系人数据",
+        "heads": {
+          "idNumber": {
+            "title": "身份证号码*",
+            "required": true
+          },
+          "contactName": {
+            "title": "姓名*",
+            "required": true
+          },
+          "ceeaGender": {
+            "title": "性别"
+          },
+          "ceeaDeptName": {
+            "title": "部门"
+          },
+          "position": {
+            "title": "职位"
+          },
+          "ceeaContactMethod": {
+            "title": "联系方式*",
+            "required": true
+          },
+          "email": {
+            "title": "邮箱"
+          },
+          "ceeaDefaultContact": {
+            "title": "是否默认联系人"
+          }
+        }
+      },
+      {
+        "model": "BankInfo",
+        "sheetName": "银行数据",
+        "heads": {
+          "idNumber": {
+            "title": "身份证号码*",
+            "required": true
+          },
+          "bankCode": {
+            "title": "银行代码*",
+            "required": true
+          },
+          "bankName": {
+            "title": "银行名称*"
+          },
+          "unionCode": {
+            "title": "联行号（12位）"
+          },
+          "openingBank": {
+            "title": "开户行名称*",
+            "required": true
+          },
+          "bankAccountName": {
+            "title": "账户名称*",
+            "required": true
+          },
+          "bankAccount": {
+            "title": "银行账号*",
+            "required": true
+          },
+          "currencyName": {
+            "title": "币种"
+          },
+          "ceeaMainAccount": {
+            "title": "是否主账户"
+          }
+        }
+      },
+      {
+        "model": "User",
+        "sheetName": "供应商账号信息",
+        "heads": {
+          "idNumber": {
+            "title": "身份证号码*",
+            "required": true
+          },
+          "username": {
+            "title": "用户名账号*",
+            "required": true
+          },
+          "nickname": {
+            "title": "用户名*",
+            "required": true
+          },
+          "phone": {
+            "title": "联系方式*",
+            "required": true
+          },
+          "email": {
+            "title": "邮箱*",
+            "required": true
+          },
+          "ceeaJobcodeDesc": {
+            "title": "职位"
+          },
+          "mainType": {
+            "title": "是否主账号*",
+            "required": true
+          }
+        }
+      },
+      {
+        "model": "OrgCategory",
+        "sheetName": "合作信息",
+        "heads": {
+          "idNumber": {
+            "title": "身份证号码*",
+            "required": true
+          },
+          "orgName": {
+            "title": "组织名称*",
+            "required": true
+          },
+          "categoryCode": {
+            "title": "品类编码*",
+            "required": true
+          },
+          "serviceStatus": {
+            "title": "供应商品类状态"
+          }
+        }
+      },
+      {
+        "model": "npmSerciceCustom",
+        "sheetName": "服务范围",
+        "heads": {
+          "idNumber": {
+            "title": "身份证号码*",
+            "required": true
+          },
+          "categoryCode": {
+            "title": "品类编码*",
+            "required": true
+          },
+          "categoryName": {
+            "title": "品类名称*",
+            "required": true
+          },
+          "contactName": {
+            "title": "联系人"
+          },
+          "performanceAmount": {
+            "title": "业绩额（万元）"
+          },
+          "mainCustom": {
+            "title": "主要客户"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+alter table scc_npm_pr_require_head add column `SUBMIT_APPROVAL_TIME` datetime DEFAULT NULL COMMENT '提交审批原因';

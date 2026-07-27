@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.req.mapper.SouInviteHeadMapper">
+    <select id="listPage" resultType="com.midea.cloud.srm.model.sou.req.SouInviteHead">
+        select a.INVITE_HEAD_ID,
+        a.VENDOR_ID,
+        a.VENDOR_CODE,
+        a.VENDOR_NAME,
+        <if test='isIr != null and isIr=="Y"'>
+            CASE WHEN a.SUCC_BID_COUNT>0 THEN 'Y' ELSE 'N' END IS_INTELLIGENT_BID,
+        </if>
+        a.CONTACT_NAME,
+        a.PHONE,
+        a.EMAIL,
+        cus.MAIN_CUSTOM MAIN_CUSTOMERS,
+        a.BID_COUNT,
+        a.SUCC_BID_COUNT,
+        a.INVALID_BID_COUNT,
+        a.CREATED_ID,
+        a.CREATED_BY,
+        a.CREATION_DATE,
+        a.CREATED_BY_IP,
+        a.CREATED_FULL_NAME,
+        a.LAST_UPDATED_ID,
+        a.LAST_UPDATED_BY,
+        a.LAST_UPDATE_DATE,
+        a.LAST_UPDATED_BY_IP,
+        a.LAST_UPDATED_FULL_NAME,
+        a.TENANT_ID,
+        a.VERSION,
+        b.PJ_QUALIFICATIONS,
+        b.CEEA_AGENT_BRAND,
+        b.COMPANY_ADDRESS,
+        b.REGIST_CURRENCY,
+        b.REGIST_CURRENCY_NAME,
+        b.REGISTERED_CAPITAL,
+        b.KEY_SUPERVISION_FLAG,
+        b.TIME_LIMIT_FLAG,
+        b.PJ_COMPANY_STATUS,
+        TIMESTAMPDIFF(YEAR, b.COMPANY_CREATION_DATE, CURDATE()) companyCreationYear
+        from scc_npm_sou_invite_head a
+        left join cloud_biz_supplier.scc_sup_company_info b on a.VENDOR_ID = b.COMPANY_ID
+        <if test="categoryId != null">
+            INNER JOIN (
+            SELECT DISTINCT y.COMPANY_ID from cloud_biz_supplier.scc_sup_org_category y
+            <where>
+                <if test="categoryId != null">
+                    AND y.CATEGORY_ID =#{categoryId}
+                </if>
+            </where>
+            ) c ON a.VENDOR_ID = c.COMPANY_ID
+        </if>
+        <if test="(bidBeginTime != null and bidBeginTime != '' and bidLastTime != null and bidLastTime != '')
+             or (orgBuName != null and orgBuName != '')
+             or (orgName != null and orgName != '')
+             or (projectName != null and projectName != '')">
+            inner join (select i.INVITE_HEAD_ID
+            from scc_npm_sou_invite_head i
+            inner join scc_npm_sou_invite_item j on i.INVITE_HEAD_ID = j.INVITE_HEAD_ID
+            <where>
+                <if test="bidBeginTime != null and bidBeginTime != '' and bidLastTime != null and bidLastTime != ''">
+                    j.BID_CREATION_DATE between #{bidBeginTime} and #{bidLastTime}
+                </if>
+                <if test="orgBuName != null and orgBuName != ''">
+                    AND j.ORG_BU_NAME LIKE '%${orgBuName}%'
+                </if>
+                <if test="orgName != null and orgName != ''">
+                    AND j.ORG_NAME LIKE '%${orgName}%'
+                </if>
+                <if test="projectName != null and projectName != ''">
+                    AND j.PROJECT_NAME LIKE '%${projectName}%'
+                </if>
+            </where>
+            group by i.INVITE_HEAD_ID) d on a.INVITE_HEAD_ID = d.INVITE_HEAD_ID
+        </if>
+        left join (
+        select cus.VENDOR_ID, GROUP_CONCAT(cus.MAIN_CUSTOM SEPARATOR ',') MAIN_CUSTOM
+        from (select a.VENDOR_ID,
+        c.MAIN_CUSTOM
+        from scc_npm_sou_invite_head a
+        inner join cloud_biz_supplier.ceea_sup_auth_cate_journal b on a.VENDOR_ID = b.FORM_ID
+        inner join cloud_biz_supplier.scc_npm_sercice_custom c
+        on b.CATEGORY_JOURNAL_ID = c.CATEGORY_JOURNAL_ID and c.MAIN_CUSTOM is not null
+        group by a.VENDOR_ID, c.MAIN_CUSTOM) cus
+        group by cus.VENDOR_ID
+        ) cus on a.VENDOR_ID = cus.VENDOR_ID
+        <where>
+            AND b.IS_BACKLIST='N' AND b.TIME_LIMIT_FLAG='N' AND b.KEY_SUPERVISION_FLAG='N' AND b.PJ_COMPANY_STATUS != 'INVALID_SUPPLIER'
+            <if test="ceeaAgentBrand != null and ceeaAgentBrand != ''">
+                AND b.CEEA_AGENT_BRAND LIKE '%${ceeaAgentBrand}%'
+            </if>
+            <if test="beginRegisteredCapital != null and beginRegisteredCapital != '' and endRegisteredCapital != null and endRegisteredCapital != ''">
+                AND b.REGISTERED_CAPITAL between #{beginRegisteredCapital} and #{endRegisteredCapital}
+            </if>
+            <if test="beginRegisteredCapital != null and beginRegisteredCapital != '' and endRegisteredCapital != null and endRegisteredCapital != ''">
+                AND TIMESTAMPDIFF(YEAR, b.COMPANY_CREATION_DATE, CURDATE()) between #{beginRegisteredCapital} and #{endRegisteredCapital}
+            </if>
+            <if test="mainCustomers != null and mainCustomers != ''">
+                AND cus.MAIN_CUSTOM LIKE '%${mainCustomers}%'
+            </if>
+            <if test="companyAddress != null and companyAddress != ''">
+                AND b.COMPANY_ADDRESS LIKE '%${companyAddress}%'
+            </if>
+            <if test="pjQualifications != null and pjQualifications != ''">
+                AND b.PJ_QUALIFICATIONS LIKE '%${pjQualifications}%'
+            </if>
+            <if test='isIr != null and isIr=="Y"'>
+                AND b.KEY_SUPERVISION_FLAG = 'N' AND b.TIME_LIMIT_FLAG='N' AND b.PJ_COMPANY_STATUS in('QUASI_SUPPLIER','OFFICIAL_SUPPLIER')
+                and exists (
+                SELECT DISTINCT 1
+                FROM cloud_biz_supplier.scc_sup_org_category y
+                INNER JOIN meicloud_bpmp_material.mt_classification mt ON y.CATEGORY_ID = mt.id AND mt.level = 4
+                where y.COMPANY_ID = a.VENDOR_ID
+                AND y.CATEGORY_ID =#{categoryId} AND y.PJ_ORG_STATUS='Y' AND y.PJ_CATEGORY_STATUS='Y' AND y.SERVICE_STATUS IN('QUALIFIED', 'VERIFY')
+                )
+            </if>
+            <if test="vendorName != null and vendorName != ''">
+                and a.VENDOR_NAME LIKE '%${vendorName}%'
+            </if>
+        </where>
+        <if test='isIr != null and isIr=="Y"'>
+            ORDER BY a.SUCC_BID_COUNT DESC ,a.BID_COUNT DESC
+        </if>
+    </select>
+    <select id="listCategoryByVendors" resultType="com.midea.cloud.srm.model.sou.req.SouInviteHead">
+        SELECT DISTINCT y.COMPANY_ID VENDOR_ID, y.CATEGORY_NAME, y.PJ_ORG_STATUS, y.PJ_CATEGORY_STATUS, y.SERVICE_STATUS
+        FROM cloud_biz_supplier.scc_sup_org_category y
+        INNER JOIN meicloud_bpmp_material.mt_classification mt ON y.CATEGORY_ID = mt.id AND mt.level = 4
+        <where>
+            AND y.COMPANY_ID IN
+            <foreach item="vendorId" collection="vendorList" open="(" separator="," close=")">
+                #{vendorId}
+            </foreach>
+            <if test="categoryId != null">
+                AND y.CATEGORY_ID =#{categoryId}
+            </if>
+        </where>
+    </select>
+</mapper>

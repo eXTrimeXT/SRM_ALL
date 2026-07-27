@@ -1,0 +1,30 @@
+{
+  "_version": "1.0",
+  "_type": "base",
+  "VendorBigdataFields" : {
+    "keyField": "vendorDataId",
+    "fields" : {
+      "vendorDataId" : "Long:ID",
+      "vendorId" : "Long:供应商ID",
+      "vendorCode" : "String:供应商编码",
+      "entName" : "String:供应商名称",
+      "legalPerson" : "String:法人",
+      "startDate" : "String:开业日期",
+      "regAddr" : "String:企业地址",
+      "brokenPromises" : "String:是否失信",
+      "abnormalOperation" : "String:是否经营异常",
+      "regCapital": "String:注册资金",
+      "@include": ":BaseFields"
+    }
+  },
+  "VendorBiglinkFields": {
+    "keyField": "vendorLinkId",
+    "fields" : {
+      "vendorLinkId" : "Long:主键ID",
+      "vendorId" : "Long:供应商ID",
+      "type" : "String:类型：DIRECTORS-主要人员，SHAREHOLDERS-主要股东",
+      "fullName" : "String:名字",
+      "@include": ":BaseFields"
+    }
+  }
+}

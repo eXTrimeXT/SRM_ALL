@@ -1,0 +1,1 @@
+import{d as getDefaultExportFromCjs}from"./index-17d0ccd5.js";import{_ as _baseIsEqual}from"./_baseIsEqual-8d590e1f.js";var baseIsEqual=_baseIsEqual;function isEqual(value,other){return baseIsEqual(value,other)}var isEqual_1=isEqual;const isEqual$1=getDefaultExportFromCjs(isEqual_1);export{isEqual$1 as i};

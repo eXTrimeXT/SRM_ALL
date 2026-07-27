@@ -1,0 +1,23 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "ContractBasisAnnex:scc_contract_basis_annex": {
+    "keyField": "basisAnnexId",
+    "fields": {
+      "basisAnnexId": "Long",
+      "contractHeadId":"Long",
+      "fileSourceName":"String",
+      "fileuploadId":"Long",
+      "changeField":"String",
+      "sourceId":"Long",
+      "ceeaUploadTime":"Date",
+      "fileType":"String",
+      "del":"String",
+      "remark":"String",
+      "@include": ":BaseFields"
+    },
+    "relations":{
+      "contractHeadId":"ContractHead"
+    }
+  }
+}

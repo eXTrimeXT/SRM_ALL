@@ -1,0 +1,44 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "BlackCompany:scc_base_black_company": {
+    "comment": "黑名单供应商明细",
+    "keyField": "blackCompanyId",
+    "repository": "blackCompanyRepository",
+    "fields": {
+      "blackCompanyId": "Long",
+      "blackId": "Long",
+      "blackCode": "String",
+      "companyId": "Long",
+      "companyCode": "String",
+      "companyName": "String",
+      "socialCreditCode": "String",
+      "legalPerson": "String",
+      "registeredCapital": "String",
+      "companyType": "String",
+      "companyCountry": "String",
+      "companyProvince": "String",
+      "companyCity": "String",
+      "shareholder": "String:股东",
+      "dataSource": "String:数据来源",
+      "reason": "String:黑名单原因",
+      "companyCreationDate": "Date",
+      "blackType": {
+        "virtual": true
+      },
+      "approveStatus": {
+        "virtual": true
+      },
+      "effectiveTime": {
+        "virtual": true
+      },
+      "endDate": {
+        "virtual": true
+      },
+      "@include": ":BaseFields"
+    },
+    "relations": {
+      "blackId": "Black"
+    }
+  }
+}

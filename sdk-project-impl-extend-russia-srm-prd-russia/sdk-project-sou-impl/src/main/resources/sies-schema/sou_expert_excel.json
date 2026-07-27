@@ -1,0 +1,210 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "ExtSouExpertInitImportController": {
+    "batchSize": 500,
+    "threshold": 500,
+    "validator": "extSouExpertInitImportValidator",
+    "sheets": [
+      {
+        "model": "ExtSouExpert",
+        "sheetName": "专家库初始化数据",
+        "heads": {
+          "orgOuName": {
+            "title": "公司"
+          },
+          "departmentName": {
+            "title": "部门"
+          },
+          "applyByNickname": {
+            "title": "姓名"
+          },
+          "applyByCode": {
+            "title": "工号"
+          },
+          "education": {
+            "title": "最高学历",
+            "enhance": {
+              "decorator": "dictDecorator",
+              "params": {
+                "code": "EXT_SOU_EXPERT_EDUCATION"
+              }
+            }
+          },
+          "studyDateTo": {
+            "title": "毕业时间"
+          },
+          "sex": {
+            "title": "性别",
+            "enhance": {
+              "decorator": "dictDecorator",
+              "params": {
+                "code": "EXT_SOU_EXPERT_SEX"
+              }
+            }
+          },
+          "job": {
+            "title": "职务"
+          },
+          "jobRank": {
+            "title": "序列等级"
+          },
+          "jobStatus": {
+            "title": "在职状态",
+            "enhance": {
+              "decorator": "dictDecorator",
+              "params": {
+                "code": "EXT_SOU_EXPERT_JOB_STATUS"
+              }
+            }
+          },
+          "phone": {
+            "title": "手机号码"
+          },
+          "entryDate": {
+            "title": "入厂时间"
+          },
+          "studyCollege": {
+            "title": "毕业院校"
+          },
+          "major": {
+            "title": "所学专业"
+          },
+          "expertLevel": {
+            "title": "申报等级",
+            "enhance": {
+              "decorator": "dictDecorator",
+              "params": {
+                "code": "EXT_SOU_EXPERT_LEVEL"
+              }
+            }
+          }
+        }
+      },
+      {
+        "model": "ExtSouExpertOrgRelation",
+        "sheetName": "适用评分组织",
+        "heads": {
+          "applyByNickname": {
+            "title": "姓名"
+          },
+          "applyByCode": {
+            "title": "工号"
+          },
+          "orgName": {
+            "title": "适用组织"
+          }
+        }
+      },
+      {
+        "model": "ExtSouExpertCategoryRelation",
+        "sheetName": "适用品类",
+        "heads": {
+          "applyByNickname": {
+            "title": "姓名"
+          },
+          "applyByCode": {
+            "title": "工号"
+          },
+          "categoryCode": {
+            "title": "品类编码(末级)"
+          },
+          "categoryName": {
+            "title": "品类名称(末级)"
+          }
+        }
+      },
+      {
+        "model": "ExtSouExpertWork",
+        "sheetName": "工作履历",
+        "heads": {
+          "applyByNickname": {
+            "title": "姓名"
+          },
+          "applyByCode": {
+            "title": "工号"
+          },
+          "workUnit": {
+            "title": "工作单位名称"
+          },
+          "entryDate": {
+            "title": "工作时间从"
+          },
+          "quitDate": {
+            "title": "工作时间至"
+          }
+        }
+      },
+      {
+        "model": "ExtSouExpertWork",
+        "sheetName": "亲属工作单位",
+        "heads": {
+          "applyByNickname": {
+            "title": "姓名"
+          },
+          "applyByCode": {
+            "title": "工号"
+          },
+          "relativeType": {
+            "title": "与本人亲属关系"
+          },
+          "workUnit": {
+            "title": "工作单位名称"
+          }
+        }
+      }
+    ]
+  },
+  "ExtSouExpertTempQueryHrController": {
+    "batchSize": 10000,
+    "threshold": 10000,
+    "validator": "extSouExpertTempQueryHrValidator",
+    "sheets": [
+      {
+        "model": "ExtSouExpert",
+        "sheetName": "专家库初始化数据",
+        "heads": {
+          "applyByNickname": {
+            "title": "姓名"
+          },
+          "applyByCode": {
+            "title": "工号"
+          },
+          "highestDegree": {
+            "title": "最高学历"
+          },
+          "studyDateTo": {
+            "title": "毕业时间"
+          },
+          "sex": {
+            "title": "性别"
+          },
+          "job": {
+            "title": "职务"
+          },
+          "jobRank": {
+            "title": "序列等级"
+          },
+          "jobStatus": {
+            "title": "在职状态"
+          },
+          "phone": {
+            "title": "手机号码"
+          },
+          "hireDate": {
+            "title": "入厂时间"
+          },
+          "studyCollege": {
+            "title": "毕业学校"
+          },
+          "major": {
+            "title": "所学专业"
+          },
+          "applyLevel": {
+            "title": "申报等级"
+          }
+        }
+      }
+    ]
+  }
+}

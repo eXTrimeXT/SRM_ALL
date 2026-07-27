@@ -1,0 +1,21 @@
+.questManagementDetail[data-v-2b54a294] {
+  height: 100%;
+}
+.questManagementDetail .sub_header[data-v-2b54a294] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.questManagementDetail .el-table .el-date-editor[data-v-2b54a294] {
+  width: 135px;
+}
+.questManagementDetail .base-form[data-v-2b54a294] {
+  padding: 15px 30px 0;
+}
+.questManagementDetail .toRequired[data-v-2b54a294] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.questManagementDetail .edit_cond[data-v-2b54a294] {
+  color: #23adf4;
+  cursor: pointer;
+}

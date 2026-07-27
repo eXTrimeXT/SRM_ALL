@@ -1,0 +1,19 @@
+.the-shoppingCartDetail-detail .form-container2[data-v-4495ef26] {
+  padding: 5px;
+}
+.the-shoppingCartDetail-detail .sub_header[data-v-4495ef26] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.the-shoppingCartDetail-detail .el-table .el-date-editor[data-v-4495ef26] {
+  width: 135px;
+}
+.the-shoppingCartDetail-detail .btn_line[data-v-4495ef26] {
+  margin: 0;
+}.el-dialog__body[data-v-d759cd7c] {
+  padding-top: 0 !important;
+}
+[data-v-d759cd7c] .el-table table th.star div:before {
+  content: "*";
+  color: red;
+}

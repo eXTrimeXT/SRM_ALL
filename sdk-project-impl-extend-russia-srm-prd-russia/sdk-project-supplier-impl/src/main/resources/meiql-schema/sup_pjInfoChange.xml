@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<meiql _version="1.0" _type="standard">
+    <type name="BankInfoChange">
+        <injects>
+            <inject action="beforeCreate,beforeUpdate">
+                if(ql.notEmpty($pRec)){
+                    for rec in $recs {
+                        rec["companyId"] = $pRec["companyId"];
+                    }
+                }
+            </inject>
+        </injects>
+    </type>
+    <type name="ContactInfoChange">
+        <injects>
+            <inject action="beforeCreate,beforeUpdate">
+                if(ql.notEmpty($pRec)){
+                    for rec in $recs {
+                    rec["companyId"] = $pRec["companyId"];
+                    }
+                }
+            </inject>
+        </injects>
+    </type>
+</meiql>

@@ -1,0 +1,315 @@
+{
+  "_version": "1.0",
+  "_type": "base",
+  "_ExtPrSouProjectPlan:scc_npm_pr_project_plan": {
+    "comment": "项目计划",
+    "keyField": "projectPlanId",
+    "fields": {
+      "projectPlanId": "Long:主键",
+      "projectName": "String:项目名称",
+      "sceneType": "String:应用场景",
+      "initDate": "LocalDate:立项时间",
+      "departmentId": "String:投资部门ID",
+      "departmentName": "String:投资部门名称",
+      "initAmount": "BigDecimal:立项金额",
+      "planNo": "String:计划编号",
+      "planAddress": "String:投资地点",
+      "planLevel": "String:项目级别",
+      "planStatus": "String:项目状态",
+      "requirementHeadId": "Long:被引用的招标计划",
+      "@include": ":BaseFields"
+    }
+  },
+  "_ExtPrSouRequirementHead:scc_npm_pr_require_head": {
+    "comment": "招标计划",
+    "keyField": "requirementHeadId",
+    "fields": {
+      "requirementHeadId": "Long:主键",
+      "orgBuId": "Long:所属板块ID",
+      "orgBuCode": "String:所属板块编码",
+      "orgBuName": "String:所属板块名称",
+      "requireFrom": "String:需求来源",
+      "noReportMonthPlanReason": "String:未报月度计划原因",
+      "projectName": "String:项目名称",
+      "projectMonth": "String:月份",
+      "investNo": "String:投资编号",
+      "requireQuantity": "String:数量/规模",
+      "totalAmountByTenKilo": "BigDecimal:概算金额-万元",
+      "needPublic": {
+        "type": "com.midea.cloud.srm.model.common.enums.Enable",
+        "desc": "是否公示"
+      },
+      "noPublicReason": "String:不公示理由",
+      "noPublicReasonChoose": "String:不公示原因选择",
+      "publicEndTime": "Date:公示截止时间",
+      "projectAddress": "String:项目所在地",
+      "prefixTechDiscussion": {
+        "type": "com.midea.cloud.srm.model.common.enums.Enable",
+        "desc": "前置技术交流意向"
+      },
+      "sendSouProfileEndDate": "LocalDate:递交招标资料时间",
+      "ifAppointBrand": {
+        "type": "com.midea.cloud.srm.model.common.enums.Enable",
+        "desc": "是否指定品牌"
+      },
+      "appointBrandFileId": "Long:指定品牌文件ID",
+      "appointBrandFileName": "String:指定品牌文件名称",
+      "ifQualifyUnit": {
+        "type": "com.midea.cloud.srm.model.common.enums.Enable",
+        "desc": "是否限定单位"
+      },
+      "qualifyUnitFileId": "Long:限定单位文件ID",
+      "qualifyUnitFileName": "String:限定单位文件名称",
+      "projectPlanId": "Long:项目计划ID",
+      "planNo": "String:项目计划编号",
+      "specialSouType": "String:特殊招标类型",
+      "specialReason": "String:特定原因",
+      "requireProductDate": "LocalDate:需求产生时间",
+      "requireProductFileId": "Long:需求产生时间附件ID",
+      "requireProductFileName": "String:需求产生时间附件名称",
+      "deliveryDay": "BigDecimal:工期交货期",
+      "deliveryDayFileId": "Long:工期交货期附件ID",
+      "deliveryDayFileName": "String:工期交货期附件名称",
+      "signContractDay": "BigDecimal:签合同用时",
+      "putIntoUseDate": "LocalDate:投入使用时间",
+      "putIntoUseDateFileId": "Long:投入使用时间附件ID",
+      "putIntoUseDateFileName": "String:投入使用时间附件名称",
+      "otherSpecialReason": "String:其他特殊原因补充",
+      "remainingDay": "BigDecimal:剩余时间",
+      "projectOverview": "String:项目概况及范围",
+      "techRequire": "String:技术要求",
+      "performanceRequire": "String:业绩要求",
+      "vendorQualificationRequire": "String:供应商资质要求",
+      "hasAssigned": {
+        "type": "com.midea.cloud.srm.model.common.enums.Enable",
+        "desc": "是否已分配"
+      },
+      "hasSendSouProfile": {
+        "type": "com.midea.cloud.srm.model.common.enums.Enable",
+        "desc": "是否已提交招标资料"
+      },
+      "hasCreateSou": {
+        "type": "com.midea.cloud.srm.model.common.enums.Enable",
+        "desc": "是否已创建寻源"
+      },
+      "hasCreateSouReq": {
+        "type": "com.midea.cloud.srm.model.common.enums.Enable",
+        "desc": "是否已创建寻源需求"
+      },
+      "hasCreateVendorRecommend": {
+        "type": "com.midea.cloud.srm.model.common.enums.Enable",
+        "desc": "是否已创建供应商推荐"
+      },
+      "hasSubmit": {
+        "type": "com.midea.cloud.srm.model.common.enums.Enable",
+        "desc": "是否已提交"
+      },
+      "submitApprovalTime": "Date:提交审批时间",
+      "earnestMoney": "BigDecimal:意向金金额",
+      "approvalPassTime": "Date:审批通过时间",
+      "reqCancelReason": "String:需求取消原因",
+      "souReqStatus": "String:需求状态",
+      "sendSouProfileStatus": "String:招标资料状态",
+      "changeRequirementHeadId": "Long:变更来源计划ID",
+      "changeRequirementHeadNum": "String:变更来源计划编号",
+      "afterTotalAmountByTenKilo": "BigDecimal:变更后概算金额(万元)",
+      "changeReason": "String:变更金额",
+      "souType": "String:关联寻源单类型",
+      "souProjectId": "Long:关联寻源单ID",
+      "souNo": "String:关联寻源单号",
+      "souName": "String:关联寻源单名称",
+      "souReqId": "Long:关联寻源需求ID",
+      "souReqNo": "String:关联寻源需求编码",
+      "recommendVendorBillId": "Long:关联推荐供应商单据ID",
+      "recommendVendorBillNo": "String:关联推荐供应商单据编码",
+      "startBpmUsername":"String:bpm发起人账号",
+      "startBpmNickname":"String:bpm发起人名称",
+      "@include": ":BaseFields"
+    }
+  },
+  "_ExtPrSouRequirementGroup:scc_npm_pr_require_group": {
+    "comment": "招标计划工作成员",
+    "keyField": "requirementGroupId",
+    "fields": {
+      "requirementGroupId": "Long:主键",
+      "requirementHeadId": "Long:招标计划ID",
+      "userId": "Long:用户ID",
+      "username": "String:用户名",
+      "fullName": "String:用户昵称",
+      "groupType": "String:职责类型",
+      "phone": "String:联系方式",
+      "email": "String:邮箱",
+      "workYear": "BigDecimal:工作年限",
+      "departmentId": "Sting:所属部门ID",
+      "departmentName": "String:所属部门名称",
+      "sortIndex": "Integer:排序",
+      "@include": ":BaseFields"
+    }
+  },
+  "_ExtPrSouRequirementVendor:scc_npm_pr_require_vendor": {
+    "comment": "招标计划推荐供应商",
+    "keyField": "requirementVendorId",
+    "fields": {
+      "requirementVendorId": "Long:主键",
+      "requirementHeadId": "Long:招标计划ID",
+      "vendorId": "Long:供应商ID",
+      "vendorCode": "String:供应商编码",
+      "vendorName": "String:供应商名称",
+      "contactName": "String:联系人名称",
+      "phone": "String:联系方式",
+      "email": "String:邮箱",
+      "recommendFrom": "String:推荐来源",
+      "sortIndex": "Integer:排序",
+      "@include": ":BaseFields"
+    }
+  },
+  "_ExtPrSouRequirementAttach:scc_npm_pr_require_attach": {
+    "comment": "招标计划附件",
+    "keyField": "requirementAttachId",
+    "fields": {
+      "requirementAttachId": "Long:主键",
+      "requirementHeadId": "Long:招标计划ID",
+      "fileType": "String:文件类型",
+      "fileId": "Long:文件ID",
+      "fileName": "String:文件名称",
+      "updateDate": "LocalDate:上传时间",
+      "sortIndex": "Integer:排序",
+      "@include": ":BaseFields"
+    }
+  },
+  "_ExtPrSouRequirementCancel:scc_npm_pr_require_cancel": {
+    "comment": "招标计划取消",
+    "keyField": "requirementCancelId",
+    "fields": {
+      "requirementCancelId": "Long:ID",
+      "requirementCancelNo": "String:取消编码",
+      "cancelStatus": "String:取消状态",
+      "departmentId": "String:申请部门ID",
+      "departmentName": "String:申请部门名称",
+      "applyDate": "LocalDate:申请时间",
+      "applyById": "Long:申请人ID",
+      "applyBy": "String:申请人账号",
+      "applyByNickname": "String:申请人昵称",
+      "cancelReason": "String:取消原因",
+      "startBpmUsername":"String:bpm发起人账号",
+      "startBpmNickname":"String:bpm发起人名称",
+      "orgBuName": {
+        "type": "String",
+        "desc": "所属板块",
+        "virtual": true
+      },
+      "orgName": {
+        "type": "String",
+        "desc": "申请人公司",
+        "virtual": true
+      },
+      "projectName": {
+        "type": "String",
+        "desc": "项目名称",
+        "virtual": true
+      },
+      "requirementHeadNum": {
+        "type": "String",
+        "desc": "项目名称",
+        "virtual": true
+      },
+      "@include": ":BaseFields"
+    }
+  },
+  "_ExtPrSouRequirementCancelLine:scc_npm_pr_require_cancel_line": {
+    "comment": "招标计划取消明细",
+    "keyField": "requirementCancelLineId",
+    "fields": {
+      "requirementCancelLineId": "Long:ID",
+      "requirementCancelId": "Long:取消ID",
+      "requirementHeadId": "Long:招标计划ID",
+      "orgBuId": "Long:所属板块ID",
+      "orgBuCode": "String:所属板块编码",
+      "orgBuName": "String:所属板块名称",
+      "orgId": "Long:业务实体ID",
+      "orgCode": "String:业务实体编码",
+      "orgName": "String:业务实体名称",
+      "ceeaDepartmentId": "String:申请部门ID",
+      "ceeaDepartmentName": "String:申请部门名称",
+      "categoryId": "Long:所属品类ID",
+      "categoryCode": "String:所属品类编码",
+      "categoryName": "String:所属品类名称",
+      "projectName": "String:项目名称",
+      "sortIndex": "Integer:排序",
+      "souGroupFullName": {
+        "type": "String",
+        "desc": "招标负责人",
+        "virtual": true
+      },
+      "souGroupUserId": {
+        "type": "Long",
+        "desc": "招标负责人ID",
+        "virtual": true
+      },
+      "souGroupUsername": {
+        "type": "String",
+        "desc": "招标负责人账号",
+        "virtual": true
+      },
+      "techGroupFullName": {
+        "type": "String",
+        "desc": "技术负责人",
+        "virtual": true
+      },
+      "techGroupUserId": {
+        "type": "Long",
+        "desc": "技术负责人ID",
+        "virtual": true
+      },
+      "techGroupUsername": {
+        "type": "String",
+        "desc": "技术负责人账号",
+        "virtual": true
+      },
+      "vendorGroupFullName": {
+        "type": "String",
+        "desc": "供应商负责人",
+        "virtual": true
+      },
+      "vendorGroupUserId": {
+        "type": "Long",
+        "desc": "供应商负责人ID",
+        "virtual": true
+      },
+      "vendorGroupUsername": {
+        "type": "String",
+        "desc": "供应商负责人账号",
+        "virtual": true
+      },
+      "@include": ":BaseFields"
+    }
+  },
+  "_ExtPrSouRequirementCancelAttach:scc_npm_pr_require_cancel_file": {
+    "comment": "招标计划取消附件",
+    "keyField": "requirementCancelAttachId",
+    "fields": {
+      "requirementCancelAttachId": "Long:ID",
+      "requirementCancelId": "Long:取消ID",
+      "fileId": "Long:文件ID",
+      "fileName": "String:文件名称",
+      "uploadTime": "Date:上传时间",
+      "sortIndex": "Integer:排序",
+      "@include": ":BaseFields"
+    }
+  },
+  "_ExtPrSouRequirementBidResult:scc_npm_pr_require_bid_result": {
+    "comment": "招标计划定标信息",
+    "keyField": "bidResultId",
+    "fields": {
+      "bidResultId": "Long:ID",
+      "requirementHeadId": "Long:招标计划ID",
+      "vendorId": "Long:供应商ID",
+      "vendorCode": "String:供应商编码",
+      "vendorName": "String:供应商名称",
+      "linkman": "String:供应商联系人",
+      "phone": "String:联系方式",
+      "bidAmountByTenKilo": "BigDecimal:定标金额(万元)",
+      "@include": ":BaseFields"
+    }
+  }
+}

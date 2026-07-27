@@ -1,0 +1,12 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "ReviewForm:scc_sup_auth_review_form": {
+    "keyField": "reviewFormId",
+    "repository": "pjReviewFormRepository",
+    "fields": {
+      "reviewFormId": "Long",
+      "extUseType": "String:供应商用途分类"
+    }
+  }
+}

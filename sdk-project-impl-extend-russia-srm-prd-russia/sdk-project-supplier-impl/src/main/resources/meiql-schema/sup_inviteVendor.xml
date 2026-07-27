@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<meiql _version="1.0" _type="standard">
+    <type name="InviteVendor">
+        <validators>
+            <action name="save,publish">
+                <validator type="request" msg="供应商名称不能为空">
+                    !ql.isEmpty($rec["vendorName"])
+                </validator>
+                <validator type="request" msg="该供应商名称已邀请注册,不可重复邀请">
+                    let statusList = seq.array_of(java.lang.String, 2);
+                    statusList[0] = 'APPROVED';
+                    statusList[1] = 'SUBMITTED';
+                    <!--查询-->
+                    c = ql.newCond();
+                    ql.cond.eq(c,"companyName",$rec["vendorName"]);
+                    ql.cond.in(c,"status",statusList);
+                    return !ql.exists("CompanyInfo",c);
+                </validator>
+            </action>
+        </validators>
+    </type>
+
+</meiql>

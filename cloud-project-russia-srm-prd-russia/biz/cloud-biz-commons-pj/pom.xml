@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.midea</groupId>
+        <artifactId>cloud-biz</artifactId>
+        <version>1.0-russia-PROJECT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>cloud-biz-commons-pj</artifactId>
+    <version>1.0-russia-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <logstash-logback-encoder.version>5.1</logstash-logback-encoder.version>
+        <monitor.tomcat.version>2.0.7-RELEASE</monitor.tomcat.version>
+    </properties>
+
+    <dependencies>
+        <!-- 20240509安全问题修复版本 strat -->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${protobuf-java.version}</version>
+        </dependency>
+        <!-- 20240509安全问题修复版本 end -->
+        <dependency>
+            <groupId>com.midea</groupId>
+            <artifactId>cloud-biz-commons-extend</artifactId>
+            <version>${srm-project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.mideacloud</groupId>
+                    <artifactId>price-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.mideacloud</groupId>
+                    <artifactId>partner-client</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.midea</groupId>
+            <artifactId>cloud-biz-feign-pj</artifactId>
+            <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.gwm</groupId>
+            <artifactId>gwm-open-sdk</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -1,0 +1,22 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "OrgCompany:scc_base_org_company": {
+    "keyField": "orgCompanyId",
+    "fields": {
+      "orgCompanyId": "Long",
+      "organizationId": "Long",
+      "companyId": "String",
+      "companyName": "String",
+      "taxNumber": "String",
+      "companyCode": "String",
+      "companyType": "String",
+      "setOfBooksId": "Long",
+      "startDate": "Date",
+      "endDate": "Date",
+      "sort": "Long",
+      "email": "String",
+      "@include": ":BaseFields"
+    }
+  }
+}

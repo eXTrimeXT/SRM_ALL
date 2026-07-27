@@ -1,0 +1,52 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "OnlineInvoice": {
+    "comment": "开票管理",
+    "repository": "extOnlineInvoiceRepository",
+    "keyField": "onlineInvoiceId",
+    "fields": {
+      "comment": "String:关闭原因",
+      "extStatus": "String:扩展状态",
+      "extSource": "String:单据来源",
+      "extBehalfInvoice": "String:是否代开发票,Y/N",
+      "extInputTax": "String:是否进项税转出,Y/N",
+      "extFreeOfCharge": "String:是否免赠,Y/N",
+      "extPrincipalCode": "String:开票主体编码",
+      "extPrincipalName": "String:开票主体名称",
+      "extProfitCenterCode": "String:利润中心编码",
+      "extProfitCenterName": "String:利润中心名称",
+      "extSyncEas": "String:是否同步给EAS,Y/N"
+    },
+    "relations" : {
+      "detailList": "[OnlineInvoiceDetail:onlineInvoiceId]",
+      "advanceApplyList": "[OnlineInvoiceAdvanceApply:onlineInvoiceId]",
+      "ocrInvoiceList": "[OnlineInvoiceOcrInvoice:onlineInvoiceId]",
+      "punishList": "[OnlineInvoicePunish:onlineInvoiceId]",
+      "fileUploads": "[OnlineInvoiceAttach:onlineInvoiceId]"
+    }
+  },
+  "OnlineInvoiceDetail" : {
+    "comment": "开票明细",
+    "repository": "extOnlineInvoiceDetailRepository",
+    "keyField": "onlineInvoiceDetailId",
+    "fields" : {
+      "extSource": "String:单据来源",
+      "extCheckDetailId": "Long:验收单明细id",
+      "extAdjustAmount": "BigDecimal:尾差调整金额",
+      "extInputTaxAmount": "BigDecimal:转出税额",
+      "extSapCostCode": "String:sap成本中心编码",
+      "extSapCostContent": "String:sap成本中心内容",
+      "extInvoiceUsage": "String:发票用途编码"
+    },
+    "relations" : { }
+  },
+  "OnlineInvoicePunish:ceea_sc_online_invoice_punish" : {
+    "comment": "扣罚返利明细",
+    "keyField": "onlineInvoicePunishId",
+    "fields" : {
+      "assessmentDate" : "LocalDate:考核时间"
+    },
+    "relations" : { }
+  }
+}

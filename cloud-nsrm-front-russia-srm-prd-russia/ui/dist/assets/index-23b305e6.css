@@ -1,0 +1,19 @@
+.the-barcodeInnerPrint-detail .vxe-cell--title {
+  order: 1;
+}
+.the-barcodeInnerPrint-detail .vxe-cell-help-icon {
+  order: 2;
+}
+.the-barcodeInnerPrint-detail .vxe-cell--sort {
+  order: 3;
+}
+.the-barcodePrint .el-dialog__body {
+  height: calc(80vh - 150px);
+  overflow-y: auto;
+}
+.the-barcodePrint .render-pix-form-item-label {
+  align-items: center;
+}
+.the-barcodePrint .render-pix-form-item-feedback-layout-loose {
+  margin-bottom: 20px !important;
+}

@@ -1,0 +1,46 @@
+
+.z-reference {
+  width: 200px;
+  vertical-align: top;
+  display: inline-block;
+}
+
+.material-list-wrapper .el-table th {
+  background-color: #fff !important;
+}
+.plus-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-top: none;
+}
+.plus {
+  font-size: 18px;
+  font-weight: bold;
+}
+.material-td {
+  text-align: center;
+}
+
+.material-list-wrapper .el-table th {
+  background-color: #fff !important;
+}
+.plus-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-top: none;
+}
+.plus {
+  font-size: 18px;
+  font-weight: bold;
+}
+.material-td {
+  text-align: center;
+}

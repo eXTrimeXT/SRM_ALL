@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.req.mapper.SouReqHeadMapper">
+
+    <select id="countRecommPublic" resultType="integer" parameterType="map">
+        SELECT COUNT(1) total
+        FROM (
+                 SELECT *
+                 FROM (
+                          SELECT rh.REQUIREMENT_HEAD_ID,
+                                 h.REQ_HEAD_ID,
+                                 h.REQ_HEAD_NO,
+                                 h.PROJECT_NAME,
+                                 rh.apply_by_nickname,
+                                 rh.APPLY_DATE,
+                                 g.USER_ID,
+                                 p.SOU_NO
+                          FROM meicloud_usrm_cloud_biz_sou.scc_npm_sou_req_head h
+                                   JOIN meicloud_usrm_cloud_biz_supplier_cooperate.scc_pr_requirement_head rh
+                                        ON rh.REQUIREMENT_HEAD_ID = h.REQUIREMENT_HEAD_ID
+                                   JOIN meicloud_usrm_cloud_biz_supplier_cooperate.scc_npm_pr_require_head nph
+                                        ON nph.REQUIREMENT_HEAD_ID = rh.REQUIREMENT_HEAD_ID
+                                            AND nph.HAS_CREATE_VENDOR_RECOMMEND = 'N' AND nph.NEED_PUBLIC = 'Y'
+                                   JOIN meicloud_usrm_cloud_biz_supplier_cooperate.scc_npm_pr_require_group g
+                                        ON g.REQUIREMENT_HEAD_ID = rh.REQUIREMENT_HEAD_ID AND
+                                           g.GROUP_TYPE = 'VENDOR' and g.USER_ID = #{userId}
+                                   LEFT JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_demand d
+                                             ON d.APPLICANT_NO = rh.REQUIREMENT_HEAD_NUM
+                                   LEFT JOIN meicloud_usrm_cloud_biz_sou.scc_sou_project p
+                                             ON p.PROJECT_ID = d.PROJECT_ID AND p.SOU_TYPE = 'bid'
+                          WHERE h.IS_PUBLIC = 'Y'
+                            AND h.PUBLIC_END_TIME <![CDATA[ < ]]> NOW() and h.`STATUS` IN ('SIGNUP_DONE') ) t
+                 WHERE 1 = 1
+                 GROUP BY t.REQ_HEAD_ID
+                 ORDER BY t.SOU_NO DESC, t.REQ_HEAD_ID DESC
+             ) a
+    </select>
+
+    <select id="countRecommWithoutPublic" resultType="integer" parameterType="map">
+        SELECT COUNT(1) total
+        FROM (
+                 SELECT *
+                 FROM (
+                          SELECT DISTINCT rh.REQUIREMENT_HEAD_ID,
+                                          rh.REQUIREMENT_HEAD_NUM,
+                                          nph.PROJECT_NAME,
+                                          rh.apply_by_nickname,
+                                          rh.APPLY_DATE,
+                                          g.USER_ID,
+                                          p.SOU_NO
+                          FROM meicloud_usrm_cloud_biz_supplier_cooperate.scc_pr_requirement_head rh
+                                   JOIN meicloud_usrm_cloud_biz_supplier_cooperate.scc_npm_pr_require_head nph
+                                        ON nph.REQUIREMENT_HEAD_ID = rh.REQUIREMENT_HEAD_ID AND
+                                           nph.NEED_PUBLIC = 'N' AND nph.HAS_CREATE_VENDOR_RECOMMEND = 'N'
+                                   JOIN meicloud_usrm_cloud_biz_supplier_cooperate.scc_npm_pr_require_group g
+                                        ON g.REQUIREMENT_HEAD_ID = rh.REQUIREMENT_HEAD_ID AND
+                                           g.GROUP_TYPE = 'VENDOR' AND g.USER_ID = #{userId}
+                                   LEFT JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_demand d
+                                             ON d.APPLICANT_NO = rh.REQUIREMENT_HEAD_NUM
+                                   LEFT JOIN meicloud_usrm_cloud_biz_sou.scc_sou_project p
+                                             ON p.PROJECT_ID = d.PROJECT_ID AND p.SOU_TYPE = 'bid'
+                          WHERE rh.AUDIT_STATUS='APPROVED' AND nph.SOU_REQ_STATUS IN ('EXECUTING', 'PROJECT')
+                      ) t
+                 WHERE 1 = 1
+                 ORDER BY t.SOU_NO DESC, t.REQUIREMENT_HEAD_ID DESC
+             ) a
+    </select>
+</mapper>

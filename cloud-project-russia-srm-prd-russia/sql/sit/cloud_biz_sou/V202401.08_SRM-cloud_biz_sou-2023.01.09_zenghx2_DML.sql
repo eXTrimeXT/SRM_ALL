@@ -1,0 +1,1 @@
+ALTER TABLE scc_sou_round add column EXT_TOTAL_COMPARE varchar(10) null comment '是否总价比价，Y/N';

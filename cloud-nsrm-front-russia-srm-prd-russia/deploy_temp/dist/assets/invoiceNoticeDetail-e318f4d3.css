@@ -1,0 +1,17 @@
+.the-purInvoice-detail .sub_header[data-v-9bfb02a3] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.the-purInvoice-detail .el-table .el-date-editor[data-v-9bfb02a3] {
+  width: 135px;
+}
+.the-purInvoice-detail .btn_line[data-v-9bfb02a3] {
+  margin: 0 0 10px 0;
+}
+.the-purInvoice-detail .input-number-precision[data-v-9bfb02a3] {
+  width: 100%;
+}
+.the-purInvoice-detail .input-number-precision[data-v-9bfb02a3] .el-input__inner {
+  text-align: left;
+  padding-left: 8px;
+}

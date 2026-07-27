@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>cloud-srm</artifactId>
+        <groupId>com.midea</groupId>
+        <version>1.0-russia-PROJECT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>cloud-biz</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>cloud-biz-api-pj</module>
+        <module>cloud-biz-commons-pj</module>
+        <module>cloud-biz-feign-pj</module>
+        <module>cloud-biz-pj</module>
+        <module>cloud-biz-gateway-pj</module>
+    </modules>
+
+    <properties>
+        <bpmp-price.version>1.0.10</bpmp-price.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.mideacloud</groupId>
+                <artifactId>price-client</artifactId>
+                <version>${bpmp-price.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.mideacloud</groupId>
+                        <artifactId>mideacloud-common-base</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.mideacloud</groupId>
+                <artifactId>mideacloud-common-base</artifactId>
+                <version>${mideacloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gw</groupId>
+                <artifactId>consumer-mq-spring-boot-starter</artifactId>
+                <version>1.0.1-RELEASE</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

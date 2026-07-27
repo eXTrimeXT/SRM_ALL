@@ -1,0 +1,17 @@
+.formula-form-item[data-v-4f52e1b1] .el-form-item__label {
+  display: flex;
+}
+.formula-form-item[data-v-4f52e1b1] .el-form-item__label .formula-form-item-label .label-tips {
+  color: red;
+}.formula_wrapper .order-uploader[data-v-992261fe] {
+  display: inline-block;
+  margin: 0 10px;
+}
+.formula_wrapper .block[data-v-992261fe] {
+  display: flex;
+  justify-content: center;
+}
+.formula_wrapper .el-table th > .cell {
+  display: flex;
+  justify-content: center;
+}

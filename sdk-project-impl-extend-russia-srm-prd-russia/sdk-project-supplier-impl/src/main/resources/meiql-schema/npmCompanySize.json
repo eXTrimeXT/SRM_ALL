@@ -1,0 +1,59 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "npmCompanySize:scc_npm_company_size": {
+    "comment": "公司规模",
+	"keyField": "companySizeId",
+    "fields": {
+      "companySizeId": {
+        "type": "Long",
+        "dbName":"company_size_id",
+        "desc": "ID",
+        "virtual": false
+      },
+      "companyId": {
+        "type": "Long",
+        "dbName":"company_id",
+        "desc": "供应商ID",
+        "virtual": false
+      },
+      "totalNumber": {
+        "type": "String",
+        "dbName":"total_number",
+        "desc": "总人数",
+        "virtual": false
+      },
+      "socialSecurityNumber": {
+        "type": "String",
+        "dbName":"social_security_number",
+        "desc": "社保人数",
+        "virtual": false
+      },
+      "managementNumber": {
+        "type": "String",
+        "dbName":"management_number",
+        "desc": "管理人员",
+        "virtual": false
+      },
+      "developerNumber": {
+        "type": "String",
+        "dbName":"developer_number",
+        "desc": "研发人员",
+        "virtual": false
+      },
+      "productionNumber": {
+        "type": "String",
+        "dbName":"production_number",
+        "desc": "生产人员",
+        "virtual": false
+      },
+      "overUndergraduateNumber": {
+        "type": "String",
+        "dbName":"over_undergraduate_number",
+        "desc": "本科学历及以上",
+        "virtual": false
+      },
+      "@include": ":BaseFields"
+    }
+  }
+}

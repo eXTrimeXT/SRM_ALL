@@ -1,0 +1,77 @@
+<meiql _version="1.0" _type="standard">
+    <type name="SouReqApplyBuyer">
+        <validators>
+            <action name="handleApply">
+                <validator type="request" msg="参数必填：applyId">
+                    ql.notEmpty($rec["applyId"])
+                </validator>
+                <validator type="request" msg="参数必填：reqHeadId">
+                    ql.notEmpty($rec["reqHeadId"])
+                </validator>
+                <validator type="request" msg="参数必填：applyHandleType">
+                    ql.notEmpty($rec["applyHandleType"])
+                </validator>
+            </action>
+        </validators>
+    </type>
+    <type name="SouReqApply">
+        <validators>
+            <action name="withdraw">
+                <validator type="request" msg="参数必填：applyId">
+                    ql.notEmpty($rec["applyId"])
+                </validator>
+                <validator type="request" msg="参数必填：reqHeadId">
+                    ql.notEmpty($rec["reqHeadId"])
+                </validator>
+                <validator type="request" msg="撤回失败：仅报名确认中、报名成功可撤回">
+                    c = ql.newCond();
+                    ql.cond.in(c,"applyStatus",tuple("CONFIRMING_SIGNUP" , "SUCCESS_SIGNUP"));
+                    ql.cond.eq(c,"applyId",$rec["applyId"]);
+                    existRec = ql.query("SouReqApply",c);
+                    return ql.gt(count(existRec),0);
+                </validator>
+                <validator type="request" msg="撤回失败：仅寻源单为接收报名中状态可撤回">
+                    c = ql.newCond();
+                    ql.cond.eq(c,"status","APPROVED");
+                    ql.cond.eq(c,"reqHeadId",$rec["reqHeadId"]);
+                    existRec = ql.query("SouReqHeadBuyer",c);
+                    return ql.gt(count(existRec),0);
+                </validator>
+            </action>
+            <action name="apply">
+                <validator type="request" msg="参数必填：reqHeadId">
+                    ql.notEmpty($rec["reqHeadId"])
+                </validator>
+                <validator type="request" msg="参数必填：vendorId">
+                    ql.notEmpty($rec["vendorId"])
+                </validator>
+                <validator type="request" msg="报名异常，不满足报名条件。">
+                    <!--仅可选择供应商状态：准供应商、正式供应商、是否黑名单：否、是否限制时间：否、 组织状态：生效，品类状态：生效，供应商品类状态：合格、验证中-->
+                    c = ql.newCond();
+                    ql.cond.gt(c,"publicEndTime",$rec["publicEndTime"]);
+                    ql.cond.eq(c,"reqHeadId",$rec["reqHeadId"]);
+                    existRec = ql.query("SouReqHeadBuyer",c);
+                    return ql.le(count(existRec),0);
+                </validator>
+                <validator type="request" msg="不允许重复报名。">
+                    c = ql.newCond();
+                    ql.cond.notIn(c,"applyStatus",tuple("NO_SIGNUP","WITHDRAW","FAIL_SIGNUP"));
+                    ql.cond.eq(c,"vendorId",$rec["vendorId"]);
+                    ql.cond.eq(c,"reqHeadId",$rec["reqHeadId"]);
+                    existRec = ql.query("SouReqApply",c);
+                    return ql.le(count(existRec),0);
+                </validator>
+            </action>
+            <action name="save">
+                <validator type="request" msg="您已经报名，请勿重复操作">
+                    c = ql.newCond();
+                    ql.cond.notEq(c,"applyId",$rec["applyId"]);
+                    ql.cond.eq(c,"vendorId",$rec["vendorId"]);
+                    ql.cond.eq(c,"reqHeadId",$rec["reqHeadId"]);
+                    existRec = ql.query("SouReqApply",c);
+                    return ql.le(count(existRec),0);
+                </validator>
+            </action>
+        </validators>
+    </type>
+</meiql>

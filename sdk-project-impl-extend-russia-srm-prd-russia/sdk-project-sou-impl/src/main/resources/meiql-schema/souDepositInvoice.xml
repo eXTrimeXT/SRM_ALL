@@ -1,0 +1,37 @@
+<meiql _version="1.0" _type="standard">
+    <type name="SouIntDepositInvoiceBuyer">
+        <validators>
+            <action name="submit">
+                <validator type="request" msg="参数必填：reqHeadId">
+                    ql.notEmpty($rec["reqHeadId"])
+                </validator>
+                <validator type="request" msg="参数必填：applyId">
+                    ql.notEmpty($rec["applyId"])
+                </validator>
+                <validator type="request" msg="参数必填：invoiceType">
+                    ql.notEmpty($rec["invoiceType"])
+                </validator>
+                <validator type="request" msg="缴纳了意向金且未退款才允许开票。">
+                    c = ql.newCond();
+                    ql.cond.notEq(c,"depositRefundStatus","NOT_REFUNDED");
+                    ql.cond.notEq(c,"depositStatus","PAID");
+                    ql.cond.eq(c,"applyId",$rec["applyId"]);
+                    existRec = ql.query("SouReqApply",c);
+                    return ql.ge(count(existRec),0);
+                </validator>
+            </action>
+        </validators>
+    </type>
+    <type name="SouIntDepositInvoice">
+        <validators>
+            <action name="getInfo">
+                <validator type="request" msg="参数必填：寻源单ID">
+                    ql.notEmpty($rec["reqHeadId"])
+                </validator>
+                <validator type="request" msg="参数必填：发票类型">
+                    ql.notEmpty($rec["invoiceType"])
+                </validator>
+            </action>
+        </validators>
+    </type>
+</meiql>

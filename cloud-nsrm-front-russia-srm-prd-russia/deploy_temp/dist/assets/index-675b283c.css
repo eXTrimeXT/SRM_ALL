@@ -1,0 +1,40 @@
+.the_TableView[data-v-a221a6c6] {
+  padding-left: 0px;
+  padding-right: 0px;
+  position: relative;
+}
+.the_TableView .table-wrapper[data-v-a221a6c6] {
+  display: flex;
+  min-height: 0;
+  height: 100%;
+  flex: 1;
+  flex-direction: column;
+}
+.the_TableView .custom-table[data-v-a221a6c6] {
+  position: absolute;
+  right: 0px;
+  top: -38px;
+}
+.the_TableView .page-bar[data-v-a221a6c6] {
+  padding: 0;
+}
+.the_TableView .el-input-number[data-v-a221a6c6] {
+  width: 100%;
+}
+.the_TableView .el-input-number .el-input[data-v-a221a6c6] {
+  padding: 0px;
+}
+.the_TableView .el-select > .el-input[data-v-a221a6c6] {
+  padding: 0px;
+}.the_TableView .vxe-table--render-default .vxe-body--column.col--ellipsis > .vxe-cell .el-button--text.cel-btn-single {
+  width: 100%;
+  text-align: left;
+}
+.the_TableView .vxe-table--render-default .vxe-body--column.col--ellipsis > .vxe-cell .el-button--text.cel-btn-single > span {
+  overflow: hidden;
+  line-height: 40px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  display: inline-block;
+}

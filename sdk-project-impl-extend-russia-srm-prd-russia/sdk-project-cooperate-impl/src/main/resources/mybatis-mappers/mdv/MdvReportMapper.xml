@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.supcooperate.report.mdv.mapper.MdvReportMapper">
+
+    <select id="queryVendorQuantityDAO" resultType="com.midea.cloud.srm.model.supcooperate.report.mdv.dto.VendorQuantityDTO">
+        SELECT y.*
+        FROM (SELECT a.yearMonth,
+                     a.extUseType,
+                     a.year,
+                     a.month,
+                     b.thisYearQuantity,
+                     a.thisMonthQuantity,
+                     b_last_month.thisMonthQuantity AS lastMonthQuantity
+        FROM (SELECT 'INVITE' extUseType,
+                           DATE_FORMAT(info.APPROVED_DATE, '%Y-%m') yearMonth,
+                           YEAR(info.APPROVED_DATE)                 year,
+                           MONTH(info.APPROVED_DATE)                month,
+                           count(1)                                 thisMonthQuantity
+                    FROM meicloud_usrm_cloud_biz_supplier.scc_sup_company_info info
+                    WHERE info.EXT_USE_TYPE IN ('COMMON', '', 'INVITE')
+                      AND info.STATUS = 'APPROVED'
+                      AND info.IS_BACKLIST = 'N'
+                      AND info.APPROVED_DATE IS NOT NULL
+                    GROUP BY DATE_FORMAT(info.APPROVED_DATE, '%Y-%m')) a
+                       LEFT JOIN (SELECT YEAR(b.APPROVED_DATE) year, count(1) thisYearQuantity
+                                  FROM meicloud_usrm_cloud_biz_supplier.scc_sup_company_info b
+                                  WHERE b.EXT_USE_TYPE IN ('COMMON', '', 'INVITE')
+                                    AND b.STATUS = 'APPROVED'
+                                    AND b.IS_BACKLIST = 'N'
+                                    AND b.APPROVED_DATE IS NOT NULL
+                                  GROUP BY YEAR(b.APPROVED_DATE)) b on a.year = b.year
+                       LEFT JOIN (SELECT DATE_FORMAT(DATE_ADD(b.APPROVED_DATE, INTERVAL 1 MONTH), '%Y-%m') yearMonth,
+                                         COUNT(1) AS                                                       thisMonthQuantity
+                                  FROM meicloud_usrm_cloud_biz_supplier.scc_sup_company_info b
+                                  WHERE b.EXT_USE_TYPE IN ('COMMON', '', 'INVITE')
+                                    AND b.STATUS = 'APPROVED'
+                                    AND b.IS_BACKLIST = 'N'
+                                    AND b.APPROVED_DATE IS NOT NULL
+                                  GROUP BY DATE_FORMAT(APPROVED_DATE, '%Y-%m')) b_last_month
+                                 ON a.yearMonth = b_last_month.yearMonth
+              UNION ALL
+              SELECT a.yearMonth,
+                     a.extUseType,
+                     a.year,
+                     a.month,
+                     b.thisYearQuantity,
+                     a.thisMonthQuantity,
+                     b_last_month.thisMonthQuantity AS lastMonthQuantity
+        FROM (SELECT 'TEMP_PROCUREMENT' extUseType,
+                           DATE_FORMAT(info.APPROVED_DATE, '%Y-%m') yearMonth,
+                           YEAR(info.APPROVED_DATE)                 year,
+                           MONTH(info.APPROVED_DATE)                month,
+                           count(1)                                 thisMonthQuantity
+                    FROM meicloud_usrm_cloud_biz_supplier.scc_sup_company_info info
+                    WHERE info.EXT_USE_TYPE IN ('COMMON', '', 'TEMP_PROCUREMENT')
+                      AND info.STATUS = 'APPROVED'
+                      AND info.IS_BACKLIST = 'N'
+                      AND info.APPROVED_DATE IS NOT NULL
+                    GROUP BY DATE_FORMAT(info.APPROVED_DATE, '%Y-%m')) a
+                       LEFT JOIN (SELECT YEAR(b.APPROVED_DATE) year, count(1) thisYearQuantity
+                                  FROM meicloud_usrm_cloud_biz_supplier.scc_sup_company_info b
+                                  WHERE b.EXT_USE_TYPE IN ('COMMON', '', 'TEMP_PROCUREMENT')
+                                    AND b.STATUS = 'APPROVED'
+                                    AND b.IS_BACKLIST = 'N'
+                                    AND b.APPROVED_DATE IS NOT NULL
+                                  GROUP BY YEAR(b.APPROVED_DATE)) b on a.year = b.year
+                       LEFT JOIN (SELECT DATE_FORMAT(DATE_ADD(b.APPROVED_DATE, INTERVAL 1 MONTH), '%Y-%m') yearMonth,
+                                         COUNT(1) AS                                                       thisMonthQuantity
+                                  FROM meicloud_usrm_cloud_biz_supplier.scc_sup_company_info b
+                                  WHERE b.EXT_USE_TYPE IN ('COMMON', '', 'TEMP_PROCUREMENT')
+                                    AND b.STATUS = 'APPROVED'
+                                    AND b.IS_BACKLIST = 'N'
+                                    AND b.APPROVED_DATE IS NOT NULL
+                                  GROUP BY DATE_FORMAT(APPROVED_DATE, '%Y-%m')) b_last_month
+                                 ON a.yearMonth = b_last_month.yearMonth) y
+        <where>
+            <if test="extUseType != null and extUseType != ''">
+                AND y.extUseType=#{extUseType}
+            </if>
+            <if test="year != null and year != ''">
+                AND y.year=#{year}
+            </if>
+            <if test="month != null and month != ''">
+                AND y.month=#{month}
+            </if>
+        </where>
+        ORDER BY y.yearMonth DESC, y.extUseType
+    </select>
+    <select id="queryApprovedProjectDAO" resultType="com.midea.cloud.srm.model.supcooperate.report.mdv.dto.ApprovedProjectDTO">
+        SELECT a.SOU_TYPE,
+               DATE_FORMAT(a.PUBLISH_TIME, '%Y-%m') yearMonth,
+               YEAR(a.PUBLISH_TIME)                 year,
+               MONTH(a.PUBLISH_TIME)                month,
+               count(1)                             quantity
+        FROM meicloud_usrm_cloud_biz_sou.scc_sou_project a
+                 INNER JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_bid_notice b ON a.PROJECT_ID = b.project_id
+        WHERE a.SOU_TYPE IN ('bid', 'ext_pur_inq')
+          AND b.status = 'APPROVED'
+          AND a.PUBLISH_TIME IS NOT NULL
+        <if test="souType != null and souType != ''">
+            AND a.SOU_TYPE=#{souType}
+        </if>
+        <if test="year != null and year != ''">
+            AND YEAR(a.PUBLISH_TIME)=#{year}
+        </if>
+        <if test="month != null and month != ''">
+            AND MONTH(a.PUBLISH_TIME)=#{month}
+        </if>
+        GROUP BY yearMonth DESC, a.SOU_TYPE
+    </select>
+    <select id="queryBlackSupplierPageDAO" resultType="com.midea.cloud.srm.model.supcooperate.report.mdv.dto.BlackSupplierQuantityDTO">
+        SELECT y.*
+        FROM (SELECT a.yearMonth,
+                     a.year,
+                     a.month,
+                     a.thisMonthQuantity,
+                     b_last_month.thisMonthQuantity AS lastMonthQuantity
+              FROM (SELECT DATE_FORMAT(a.EFFECTIVE_TIME, '%Y-%m') yearMonth,
+                           YEAR(a.EFFECTIVE_TIME)                 year,
+                           MONTH(a.EFFECTIVE_TIME)                month,
+                           COUNT(1) AS                            thisMonthQuantity
+                    FROM meicloud_usrm_cloud_biz_supplier.scc_base_black a
+                             INNER JOIN meicloud_usrm_cloud_biz_supplier.scc_base_black_company b ON a.BLACK_ID = b.BLACK_ID
+                    WHERE a.EFFECTIVE_TIME is not null
+                    GROUP BY yearMonth) a
+                       LEFT JOIN (SELECT DATE_FORMAT(DATE_ADD(a.EFFECTIVE_TIME, INTERVAL 1 MONTH), '%Y-%m') yearMonth,
+                                         COUNT(1) AS                                                        thisMonthQuantity
+                                  FROM meicloud_usrm_cloud_biz_supplier.scc_base_black a
+                                           INNER JOIN meicloud_usrm_cloud_biz_supplier.scc_base_black_company b ON a.BLACK_ID = b.BLACK_ID
+                                  WHERE a.EFFECTIVE_TIME is not null
+                                  GROUP BY yearMonth) b_last_month
+                                 ON a.yearMonth = b_last_month.yearMonth) y
+                    <where>
+                        <if test="year != null and year != ''">
+                            AND YEAR(a.EFFECTIVE_TIME)=#{year}
+                        </if>
+                        <if test="month != null and month != ''">
+                            AND MONTH(a.EFFECTIVE_TIME) =#{month}
+                        </if>
+                    </where>
+                    ORDER BY y.yearMonth DESC
+    </select>
+    <select id="queryControlSupplierPageDAO" resultType="com.midea.cloud.srm.model.supcooperate.report.mdv.dto.ControlSupplierQuantityDTO">
+        SELECT DATE_FORMAT(f.START_DATE, '%Y-%m') yearMonth,
+               f.SUPPLIER_CONTROL_TYPE,
+               COUNT(1)                           quantity
+        FROM meicloud_usrm_cloud_biz_supplier.scc_sup_auth_org_cat_form f
+        WHERE NOT EXISTS(SELECT 1
+                         FROM meicloud_usrm_cloud_biz_supplier.scc_base_black b
+                                  INNER JOIN meicloud_usrm_cloud_biz_supplier.scc_base_black_company c
+                                             ON b.BLACK_ID = c.BLACK_ID
+                         WHERE b.APPROVE_STATUS = 'APPROVED'
+                           AND f.VENDOR_ID = c.COMPANY_ID
+                           AND f.START_DATE BETWEEN b.EFFECTIVE_TIME AND b.END_DATE)
+          AND f.SUPPLIER_CONTROL_TYPE IN ('TIME_LIMIT_FLAG', 'CATEGORY_LIMIT_FLAG', 'POSITION_LIMIT_FLAG')
+          AND f.START_DATE IS NOT NULL
+        <if test="yearMonth != null and yearMonth != ''">
+            AND DATE_FORMAT(f.START_DATE, '%Y-%m')=#{yearMonth}
+        </if>
+        <if test="supplierControlType != null and supplierControlType != ''">
+            AND f.SUPPLIER_CONTROL_TYPE=#{supplierControlType}
+        </if>
+        GROUP BY yearMonth, f.SUPPLIER_CONTROL_TYPE
+        ORDER BY yearMonth DESC
+    </select>
+    <select id="queryBudgetAndWinAmountDAO" resultType="com.midea.cloud.srm.model.supcooperate.report.mdv.dto.BudgetAndWinAmountDTO">
+        SELECT a.EXT_ORG_BU_NAME,
+               a.EXT_ORG_OU_NAME,
+               a.EXT_PROJECT_NO,
+               a.EXT_BUDGET,
+               notice.win_amount,
+               notice.pass_time,
+               YEAR(notice.pass_time) year
+        FROM meicloud_usrm_cloud_biz_sou.scc_sou_project a
+                 LEFT JOIN (SELECT b.project_id,MAX(b.pass_time) pass_time, SUM(IFNULL(c.win_amount, 0)) win_amount
+                            FROM meicloud_usrm_cloud_biz_sou.scc_npm_sou_bid_notice b
+                                     INNER JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_bid_notice_detail c
+                                                ON b.bid_notice_id = c.bid_notice_id
+                            WHERE c.is_win = 'Y'
+                              AND c.win_amount != 1
+                              AND b.status = 'APPROVED'
+                            GROUP BY b.project_id) notice ON a.PROJECT_ID = notice.project_id
+                                where          a.PROJECT_STATUS='ARCHIVE_DONE'
+            <if test="extOrgBuName != null and extOrgBuName != ''">
+                AND a.EXT_ORG_BU_NAME=#{extOrgBuName}
+            </if>
+            <if test="extOrgOuName != null and extOrgOuName != ''">
+                AND a.EXT_ORG_OU_NAME=#{extOrgOuName}
+            </if>
+            <if test="extBudget != null and extBudget != ''">
+                AND a.EXT_BUDGET>=#{extBudget}
+            </if>
+            <if test="winAmount != null and winAmount != ''">
+                AND notice.win_amount>=#{winAmount}
+            </if>
+        ORDER BY notice.pass_time DESC
+    </select>
+    <select id="querySpecialSouDAO" resultType="com.midea.cloud.srm.model.supcooperate.report.mdv.dto.SpecialSouDTO">
+        SELECT y.EXT_ORG_BU_NAME,
+        y.EXT_ORG_OU_NAME,
+        YEAR(MAX(y.APPROVAL_PASS_TIME)) year,
+        count(1)         quantity
+        FROM (select distinct a.PROJECT_ID,
+        a.EXT_ORG_BU_NAME,
+        a.EXT_ORG_OU_NAME,
+        e.APPROVAL_PASS_TIME
+        from meicloud_usrm_cloud_biz_sou.scc_sou_project a
+        INNER JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_bid_notice b ON a.PROJECT_ID = b.project_id
+        inner join meicloud_usrm_cloud_biz_sou.scc_npm_sou_demand c on a.PROJECT_ID = c.PROJECT_ID
+        inner join meicloud_usrm_cloud_biz_supplier_cooperate.scc_pr_requirement_head d on c.APPLICANT_NO = d.REQUIREMENT_HEAD_NUM and d.AUDIT_STATUS != 'ABANDONED'
+        inner join meicloud_usrm_cloud_biz_supplier_cooperate.scc_npm_pr_require_head e on d.REQUIREMENT_HEAD_ID = e.REQUIREMENT_HEAD_ID
+        WHERE a.EXT_ORG_BU_NAME != ''
+        AND a.EXT_ORG_OU_NAME != ''
+        AND e.APPROVAL_PASS_TIME IS NOT NULL
+        AND e.REQUIRE_FROM = 'SPECIAL_SOU'
+        <if test="extOrgBuName != null and extOrgBuName != ''">
+            AND a.EXT_ORG_BU_NAME =#{extOrgBuName}
+        </if>
+        <if test="extOrgOuName != null and extOrgOuName != ''">
+            AND a.EXT_ORG_OU_NAME=#{extOrgOuName}
+        </if>
+        <if test="year != null and year != ''">
+            AND YEAR( e.APPROVAL_PASS_TIME)=#{year}
+        </if>
+        ) y
+        GROUP BY y.EXT_ORG_BU_NAME, y.EXT_ORG_OU_NAME
+        ORDER BY quantity DESC
+    </select>
+    <select id="querySupplierActiveStatusDAO" resultType="com.midea.cloud.srm.model.supcooperate.report.mdv.dto.SupplierActiveStatusDTO">
+        SELECT a.COMPANY_ID,
+        a.COMPANY_CODE,
+        a.COMPANY_NAME,
+        CASE WHEN c.STATUS = 1 THEN '（年限≤1年）' WHEN c.STATUS = 2 THEN '（1年＜年限≤3年）' ELSE '（3年＜年限）' END STATUS_TYPE,
+        c.LAST_UPDATE_DATE yearMonth
+        FROM meicloud_usrm_cloud_biz_supplier.scc_sup_company_info a
+        LEFT JOIN (SELECT b.VENDOR_ID,MAX(DATE_FORMAT(b.LAST_UPDATE_DATE, '%Y-%m')) LAST_UPDATE_DATE,
+        CASE
+        WHEN TIMESTAMPDIFF(YEAR, MAX(b.LAST_UPDATE_DATE), NOW()) &lt;= 1 THEN 1
+        WHEN TIMESTAMPDIFF(YEAR, MAX(b.LAST_UPDATE_DATE), NOW()) > 1 and
+        TIMESTAMPDIFF(YEAR, MAX(b.LAST_UPDATE_DATE), NOW()) &lt;= 3 THEN 2
+        ELSE 3
+        END AS STATUS
+        FROM meicloud_usrm_cloud_biz_sou.scc_npm_sou_invite_head b
+        WHERE b.LAST_UPDATE_DATE IS NOT NULL
+        GROUP BY b.VENDOR_ID) c ON a.COMPANY_ID = c.VENDOR_ID
+        WHERE a.STATUS = 'APPROVED'
+        AND a.IS_BACKLIST = 'N'
+        <if test="status != null and status != ''">
+            AND c.STATUS=#{status}
+        </if>
+    </select>
+    <select id="querySupplierPerEvalDAO" resultType="com.midea.cloud.srm.model.supcooperate.report.mdv.dto.SupplierPerEvalDTO">
+        SELECT YEAR(LAST_UPDATE_DATE)                              YEAR,
+               PERFORMANCE_TYPE,
+               LEVEL_NAME,
+               COUNT(*) AS                                         QUANTITY
+        FROM meicloud_usrm_cloud_biz_performance.scc_npm_project_score_header
+        WHERE PERFORMANCE_TYPE IN ('NODE', 'PROJECT')
+        <if test="year != null and year != ''">
+            AND YEAR(LAST_UPDATE_DATE)=#{year}
+        </if>
+        <if test="performanceType != null and performanceType != ''">
+            AND PERFORMANCE_TYPE=#{performanceType}
+        </if>
+        <if test="levelName != null and levelName != ''">
+            AND LEVEL_NAME=#{levelName}
+        </if>
+        GROUP BY YEAR, PERFORMANCE_TYPE, LEVEL_NAME
+    </select>
+    <select id="queryExpertVitValueDAO" resultType="com.midea.cloud.srm.model.supcooperate.report.mdv.dto.ExpertVitValueDTO">
+        SELECT c.*
+        FROM (SELECT b.BU_NAME,
+        b.ORG_OU_NAME,
+        YEAR(b.APPLY_TIME) AS YEAR,
+        count(1)             QUANTITY
+        FROM meicloud_usrm_cloud_biz_sou.scc_npm_sou_expert a
+        inner join meicloud_usrm_cloud_biz_sou.scc_npm_sou_expert_apply b on a.EXPERT_APPLY_ID = b.EXPERT_APPLY_ID
+        WHERE a.HAS_QUITE = 'N'
+        AND a.HAS_FROZEN = 'N'
+        AND b.BU_NAME!=''
+        <if test="buName != null and buName != ''">
+            AND b.BU_NAME LIKE '%${buName}%'
+        </if>
+        <if test="orgOuName != null and orgOuName != ''">
+            AND b.ORG_OU_NAME LIKE '%${orgOuName}%'
+        </if>
+        group by b.BU_NAME, b.ORG_OU_NAME,YEAR) c
+        ORDER BY YEAR DESC
+    </select>
+    <select id="queryExpertHotListDAO"  resultType="com.midea.cloud.srm.model.supcooperate.report.mdv.dto.ExpertHotListDTO">
+        SELECT c.*
+        FROM (SELECT a.EXPERT_USER_ID,
+                     a.EXPERT_FULL_NAME,
+                     b.BU_NAME,
+                     b.ORG_OU_NAME,
+                     count(1) quantity
+              FROM meicloud_usrm_cloud_biz_sou.scc_npm_sou_expert a
+                       INNER JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_expert_apply b ON a.EXPERT_APPLY_ID = b.EXPERT_APPLY_ID
+                       INNER JOIN meicloud_usrm_cloud_biz_sou.scc_sou_group gro ON a.EXPERT_USER_ID = gro.USER_ID
+                       INNER JOIN meicloud_usrm_cloud_biz_sou.scc_sou_project project ON gro.PROJECT_ID = project.PROJECT_ID AND project.TECH_OPEN = 'Y'
+              WHERE a.HAS_QUITE = 'N'
+                AND a.HAS_FROZEN = 'N'
+                AND b.BU_NAME IS NOT NULL
+            <if test="expertFullName != null and expertFullName != ''">
+                AND a.EXPERT_FULL_NAME LIKE '%${expertFullName}%'
+            </if>
+            <if test="buName != null and buName != ''">
+                AND b.BU_NAME LIKE '%${buName}%'
+            </if>
+            <if test="orgOuName != null and orgOuName != ''">
+                AND b.ORG_OU_NAME LIKE '%${orgOuName}%'
+            </if>
+              GROUP BY a.EXPERT_USER_ID, b.BU_NAME, b.ORG_OU_NAME) c
+        ORDER BY quantity DESC, ORG_OU_NAME DESC
+    </select>
+    <select id="queryBidPlanImplRateDAO"  resultType="com.midea.cloud.srm.model.supcooperate.report.mdv.dto.BidPlanImplRateDTO">
+        SELECT x.YEAR,
+               x.ORG_BU_NAME,
+               IF(x.COUNT IS NULL, 0, x.COUNT)                                                   TOTAL_COUNT,
+               IF(y.COUNT IS NULL, 0, y.COUNT)                                                   IMP_COUNT,
+               IF(x.COUNT IS NULL, 0, ROUND(100 * IF(y.COUNT IS NULL, 0, y.COUNT) / x.COUNT, 2)) PERCENT
+        FROM (SELECT YEAR(a.APPLY_DATE) YEAR,
+                     b.ORG_BU_NAME,
+                     count(1)           COUNT
+              FROM meicloud_usrm_cloud_biz_supplier_cooperate.scc_pr_requirement_head a
+                       INNER JOIN meicloud_usrm_cloud_biz_supplier_cooperate.scc_npm_pr_require_head b ON a.REQUIREMENT_HEAD_ID = b.REQUIREMENT_HEAD_ID
+              WHERE a.AUDIT_STATUS = 'APPROVED'
+                AND b.REQUIRE_FROM = 'MONTH'
+                AND b.ORG_BU_NAME != ''
+              GROUP BY b.ORG_BU_NAME, YEAR) x
+                 LEFT JOIN (SELECT YEAR(a.APPLY_DATE) YEAR,
+                                   b.ORG_BU_NAME,
+                                   count(1)           COUNT
+                            FROM meicloud_usrm_cloud_biz_supplier_cooperate.scc_pr_requirement_head a
+                                     INNER JOIN meicloud_usrm_cloud_biz_supplier_cooperate.scc_npm_pr_require_head b  ON a.REQUIREMENT_HEAD_ID = b.REQUIREMENT_HEAD_ID AND b.HAS_SEND_SOU_PROFILE = 'Y'
+                                     INNER JOIN meicloud_usrm_cloud_biz_sou.scc_npm_bid_data_submit submit ON a.REQUIREMENT_HEAD_NUM = submit.REQUIREMENT_HEAD_NUM
+                            WHERE a.AUDIT_STATUS = 'APPROVED'
+                              AND b.REQUIRE_FROM = 'MONTH'
+                              AND b.ORG_BU_NAME != ''
+                              AND submit.STATUS = 'APPROVED'
+                              AND DATE_FORMAT(a.APPLY_DATE, '%Y-%m') = DATE_FORMAT(submit.APPROVE_PASS_TIME, '%Y-%m')
+                            GROUP BY b.ORG_BU_NAME, YEAR) y ON x.ORG_BU_NAME = y.ORG_BU_NAME AND x.YEAR = y.YEAR
+        <where>
+            <if test="orgBuName != null and orgBuName != ''">
+                AND x.ORG_BU_NAME LIKE '%${orgBuName}%'
+            </if>
+        </where>
+        ORDER BY x.YEAR DESC, x.COUNT DESC
+    </select>
+    <select id="queryDeductionDepositDAO" resultType="com.midea.cloud.srm.model.supcooperate.report.mdv.dto.DeductionDepositDTO">
+        SELECT p.EXT_ORG_BU_NAME ORG_BU_NAME,
+        SUM(r.AMOUNT) AS TOTAL_AMOUNT,
+        r.DESCRIPTION,
+        YEAR(r.CREATION_DATE) YEAR
+        FROM meicloud_usrm_cloud_biz_sou.scc_npm_sou_margin_record r
+        LEFT JOIN meicloud_usrm_cloud_biz_sou.scc_sou_project p ON r.PROJECT_ID = p.PROJECT_ID
+        <where>
+            <if test="orgBuName != null and orgBuName != ''">
+                AND p.EXT_ORG_BU_NAME LIKE '%${orgBuName}%'
+            </if>
+            <if test="description != null and description != ''">
+                AND r.DESCRIPTION LIKE '%${description}%'
+            </if>
+        </where>
+        GROUP BY r.DESCRIPTION, YEAR(r.CREATION_DATE), p.EXT_ORG_BU_NAME
+        ORDER BY YEAR(r.CREATION_DATE) DESC
+    </select>
+</mapper>

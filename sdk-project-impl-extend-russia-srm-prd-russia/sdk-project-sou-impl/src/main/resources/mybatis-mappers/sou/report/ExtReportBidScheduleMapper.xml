@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.report.bid.mapper.ExtReportBidScheduleMapper">
+
+    <select id="listProjectPage" parameterType="com.midea.cloud.srm.model.sou.report.bid.dto.ScheduleReportQueryDto" resultType="com.midea.cloud.srm.model.sou.report.souschedules.dto.SccNpmSouScheduleReportDto">
+        SELECT
+        p.SOU_NO,
+        p.EXT_PROJECT_NO,
+        p.SOU_NAME,
+        p.EXT_SOU_PROCESS,
+        p.EXT_CATEGORY_NAME,
+        p.EXT_ORG_BU_CODE,
+        p.EXT_ORG_BU_NAME,
+        p.EXT_ORG_OU_CODE,
+        p.EXT_ORG_OU_NAME,
+        p.EXT_SCALE_QUANTITY,
+        p.EXT_BUDGET,
+        p.PROJECT_STATUS,
+        p.CREATION_DATE BID_CREATION_DATE,
+        s.*
+        from scc_npm_sou_schedule s
+        join scc_sou_project p on p.PROJECT_ID = s.PROJECT_ID and p.SOU_TYPE='bid' and p.CREATE_APPROVAL_STATUS='APPROVED'
+        <where>
+            <if test="requirementPlanType != null and requirementPlanType != ''">
+                and s.REQUIREMENT_PLAN_TYPE = #{requirementPlanType}
+            </if>
+            <if test="extOrgBuName != null and extOrgBuName != ''">
+                and p.EXT_ORG_BU_NAME like CONCAT('%',#{extOrgBuName},'%')
+            </if>
+            <if test="extOrgOuName != null and extOrgOuName != ''">
+                and p.EXT_ORG_OU_NAME like CONCAT('%',#{extOrgOuName},'%')
+            </if>
+            <if test="companyShortCode != null and companyShortCode != ''">
+                and s.COMPANY_SHORT_CODE like CONCAT('%',#{companyShortCode},'%')
+            </if>
+            <if test="year != null and year != ''">
+                and s.YEAR like CONCAT('%',#{year},'%')
+            </if>
+            <if test="month != null and month != ''">
+                and s.MONTH like CONCAT('%',#{month},'%')
+            </if>
+            <if test="extOrgBuCode != null and extOrgBuCode != ''">
+                and p.EXT_ORG_BU_CODE like CONCAT('%',#{extOrgBuCode},'%')
+            </if>
+            <if test="extProjectNo != null and extProjectNo != ''">
+                and p.EXT_PROJECT_NO like CONCAT('%',#{extProjectNo},'%')
+            </if>
+            <if test="souName != null and souName != ''">
+                and p.SOU_NAME like CONCAT('%',#{souName},'%')
+            </if>
+            <if test="extSouProcess != null and extSouProcess != ''">
+                and p.EXT_SOU_PROCESS = #{extSouProcess}
+            </if>
+            <if test="extCategoryId != null">
+                and p.EXT_CATEGORY_ID = #{extCategoryId}
+            </if>
+            <if test="extCategoryName != null and extCategoryName != ''">
+                and p.EXT_CATEGORY_NAME like CONCAT('%',#{extCategoryName},'%')
+            </if>
+            <if test="souPrincipal != null and souPrincipal != ''">
+                and s.SOU_PRINCIPAL like CONCAT('%',#{souPrincipal},'%')
+            </if>
+            <if test="vendorPrincipal != null and vendorPrincipal != ''">
+                and s.VENDOR_PRINCIPAL like CONCAT('%',#{vendorPrincipal},'%')
+            </if>
+            <if test="totalBudgetFrom != null">
+                and p.EXT_BUDGET >= #{totalBudgetFrom}
+            </if>
+            <if test="totalBudgetTo != null">
+                and p.EXT_BUDGET <![CDATA[<=]]> #{totalBudgetTo}
+            </if>
+            <if test="honourScoreFrom != null">
+                and s.HONOUR_SCORE >= #{honourScoreFrom}
+            </if>
+            <if test="honourScoreTo != null">
+                and s.HONOUR_SCORE <![CDATA[<=]]> #{honourScoreTo}
+            </if>
+            <if test="honourResult != null and honourResult != ''">
+                and s.HONOUR_RESULT = #{honourResult}
+            </if>
+            <if test="projectStatus != null and projectStatus != ''">
+                and p.PROJECT_STATUS = #{projectStatus}
+            </if>
+            <if test="addBidNumber != null">
+                and s.ADD_BID_NUMBER >= #{addBidNumber}
+            </if>
+            <if test="addBidAsSubmitNumber != null">
+                and s.ADD_BID_AS_SUBMIT_NUMBER >= #{addBidAsSubmitNumber}
+            </if>
+            <if test="newVendorBidNumber != null">
+                and s.NEW_VENDOR_BID_NUMBER >= #{newVendorBidNumber}
+            </if>
+            <if test="newUniteVendorBidNumber != null">
+                and s.NEW_UNITE_VENDOR_BID_NUMBER >= #{newUniteVendorBidNumber}
+            </if>
+            <if test="totalBidNumber != null">
+                and s.TOTAL_BID_NUMBER <![CDATA[<=]]> #{totalBidNumber}
+            </if>
+            <if test="totalBidAsSubmitNumber != null">
+                and s.TOTAL_BID_AS_SUBMIT_NUMBER <![CDATA[<=]]> #{totalBidAsSubmitNumber}
+            </if>
+            <if test="vendorPostponeCycle != null">
+                and s.VENDOR_POSTPONE_CYCLE >= #{vendorPostponeCycle}
+            </if>
+            <if test="acceptancePostponeCycle != null">
+                and s.ACCEPTANCE_POSTPONE_CYCLE >= #{acceptancePostponeCycle}
+            </if>
+            <if test="sumReportPostponeCycle != null">
+                and s.SUM_REPORT_POSTPONE_CYCLE >= #{sumReportPostponeCycle}
+            </if>
+            <if test="dataSubmitPostponeCycle != null">
+                and s.DATA_SUBMIT_POSTPONE_CYCLE >= #{dataSubmitPostponeCycle}
+            </if>
+            <if test="evaluationPostponeCycleFrom != null">
+                and s.EVALUATION_POSTPONE_CYCLE >= #{evaluationPostponeCycleFrom}
+            </if>
+            <if test="evaluationPostponeCycleTo != null">
+                and s.EVALUATION_POSTPONE_CYCLE <![CDATA[<=]]> #{evaluationPostponeCycleTo}
+            </if>
+            <if test="picketagePostponeCycleFrom != null">
+                and s.PICKETAGE_POSTPONE_CYCLE >= #{picketagePostponeCycleFrom}
+            </if>
+            <if test="picketagePostponeCycleTo != null">
+                and s.PICKETAGE_POSTPONE_CYCLE <![CDATA[<=]]> #{picketagePostponeCycleTo}
+            </if>
+            <if test="answerIssuedCount != null">
+                and s.ANSWER_ISSUED_COUNT >= #{answerIssuedCount}
+            </if>
+        </where>
+
+        ORDER BY p.PROJECT_ID DESC
+
+    </select>
+
+    <select id="listProjectAsChangeRecently" parameterType="com.midea.cloud.srm.model.sou.report.bid.dto.ScheduleReportQueryDto" resultType="com.midea.cloud.srm.model.sou.sourcing.entity.ExtSouProject">
+        SELECT
+            p.PROJECT_ID
+        FROM
+            scc_sou_project p
+        WHERE
+            p.SOU_TYPE = 'bid'
+          AND p.LAST_UPDATE_DATE BETWEEN #{lastupdateDateFrom}
+            AND #{lastupdateDateTo} UNION
+        SELECT DISTINCT
+            v.PROJECT_ID
+        FROM
+            scc_sou_vendor v
+                JOIN scc_sou_project p ON p.PROJECT_ID = v.PROJECT_ID
+                AND p.SOU_TYPE = 'bid'
+        WHERE
+            v.LAST_UPDATE_DATE BETWEEN #{lastupdateDateFrom}
+                AND #{lastupdateDateTo} UNION
+        SELECT DISTINCT
+            o.PROJECT_ID
+        FROM
+            scc_sou_order o
+                JOIN scc_sou_project p ON p.PROJECT_ID = o.PROJECT_ID
+                AND p.SOU_TYPE = 'bid'
+        WHERE
+            o.LAST_UPDATE_DATE BETWEEN #{lastupdateDateFrom}
+                AND #{lastupdateDateTo} UNION
+        SELECT DISTINCT
+            c.PROJECT_ID
+        FROM
+            scc_npm_sou_ca c
+        WHERE
+            c.PROJECT_ID and c.LAST_UPDATE_DATE BETWEEN #{lastupdateDateFrom}
+                AND #{lastupdateDateTo} UNION
+        SELECT DISTINCT
+            n.PROJECT_ID
+        FROM
+            scc_npm_sou_bid_notice n
+        WHERE
+            n.PROJECT_ID and n.LAST_UPDATE_DATE BETWEEN #{lastupdateDateFrom}
+                AND #{lastupdateDateTo} UNION
+        SELECT DISTINCT
+            a.PROJECT_ID
+        FROM
+            scc_sou_answer a
+        WHERE
+            a.PROJECT_ID IS NOT NULL
+          AND a.LAST_UPDATE_DATE BETWEEN #{lastupdateDateFrom}
+            AND #{lastupdateDateTo} UNION
+        SELECT DISTINCT
+            p.PROJECT_ID
+        FROM
+            meicloud_usrm_cloud_biz_performance.scc_npm_project_score_header h
+                JOIN scc_sou_project p ON p.EXT_PROJECT_NO = h.BID_CODE
+                AND p.SOU_TYPE = 'bid'
+        WHERE
+            h.PERFORMANCE_TYPE = 'PROJECT'
+          AND h.LAST_UPDATE_DATE BETWEEN #{lastupdateDateFrom}
+            AND #{lastupdateDateTo} UNION
+        SELECT DISTINCT
+            p.PROJECT_ID
+        FROM
+            meicloud_usrm_cloud_biz_supplier_cooperate.scc_pr_requirement_head rh
+                JOIN scc_npm_sou_demand d ON d.APPLICANT_NO = rh.REQUIREMENT_HEAD_NUM
+                JOIN scc_sou_project p ON p.PROJECT_ID = d.PROJECT_ID
+                AND p.SOU_TYPE = 'bid'
+        WHERE
+            rh.LAST_UPDATE_DATE BETWEEN #{lastupdateDateFrom}
+                AND #{lastupdateDateTo}
+    </select>
+</mapper>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.earnestmoney.mapper.EarnestMoneyMapper">
+    <select id="list">
+        select
+        a.APPLY_ID  ,
+        a.REQ_HEAD_ID  ,
+        r.REFUND_ID ,
+        h.REQ_HEAD_NO,
+        h.ORG_BU_NAME,
+        h.ORG_NAME,
+        h.PROJECT_NAME,
+        a.DEPOSIT_REFUND_STATUS,
+        h.PUBLIC_END_TIME,
+        h.DEPOSIT_AMOUNT intentionReceivable,
+        h.RESPONSIBILITY_USER_NAME,
+        a.VENDOR_CODE,
+        a.VENDOR_NAME aVendorName,
+        a.VENDOR_BANK_ACCOUNT_NAME payerName,
+        a.VENDOR_BANK_ACCOUNT_NAME refundSupplierName,
+        a.TRANS_TIME,
+        h.DEPOSIT_AMOUNT paymentAmount,
+        a.VENDOR_BANK_NAME,
+        a.VENDOR_BANK_NUMBER,
+        a.VENDOR_BANK_ACCOUNT,
+        a.APPLY_HANDLE_TYPE,
+        a.APPLY_HANDLE_REASON,
+        i.VENDOR_NAME iVendorName,
+        i.PRICE,
+        i.CREATION_DATE,
+        i.STATUS,
+        r.REFUND_BANK_NUMBER,
+        r.REFUND_BANK_NAME,
+        r.REFUND_BANK_ACCOUNT,
+        r.REFUND_AMOUNT,
+        r.REFUND_TIME,
+        r.REFUND_REASON,
+        h.STATUS hStatus,
+        i.STATUS  iStatus,
+        i.INVOICE_TYPE
+        from
+        scc_npm_sou_req_head h
+        left join scc_npm_sou_req_apply a on h.REQ_HEAD_ID = a.REQ_HEAD_ID
+        left join scc_npm_sou_intention_deposit_invoice i on h.REQ_HEAD_ID =i.REQ_HEAD_ID and i.INVOICE_TYPE = 'INVOICE'
+        and i.APPLY_ID=a.APPLY_ID
+        <!--
+        查最新的一条的状态为"INVOICE"的数据，并且只有最新的一条的状态等于"INVOICE"才查，否则不查
+        大致思路是
+        temp1:查的是状态为"INVOICE"的记录的按时间逆序排序的结果,之所以要Limit是因为如果不Limit Mysql会自动忽略子查询的排序
+        temp2:查出所有和temp1查询记录的APPLY_ID(不同发票 但是 是同一组发票 的记录 的关联字段)相同的记录,取更新时间的MAX,
+        那么如果满足条件，temp1的更新时间应该是等于temp2查询时间的最大值
+        -->
+        and i.INVOICE_ID in
+        (
+        select temp1.INVOICE_ID
+        from
+        (
+        select ii.INVOICE_ID,ii.APPLY_ID,ii.INVOICE_TYPE,ii.CREATION_DATE  from scc_npm_sou_intention_deposit_invoice ii
+        where ii.INVOICE_TYPE = 'INVOICE'
+        ORDER BY ii.INVOICE_ID DESC LIMIT 10000000
+        ) temp1
+        where temp1.INVOICE_ID =
+        (
+        select
+        Max(temp2.INVOICE_ID)
+        from scc_npm_sou_intention_deposit_invoice temp2
+        where temp2.APPLY_ID=temp1.APPLY_ID
+        group by temp2.APPLY_ID
+        )
+        group by temp1.APPLY_ID
+        )
+
+        left join scc_npm_sou_intention_deposit_refund r on h.REQ_HEAD_ID =r.REQ_HEAD_ID and a.APPLY_ID =r.APPLY_ID
+        and r.REFUND_ID in
+        (
+        select temp.REFUND_ID
+        from
+        (
+        select rr.REFUND_ID,rr.APPLY_ID from scc_npm_sou_intention_deposit_refund rr
+        order by rr.REFUND_ID desc limit 10000000
+        )temp
+        group by temp.APPLY_ID
+        )
+        where 1=1
+
+        <if test="reqHeadNo!=null and reqHeadNo!=''">
+            AND h.REQ_HEAD_NO LIKE CONCAT(CONCAT('%', #{reqHeadNo}),'%')
+        </if>
+        <if test="orgBuName!=null and orgBuName!=''">
+            AND h.ORG_BU_NAME LIKE CONCAT(CONCAT('%', #{orgBuName}),'%')
+        </if>
+        <if test="orgName!=null and orgName!=''">
+            AND h.ORG_NAME LIKE CONCAT(CONCAT('%', #{orgName}),'%')
+        </if>
+        <if test="projectName!=null and projectName!=''">
+            AND h.PROJECT_NAME LIKE CONCAT(CONCAT('%', #{projectName}),'%')
+        </if>
+        <if test="publicEndTime!=null and publicEndTime!=''">
+            and convert(h.PUBLIC_END_TIME,char) like concat(concat('%',#{publicEndTime}),'%')
+        </if>
+        <if test="intentionReceivable!=null and intentionReceivable!=''">
+            AND h.DEPOSIT_AMOUNT = #{intentionReceivable}
+        </if>
+        <if test="paymentAmount!=null and paymentAmount!=''">
+            AND h.DEPOSIT_AMOUNT = #{paymentAmount}
+        </if>
+        <if test="responsibilityUserName!=null and responsibilityUserName!=''">
+            AND h.RESPONSIBILITY_USER_NAME LIKE CONCAT(CONCAT('%', #{responsibilityUserName}),'%')
+        </if>
+        <if test="vendorCode!=null and vendorCode!=''">
+            AND a.VENDOR_CODE LIKE CONCAT(CONCAT('%', #{vendorCode}),'%')
+        </if>
+        <if test="aVendorName!=null and aVendorName!=''">
+            AND  a.VENDOR_NAME LIKE CONCAT(CONCAT('%', #{aVendorName}),'%')
+        </if>
+        <if test="payerName!=null and payerName!=''">
+            AND  a.VENDOR_BANK_ACCOUNT_NAME LIKE CONCAT(CONCAT('%', #{payerName}),'%')
+        </if>
+        <if test="refundSupplierName!=null and refundSupplierName!=''">
+            AND  a.VENDOR_BANK_ACCOUNT_NAME LIKE CONCAT(CONCAT('%', #{refundSupplierName}),'%')
+        </if>
+        <if test="transTime!=null and transTime!=''">
+            and convert(a.TRANS_TIME,char) like concat(concat('%',#{transTime}),'%')
+        </if>
+        <if test="vendorBankAccount!=null and vendorBankAccount!=''">
+            AND  a.VENDOR_BANK_NAME LIKE CONCAT(CONCAT('%', #{vendorBankAccount}),'%')
+        </if>
+        <if test="vendorBankNumber!=null and vendorBankNumber!=''">
+            AND  a.VENDOR_BANK_NUMBER LIKE CONCAT(CONCAT('%', #{vendorBankNumber}),'%')
+        </if>
+        <if test="vendorBankAccount!=null and vendorBankAccount!=''">
+            AND  a.VENDOR_BANK_ACCOUNT LIKE CONCAT(CONCAT('%', #{vendorBankAccount}),'%')
+        </if>
+        <if test="applyHandleType!=null and applyHandleType!=''">
+            AND  a.APPLY_HANDLE_TYPE LIKE CONCAT(CONCAT('%', #{applyHandleType}),'%')
+        </if>
+        <if test="applyHandleReason!=null and applyHandleReason!=''">
+            AND  a.APPLY_HANDLE_REASON LIKE CONCAT(CONCAT('%', #{applyHandleReason}),'%')
+        </if>
+        <if test="iVendorName!=null and iVendorName!=''">
+            AND  i.VENDOR_NAME LIKE CONCAT(CONCAT('%', #{iVendorName}),'%')
+        </if>
+        <if test="creationDate!=null and creationDate!=''">
+            and convert(i.CREATION_DATE,char) like concat(concat('%',#{creationDate}),'%')
+        </if>
+        <if test="iStatus!=null and iStatus!=''">
+            <if test=' iStatus == "Y" '>
+                and( i.STATUS = 'INVOICED' or i.STATUS = 'INVOICING' or i.STATUS = 'FAIL_INVOICED')
+            </if>
+            <if test=' iStatus == "N" '>
+                and i.STATUS is null
+            </if>
+        </if>
+        <if test="refundBankNumber!=null and refundBankNumber!=''">
+            AND  r.REFUND_BANK_NUMBER LIKE CONCAT(CONCAT('%', #{refundBankNumber}),'%')
+        </if>
+        <if test="refundBankName!=null and refundBankName!=''">
+            AND  r.REFUND_BANK_NAME LIKE CONCAT(CONCAT('%', #{refundBankName}),'%')
+        </if>
+        <if test="refundBankAccount!=null and refundBankAccount!=''">
+            AND r.REFUND_BANK_ACCOUNT LIKE CONCAT(CONCAT('%', #{refundBankAccount}),'%')
+        </if>
+        <if test="refundAmount!=null and refundAmount!=''">
+            AND  r.REFUND_AMOUNT LIKE CONCAT(CONCAT('%', #{refundAmount}),'%')
+        </if>
+        <if test="refundTime!=null and refundTime!=''">
+            AND  r.REFUND_TIME LIKE CONCAT(CONCAT('%', #{refundTime}),'%')
+        </if>
+        <if test="hStatus!=null and hStatus!=''">
+            AND  h.STATUS LIKE CONCAT(CONCAT('%', #{hStatus}),'%')
+        </if>
+        <choose>
+            <when test="refund != null and refund != ''" >
+                <if test='refund == "Y"' >
+                    <choose>
+                        <when test="refundSuccess != null and refundSuccess != ''">
+                            <if test='refundSuccess == "Y" '>
+                                and a.DEPOSIT_REFUND_STATUS = 'REFUNDED'
+                            </if>
+                            <if test='refundSuccess == "N" '>
+                                and ( a.DEPOSIT_REFUND_STATUS = 'REFUND_FAILED' or a.DEPOSIT_REFUND_STATUS = 'REFUNDING')
+                            </if>
+                        </when >
+                        <otherwise>
+                            and (a.DEPOSIT_REFUND_STATUS = 'REFUNDED' or a.DEPOSIT_REFUND_STATUS = 'REFUND_FAILED' or a.DEPOSIT_REFUND_STATUS = 'REFUNDING')
+                        </otherwise>
+                    </choose>
+                </if>
+                <if test='refund == "N" '>
+                    and   a.DEPOSIT_REFUND_STATUS = 'NOT_REFUNDED'
+                </if>
+            </when>
+            <when  test="refundSuccess != null and refundSuccess != ''">
+                <if test=' refundSuccess=="Y" '>
+                    and a.DEPOSIT_REFUND_STATUS = 'REFUNDED'
+                </if>
+                <if test=' refundSuccess=="N" '>
+                    and ( a.DEPOSIT_REFUND_STATUS = 'REFUND_FAILED' or a.DEPOSIT_REFUND_STATUS = 'REFUNDING' or a.DEPOSIT_REFUND_STATUS = 'NOT_REFUNDED')
+                </if>
+            </when>
+
+        </choose>
+    </select>
+
+</mapper>

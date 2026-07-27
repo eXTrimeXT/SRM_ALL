@@ -1,0 +1,1 @@
+alter table scc_npm_sou_inq_vendor drop column JOIN_ROUND;

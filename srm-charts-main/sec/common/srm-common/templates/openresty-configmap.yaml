@@ -1,0 +1,127 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openresty-config
+  namespace: srm-{{ .Values.global.env }}
+data:
+  #--挂载文件的内容格式如下，文件名称为“frontend.cnf”,文件内容为“hello”,需挂载多个文件则按如下格式填写多行即可
+  nginx.conf: |-
+    worker_processes  auto;
+
+    env REDIS_IP={{ .Values.global.redis.ip }};
+    env REDIS_PORT={{ .Values.global.redis.port }};
+    env REDIS_PASSWORD={{ .Values.global.redis.password }};
+    env REDIS_DB={{ .Values.global.redis.db }};
+    env REDIS_CONNECT_TIMEOUT=1000;
+    env SRM_CONTEXT_PATH=/cloud-srm;
+
+    events {
+        worker_connections 1024;
+    }
+
+    http {
+      #lua 模块
+      lua_package_path "/usr/local/openresty/lualib/?.lua;/usr/local/openresty/nginx/lua/?.lua;";
+      #c模块     
+      lua_package_cpath "/usr/local/openresty/lualib/?.so;;";  
+      
+        server {
+            listen 80;
+        
+        location / {
+          root   html;
+          index  index.html index.htm;
+        }
+
+        location /cloud-srm {
+          access_by_lua_file lua/whiteurl.lua;
+          proxy_pass http://srm-java-gateway-dev.srm-dev.svc.cluster.local:9005/cloud-srm;
+          proxy_set_header Host $host:$server_port;
+        }
+      }
+    }
+  whiteurl.lua: |-
+    local json = require("cjson")
+    --redis工具库
+    local redis = require "resty.redis"
+    --redis实例
+    local redisClient = redis:new()
+    --连接信息
+    local config = {
+        ip = os.getenv("REDIS_IP"),
+        port = os.getenv("REDIS_PORT"),
+        password = os.getenv("REDIS_PASSWORD"),
+        db_index = os.getenv("REDIS_DB"),
+        connect_timeout = os.getenv("REDIS_CONNECT_TIMEOUT")
+    }
+
+    --开启连接
+    local function connect()
+        redisClient:connect(config.ip, config.port)
+        redisClient:auth(config.password)
+        redisClient:set_timeout(config.connect_timeout)
+        redisClient:select(config.db_index)
+    end
+
+    --关闭连接（keepalive）
+    local function close()
+        if not redisClient then
+            return
+        end
+
+        local idleTime = 10000 --空闲时间，毫秒
+        local poolSize = 10 --连接池大小
+        local ok, err = redisClient:set_keepalive(idleTime, poolSize)
+        if not ok then
+            ngx.log(ngx.ERR, "关闭redis连接异常: ", err)
+        end
+    end
+
+    --获取值
+    local function get(key)
+        connect()
+        local value, err = redisClient:get(key)
+        if not value then
+            ngx.log(ngx.ERR, "获取redis值异常: ", err)
+        end
+        close()
+        return value
+    end
+
+    -- 获取缓存白名单
+    local function getWhiteUrls()
+        local whiteUrls = get("scc.openresty.whiteurls")
+        if whiteUrls == ngx.null then
+            --白名单列表为空
+            whiteUrls = "{}"
+        end
+        --转换成table
+        return loadstring("return " .. whiteUrls)()
+    end
+
+    --校验失败json
+    local function getIllegalResult(uri)
+        local message = "供应商无权限访问【" .. uri .. "】"
+        local illegalResult = { code = "SRM_COMMON_00025", data = 403, message = message }
+        return json.encode(illegalResult)
+    end
+
+    --校验uri是否在白名单中
+    local function exists(whiteUrls, uri)
+        for k, v in ipairs(whiteUrls) do
+            if v == uri then
+                return true;
+            end
+        end
+        return false;
+    end
+
+    local uri = ngx.re.gsub(ngx.var.uri, os.getenv("SRM_CONTEXT_PATH"), "")
+    local whiteUrls = getWhiteUrls()
+
+    --不在白名单返回默认错误码
+    if not exists(whiteUrls, uri) then
+        ngx.header['Content-Type'] = 'application/json'
+        ngx.say(getIllegalResult(uri))
+    end
+    --在白名单中正常结束脚本，转发至指定服务

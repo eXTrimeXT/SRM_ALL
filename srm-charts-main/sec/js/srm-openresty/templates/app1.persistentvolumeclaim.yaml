@@ -1,0 +1,13 @@
+{{- if   .Values.app1.persistentvolumeclaim.enable  }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-srm-js-{{ .Values.global.module }}-{{ .Values.global.env }}
+  namespace: srm-{{ .Values.global.env }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.app1.persistentvolumeclaim.storage }}
+  {{- end }}

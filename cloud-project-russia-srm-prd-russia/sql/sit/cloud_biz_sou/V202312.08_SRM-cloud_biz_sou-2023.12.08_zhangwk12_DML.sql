@@ -1,0 +1,1 @@
+alter table scc_sou_inq_item add HAS_CLOSE char default 'N' not null comment '是否关闭';

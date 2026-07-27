@@ -1,0 +1,457 @@
+// cover some element-ui styles
+.el-breadcrumb__inner {
+  color: #51555B;
+
+  .el-breadcrumb__separator {}
+
+  a {
+    color: #51555B;
+  }
+
+  .no-redirect {}
+
+}
+
+.el-breadcrumb__inner a {
+  font-weight: 400 !important;
+}
+
+
+.el-upload {
+  input[type="file"] {
+    display: none !important;
+  }
+}
+
+.el-upload__input {
+  display: none;
+}
+
+.cell {
+  .el-tag {
+    margin-right: 0px;
+  }
+}
+
+.small-padding {
+  .cell {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+.status-col {
+  .cell {
+    padding: 0 10px;
+    text-align: center;
+
+    .el-tag {
+      margin-right: 0px;
+    }
+  }
+}
+
+.el-dialog {
+  transform: none;
+  left: 0;
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+
+  .el-dialog__header {
+    background-color: #fff; // f7f9fa
+    padding: 16px 40px 15px 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #dfe3e6;
+    box-sizing: border-box;
+    justify-content: flex-start;
+
+    // height: 56px;
+    .el-dialog__title {
+      // vertical-align: top;
+      line-height: 24px;
+      font-size: 16px;
+    }
+  }
+
+  .el-dialog__footer {
+    box-shadow: none; // 0 -1px 2px 0 rgba(182, 182, 182, 0.5);
+    padding: 10px 16px;
+    height: 48px;
+
+    >.el-button {
+      vertical-align: top;
+    }
+  }
+}
+
+// refine element ui upload
+.upload-container {
+  .el-upload {
+    width: 100%;
+
+    .el-upload-dragger {
+      width: 100%;
+      height: 200px;
+    }
+  }
+}
+
+.el-select__tags .el-tag {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  margin: 2px 0 2px 6px;
+  text-overflow: ellipsis;
+  background: #f0f2f5;
+}
+
+.el-select__tags .el-tag>span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.el-cascader__search-input {
+  margin: 2px 0 2px 9px;
+}
+
+// dropdown
+.el-dropdown-menu {
+  a {
+    display: block;
+  }
+  .el-dropdown-menu__item{
+    line-height: 32px;
+    font-size: 12px !important;
+  }
+
+}
+.el-select-dropdown .el-select-dropdown__item.selected {
+  background-color:#FFFFFF !important;
+}
+
+// 步骤条 样式
+.el-step__title {
+  font-size: 14px;
+  line-height: 20px;
+  padding-top: 5px;
+  padding-bottom: 3px;
+}
+
+.el-steps {
+  .el-step {
+    .el-step__head {
+      &.is-success {
+        .el-step__icon {
+          // color: #0077FF;
+          // border-color: #0077FF;
+        }
+      }
+
+      &.is-error {
+        .el-step__icon {
+          // color: #ff4949;
+          // border-color: #ff4949;
+        }
+      }
+
+      &.is-wait {
+        .el-step__icon {
+          // color: #fff;
+          // border-color: #C5C6C8;
+          // background: #C5C6C8;
+        }
+      }
+
+      &.is-process {
+        .el-step__icon {
+          // color: #fff;
+          // border-color: #0077FF;
+          // background: #0077FF;
+        }
+      }
+
+      &.is-finish {
+        .el-step__icon {
+          // color: #0077FF;
+          // border-color: #0077FF;
+        }
+      }
+
+      .el-step__icon {
+        &.is-text {
+          border-width: 1px;
+        }
+
+        .el-step__icon-inner {
+          font-weight: normal;
+        }
+      }
+    }
+
+    .el-step__main {
+      .el-step__title {
+        font-size: 14px;
+        // color: #51555B !important;
+        line-height: 22px;
+      }
+
+      .el-step__description {
+        font-size: 12px;
+        // color: #96999C !important;
+        line-height: 20px;
+      }
+    }
+  }
+
+  &.el-steps--horizontal {
+    .el-step {
+      .el-step__head {
+        .el-step__line {
+          height: 1px;
+          top: 12px;
+          // background-color: #DCDDDE !important;
+          margin: 0 15px 0 38px !important;
+
+          .el-step__line-inner {
+            border-width: 0 !important;
+            // border-color: #DCDDDE !important;
+          }
+        }
+      }
+
+      // 居中
+      &.is-center {
+        .el-step__head {
+          .el-step__line {
+            height: 1px;
+            top: 12px;
+            // background-color: #DCDDDE !important;
+            margin: 0 25px !important;
+
+            .el-step__line-inner {
+              border-width: 0 !important;
+              // border-color: #DCDDDE !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.el-steps--vertical {
+    .el-step {
+      .el-step__head {
+        .el-step__line {
+          width: 1px;
+          left: 12px;
+          // background-color: #DCDDDE !important;
+
+          // margin: 0 15px 0 38px !important;
+          .el-step__line-inner {
+            border-width: 0 !important;
+            // border-color: #DCDDDE !important;
+          }
+        }
+      }
+
+      .el-step__main {
+        padding-bottom: 24px;
+      }
+    }
+  }
+
+}
+
+
+// .el-step__head.is-process {
+//   color: #0077FF;
+//   border-color: #0077FF;
+// }
+
+// .el-step__title.is-process,
+// .el-step__description.is-process {
+//   color: #0077FF;
+// }
+
+// 弹框
+.el-dialog__body {
+  padding: 15px 20px !important;
+}
+
+.srm-dialog {
+  .el-dialog__body {
+    padding: 0 !important;
+  }
+}
+
+.el-picker-panel.el-date-picker.el-popper.has-time .el-picker-panel__footer .el-button.el-picker-panel__link-btn.el-button--text {
+  display: none;
+}
+
+.el-collapse {
+  .el-collapse-item {
+    .el-collapse-item__header {
+      background-color: #f4f5f7;
+      height: 36px;
+      line-height: 36px;
+
+      // padding: 0 16px;
+      .el-collapse-item__arrow {
+        // margin-top: -6px;
+      }
+    }
+
+    .el-collapse-item__wrap {
+      // padding: 16px;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px
+    }
+
+    .el-collapse-item__content {
+      padding: 16px;
+    }
+
+    &:last-child {
+      &.is-active {
+        .el-collapse-item__wrap {
+          // border-bottom: transparent;
+        }
+      }
+    }
+  }
+
+  &.tab-form-style {
+    .el-collapse-item {
+      &:last-child {
+        &.is-active {
+          .el-collapse-item__wrap {
+            // border-bottom: 1px solid #efefef;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+/* tab 标签reset */
+.el-tabs__item.is-active,
+.el-tabs__item:hover {
+  // color: #0077FF;
+}
+
+.el-tabs--border-card {
+  // box-shadow: none;
+  // margin-left: 0px;
+  // margin-top: 10px;
+}
+
+// 流程和单据
+.order-and-flow-tab.el-tabs--border-card {
+  // margin-left: 0px;
+}
+
+.el-tabs--border-card>.el-tabs__content {
+  // padding-right: 0;
+}
+
+.el-tabs--border-card>.el-tabs__header {
+  // background-color: #fff;
+  // margin-top: -1px;
+  // margin-right: -1px;
+}
+
+.el-tabs--border-card>.el-tabs__header .el-tabs__item {
+  // border: 1px solid #dcdfe6;
+  // background: #f3f5f7;
+  // margin-top: 0px;
+}
+
+.el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active {
+  // border-bottom-color: #fff !important;
+}
+
+.el-tabs--border-card>.el-tabs__header .el-tabs__item.is-disabled {
+  // color: #c0c4cc;
+}
+
+
+
+.el-tabs--card {
+  &>.el-tabs__header {
+    // margin-bottom: 0;
+  }
+
+  .el-tabs__item {
+    // font-size: 12px;
+    // height: 32px;
+    // line-height: 31px;
+    // padding: 0 15px !important;
+    // margin-right: 2px;
+
+    &.is-active {
+      // font-weight: bold;
+      // border-bottom-color: #fff !important;
+    }
+  }
+}
+
+.el-tree {
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.el-tree>.el-tree-node {
+  //display: inline-block !important;
+  min-width: 100%;
+}
+
+#preview_wrapper #print .el-input.el-input--mini,
+#preview_wrapper .el-input.el-input--mini {
+  width: 150px !important;
+  display: inline-block !important;
+}
+
+.el-tooltip__popper {
+  max-width: 90%;
+  line-height: 20px;
+  word-break: break-all !important;
+  overflow-wrap: anywhere;
+}
+
+.el-card__body {
+  padding: 12px 16px;
+}
+
+.el-message {
+  max-width: 96%;
+
+  .el-message__content {
+    width: 98%;
+    padding-right: 10px;
+    word-wrap: break-word;
+  }
+}
+
+.srm-body .el-table .el-table__cell:first-child .cell{
+  padding-left: 12px !important;
+}
+// 系统上面的loading 黑底白字
+.srm-body .el-loading-spinner .el-loading-text {
+  color: #FFFFFF;
+  font-size: 12px;
+}
+// 表格上面的loading白底 灰字
+.srm-body .the_TableView .el-loading-spinner .el-loading-text,
+.srm-body .render-table .el-loading-spinner .el-loading-text,
+.srm-body .el-table .el-loading-spinner .el-loading-text,
+.srm-body .price-line-chart-wrap .el-loading-spinner .el-loading-text
+{
+  color: #51555B;
+  font-size: 12px;
+}

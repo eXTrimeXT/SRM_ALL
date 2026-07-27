@@ -1,0 +1,14 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "PermissionLanguage:scc_rbac_permission_language": {
+    "keyField": "permissionLanguageId",
+    "fields": {
+      "permissionLanguageId": "Long",
+      "permissionId": "Long",
+      "language": "String",
+      "permissionName": "String",
+      "@include": ":BaseFields"
+    }
+  }
+}

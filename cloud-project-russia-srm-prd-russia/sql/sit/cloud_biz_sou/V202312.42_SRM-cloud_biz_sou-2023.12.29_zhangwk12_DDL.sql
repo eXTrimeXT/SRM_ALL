@@ -1,0 +1,1 @@
+alter table scc_npm_sou_fix_price_line add EXT_ORDER_COUNT int null comment '报价次数';

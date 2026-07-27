@@ -1,0 +1,42 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "OrderConfig:scc_npm_order_config" : {
+    "repository": "orderConfigRepository",
+    "comment": "自动转订单配置",
+    "keyField" : "configId",
+    "fields" : {
+      "configId" : "Long:主键,配置id",
+      "configNum" : {
+        "convert": "seqGen:SEQ_ORDER_CONFIG_NO",
+        "type": "String",
+        "dbName": "config_num",
+        "desc": "规则编码"
+      },
+      "configName" : "String:规则名称",
+      "creatorOrgId" : "Long:创建人公司ID",
+      "creatorOrgCode" : "String:创建人公司编码",
+      "creatorOrgName" : "String:创建人公司名称",
+      "@include" : ":BaseFields"
+    },
+    "relations": {
+      "detailList": "[OrderConfigCategory:configId]"
+    }
+  },
+  "OrderConfigCategory:scc_npm_order_config_category" : {
+    "comment": "自动转订单配置-品类",
+    "keyField" : "configCategoryId",
+    "fields" : {
+      "configCategoryId" : "Long:主键,id",
+      "configId" : "Long:配置id",
+      "categoryId" : "Long:品类id",
+      "categoryName" : "String:品类名称",
+      "categoryCode" : "String:品类编码",
+      "orgId" : "Long:公司id",
+      "orgName" : "String:公司名称",
+      "orgCode" : "String:公司编码",
+      "@include" : ":BaseFields"
+    },
+    "relations" : { }
+  }
+}

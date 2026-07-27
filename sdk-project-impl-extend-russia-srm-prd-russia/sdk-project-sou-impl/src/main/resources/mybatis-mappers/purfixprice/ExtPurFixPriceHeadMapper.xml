@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlDialectInspection -->
+<mapper namespace="com.midea.cloud.srm.sou.purfixprice.dao.ExtPurFixPriceHeadMapper">
+
+    <select id="queryPurInq" resultType="com.midea.cloud.srm.model.extapi.sou.purinq.vo.init.ApiPurInqSouProjectVO">
+        SELECT sou_project.*
+        FROM scc_sou_project sou_project
+        LEFT JOIN scc_npm_sou_purinq_project inq_project on inq_project.PROJECT_ID = sou_project.PROJECT_ID
+        WHERE sou_project.SOU_TYPE = 'ext_pur_inq'
+        AND sou_project.PROJECT_STATUS = 'PRICE_END'
+        AND inq_project.HAS_FIX_PRICE = 'N'
+        ORDER BY sou_project.SOU_NO desc
+    </select>
+
+    <select id="getItemIdsForPage" resultType="java.lang.Long">
+        SELECT *
+        FROM (
+            SELECT DISTINCT order_item.item_id
+            FROM scc_sou_order_item order_item
+            WHERE order_item.PROJECT_ID = #{projectId}
+            AND order_item.SELECT_STATUS = 'WIN'
+         ) a
+    </select>
+    <select id="getUnit">
+        select UNIT_CODE,UNIT_NAME from meicloud_usrm_cloud_biz_base.scc_base_purchase_unit
+    </select>
+
+</mapper>

@@ -1,0 +1,35 @@
+.the_demotion_detail .el-table .el-date-editor[data-v-f926bff4] {
+  width: 135px;
+}
+.the_demotion_detail .el-collapse-item__content > .el-button[data-v-f926bff4] {
+  margin-bottom: 5px;
+}
+.the_demotion_detail .pefScoreInput .el-input-number__decrease[data-v-f926bff4] {
+  display: none !important;
+}
+.the_demotion_detail .pefScoreInput .el-input-number__increase[data-v-f926bff4] {
+  display: none !important;
+}
+.orgCatPage .c-pagination {
+  margin: 10px 5px;
+}
+.orgCatPage .c-pagination .el-input__inner {
+  height: 24px !important;
+}
+.the_demotion_detail .pefScoreInput .el-input-number__increase,
+.the_demotion_detail .pefScoreInput .el-input-number__decrease {
+  display: none;
+}
+.red {
+  color: red;
+  margin-right: 5px;
+}
+.atooltip {
+  background-color: rgba(250, 193, 7, 0.993) !important;
+}
+.primary-color {
+  color: #0077ff;
+}
+.el-collapse{
+  margin-bottom: 25px;
+}

@@ -1,0 +1,1 @@
+alter table scc_npm_sou_fix_price_line add INVOICE_TYPE varchar(30) null comment '发票类型';

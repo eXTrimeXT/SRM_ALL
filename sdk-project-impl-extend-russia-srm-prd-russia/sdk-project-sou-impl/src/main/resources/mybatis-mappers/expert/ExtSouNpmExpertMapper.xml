@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlResolve, SqlNoDataSourceInspection -->
+<mapper namespace="com.midea.cloud.srm.sou.sourcing.expert.mapper.ExtSouNpmExpertMapper">
+
+    <select id="queryExpertList" parameterType="map"
+            resultType="com.midea.cloud.srm.model.sou.sourcing.entity.ExtSouExpertRecord">
+        SELECT DISTINCT e.EXPERT_USER_ID userId, e.EXPERT_USERNAME userName, e.EXPERT_FULL_NAME fullName, e.EXPERT_LEVEL
+        expertLevel
+        FROM scc_npm_sou_expert e
+        JOIN scc_npm_sou_expert_apply a ON a.EXPERT_APPLY_ID = e.EXPERT_APPLY_ID
+        JOIN scc_npm_sou_expert_org o ON o.EXPERT_APPLY_ID = e.EXPERT_APPLY_ID
+        <if test="orgIdList != null and orgIdList.size() > 0">and o.ORG_ID IN
+            <foreach collection="orgIdList" open="(" separator="," close=")" item="item">
+                #{item}
+            </foreach>
+        </if>
+        JOIN scc_npm_sou_expert_category c ON c.EXPERT_APPLY_ID = e.EXPERT_APPLY_ID
+        <if test="categoryCode != null and categoryCode != ''">AND c.CATEGORY_CODE= #{categoryCode}</if>
+        <where>
+            and e.HAS_QUITE='N' AND e.HAS_FROZEN='N'
+            <if test="userIdList != null and userIdList.size() > 0">
+                and a.APPLY_BY_ID not in
+                <foreach collection="userIdList" open="(" separator="," close=")" item="item">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="queryOuIdListAsBuId" resultType="long">
+        SELECT *
+        FROM (
+                 SELECT o.ORGANIZATION_ID
+                 FROM meicloud_usrm_cloud_biz_base.scc_base_organization o
+                          JOIN meicloud_usrm_cloud_biz_base.scc_base_organization_rel r
+                               ON r.ORGANIZATION_ID = o.ORGANIZATION_ID AND r.PARENT_ORGANIZATION_ID = #{orgBuId}
+             ) ou
+    </select>
+
+    <select id="queryTechUserIdAsRequirement" resultType="long">
+        SELECT * FROM (
+        SELECT DISTINCT g.USER_ID FROM meicloud_usrm_cloud_biz_supplier_cooperate.scc_npm_pr_require_group g
+        JOIN meicloud_usrm_cloud_biz_supplier_cooperate.scc_pr_requirement_head h ON h.REQUIREMENT_HEAD_ID =
+        g.REQUIREMENT_HEAD_ID
+        WHERE g.GROUP_TYPE='TECH'
+        AND h.REQUIREMENT_HEAD_NUM IN
+        <foreach collection="requirementHeadNumList" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+        ) pr
+    </select>
+
+    <select id="queryExpertRisk" parameterType="map"
+            resultType="com.midea.cloud.srm.model.sou.openapi.sourcing.dto.init.ExtSouExpertRiskDto">
+        SELECT e.EXPERT_USER_ID userId,
+        e.EXPERT_USERNAME userName,
+        e.EXPERT_FULL_NAME fullName,
+        w.WORK_UNIT vendorName,
+        r.RELATIVE_NAME relationsFullName,
+        r.WORK_UNIT relationVendorName
+        FROM scc_npm_sou_expert e
+        JOIN scc_npm_sou_expert_apply a ON a.EXPERT_APPLY_ID = e.EXPERT_APPLY_ID
+        LEFT JOIN scc_npm_sou_expert_work w ON w.EXPERT_APPLY_ID = a.EXPERT_APPLY_ID
+        LEFT JOIN scc_npm_sou_expert_work_relate r ON r.EXPERT_APPLY_ID = a.EXPERT_APPLY_ID
+        WHERE e.EXPERT_USER_ID IN
+        <foreach collection="userIdList" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+        AND e.HAS_QUITE='N'
+        AND e.HAS_FROZEN='N'
+    </select>
+</mapper>

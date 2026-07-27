@@ -1,0 +1,78 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "PurchaseRequirementController": {
+    "validator": "purchaseRequirementImportValidator",
+    //直接同步，这里其实是解析excel，不做真正的保存
+    "processType": "sync",
+    "batchSize": 1000,
+    "sheets": [
+      {
+        "sheetName": "需求明细",
+        "heads": {
+          "materialCode": {
+            "title": "物资编码",
+            "required": true
+          },
+          "brand": {
+            "title": "品牌",
+            "required": false
+          },
+          "extUseDepartmentCode": {
+            "title": "*使用部门编码",
+            "required": true
+          },
+          "extUserCode": {
+            "title": "*使用人工号",
+            "required": true
+          },
+          "extUserPhone": {
+            "title": "*使用人联系方式",
+            "required": true
+          },
+          "requirementQuantity": {
+            "title": "*需求数量",
+            "required": true
+          },
+          "extPredictPrice": {
+            "title": "*预估单价",
+            "required": true
+          },
+          "requirementDate": {
+            "title": "*本次需求日期",
+            "required": true
+          },
+          "extUseTo": {
+            "title": "*用途",
+            "required": true
+          },
+          "extFeeSubject": {
+            "title": "费用科目",
+            "required": false
+          },
+          "comments": {
+            "title": "备注信息"
+          }
+        }
+      },
+      {
+        "virtual": true,
+        "sheetName": "采购申请导入说明",
+        "ref": {
+          "type": "file",
+          "targetPath": "classpath*:sies-schema/sheet_PurchaseRequirementController.xlsx",
+          "targetIndex": 0
+        }
+      },
+      {
+        "virtual": true,
+        "sheetName": "部门名称对应的组织编码",
+        "ref": {
+          "type": "file",
+          "targetPath": "classpath*:sies-schema/sheet_PurchaseRequirementController.xlsx",
+          "targetIndex": 1
+        }
+      }
+    ]
+  }
+}

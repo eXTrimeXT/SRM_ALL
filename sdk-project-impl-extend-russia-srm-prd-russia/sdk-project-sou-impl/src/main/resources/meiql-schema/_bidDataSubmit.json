@@ -1,0 +1,102 @@
+{
+  "_version": "1.0",
+  "_type": "base",
+  "BidDataSubmitFields": {
+    "keyField": "dataSubmitId",
+    "fields": {
+      "dataSubmitId": "Long:主键",
+      "dataSubmitNo": {
+        "convert": "seqGen:BID_DATA_SUBMIT_NO",
+        "desc": "招标资料递交单号"
+      },
+      "orgBuId": "Long:板块ID",
+      "orgBuCode": "String:板块编码",
+      "orgBuName": "String:板块名称",
+      "orgId": "Long:公司ID(对应产品的业务实体id)",
+      "orgCode": "String:公司编码(对应产品的业务实体编码)",
+      "orgName": "String:公司名称(对应产品的业务实体名称)",
+      "ceeaDepartmentId": "String:部门ID",
+      "ceeaDepartmentCode": "String:部门编码",
+      "ceeaDepartmentName": "String:部门名称",
+      "status": "String:单据状态",
+      "reasonDesc": "String:废弃原因",
+      "reqUserId": "Long:需求人ID",
+      "reqUserName": "String:需求人名称",
+      "souPersonId": "Long:招标负责人ID",
+      "souPersonName": "String:招标负责人名称",
+      "requirementHeadNum": "String:申请单号",
+      "projectName": "String:项目名称",
+      "sourceFrom": "String:需求来源",
+      "totalBudget": "BigDecimal:预算总金额",
+      "categoryId": "Long:品类ID",
+      "categoryCode": "String:品类编码",
+      "categoryName": "String:品类",
+      "requireQuantity": "String:规模数量",
+      "depositAmount": "BigDecimal:意向金缴纳金额(元)",
+      "investNo": "String:投资编号",
+      "bidFlow": "String:招标流程",
+      "bidEvalLeaderId": "Long:评标组长用户ID",
+      "bidEvalLeaderName": "String:评标组长名称",
+      "bidEvalDeputyLeaderId": "Long:评标副组长用户ID",
+      "bidEvalDeputyLeaderName": "String:评标副组长名称",
+      "techPrincipal": "String:技术负责人",
+      "phone": "String:联系方式",
+      "workYears": "BigDecimal:工作年限",
+      "competeFileId": "Long:竞争性谈判签批附件ID",
+      "competeFileName": "String:竞争性谈判签批附件名称",
+      "contractSignUnit": "String:合同签订单位",
+      "contractSignUnitId": "String:合同签订单位ID集合",
+      "contractSignUnitCode": "String:合同签订单位编码集合",
+      "contractSignUnitCredit": "String:合同签订单位统一社会信用代码集合",
+      "notMonthlyPlanReason": "String:未提报月度计划原因",
+      "remark": "String:备注",
+      "isAppointEvaluator": "String:是否指定评标人(Y是，N否)",
+      "bidEvaluatorNum": "Integer:评标总人数",
+      "askSeniorExpertNum": "Integer:要求高级专家人数",
+      "appointEvaluatorReason": "String:指定评标人原因",
+      "publishTime": "Date:发布日期",
+      "approvePassTime": "Date:审批通过时间",
+      "startBpmUsername":"String:bpm发起人账号",
+      "startBpmNickname":"String:bpm发起人名称",
+      "smartRecomm": {
+        "type": "String",
+        "desc": "智能推荐",
+        "virtual": true
+      },
+      "@include": ":BaseFields"
+    }
+  },
+  "BidDataSubmitDetailsFields": {
+    "keyField": "submitDetailsId",
+    "fields": {
+      "submitDetailsId": "Long:ID",
+      "dataSubmitId": "Long:招标资料递ID",
+      "materialName": "String:物资名称",
+      "combination": "String:组合",
+      "affiliatedUnit": "String:所属单位",
+      "performDeposit": "BigDecimal:履约保证金(元)",
+      "advanceAmount": "BigDecimal:预付款(元)",
+      "monthProduction": "BigDecimal:月约产量",
+      "meteringUnit": "String:计量单位",
+      "startBidPrice": "BigDecimal:起拍价(元)",
+      "echelonBidPrice": "BigDecimal:梯次价(元)",
+      "@include": ":BaseFields"
+    }
+  },
+  "BidDataSubmitEvaluatorFields": {
+    "keyField": "submitEvaluatorId",
+    "fields": {
+      "submitEvaluatorId": "Long:ID",
+      "userId": "Long:员工用户ID",
+      "dataSubmitId": "Long:招标资料递ID",
+      "ceeaEmpNo": "String:员工工号",
+      "evaluatorName": "String:姓名",
+      "phone": "String:手机号",
+      "email": "String:邮箱",
+      "workYears": "BigDecimal:工作年限",
+      "expertLevel": "String:专家等级",
+      "evaluatorRole": "String:角色",
+      "@include": ":BaseFields"
+    }
+  }
+}

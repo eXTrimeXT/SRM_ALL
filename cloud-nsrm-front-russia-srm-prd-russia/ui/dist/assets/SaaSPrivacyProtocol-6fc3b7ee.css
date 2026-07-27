@@ -1,0 +1,43 @@
+.page-cont[data-v-38db2509] {
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+  padding: 20px;
+}
+.page-cont ul[data-v-38db2509],
+.page-cont h3[data-v-38db2509],
+.page-cont p[data-v-38db2509] {
+  margin: 0;
+  margin-top: 5px;
+}
+.page-cont .title[data-v-38db2509] {
+  font-style: normal;
+  margin: 0;
+  line-height: 40px;
+  font-size: 18px;
+  text-align: center;
+}
+.page-cont section p[data-v-38db2509] {
+  text-indent: 2em;
+  font-size: 14px;
+  line-height: 24px;
+  color: #3d3d3d;
+}
+.page-cont section h3[data-v-38db2509] {
+  margin-top: 20px;
+  color: #000;
+  font-size: 18px;
+}
+.page-cont section h4[data-v-38db2509] {
+  font-size: 14px;
+  color: #000;
+  line-height: 22px;
+}
+.page-cont section ul[data-v-38db2509] {
+  list-style: none;
+  padding-left: 3em;
+}
+.page-cont section ul li[data-v-38db2509] {
+  color: #3d3d3d;
+  line-height: 24px;
+}

@@ -1,0 +1,12 @@
+.formula_wrapper .order-uploader[data-v-76b61b44] {
+  display: inline-block;
+  margin: 0 10px;
+}
+.formula_wrapper .block[data-v-76b61b44] {
+  display: flex;
+  justify-content: center;
+}
+.formula_wrapper .el-table th > .cell {
+  display: flex;
+  justify-content: center;
+}

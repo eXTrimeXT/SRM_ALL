@@ -1,0 +1,41 @@
+<meiql _version="1.0" _type="standard">
+    <type name="SouInfoHistoryBuyer">
+        <validators>
+            <action name="submit">
+                <validator type="request" msg="参数必填：reqHeadId">
+                    ql.notEmpty($rec["reqHeadId"])
+                </validator>
+                <validator type="request" msg="参数必填：beforeProjectName">
+                    ql.notEmpty($rec["beforeProjectName"])
+                </validator>
+                <validator type="request" msg="参数必填：beforeProjectScope">
+                    ql.notEmpty($rec["beforeProjectScope"])
+                </validator>
+                <validator type="request" msg="参数必填：beforeVendorQualReq">
+                    ql.notEmpty($rec["beforeVendorQualReq"])
+                </validator>
+                <validator type="request" msg="参数必填：beforeTechnicalReq">
+                    ql.notEmpty($rec["beforeTechnicalReq"])
+                </validator>
+                <validator type="request" msg="参数必填：beforePerformanceReq">
+                    ql.notEmpty($rec["beforePerformanceReq"])
+                </validator>
+                <validator type="request" msg="参数必填：afterProjectName">
+                    ql.notEmpty($rec["afterProjectName"])
+                </validator>
+                <validator type="request" msg="参数必填：afterProjectScope">
+                    ql.notEmpty($rec["afterProjectScope"])
+                </validator>
+                <validator type="request" msg="参数必填：afterVendorQualReq">
+                    ql.notEmpty($rec["afterVendorQualReq"])
+                </validator>
+                <validator type="request" msg="参数必填：afterTechnicalReq">
+                    ql.notEmpty($rec["afterTechnicalReq"])
+                </validator>
+                <validator type="request" msg="参数必填：afterPerformanceReq">
+                    ql.notEmpty($rec["afterPerformanceReq"])
+                </validator>
+            </action>
+        </validators>
+    </type>
+</meiql>

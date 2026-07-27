@@ -1,0 +1,21 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "JdMsgPush:scc_npm_jd_msg_push": {
+    "comment": "京东消息推送实体类",
+    "keyField": "msgPushId",
+    "fields": {
+      "msgPushId": "Long:主键",
+      "orderId": "String:主订单号",
+      "subOrderId": "String:子订单号",
+      "jdPushId": "Long:推送ID",
+      "type": "String:消息类型（12配送单生成成功消息）",
+      "pushTime": "Date:推送时间",
+      "magBody": "String:返回的结果集",
+      "sendFlag": "String:JD是否已发货（N否，Y是）",
+      "deleteFlag": "String:是否已删除推送消息（N否，Y是）",
+      "deliveryFlag": "String:是否已创建送货单（N否，Y是）",
+      "@include": ":BaseFields"
+    }
+  }
+}

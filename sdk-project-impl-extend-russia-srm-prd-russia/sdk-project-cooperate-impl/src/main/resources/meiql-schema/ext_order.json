@@ -1,0 +1,118 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "Order": {
+    "comment": "采购订单",
+    "repository": "extOrderRepository",
+    "keyField" : "orderId",
+    "fields" : {
+      "ceeaEmpUserId" : "Long:采购员用户id",
+      "extStatus" : "String:补充状态",
+      "extVendorContacts" : "String:供应商联系人",
+      "extVendorPhone" : "String:供应商联系人电话",
+      "extPurchaserOrgCode" : "String:采购员单位编码",
+      "extPurchaserOrgName" : "String:采购员单位名称",
+      "extPurchaserPhone" : "String:采购员电话",
+      "extPurchaserEmail" : "String:采购员邮箱",
+      "extOrderProperty" : "String:订单性质",
+      "extApplicantName" : "String:申请人名称",
+      "extApplicantCode" : "String:申请人工号",
+      "extApplyDate" : "Date:申请日期",
+      "extApproveUserId" : "Long:审批人id",
+      "extApproveUserCode" : "String:审批人工号",
+      "extApproveUserName" : "String:审批人名称",
+      "extApproveComment" : "String:审批备注",
+      "extAreaCode" : "String:区域编码",
+      "extJdOrderId": "Long:京东主订单号",
+      "extJdState": "Integer:1已提交订单，待确认拆单信息；2已确认拆单消息/未提交订单；",
+      "invoiceOrgName" : {
+        "type": "String",
+        "desc": "开票主体",
+        "virtual":true
+      }
+    }
+  },
+  "OrderDetail": {
+    "comment": "采购订单明细",
+    "repository": "extOrderDetailRepository",
+    "keyField" : "orderDetailId",
+    "fields" : {
+      "extDetailStatus" : "String:补充状态",
+      "extBuyType" : "String:购买类型",
+      "extAttachId": "Long:附件id",
+      "extAttachName": "String:附件名称",
+      "extReturnRequirement": "String:是否退回需求池，Y/N",
+      "extBrand": "String:品牌",
+      "extUseDepartmentCode": "String:使用部门编码",
+      "extUseDepartmentName": "String:使用部门名称",
+      "extUserName": "String:使用人名称",
+      "extUserCode": "String:使用人工号",
+      "extCheckQty": "BigDecimal:验收数量",
+      "extAreaCode": "String:区域编码",
+      "extDeliveryCycle": "Integer:交货周期",
+      "extInvoiceType": "String:发票类型",
+      "extWarrantyPeriod": "Integer:质保期",
+      "extAgreementInfoId": "Long:协议行ID",
+      "extAgreementType": "String:协议性质",
+      "extOrderRemark": "String:供应商备注",
+      "extMaterialItemDesc" : {
+        "type": "String",
+        "desc": "物料描述",
+        "virtual":true
+      },
+      "extMaterialItemType" : {
+        "type": "String",
+        "desc": "规格型号",
+        "virtual":true
+      }
+
+    }
+  },
+  "OrderVendor": {
+    "comment": "采购订单",
+    "repository": "extOrderRepository",
+    "keyField" : "orderId",
+    "fields" : {
+      "extStatus" : "String:补充状态",
+      "extVendorContacts" : "String:供应商联系人",
+      "extVendorPhone" : "String:供应商联系人电话",
+      "extPurchaserOrgCode" : "String:采购员单位编码",
+      "extPurchaserOrgName" : "String:采购员单位名称",
+      "extPurchaserPhone" : "String:采购员电话",
+      "extPurchaserEmail" : "String:采购员邮箱",
+      "extOrderProperty" : "String:订单性质",
+      "extApplicantName" : "String:申请人名称",
+      "extApplicantCode" : "String:申请人工号",
+      "extApplyDate" : "Date:申请日期",
+      "extApproveUserId" : "Long:审批人id",
+      "extApproveUserCode" : "String:审批人工号",
+      "extApproveUserName" : "String:审批人名称",
+      "extApproveComment" : "String:审批备注",
+      "extAreaCode" : "String:区域编码"
+    }
+  },
+  "OrderDetailVendor": {
+    "comment": "采购订单明细",
+    "repository": "extOrderDetailRepository",
+    "keyField" : "orderDetailId",
+    "fields" : {
+      "extDetailStatus" : "String:补充状态",
+      "extBuyType" : "String:购买类型",
+      "extAttachId": "Long:附件id",
+      "extAttachName": "String:附件名称",
+      "extReturnRequirement": "String:是否退回需求池，Y/N",
+      "extBrand": "String:品牌",
+      "extUseDepartmentCode": "String:使用部门编码",
+      "extUseDepartmentName": "String:使用部门名称",
+      "extUserName": "String:使用人名称",
+      "extUserCode": "String:使用人工号",
+      "extCheckQty": "String:验收数量",
+      "extAreaCode": "String:区域编码",
+      "extDeliveryCycle": "Integer:交货周期",
+      "extInvoiceType": "String:发票类型",
+      "extWarrantyPeriod": "Integer:质保期",
+      "extAgreementInfoId": "Long:协议行ID",
+      "extAgreementType": "String:协议性质"
+    }
+  }
+}

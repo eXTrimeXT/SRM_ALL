@@ -1,0 +1,139 @@
+global:
+  #环境
+  env: {{env}}
+  product: srm
+  lang: java
+  #模块名
+  module: bid
+  namespace: {{global_k8s_namespace}}
+#--程序1参数
+app1:
+#--容器副本数量
+  replicas:
+    dev: 2
+#    pet: 2
+    default: 1
+#--容器需要外部访问，则设置为NodePort,设置为ClusterIP则限制只能容器内部访问
+  #type: NodePort
+#--镜像路径
+  repository: {{global.app.repo.url}}/app/srm/srm-backend-bid
+#--镜像标签
+  tag:
+    default: {{srm.charts.java.bid.repo.tag}}
+#--容器运行端口
+  #port:
+  clusterIP:
+    enable: true
+    ports:
+      - name: java-8836
+        port: 8836
+        protocol: TCP
+  nodePort:
+    enable:
+      dev: false
+      sit: false
+      uat: false
+      prd: false
+      pet: false
+      default: false
+    ports:
+      - name: nodeport-8836
+        port: 8836
+        protocol: TCP
+#--容器外部访问端口
+        nodePort:
+          dev: 32049
+          sit: 33049
+          uat: 34049
+          pet: 35049
+          prd: 36049
+          default: 37049
+#--程序最大可用资源
+  limits:
+    cpu:
+      dev: 1000m
+      default: 1000m
+    memory:
+      dev: 2Gi
+      default: 2Gi
+  #--程序最少运行资源
+  requests:
+    cpu:
+      dev: 300m
+      default: 300m
+    memory:
+      dev: 500Mi
+      default: 500Mi
+#  command:
+#    command: /bin/sh
+#    args: run.sh app.jar
+#--启用configmap挂载文件，则设置enable为ture并填写挂载文件的路径，内容需在configmap.yaml文件修改
+  configmap:
+    enable: true
+    # 对应k8s configmap的name
+    name: srm-java-config
+    mounts:
+      # 挂载到镜像实例上的文件路径
+      - mountPath: /apps/conf/bootstrap-extenddev.yml
+        # configMap对应的data key
+        subPath: bootstrap-extenddev.yml
+      - mountPath: /apps/conf/bootstrap.yml
+        # configMap对应的data key
+        subPath: bootstrap.yml
+  #--如需创建持久卷,则设置enables为ture并填写卷的容量及挂载的路径
+  persistentvolumeclaim:
+    enable: false
+    storage: 1Gi
+    mountpath: /apps/data
+    storageClassName: {{global.persistentvolumeclaim.storageClassName}}
+  kvenv:
+    - key: JAVA_OPTS
+      val:
+        dev: -Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8 -agentlib:ByteCodeDecryptor -Xms1800m -Xmx1800m
+        default: -Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8 -agentlib:ByteCodeDecryptor -Xms1800m -Xmx1800m
+    - key: APP_OPTS
+      val:
+        default: --spring.config.additional-location=/apps/conf/
+
+  secretenv:
+
+healthCheck:
+  enabled: {{global.charts.healthCheck.enable}}
+  type: tcp  # http/tcp
+  port: 8836  # 健康检查的端口名或端口
+  httpPath: '/'  # http时必须设置
+  livenessInitialDelaySeconds: 600  # 初始延迟秒数
+  livenessPeriodSeconds: 5  # 检测周期，默认值10，最小为1
+  livenessfailureThreshold: 3 #探测成功后，最少连续探测失败多少次才被认定为失败。默认是3。最小值是1
+  livenesstimeoutSeconds: 2  #探针执行检测请求后，等待响应的超时时间，默认为 1s，单位“秒”，最小值是 1
+  livenesssuccessThreshold: 1  #探针检测失败后认为成功的最小连接成功次数，默认为 1，最小值为 1。
+  readinessInitialDelaySeconds: 600  # 初始延迟秒数
+  readinessPeriodSeconds: 5   # 检测周期，默认值10，最小为1
+  readinessfailureThreshold: 3 #探测成功后，最少连续探测失败多少次才被认定为失败。默认是3。最小值是1
+  readinesstimeoutSeconds: 2  #探针执行检测请求后，等待响应的超时时间，默认为 1s，单位“秒”，最小值是 1
+  readinesssuccessThreshold: 1  #探测失败后，最少连续探测成功多少次才被认定为成功。默认是1。对于liveness必须是1。最小值是1。
+
+skywalking:
+  enable: {{global.skywalking.enable}}
+  JAVA_TOOL_OPTIONS: -javaagent:/usr/skywalking/agent/skywalking-agent.jar
+  #新增shywalking服务
+  BACKEND_SERVICES: skywalking-oap.skywalking.svc.cluster.local:11800
+  image: {{global.skywalking.image}}
+
+
+#nodeSelector: {}
+#  env: test
+#需要使用此功能的时候，去掉{}
+
+nodeSelector: {}
+  #env: aps-dev
+
+
+tolerations:
+  enabled:
+    pet: true
+    default: false
+  keys:
+    - effect: NoSchedule
+      key: pet
+      value: true

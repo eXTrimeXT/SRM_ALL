@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sup.info.mapper.VendorInformationPjMapper">
+
+
+
+    <select id="listManagementAttachPage" resultType="com.midea.cloud.srm.model.sup.info.dto.ExtManagementAttachDTO">
+        SELECT * FROM(
+        SELECT management_attach_id, ssci.COMPANY_NAME AS dataSources, ssci.COMPANY_NAME AS COMPANY_NAME, ssci.COMPANY_CODE AS COMPANY_CODE, ''AS FILE_RECORD_ID, ''AS FORM_ID,
+        'MANAGEMENT_ATTACH'AS FORM_TYPE, fileupload_id AS FILE_ID, AUTH_TYPE, END_DATE,AUTH_DESCRIPTION, AUTH_NUM, AUTH_DATE, AUTH_ORG, cuma.CREATION_DATE, cuma.IS_USE_REMINDER
+        ,cuma.COMPANY_ID as companyId,'资质信息' AS documentType
+        FROM ceea_sup_management_attach cuma, scc_sup_company_info ssci
+        WHERE cuma.COMPANY_ID = ssci.COMPANY_ID and cuma.END_DATE is not null  AND ssci.COMPANY_CODE !='' and ssci.STATUS='APPROVED'
+        and ssci.PJ_COMPANY_STATUS in ('QUASI_SUPPLIER','OFFICIAL_SUPPLIER','SLUGGISH_SUPPLIER')
+        and ssci.IS_BACKLIST = 'N'
+        and ssci.TIME_LIMIT_FLAG = 'N'
+        UNION ALL
+
+        SELECT company_id AS management_attach_id, COMPANY_NAME AS dataSources, COMPANY_NAME, COMPANY_CODE, '' AS FILE_RECORD_ID,
+        '' AS FORM_ID, 'COMPANY_INFO'AS FORM_TYPE, BUSINESS_LICENSE_FILE_ID AS FILE_ID, BUSINESS_LICENSE AS AUTH_TYPE, BUSINESS_END_DATE AS END_DATE,
+        '' AS AUTH_DESCRIPTION,'' AS AUTH_NUM, NULL AS AUTH_DATE,'' AS AUTH_ORG, CREATION_DATE, IS_USE_REMINDER,COMPANY_ID as companyId,
+        CASE WHEN OVERSEAS_RELATION = 'PERSONAL' THEN '身份证'
+        ELSE '营业执照'
+        END AS documentType
+        FROM scc_sup_company_info WHERE  BUSINESS_END_DATE is not NULL AND COMPANY_CODE !='' AND STATUS ='APPROVED'
+        and PJ_COMPANY_STATUS in ('QUASI_SUPPLIER','OFFICIAL_SUPPLIER','SLUGGISH_SUPPLIER')
+        and IS_BACKLIST = 'N'
+        and TIME_LIMIT_FLAG = 'N'
+                                  )attachMix
+          <where>
+            <if test="managementAttachRequestDTO.companyCode != null and managementAttachRequestDTO.companyCode != ''">
+                COMPANY_CODE = #{managementAttachRequestDTO.companyCode}
+            </if>
+            <if test="managementAttachRequestDTO.companyName != null and managementAttachRequestDTO.companyName != ''">
+                AND COMPANY_NAME like concat('%',#{managementAttachRequestDTO.companyName},'%')
+            </if>
+            <if test="authDate != null">
+                AND END_DATE <![CDATA[>=]]> #{authDate}
+            </if>
+            <if test="managementAttachRequestDTO.isUseReminder != null">
+                AND IS_USE_REMINDER = #{managementAttachRequestDTO.isUseReminder}
+            </if>
+            <if test="managementAttachRequestDTO.isUseReminder == null">
+                  AND IS_USE_REMINDER = 'Y'
+            </if>
+            <if test="endDate != null">
+                AND END_DATE <![CDATA[<=]]> #{endDate}
+            </if>
+            AND AUTH_TYPE !='' AND AUTH_TYPE IS NOT NULL
+          </where>
+            ORDER BY END_DATE
+    </select>
+
+
+    <select id="listSluggishSupplier" resultType="com.midea.cloud.srm.model.supplier.info.entity.CompanyInfo">
+        select c.COMPANY_ID
+        from scc_sup_company_info c
+        left join meicloud_usrm_cloud_biz_sou.scc_sou_vendor ssv on c.COMPANY_ID = ssv.vendor_id
+        left join meicloud_usrm_cloud_biz_pj.scc_sou_vendor pjssv on c.COMPANY_ID = pjssv.vendor_id
+        where c.CREATION_DATE <![CDATA[<]]> DATE(DATE_SUB(NOW(), INTERVAL 1 YEAR))
+        and ssv.project_id is null
+        and pjssv.project_id is null
+    </select>
+
+    <select id="listUnusedOrgCategory" resultType="com.midea.cloud.srm.model.supplier.info.entity.OrgCategory">
+        select c.ORG_CATEGORY_ID
+        from scc_sup_org_category c
+        left join meicloud_usrm_cloud_biz_sou.scc_sou_vendor ssv on ssv.vendor_id = c.COMPANY_ID
+        left join meicloud_usrm_cloud_biz_sou.scc_sou_item ssi
+        on ssi.org_ou_id = c.ORG_ID and ssi.category_id = c.CATEGORY_ID and ssv.project_id = ssi.project_id
+        left join meicloud_usrm_cloud_biz_pj.scc_sou_vendor pjssv on pjssv.vendor_id = c.COMPANY_ID
+        left join meicloud_usrm_cloud_biz_pj.scc_sou_item pjssi
+        on pjssi.org_ou_id = c.ORG_ID and pjssi.category_id = c.CATEGORY_ID and pjssv.project_id = pjssi.project_id
+        where ssv.project_id is null
+        and ssi.project_id is null
+        and pjssv.project_id is null
+        and pjssi.project_id is null
+        and c.CREATION_DATE <![CDATA[<]]> DATE(DATE_SUB(NOW(), INTERVAL 2 YEAR))
+    </select>
+
+</mapper>

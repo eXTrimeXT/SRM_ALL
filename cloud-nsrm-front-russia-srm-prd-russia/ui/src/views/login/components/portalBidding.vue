@@ -1,0 +1,302 @@
+<template>
+  <div class="page-portal-sourcing">
+    <section class="portal-header">
+      <div class="search">
+        <el-input v-model="search" :placeholder="$t('components.common.enterKeyword')" />
+        <i class="el-icon-search" @click="clickSearch" />
+      </div>
+    </section>
+    <section
+      v-loading="loading"
+      element-loading-background="rgba(0, 0, 0, 0.4)"
+      class="portal-main"
+    >
+      <ul class="portal-main-ul">
+        <li v-for="item in lists" :key="'source-item-'+item.projectId" class="portal-main-li" @click="buttonClick(item)">
+          <!--          <el-tooltip class="item" effect="dark" :content="item.souReqTitile" placement="top">-->
+          <div class="title">
+            {{ item.name }}
+          </div>
+          <!--          </el-tooltip>-->
+          <div class="subtitle-and-buttom">
+            <el-tooltip class="item" effect="dark" :content="item.title" placement="top">
+              <div class="subtitle">
+                {{ item.title }}
+              </div>
+            </el-tooltip>
+            <!--            <div class="buttons" @click="buttonClick(item)">-->
+            <!--              查看详情-->
+            <!--            </div>-->
+          </div>
+          <section class="main-content">
+            <img :src="logoInfo.placeholderLogo">
+            <ul>
+              <li>
+                <span>距离截止时间还有：</span>
+                <span class="yellow">{{ getDay(item.deadlineTime) }}天</span>
+              </li>
+              <!-- <li>
+                <span>寻源类型：</span>
+                <span>招标</span>
+              </li> -->
+              <li>
+                <span>发布时间：</span>
+                <span>{{ item.creationDate | time }}</span>
+              </li>
+              <li>
+                <span>截止时间：</span>
+                <span>{{ item.deadlineTime | time }}</span>
+              </li>
+              <!-- <li>
+                <span>{{ item.categoryName }}</span>
+              </li> -->
+              <!-- <li>
+                <span>已报价数：</span>
+                <span>{{ item.orderCount }}</span>
+              </li>
+              <li>
+                <span>交货基地：</span>
+                <span>{{ item.orderSite }}</span>
+              </li> -->
+            </ul>
+          </section>
+        </li>
+      </ul>
+      <el-pagination
+        background
+        layout="total,prev, pager, next"
+        class="pagination"
+        :page-size="8"
+        :total="total"
+        @current-change="current_change"
+      />
+    </section>
+  </div>
+</template>
+<script>
+import { getSystemTheme } from '@/config/logo-config'
+import { transformMQL } from '@/library/utils/util'
+export default {
+  name: 'PortalBidding',
+  filters: {
+    time: function (value) {
+      return value ? value.substr(0, 10) : null
+    }
+  },
+  data () {
+    return {
+      logoInfo: getSystemTheme(),
+      loading: false,
+      lists: [],
+      total: 0,
+      search: ''
+    }
+  },
+  created () {
+    this.init({ pageNum: 1, pageSize: 8 })
+  },
+  methods: {
+    getDay (newDay) {
+      if (!newDay) return null
+      let diff = new Date(newDay).getTime() - new Date().getTime()
+      return parseInt((diff / (1000 * 60 * 60 * 24)) + 1)
+    },
+    clickSearch () {
+      const obj = {
+        souName: this.search,
+        pageNum: 1,
+        pageSize: 8
+      }
+      this.init(obj)
+    },
+    async init (data) {
+      this.loading = true
+      const datas = transformMQL.listPageData({
+        params: { name: data?.souName },
+        type: 'Recruit',
+        action: 'visitList',
+        pageNum: data.pageNum,
+        pageSize: data.pageSize
+      })
+      this.$http({
+        url: '/api-sou/api-ql/Recruit/visitList',
+        method: 'POST',
+        data: datas
+      }).then(res => {
+        console.log(res)
+        this.loading = false
+        this.lists = res.data.records
+        this.total = res.data.total
+      })
+    },
+    current_change (index) {
+      let obj = {
+        pageNum: index,
+        pageSize: 8
+      }
+      this.init(obj)
+    },
+    buttonClick (row) {
+      this.$router.push({ path: '/portalBidding/vendorBiddingDetail', query: { id: row.recruitId } })
+    }
+  }
+}
+</script>
+<style lang="scss" scoped>
+:deep(.el-pagination.is-background .btn-next),
+:deep(.el-pagination.is-background .el-pager li),
+:deep(.el-pagination.is-background .btn-prev)
+{
+  background-color: #FFFFFF;
+}
+:deep(.el-pagination .el-pagination__total){
+  float: initial;
+}
+.page-portal-sourcing{
+  width: 85%;
+  max-width: 1252px;
+  //min-height: 443px;
+  margin: 0 auto;
+  //height: 400px; // 开发根据情况去掉高度
+  .portal-header{
+    overflow: hidden;
+    margin: 25px 0;
+    .title{
+      float: left;
+      width: 96px;
+      height: 24px;
+      font-size: 18px;
+      color: #161C24;
+      line-height: 35px;
+      font-weight: 500;
+    }
+    .search{
+      float: right;
+      width: 444px;
+      height: 32px;
+      // background: #FFFFFF;
+      // border: 1px solid rgba(220,221,222,1);
+      border-radius: 4px;
+      position: relative;
+      .el-input{
+        height: 100%;
+        :deep(.el-input__inner){
+          height: 30px !important;
+          line-height: 30px !important;
+          min-height: 30px !important;
+          border-radius: 2px;
+        }
+      }
+      :deep(.el-icon-search) {
+        position: absolute;
+        top: 7px;
+        right: 12px;
+        font-size: 17px;
+        cursor: pointer;
+        color: #96999c;
+        &:hover{
+          color: #0077FF;
+        }
+      }
+    }
+  }
+  .portal-main{
+    min-height: 200px;
+    .pagination{
+      margin-bottom: 10px;
+    }
+    .portal-main-ul{
+      display: flex;
+      flex-flow: wrap;
+      align-content: flex-start;
+      padding: 0;
+      margin-right: -2%;
+      .portal-main-li{
+        padding: 22px 24px 24px;
+        list-style-type: none;
+        width: 48%;
+        margin: 0 2% 20px 0;
+        background: #FFFFFF;
+        box-shadow: 0px 6px 16px -16px rgba(0,0,0,0.08);box-shadow: 0px 9px 28px 0px rgba(0,0,0,0.05);box-shadow: 0px 12px 48px 16px rgba(0,0,0,0.03);
+        position: relative;
+        border-radius: 4px;
+        .title{
+          word-break: break-all;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 1; /* 这里是超出几行省略 */
+          overflow: hidden;
+          font-size: 18px;
+          color: #393E45;
+          line-height: 24px;
+          font-weight: 700;
+          // cursor: pointer; // todo
+        }
+        .title:hover{
+          color: rgb(20,142,245);
+        }
+        .subtitle-and-buttom{
+          margin: 15px 0 24px 0;
+          display: flex;
+          .subtitle{
+            overflow:hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 14px;
+            color: #51555B;
+            width: 52%;
+          }
+          .buttons{
+            width: 80px;
+            height: 32px;
+            border: 1px solid #96999C;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #393E45;
+            text-align: center;
+            line-height: 32px;
+            cursor: pointer;
+            margin: -10px 0 0 6%;
+          }
+          .buttons:hover{
+            color:#FFFFFF;
+            background-color: #0077FF;
+            border:none;
+          }
+        }
+        .main-content{
+          display: flex;
+          margin-top: 30px;
+          img{
+            width: 80px;
+            height: 80px;
+          }
+          ul{
+            padding: 0;
+            display: flex;
+            flex-flow: wrap;
+            margin-left: 20px;
+            height: 80px;
+            overflow: hidden;
+            li{
+              width: 48%;
+              list-style-type: none;
+              font-size: 12px;
+              color: #51555B;
+              line-height: 12px;
+              margin-bottom: 20px;
+              overflow:hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              .yellow{
+                color: #FF9C00
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+</style>

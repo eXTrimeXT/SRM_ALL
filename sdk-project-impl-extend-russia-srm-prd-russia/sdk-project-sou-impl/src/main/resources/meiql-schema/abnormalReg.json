@@ -1,0 +1,19 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "SccNpmSouAbnormalReg:scc_npm_sou_abnormal_reg": {
+    "comment": "招标异常登记表",
+    "repository": "abnormalRegRepository",
+    "keyField": "regId",
+    "fields": {
+      "@include": ":abnormalRegFields"
+    }
+  },
+  "SccNpmSouAbnormalFile:scc_npm_sou_abnormal_file": {
+    "comment": "招标异常登记附件表",
+    "keyField": "abnormalFileId",
+    "fields": {
+      "@include": ":abnormalFileFields"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.supcooperate.catalogonshelves.mapper.ExtShopCartMapper">
+    <select id="getTempList">
+        SELECT
+        EXT_REFERENCE_PRICE,
+        MATERIAL_CODE,
+        EXT_AREA_CODE,
+        EXT_ORG_ID_LIST
+        FROM scc_catalog_on_shelves
+        WHERE 1=1
+        and STATUS = 'ON_SHELVES'
+        and MATERIAL_CODE in
+
+        <foreach item="shopCart" collection="list" separator="," open="(" close=")">
+            MATERIAL_CODE = #{shopCart.materialCode}
+        </foreach>
+    </select>
+    <select id="getList">
+        SELECT
+        EXT_REFERENCE_PRICE,
+        MATERIAL_CODE
+        FROM scc_catalog_on_shelves
+        WHERE
+        STATUS = 'ON_SHELVES'
+          <if test="orgId!=null">
+              and EXT_ORG_ID_LIST like concat('%',#{orgId},'%')
+          </if>
+          <if test="orgId==null">
+              and EXT_ORG_ID_LIST is null
+          </if>
+        <if test="extAreaCode!=null">
+            and EXT_AREA_CODE like concat('%',#{extAreaCode},'%')
+        </if>
+        <if test="extAreaCode==null">
+            and EXT_AREA_CODE is null
+        </if>
+        and MATERIAL_CODE in 
+        <foreach collection="list" open="(" close=")" item="code" separator=",">
+                 #{code}
+        </foreach>
+        group by EXT_REFERENCE_PRICE
+    </select>
+    <select id="extAdd">
+        select EXT_REFERENCE_PRICE,ORDER_QUANTITY_MINIMUM
+        from scc_catalog_on_shelves
+        WHERE
+        STATUS = 'ON_SHELVES'
+        <if test="materialCode!=null">
+          and MATERIAL_CODE = #{materialCode}
+        </if>
+        <if test="materialCode==null">
+            and MATERIAL_CODE is null
+        </if>
+        <if test="orgId!=null">
+            and EXT_ORG_ID_LIST like concat('%',#{orgId},'%')
+        </if>
+        <if test="orgId==null">
+            and EXT_ORG_ID_LIST is null
+        </if>
+        <if test="extAreaCode!=null">
+            and EXT_AREA_CODE like concat('%',#{extAreaCode},'%')
+        </if>
+        <if test="extAreaCode==null">
+            and EXT_AREA_CODE is null
+        </if>
+    </select>
+</mapper>

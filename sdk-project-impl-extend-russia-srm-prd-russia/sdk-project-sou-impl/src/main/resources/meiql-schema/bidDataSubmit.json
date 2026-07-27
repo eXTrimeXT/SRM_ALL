@@ -1,0 +1,48 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "SubmitBuyer:scc_npm_bid_data_submit": {
+    "keyField": "dataSubmitId",
+    "comment": "招标资料递交头表",
+    "repository": "bidDataSubmitBuyerRepository",
+    "fields": {
+      "@include": ":BidDataSubmitFields"
+    },
+    "relations": {
+      "fileUploads": "[SubmitSceneFile:dataSubmitId]",
+      "submitDetailsList": "[SubmitDetailsBuyer:dataSubmitId]",
+      "submitEvaluatorList": "[SubmitEvaluatorBuyer:dataSubmitId]"
+    }
+  },
+  "SubmitDetailsBuyer:scc_npm_bid_data_submit_details": {
+    "keyField": "submitDetailsId",
+    "comment": "招标资料递交竞价明细表",
+    "fields": {
+      "@include": ":BidDataSubmitDetailsFields"
+    },
+    "relations": {}
+  },
+  "SubmitEvaluatorBuyer:scc_npm_bid_data_submit_evaluator": {
+    "keyField": "submitEvaluatorId",
+    "comment": "招标资料递交指定评标人表",
+    "fields": {
+      "@include": ":BidDataSubmitEvaluatorFields",
+      "extPosition": "String:职务"
+    },
+    "relations": {}
+  },
+  "SubmitSceneFile": {
+    "repository": "souSceneFileRepository",
+    "keyField": "sceneFileId",
+    "fields": {
+      "sceneFileId": "Long",
+      "sceneKey": {
+        "convert": "scene:SCENE_BID_DATA_SUBMIT_ATTACHMENT"
+      },
+      "businessFiled": {
+        "convert": "businessId:dataSubmitId"
+      },
+      "@include": ":ExtSceneFileFields"
+    }
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "CheckOrder:scc_npm_check_order": {
+    "comment": "验收单",
+    "repository": "checkOrderRepository",
+    "keyField": "checkOrderId",
+    "fields": {
+      "checkOrderId": "Long:主键,验收单ID",
+      "checkOrderNumber": {
+        "convert": "seqGen:SEQ_CHECK_ORDER_NO",
+        "type": "String",
+        "dbName": "check_order_number",
+        "desc": "验收单号"
+      },
+      "checkOrderStatus": "String:验收单状态",
+      "orgBuId" : "Long:板块ID",
+      "orgBuCode" : "String:板块编码",
+      "orgBuName" : "String:板块名称",
+      "orgId": "Long:业务实体ID",
+      "orgCode": "String:业务实体编码",
+      "orgName": "String:业务实体名称",
+      "vendorId": "Long:供应商ID",
+      "vendorCode": "String:供应商编码",
+      "vendorName": "String:供应商名称",
+      "departmentId": "String:申请部门id",
+      "departmentCode": "String:申请部门编码",
+      "departmentName": "String:申请部门名称",
+      "applicantName": "String:申请人名称",
+      "applicantCode": "String:申请人工号",
+      "applyDate": "Date:申请日期",
+      "noTaxTotalAmount": "BigDecimal:未税总金额",
+      "taxTotalAmount": "BigDecimal:含税总金额",
+      "currencyId": "Long:币种ID",
+      "currencyName": "String:币种名称",
+      "approveUserId" : "Long:审批人id",
+      "approveUserCode" : "String:审批人工号",
+      "approveUserName" : "String:审批人名称",
+      "approveComment" : "String:审批备注",
+      "checkAdvice" : "String:验收意见",
+      "@include": ":BaseFields"
+    },
+    "relations": {
+      "detailList": "[CheckOrderDetail:checkOrderId]",
+      "attachList": "[CheckOrderAttach:checkOrderId]"
+    }
+  },
+  "CheckOrderDetail:scc_npm_check_order_detail": {
+    "comment": "验收单明细",
+    "keyField": "checkOrderDetailId",
+    "fields": {
+      "checkOrderDetailId": "Long:主键,验收单明细",
+      "checkOrderId": "Long:验收单ID",
+      "orderDetailId": "Long:订单明细ID",
+      "checkQty": "BigDecimal:本次验收数量",
+      "invoiceQty": "BigDecimal:开票数量",
+      "@include": ":BaseFields"
+    },
+    "relations" : {
+      "orderDetailId": "OrderDetail",
+      "checkOrderId": "CheckOrder"
+    }
+  },
+  "CheckOrderAttach:scc_npm_check_order_attach": {
+    "comment": "验收单附件",
+    "keyField": "checkOrderAttachId",
+    "fields": {
+      "checkOrderAttachId" : "Long:主键id",
+      "checkOrderId" : "Long:验收单id",
+      "attachId" : "Long:附件ID",
+      "attachName" : "String:附件名称",
+      "@include": ":BaseFields"
+    }
+  },
+  "CheckOrderVendor:scc_npm_check_order": {
+    "comment": "验收单",
+    "repository": "checkOrderRepository",
+    "keyField": "checkOrderId",
+    "fields": {
+      "checkOrderId": "Long:主键,验收单ID",
+      "checkOrderNumber": {
+        "convert": "seqGen:SEQ_CHECK_ORDER_NO",
+        "type": "String",
+        "dbName": "check_order_number",
+        "desc": "验收单号"
+      },
+      "checkOrderStatus": "String:验收单状态",
+      "orgBuId" : "Long:板块ID",
+      "orgBuCode" : "String:板块编码",
+      "orgBuName" : "String:板块名称",
+      "orgId": "Long:业务实体ID",
+      "orgCode": "String:业务实体编码",
+      "orgName": "String:业务实体名称",
+      "vendorId": "Long:供应商ID",
+      "vendorCode": "String:供应商编码",
+      "vendorName": "String:供应商名称",
+      "departmentId": "String:申请部门id",
+      "departmentCode": "String:申请部门编码",
+      "departmentName": "String:申请部门名称",
+      "applicantName": "String:申请人名称",
+      "applicantCode": "String:申请人工号",
+      "applyDate": "Date:申请日期",
+      "noTaxTotalAmount": "BigDecimal:未税总金额",
+      "taxTotalAmount": "BigDecimal:含税总金额",
+      "currencyId": "Long:币种ID",
+      "currencyName": "String:币种名称",
+      "approveUserId" : "Long:审批人id",
+      "approveUserCode" : "String:审批人工号",
+      "approveUserName" : "String:审批人名称",
+      "approveComment" : "String:审批备注",
+      "checkAdvice" : "String:验收意见",
+      "@include": ":BaseFields"
+    },
+    "relations": {
+      "detailList": "[CheckOrderDetail:checkOrderId]",
+      "attachList": "[CheckOrderAttach:checkOrderId]"
+    }
+  },
+  "CheckOrderDetailVendor:scc_npm_check_order_detail": {
+    "comment": "验收单明细",
+    "keyField": "checkOrderDetailId",
+    "fields": {
+      "checkOrderDetailId": "Long:主键,验收单明细",
+      "checkOrderId": "Long:验收单ID",
+      "orderDetailId": "Long:订单明细ID",
+      "checkQty": "BigDecimal:本次验收数量",
+      "invoiceQty": "BigDecimal:开票数量",
+      "@include": ":BaseFields"
+    },
+    "relations" : {
+      "orderDetailId": "OrderDetail",
+      "checkOrderId": "CheckOrder"
+    }
+  },
+  "CheckOrderAttachVendor:scc_npm_check_order_attach": {
+    "comment": "验收单附件",
+    "keyField": "checkOrderAttachId",
+    "fields": {
+      "checkOrderAttachId" : "Long:主键id",
+      "checkOrderId" : "Long:验收单id",
+      "attachId" : "Long:附件ID",
+      "attachName" : "String:附件名称",
+      "@include": ":BaseFields"
+    }
+  }
+}

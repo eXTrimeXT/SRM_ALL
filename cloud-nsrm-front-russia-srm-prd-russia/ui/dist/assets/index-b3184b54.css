@@ -1,0 +1,185 @@
+.org-type-page .org-type-header[data-v-4ee142a9] {
+  height: 166px;
+  padding-top: 10px;
+}
+.org-type-page .org-type-header .org-type-header-icon[data-v-4ee142a9] {
+  text-align: right;
+  padding-top: 20px;
+  padding-right: 26px;
+}
+.org-type-page .org-type-header .org-type-header-icon em[data-v-4ee142a9] {
+  font-size: 30px;
+  color: #409eff;
+}
+.org-type-page .org-type-header .org-type-header-des[data-v-4ee142a9] {
+  font-size: 14px;
+  padding-bottom: 15px;
+}
+.org-type-page .org-type-header .org-type-header-des p[data-v-4ee142a9] {
+  margin: 0;
+  line-height: 24px;
+}
+.org-type-page .org-type-table-List[data-v-4ee142a9] {
+  padding-bottom: 20px;
+  flex: 1;
+}
+.org-type-page .warp-tip[data-v-4ee142a9] {
+  padding: 10px;
+}
+.org-type-page .warp-tip p[data-v-4ee142a9] {
+  margin: 0;
+  line-height: 22px;
+}.btn_line[data-v-a2ff445f] {
+  margin: 0 0 8px;
+}
+.org-pop-search[data-v-a2ff445f] {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+.org-pop-search .selectBtn[data-v-a2ff445f] {
+  position: absolute;
+  width: 30px;
+  top: 1px;
+  bottom: 1px;
+  right: 1px;
+  z-index: 100;
+  line-height: 26px;
+  padding: 0;
+  cursor: pointer;
+  min-width: 30px;
+  border: 0;
+  border-radius: 0 4px 4px 0;
+}
+.org-pop-search .el-input__inner {
+  padding-right: 30px;
+}
+.my-autocomplete li[data-v-86d3cdca] {
+  line-height: normal;
+  padding: 7px;
+}
+.my-autocomplete li .name[data-v-86d3cdca] {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.my-autocomplete li .addr[data-v-86d3cdca] {
+  font-size: 12px;
+  color: #b4b4b4;
+}
+.my-autocomplete li .highlighted .addr[data-v-86d3cdca] {
+  color: #ddd;
+}
+.the_follow_tender_dialog .el-row[data-v-86d3cdca] {
+  margin-bottom: 41px;
+}
+.the_follow_tender_dialog .el-row .el-col > span[data-v-86d3cdca] {
+  padding-right: 11px;
+}
+.cursor-text[data-v-86d3cdca] {
+  color: #1890ff;
+  margin-top: 5px;
+  cursor: pointer;
+}
+.btn_line[data-v-86d3cdca] {
+  margin: 0 0 10px 0;
+}
+.site-line[data-v-86d3cdca] {
+  height: 250px;
+  padding-bottom: 30px;
+}
+.site-line[data-v-86d3cdca] .the_TableView {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* 拖拽相关样式 */
+/*包围div样式*/
+.box[data-v-86d3cdca] {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.box[data-v-86d3cdca] ::-webkit-scrollbar {
+  width: 7px !important;
+}
+
+/*左侧div样式*/
+.left[data-v-86d3cdca] {
+  width: calc(20% - 10px); /*左侧初始化宽度*/
+  height: 100%;
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+  padding-left: 0;
+  padding-right: 7px !important;
+}
+.left .el-tree[data-v-86d3cdca] {
+  overflow-x: hidden;
+}
+
+/*拖拽区div样式*/
+.resize[data-v-86d3cdca] {
+  cursor: col-resize;
+  position: absolute;
+  top: 36%;
+  right: 0px;
+  background-color: #d6d6d6;
+  border-radius: 5px;
+  margin-top: -10px;
+  width: 8px;
+  height: 42px;
+  background-size: cover;
+  background-position: center;
+  /*z-index: 99999;*/
+  font-size: 30px;
+  color: white;
+}
+
+/*拖拽区鼠标悬停样式*/
+.resize[data-v-86d3cdca]:hover {
+  color: #444444;
+}
+
+/*右侧div'样式*/
+.mid[data-v-86d3cdca] {
+  width: 80%; /*右侧初始化宽度*/
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: -1px 4px 5px 3px rgba(0, 0, 0, 0.11);
+}
+.el-button.pSearchBtn[data-v-86d3cdca] {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.vue-treeselect__label {
+  font-size: 13px;
+  font-weight: 400;
+}
+.el-input.porgInput .el-input-group__append{
+  padding-right: 15px !important;
+}
+.el-input.porgInput .el-input__suffix{
+  z-index: 5;
+}
+.parent-search{
+  position: relative;
+}
+.parent-search .el-input__inner{
+  padding-right: 28px;
+}
+.parent-search .selectBtn{
+  position: absolute;
+  width: 24px;
+  top: 1px;
+  bottom: 1px;
+  right: 1px;
+  z-index: 100;
+  line-height: 26px;
+  padding: 0;
+  cursor: pointer;
+  min-width: 24px;
+  border: 0;
+  border-radius: 0 4px 4px 0;
+}
+

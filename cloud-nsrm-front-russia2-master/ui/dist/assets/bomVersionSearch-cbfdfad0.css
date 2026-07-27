@@ -1,0 +1,22 @@
+.bom-version-search[data-v-0dce7441] {
+  position: relative;
+}
+.bom-version-search__btn[data-v-0dce7441] {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  right: 1px;
+  border: none;
+  min-width: 20px;
+  border-radius: 0 4px 4px 0;
+  padding: 4px !important;
+  color: #96999c;
+}
+.bom-version-search__btn[data-v-0dce7441]:hover {
+  color: #0077ff;
+  border-color: #2994ff;
+  background-color: #FFF;
+}
+.bom-version-search .el-input__suffix {
+    right: 20px;
+}

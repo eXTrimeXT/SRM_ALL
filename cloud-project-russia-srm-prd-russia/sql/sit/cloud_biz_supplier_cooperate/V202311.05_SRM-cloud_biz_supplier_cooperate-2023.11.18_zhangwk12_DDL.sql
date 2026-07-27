@@ -1,0 +1,1 @@
+alter table scc_npm_pr_require_head add column `NO_PUBLIC_REASON_CHOOSE` varchar(30) DEFAULT NULL COMMENT '不公示原因选择';

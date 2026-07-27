@@ -1,0 +1,2 @@
+-- ALTER TABLE scc_sou_ch_design_plan ADD COLUMN HAS_CREATE_PUR_INQ char(1) default 'N' NOT NULL COMMENT '是否已创建集采询比价';
+-- ALTER TABLE scc_sou_ch_design_plan ADD COLUMN SOU_NO varchar(50) NULL COMMENT '集采询比价单号';

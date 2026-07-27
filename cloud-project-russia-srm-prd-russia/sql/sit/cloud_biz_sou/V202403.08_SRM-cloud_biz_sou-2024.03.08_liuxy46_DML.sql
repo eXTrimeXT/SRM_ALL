@@ -1,0 +1,1 @@
+ALTER TABLE scc_sou_jc_agreement add STOP_REASON varchar(500) null comment '终止原因';

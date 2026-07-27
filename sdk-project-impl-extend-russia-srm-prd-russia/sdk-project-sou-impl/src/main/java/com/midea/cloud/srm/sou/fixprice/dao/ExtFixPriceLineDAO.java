@@ -1,0 +1,12 @@
+package com.midea.cloud.srm.sou.fixprice.dao;
+
+import com.midea.cloud.common.service.impl.BaseServiceImpl;
+import com.midea.cloud.srm.model.sou.fixprice.entity.ExtFixPriceLine;
+import org.springframework.stereotype.Component;
+/**
+ * 备注
+ * @author huangbf3
+ */
+@Component
+public class ExtFixPriceLineDAO extends BaseServiceImpl<ExtFixPriceLineMapper, ExtFixPriceLine> {
+}

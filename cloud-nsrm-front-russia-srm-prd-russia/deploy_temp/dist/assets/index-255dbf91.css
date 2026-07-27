@@ -1,0 +1,10 @@
+[data-v-da917435] .base-import+.el-button {
+  margin-left: 0;
+}
+.input-number-precision[data-v-da917435] {
+  width: 100%;
+}
+.input-number-precision[data-v-da917435] .el-input__inner {
+  text-align: left;
+  padding-left: 8px;
+}

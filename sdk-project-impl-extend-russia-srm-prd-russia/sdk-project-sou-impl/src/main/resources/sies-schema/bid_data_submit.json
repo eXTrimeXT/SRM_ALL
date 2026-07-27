@@ -1,0 +1,61 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "BidDataSubmitController": {
+    "validator": "bidDataSubmitImportValidator",
+    //直接同步，这里其实是解析excel，不做真正的保存
+    "processType": "sync",
+    "batchSize": 1000,
+    "sheets": [
+      {
+        "sheetName": "竞价明细导入",
+        "heads": {
+          "materialName": {
+            "title": "*物资名称",
+            "required": true
+          },
+          "combination": {
+            "title": "组合",
+            "required": false
+          },
+          "affiliatedUnit": {
+            "title": "*所属单位",
+            "required": true
+          },
+          "performDeposit": {
+            "title": "*履约保证金（元）",
+            "required": true
+          },
+          "advanceAmount": {
+            "title": "*预付款（元）",
+            "required": true
+          },
+          "monthProduction": {
+            "title": "*月约产量",
+            "required": true
+          },
+          "meteringUnit": {
+            "title": "*计量单位",
+            "required": true
+          },
+          "startBidPrice": {
+            "title": "*起拍价格（元）",
+            "required": true
+          },
+          "echelonBidPrice": {
+            "title": "*梯次价格（元）",
+            "required": true
+          }
+        }
+      },{
+        "virtual": true,
+        "sheetName": "组合参考",
+        "ref": {
+          "type": "file",
+          "targetPath": "classpath*:sies-schema/group.xlsx",
+          "targetIndex": 0
+        }
+      }
+    ]
+  }
+}

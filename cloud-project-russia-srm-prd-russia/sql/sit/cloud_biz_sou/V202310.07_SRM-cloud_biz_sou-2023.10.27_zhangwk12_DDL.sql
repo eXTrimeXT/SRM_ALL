@@ -1,0 +1,51 @@
+create table scc_npm_sou_expert_score (
+    EXPERT_SCORE_ID                 bigint              not null comment 'ID' primary key,
+    SOU_PROJECT_ID                  bigint              not null comment '寻源单ID',
+    SOU_NO                          varchar(50)         null comment '寻源单号',
+    SOU_NAME                        varchar(150)        null comment '寻源名称',
+    PROJECT_ADDRESS                 varchar(300)        null comment '项目所在地',
+    TOTAL_AMOUNT_BY_TEN_KILO        decimal(24,8)       null comment '概算金额(万元)',
+    EXPERT_ID                       bigint              not null comment '专家库表ID',
+    EXPERT_USER_ID                  bigint              null comment '专家ID',
+    EXPERT_USERNAME                 varchar(80)         null comment '专家账号',
+    EXPERT_FULL_NAME                varchar(100)        null comment '专家昵称',
+    SCORE_STATUS                    varchar(20)         null comment '评价状态',
+    SCORE_RESULT                    decimal(8, 4)       null comment '评价结果',
+    SCORE_TIME                      datetime            null comment '评价时间',
+
+    CREATED_ID                      bigint              not null comment '创建人ID',
+    CREATED_BY                      varchar(50)         not null comment '创建人',
+    CREATION_DATE                   datetime            not null comment '创建时间',
+    CREATED_BY_IP                   varchar(150)        not null comment '创建人IP',
+    CREATED_FULL_NAME               varchar(100)        null comment '创建人姓名',
+    LAST_UPDATED_ID                 bigint              null comment '最后更新人ID',
+    LAST_UPDATED_BY                 varchar(50)         null comment '更新人',
+    LAST_UPDATE_DATE                datetime            null comment '最后更新时间',
+    LAST_UPDATED_BY_IP              varchar(150)        null comment '最后更新人IP',
+    LAST_UPDATED_FULL_NAME          varchar(100)        null comment '最后更新人姓名',
+    TENANT_ID                       varchar(30)         null comment '租户ID',
+    VERSION                         bigint default 0    null comment '版本号'
+) comment '专家评审信息';
+
+create table scc_npm_sou_expert_score_line (
+    EXPERT_SCORE_LINE_ID            bigint              not null comment 'ID' primary key,
+    EXPERT_SCORE_ID                 bigint              not null comment '专家评审ID',
+    USER_ID                         bigint              null comment '用户ID',
+    USERNAME                        varchar(80)         null comment '用户账号',
+    NICKNAME                        varchar(150)        null comment '用户昵称',
+    GROUP_TYPE                      varchar(30)         null comment '用户职责',
+    SCORE                           decimal(8, 4)       null comment '评分',
+
+    CREATED_ID                      bigint              not null comment '创建人ID',
+    CREATED_BY                      varchar(50)         not null comment '创建人',
+    CREATION_DATE                   datetime            not null comment '创建时间',
+    CREATED_BY_IP                   varchar(150)        not null comment '创建人IP',
+    CREATED_FULL_NAME               varchar(100)        null comment '创建人姓名',
+    LAST_UPDATED_ID                 bigint              null comment '最后更新人ID',
+    LAST_UPDATED_BY                 varchar(50)         null comment '更新人',
+    LAST_UPDATE_DATE                datetime            null comment '最后更新时间',
+    LAST_UPDATED_BY_IP              varchar(150)        null comment '最后更新人IP',
+    LAST_UPDATED_FULL_NAME          varchar(100)        null comment '最后更新人姓名',
+    TENANT_ID                       varchar(30)         null comment '租户ID',
+    VERSION                         bigint default 0    null comment '版本号'
+) comment '专家评审明细';

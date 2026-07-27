@@ -1,0 +1,1 @@
+alter table scc_npm_sou_purinq_project add HAS_FIX_PRICE char(1) default 'N' null comment '是否已定价';

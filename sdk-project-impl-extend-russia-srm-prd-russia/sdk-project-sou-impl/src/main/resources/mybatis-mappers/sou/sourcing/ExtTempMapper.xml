@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.sourcing.init.mapper.ExtTempMapper">
+    <select id="list">
+        select *  from meicloud_usrm_cloud_biz_performance.scc_npm_project_score_header
+        where PERFORMANCE_TYPE = 'PROJECT'
+        <if test="list != null and list.size() > 0">
+          and  COMPANY_CODE in
+            <foreach collection="list" item="code" open="(" separator="," close=")">
+            #{code}
+        </foreach>
+        </if>
+        group by BID_CODE order by CALC_DATE desc
+    </select>
+    <select id="listProject">
+       <!-- select EXT_PROJECT_NO,TEL,SOU_NAME from meicloud_usrm_cloud_biz_sou.scc_sou_project
+
+        <if test="list != null and list.size() > 0">
+        <foreach collection="list" item="code" open="where EXT_PROJECT_NO in (" separator="," close=")">
+            #{code}
+        </foreach>
+        </if>-->
+        select EXT_PROJECT_NO,phone as tel,SOU_NAME from meicloud_usrm_cloud_biz_sou.scc_sou_project a
+        join meicloud_usrm_cloud_biz_sou.scc_sou_vendor b on a.PROJECT_ID = b.PROJECT_ID
+        <if test="list != null and list.size() > 0">
+            where EXT_PROJECT_NO in
+            <foreach collection="list" item="code" open="(" separator="," close=")">
+                #{code}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="queryScoreInfo" resultType="com.midea.cloud.srm.sou.req.vo.ProjectVO">
+        <foreach collection="vendorIdList" item="item" separator="union ALL">
+            SELECT * from (SELECT DISTINCT h.SCORE, h.LAST_UPDATE_DATE, h.PROJECT_NAME souName, h.BID_CODE EXT_PROJECT_NO, sp.SCORE_MAN_NAME linkmanName, u.PHONE, h.COMPANY_ID from meicloud_usrm_cloud_biz_performance.scc_npm_project_score_header h
+            left JOIN meicloud_usrm_cloud_biz_sou.scc_sou_project p on p.EXT_PROJECT_NO = h.BID_CODE
+            left join meicloud_usrm_cloud_biz_sou.scc_sou_vendor v on v.PROJECT_ID = p.PROJECT_ID and v.VENDOR_ID = h.COMPANY_ID
+            left join meicloud_usrm_cloud_biz_performance.scc_npm_project_score_items_person sp on sp.PROJECT_SCORE_ITEMS_ID=h.PROJECT_SCORE_ITEMS_ID
+            left join meicloud_usrm_cloud_rbac.scc_rbac_user u on u.USERNAME=sp.SCORE_MAN_ACCOUNT                                                                                                                                                                    where h.PERFORMANCE_TYPE='PROJECT'
+            and h.COMPANY_ID = #{item}
+            ORDER BY h.LAST_UPDATE_DATE DESC
+            limit 5 ) t
+        </foreach>
+    </select>
+</mapper>

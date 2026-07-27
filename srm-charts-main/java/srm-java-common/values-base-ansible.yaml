@@ -1,0 +1,122 @@
+global:
+  #环境
+  env: dev
+  #模块名
+  module: base
+  #--程序1参数
+app1:
+#--容器副本数量
+  replicas:
+    dev: 1
+#    pet: 2
+    default: 1
+#--容器需要外部访问，则设置为NodePort,设置为ClusterIP则限制只能容器内部访问
+  #type: NodePort
+  repository: hub.gwm.cn/feishengchancaigoushuzihuapingtai-test/srm/sdk-project-base-impl
+#--镜像标签
+  tag:
+    default: V3.0.6
+#--容器运行端口
+  #port:
+  clusterIP:
+    enable: true
+    ports:
+      - name: java-8831
+        port: 8831
+        protocol: TCP
+  nodePort:
+    enable:
+      dev: fase
+      sit: false
+      uat: false
+      prd: false
+      pet: false
+      default: false
+    ports:
+      - name: nodeport-8831
+        port: 8831
+        protocol: TCP
+#--容器外部访问端口
+        nodePort:
+          dev: 32048
+          sit: 33048
+          uat: 33048
+          pet: 35048
+          prd: 36048
+          default: 37048
+#--程序最大可用资源
+  limits:
+    cpu: 3000m
+    memory: 12Gi
+#--程序最少运行资源
+  requests:
+    cpu: 500m
+    memory: 1Gi
+#  command:
+#    command: /bin/sh
+#    args: run.sh app.jar
+#--启用configmap挂载文件，则设置enable为ture并填写挂载文件的路径，内容需在configmap.yaml文件修改
+  configmap:
+    enable: true
+    # 对应k8s configmap的name
+    name: srm-java-config
+    mounts:
+      # 挂载到镜像实例上的文件路径
+      - mountPath: /apps/conf/bootstrap-extenddev.yml
+        # configMap对应的data key
+        subPath: bootstrap-extenddev.yml
+      - mountPath: /apps/conf/bootstrap.yml
+        # configMap对应的data key
+        subPath: bootstrap.yml
+  #--如需创建持久卷,则设置enables为ture并填写卷的容量及挂载的路径
+  persistentvolumeclaim:
+#    enable: true
+    storage: 1Gi
+    mountpath: /apps/data
+  kvenv:
+    - key: JAVA_OPTS
+      val:
+        dev: -Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8 -agentlib:ByteCodeDecryptor -Xms2000m -Xmx2000m
+        default: -Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8 -agentlib:ByteCodeDecryptor -Xms10000m -Xmx10000m
+    - key: APP_OPTS
+      val:
+        default: --spring.config.additional-location=/apps/conf/
+  #    - key: JAVA_OPTS_enable
+  #      val: true
+  #    - key: APP_OPTS
+  #      val: --spring.cloud.nacos.discovery.server-addr=ip:8848 --spring.cloud.nacos.discovery.namespace=44662d3f-dcfa-452f-bdxxxxxxx #默认为空
+
+
+
+  secretenv:
+
+healthCheck:
+#  enabled: true
+  type: tcp  # http/tcp
+  port: 8831  # 健康检查的端口名或端口
+  httpPath: '/'  # http时必须设置
+  livenessInitialDelaySeconds: 60  # 初始延迟秒数
+  livenessPeriodSeconds: 5  # 检测周期，默认值10，最小为1
+  livenessfailureThreshold: 3 #探测成功后，最少连续探测失败多少次才被认定为失败。默认是3。最小值是1
+  livenesstimeoutSeconds: 2  #探针执行检测请求后，等待响应的超时时间，默认为 1s，单位“秒”，最小值是 1
+  livenesssuccessThreshold: 1  #探针检测失败后认为成功的最小连接成功次数，默认为 1，最小值为 1。
+  readinessInitialDelaySeconds: 60  # 初始延迟秒数
+  readinessPeriodSeconds: 5   # 检测周期，默认值10，最小为1
+  readinessfailureThreshold: 3 #探测成功后，最少连续探测失败多少次才被认定为失败。默认是3。最小值是1
+  readinesstimeoutSeconds: 2  #探针执行检测请求后，等待响应的超时时间，默认为 1s，单位“秒”，最小值是 1
+  readinesssuccessThreshold: 1  #探测失败后，最少连续探测成功多少次才被认定为成功。默认是1。对于liveness必须是1。最小值是1。
+
+skywalking:
+#  enable: false
+  JAVA_TOOL_OPTIONS: -javaagent:/usr/skywalking/agent/skywalking-agent.jar
+  BACKEND_SERVICES: skywalking-oap.skywalking.svc.cluster.local:11800
+
+
+tolerations:
+  enabled:
+    pet: true
+    default: false
+  keys:
+    - effect: NoSchedule
+      key: pet
+      value: true

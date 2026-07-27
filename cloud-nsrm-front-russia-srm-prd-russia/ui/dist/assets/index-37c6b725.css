@@ -1,0 +1,19 @@
+.tag-manage-container .vxe-cell--title {
+  order: 1;
+}
+.tag-manage-container .vxe-cell-help-icon {
+  order: 2;
+}
+.tag-manage-container .vxe-cell--sort {
+  order: 3;
+}
+.tag-manage-container .buttonArea .the_quick_search .quick-search-btn {
+  height: 22px;
+  top: 4px;
+}
+.tagmanage-barcodeRelation-dialog .render-form-container__fixed-footer {
+  position: relative;
+}
+.tagmanage-barcodeRelation-dialog .render-form-container__fixed-footer-content {
+  position: absolute;
+}

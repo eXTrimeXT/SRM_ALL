@@ -1,0 +1,14 @@
+.ladder-price-form-row[data-v-bc40e962] {
+  display: flex;
+  margin-bottom: 10px;
+}
+.ladder-price-form-row .form-col[data-v-bc40e962]:not(:last-child) {
+  margin-right: 30px;
+}
+.ladder-price-form-row .form-col[data-v-bc40e962] {
+  height: 30px;
+  line-height: 30px;
+}
+.ladder-price-form-row .form-col .label[data-v-bc40e962] {
+  padding-right: 15px;
+}

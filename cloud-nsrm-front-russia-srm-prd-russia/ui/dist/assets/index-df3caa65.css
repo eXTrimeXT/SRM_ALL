@@ -1,0 +1,28 @@
+.riskEdit[data-v-c4e0c865] {
+  height: 100%;
+}
+.riskEdit .sub_header[data-v-c4e0c865] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.riskEdit .el-table .el-date-editor[data-v-c4e0c865] {
+  width: 135px;
+}
+.riskEdit .toRequired[data-v-c4e0c865] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.riskEdit .edit_cond[data-v-c4e0c865] {
+  color: #23adf4;
+  cursor: pointer;
+}
+.riskEdit .rule[data-v-c4e0c865] {
+  cursor: pointer;
+}.risk_list .order-uploader[data-v-3af2acc1] {
+  display: inline-block;
+  margin: 0 10px;
+}
+.risk_list .block[data-v-3af2acc1] {
+  display: flex;
+  justify-content: center;
+}

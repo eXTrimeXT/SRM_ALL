@@ -1,0 +1,1 @@
+alter table scc_npm_sou_fix_price_head add HIGHEST_TAX_PRICE decimal(24,8) null comment '最高含税单价';

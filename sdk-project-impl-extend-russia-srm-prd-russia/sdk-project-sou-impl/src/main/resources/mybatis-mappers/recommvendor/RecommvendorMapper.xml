@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.meiql.recommvendor.mapper.RecommvendorMapper">
+    <select id="recommvendorQuickQuery" parameterType="com.midea.cloud.srm.model.sou.recommvendor.dto.RecommvendorQuickQueryParam" resultType="com.midea.cloud.srm.model.sou.recommvendor.dto.RecommvendorDto">
+        SELECT * FROM (
+                          SELECT DISTINCT a.VENDOR_ID vendorId, a.VENDOR_CODE vendorCode, v.COMPANY_NAME vendorName, a.APPLY_PHONE phone, a.APPLY_EMAIL email, a.APPLY_CONTACT_NAME linkmanName,
+                                          v.FOCUS_FLAG extIsMainPoint, '寻源需求' sourceType
+                          FROM meicloud_usrm_cloud_biz_sou.scc_npm_sou_req_head h
+                                   JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_req_apply a ON h.REQ_HEAD_ID = a.REQ_HEAD_ID AND a.APPLY_STATUS='SUCCESS_SIGNUP'
+                                   JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_demand d ON d.APPLICANT_NO = h.REQUIREMENT_HEAD_NO AND d.PROJECT_ID=#{projectId}
+                                   JOIN meicloud_usrm_cloud_biz_supplier.scc_sup_company_info v ON v.COMPANY_ID = a.VENDOR_ID
+
+                          UNION
+                          SELECT distinct v.COMPANY_ID vendorId, v.COMPANY_CODE vendorCode, v.COMPANY_NAME vendorName, i.CEEA_CONTACT_METHOD phone, i.EMAIL email, CONTACT_NAME linkmanName,
+                                          v.FOCUS_FLAG extIsMainPoint, '供应商库' sourceType
+                          FROM meicloud_usrm_cloud_biz_supplier.scc_sup_org_category c
+                                   LEFT JOIN meicloud_usrm_cloud_biz_supplier.scc_sup_company_info v ON v.COMPANY_ID = c.COMPANY_ID
+                                   LEFT JOIN meicloud_usrm_cloud_biz_supplier.scc_sup_contact_info i ON i.COMPANY_ID = v.COMPANY_ID
+                          WHERE
+                              c.COMPANY_STATUS IN ('IMPORTING', 'QUALIFIED')
+                            and c.CATEGORY_CODE = #{categoryCode}
+                            AND c.PJ_ORG_STATUS='Y'
+                            and v.TIME_LIMIT_FLAG = 'N'
+                            and v.IS_BACKLIST = 'N'
+                            and v.PJ_COMPANY_STATUS IN ('QUASI_SUPPLIER', 'OFFICIAL_SUPPLIER')
+                      ) t
+        <where>
+            <if test="vendorCode != null and vendorCode != ''">and t.vendorCode LIKE CONCAT('%', #{vendorCode}, '%')</if>
+            <if test="vendorName != null and vendorName != ''">and t.vendorName LIKE CONCAT('%', #{vendorName}, '%')</if>
+        </where>
+        GROUP BY t.vendorId
+        ORDER BY sourceType DESC
+    </select>
+
+    <select id="queryExceptionSupplier" parameterType="map"
+            resultType="com.midea.cloud.srm.model.sou.recommvendor.dto.ExceptionSupplierDto">
+        select v.COMPANY_ID, v.COMPANY_CODE, v.COMPANY_NAME, v.LEGAL_PERSON, c.CONTACT_NAME, c.CEEA_CONTACT_METHOD,
+        c.EMAIL
+        from meicloud_usrm_cloud_biz_supplier.scc_sup_company_info v
+        left join meicloud_usrm_cloud_biz_supplier.scc_sup_contact_info c on c.CEEA_DEFAULT_CONTACT='Y' and c.COMPANY_ID = v.COMPANY_ID
+        where
+        1=1
+        and (
+        c.CONTACT_NAME IN
+        <foreach collection="contactNameList" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        or v.LEGAL_PERSON IN
+        <foreach collection="contactNameList" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        <if test="ceeaContactMethodList != null and ceeaContactMethodList.size() > 0">
+            or c.CEEA_CONTACT_METHOD IN
+            <foreach collection="ceeaContactMethodList" item="item" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="emailList != null and emailList.size() > 0">
+            or c.EMAIL IN
+            <foreach collection="emailList" item="item" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        )
+        and (v.FOCUS_FLAG = 'Y' or v.KEY_SUPERVISION_FLAG = 'Y' or v.POSITION_LIMIT_FLAG = 'Y'
+        or v.IS_BACKLIST = 'Y' or v.TIME_LIMIT_FLAG = 'Y' or v.CATEGORY_LIMIT_FLAG = 'Y')
+    </select>
+
+    <select id="queryNoticeInfo" parameterType="map" resultType="com.midea.cloud.srm.model.sou.recommvendor.dto.RecommvendorSouNoticeInfoDto">
+        <foreach collection="projectList" separator="UNION ALL" item="item">
+            select * from (
+            SELECT
+            p.PROJECT_ID,
+            p.EXT_PROJECT_NO,
+            p.SOU_NAME,
+            p.EXT_CATEGORY_ID,
+            p.PROJECT_STATUS,
+            d.vendor_id,
+            d.vendor_code,
+            d.vendor_name
+            FROM
+            scc_sou_project p
+            JOIN scc_npm_sou_bid_notice n ON n.project_id = p.PROJECT_ID
+            AND n.type = 'APPLY'
+            AND n.`status` = 'APPROVED'
+            AND n.creation_date > #{item.creationDate}
+            JOIN scc_npm_sou_bid_notice_detail d ON d.bid_notice_id = n.bid_notice_id
+            AND d.is_win = 'Y'
+            WHERE
+            p.SOU_TYPE = 'bid'
+            AND p.PROJECT_STATUS IN ( 'ARCHIVE_TODO', 'ARCHIVE_DONE' )
+            AND p.EXT_CATEGORY_ID = #{item.extCategoryId}
+            ORDER BY
+            p.PROJECT_ID DESC
+            LIMIT 10 ) t
+        </foreach>
+    </select>
+</mapper>

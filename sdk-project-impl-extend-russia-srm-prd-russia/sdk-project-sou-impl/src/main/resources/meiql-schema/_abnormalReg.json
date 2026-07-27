@@ -1,0 +1,55 @@
+{
+  "_version": "1.0",
+  "_type": "base",
+  "abnormalRegFields:scc_npm_sou_abnormal_reg": {
+    "comment": "招标异常登记表",
+    "keyField" : "regId",
+    "fields" : {
+      "regId": "Long:异常登记表主键ID",
+      "projectId": "Long:招标ID",
+      "extProjectNo": "String:招标项目编号",
+      "regStatus": "String:异常登记状态，字典（NPM_ABNORMAL_REG_STATUS）",
+      "souName": "String:项目名称",
+      "feedbackTime": "Date:反馈时间",
+      "abnormalTime": "Date:异常发生时间",
+      "souPrincipalId": "Long:招标负责人ID",
+      "souPrincipalNo": "String:招标负责人账号",
+      "souPrincipalName": "String:招标负责人",
+      "departmentId": "String:招标负责人科室ID",
+      "departmentName": "String:招标负责人科室",
+      "vendorPrincipalId": "Long:供应商负责人ID",
+      "vendorPrincipalNo": "String:供应商负责人账号",
+      "vendorPrincipalName": "String:供应商负责人",
+      "vendorId": "String:供应商ID",
+      "vendorCode": "String:供应商编码",
+      "vendorName": "String:供应商名称",
+      "abnormalType": "String:异常类型(字典NPM_SOU_ABNORMAL_TYPE)",
+      "abnormalDesc": "String:具体情况描述",
+      "handlingResult": "String:处理结果",
+      "abandonInstruction":"String:作废说明",
+      "fileId": {
+        "type": "String",
+        "desc": "附件ID",
+        "virtual": true
+      },
+      "fileName": {
+        "type": "String",
+        "desc": "附件名称",
+        "virtual": true
+      },
+      "@include": ":BaseFields"
+    }
+  },
+  "abnormalFileFields:scc_npm_sou_abnormal_file": {
+    "comment": "招标异常登记附件表",
+    "keyField": "abnormalFileId",
+    "fields": {
+      "abnormalFileId": "Long:异常登记附件表主键ID",
+      "regId": "Long:异常登记表主键ID",
+      "fileId": "Long:附件ID",
+      "fileName": "String:附件名称",
+      "@include": ":BaseFields"
+    }
+  }
+
+}

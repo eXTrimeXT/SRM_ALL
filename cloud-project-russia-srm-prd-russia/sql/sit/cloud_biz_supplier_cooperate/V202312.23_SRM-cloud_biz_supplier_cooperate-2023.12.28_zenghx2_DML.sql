@@ -1,0 +1,2 @@
+alter table scc_npm_pr_recent_purchase_data CHANGE column WARRANTY_PERIOD WARRANTY_PERIOD int comment '质保期';
+alter table scc_pr_requirement_line CHANGE column EXT_WARRANTY_PERIOD EXT_WARRANTY_PERIOD int comment '质保期';

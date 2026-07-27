@@ -1,0 +1,55 @@
+<meiql _version="1.0" _type="standard">
+    <type name="SouReqHeadBuyer">
+        <validators>
+            <action name="save,create">
+                <validator type="request" msg="参数必填：板块ID">
+                    ql.notEmpty($rec["orgBuId"])
+                </validator>
+                <validator type="request" msg="参数必填：板块编码">
+                    ql.notEmpty($rec["orgBuCode"])
+                </validator>
+                <validator type="request" msg="参数必填：板块名称">
+                    ql.notEmpty($rec["orgBuName"])
+                </validator>
+                <validator type="request" msg="参数必填：公司ID">
+                    ql.notEmpty($rec["orgId"])
+                </validator>
+                <validator type="request" msg="参数必填：公司编码">
+                    ql.notEmpty($rec["orgCode"])
+                </validator>
+                <validator type="request" msg="参数必填：公司名称">
+                    ql.notEmpty($rec["orgName"])
+                </validator>
+            </action>
+            <action name="updatePublicEndTime">
+                <validator type="request" msg="参数必填：reqHeadId">
+                    ql.notEmpty($rec["reqHeadId"])
+                </validator>
+                <validator type="request" msg="参数必填：publicEndTime">
+                    ql.notEmpty($rec["publicEndTime"])
+                </validator>
+                <!--只能报名截止之前允许调整时间-->
+                <validator type="request" msg="调整失败：接受报名中状态才允许调整。">
+                    c = ql.newCond();
+                    ql.cond.eq(c,"status","ACCEPT_SIGNUP");
+                    ql.cond.eq(c,"reqHeadId",$rec["reqHeadId"]);
+                    existRec = ql.query("SouReqHeadBuyer",c);
+                    return ql.ge(count(existRec),0);
+                </validator>
+                <!--调整时间不可早于当前时间。-->
+                <validator type="request" msg="调整失败：调整时间不可早于当前时间。">
+                    return ql.ge($rec["publicEndTime"],ql.nowDateTime());
+                </validator>
+            </action>
+
+            <action name="cancelPublic">
+                <validator type="request" msg="参数必填：reqHeadId">
+                    ql.notEmpty($rec["reqHeadId"])
+                </validator>
+                <validator type="request" msg="关闭公示原因不能为空。">
+                    ql.notEmpty($rec["closePublicReason"])
+                </validator>
+            </action>
+        </validators>
+    </type>
+</meiql>

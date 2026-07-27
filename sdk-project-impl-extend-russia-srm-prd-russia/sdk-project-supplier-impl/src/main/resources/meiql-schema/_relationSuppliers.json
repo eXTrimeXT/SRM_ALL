@@ -1,0 +1,21 @@
+{
+  "_version": "1.0",
+  "_type": "base",
+  "RelationSuppliersFields": {
+    "keyField": "associationId",
+    "fields": {
+      "associationId": "Long:主键",
+      "vendorIdA": "Long:A供应商ID",
+      "vendorCodeA": "String:A供应商编码",
+      "vendorNameA": "String:vendorNameA",
+      "vendorIdB": "Long:B供应商ID",
+      "vendorCodeB": "String:B供应商编码",
+      "vendorNameB": "String:vendorNameB",
+      "associationType": "String:类型",
+      "associationRemark": "String:关联关系备注",
+      "socialCreditCodeA": "String:供应商A唯一社会信用代码",
+      "socialCreditCodeB": "String:供应商B唯一社会信用代码",
+      "@include": ":BaseFields"
+    }
+  }
+}

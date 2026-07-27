@@ -1,0 +1,21 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "VendorBigdata:scc_npm_sou_vendor_bigdata" : {
+    "keyField" : "vendorDataId",
+    "comment":"供应商爬虫接口缓存表",
+    "fields" : {
+      "@include": ":VendorBigdataFields"
+    },
+    "relations" : {
+      "vendorBiglinkList": "[VendorBiglink:vendorId]"
+    }
+  },
+  "VendorBiglink:scc_npm_sou_vendor_biglink" : {
+    "keyField" : "vendorLinkId",
+    "comment":"供应商爬虫接口人员缓存表",
+    "fields" : {
+      "@include": ":VendorBiglinkFields"
+    }
+  }
+}

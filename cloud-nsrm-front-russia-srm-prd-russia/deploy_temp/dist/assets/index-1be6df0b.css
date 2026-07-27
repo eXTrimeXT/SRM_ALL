@@ -1,0 +1,55 @@
+.main-padding[data-v-db66967b] {
+  padding: 15px;
+}
+.main-padding[data-v-db66967b] .el-form-item__label {
+  text-align: left;
+}
+.surveyTitle[data-v-db66967b] {
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+  font-size: 14px;
+  color: #1c2438;
+  font-weight: 700;
+}
+.question-list[data-v-db66967b] {
+  margin-top: 20px;
+  padding-bottom: 30px;
+  border-top: 1px solid #e6e9ec;
+}
+.question-listBOx[data-v-db66967b] {
+  border-bottom: 1px solid #e6e9ec;
+  padding: 16px 10px 20px;
+  font-size: 14px;
+  line-height: 30px;
+}
+.question-listBOx[data-v-db66967b] .el-radio-group {
+  line-height: 28px;
+  width: 100%;
+}
+.question-listBOx[data-v-db66967b] .el-textarea {
+  width: 90%;
+}
+.question-listBOx[data-v-db66967b] .el-radio__input.is-disabled + span.el-radio__label {
+  color: #606266;
+}
+.question-listBOx[data-v-db66967b] .el-button {
+  min-width: 40px;
+  padding: 0;
+  text-align: right;
+}
+.listBOx-q[data-v-db66967b] {
+  display: flex;
+  align-items: center;
+}
+.mg-l-16[data-v-db66967b] {
+  padding: 16px;
+}
+.mg-l-20[data-v-db66967b] {
+  padding-left: 20px;
+}
+.mg-l-header[data-v-db66967b] {
+  font-size: 12px;
+  color: #606266;
+  height: 36px;
+}

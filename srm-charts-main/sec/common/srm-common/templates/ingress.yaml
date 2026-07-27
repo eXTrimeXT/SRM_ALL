@@ -1,0 +1,29 @@
+{{- if .Values.global.ingress.enable }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 500M
+  name: {{ .Values.global.domain }}
+  namespace: srm-{{ .Values.global.env }}
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: {{ .Values.global.domain }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: srm-js-supplierfront-{{ .Values.global.env }}
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-sec-{{ .Values.global.env }}
+                port:
+                  number: 9006
+            path: /cloud-srm
+            pathType: Prefix
+{{- end }}

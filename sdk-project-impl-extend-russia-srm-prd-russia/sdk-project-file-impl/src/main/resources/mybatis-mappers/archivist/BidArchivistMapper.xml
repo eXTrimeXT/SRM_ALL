@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.file.archivist.mapper.BidArchivistMapper">
+
+    <select id="querySouDemand" resultType="com.midea.cloud.srm.model.sou.sourcing.entity.ExtSouDemand">
+        SELECT DISTINCT d.APPLICANT_NO from meicloud_usrm_cloud_biz_sou.scc_sou_project p
+                                                JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_demand d on d.PROJECT_ID = p.PROJECT_ID
+        where d.PROJECT_ID = #{projectId}
+    </select>
+
+    <select id="queryRequirementFileId" resultType="long">
+        SELECT DISTINCT a.FILE_ID from meicloud_usrm_cloud_biz_supplier_cooperate.scc_pr_requirement_head h
+                                           JOIN meicloud_usrm_cloud_biz_supplier_cooperate.scc_npm_pr_require_attach a on a.REQUIREMENT_HEAD_ID = h.REQUIREMENT_HEAD_ID
+
+        where h.REQUIREMENT_HEAD_NUM IN
+            <foreach collection="requirementHeadNumList" item="item" open="(" separator="," close=")">#{item}</foreach>
+    </select>
+
+    <select id="queryDataSubmitFileId" resultType="long">
+        SELECT DISTINCT s.FILEUPLOAD_ID from meicloud_usrm_cloud_biz_sou.scc_npm_bid_data_submit ds
+                                                 JOIN meicloud_usrm_cloud_biz_base.scc_base_scene_file s on s.BUSINESS_ID = ds.data_submit_id
+            and s.SCENE_MODULE_CODE='SCENE_BID_DATA_SUBMIT_ATTACHMENT'
+        where ds.REQUIREMENT_HEAD_NUM IN
+            <foreach collection="requirementHeadNumList" item="item" open="(" separator="," close=")">#{item}</foreach>
+          and ds.`STATUS` ='APPROVED'
+    </select>
+
+    <select id="queryOrderFile" resultType="map">
+        SELECT DISTINCT v.VENDOR_NAME vendorName, f.ORDER_DOC_ID orderDocId from meicloud_usrm_cloud_biz_sou.scc_sou_order_file f
+                                                                                     JOIN meicloud_usrm_cloud_biz_sou.scc_sou_vendor v on v.VENDOR_ID = f.VENDOR_ID and f.PROJECT_ID = v.PROJECT_ID AND v.PROJECT_ID = #{projectId}
+        where f.FILE_TYPE IN ('TECH_BID', 'BUS_BID', 'TECH_QUA_PERF', 'TECH_OTHER', 'BUS_OTHER', 'BUSINESS_FILE')
+    </select>
+
+    <select id="queryQuestionFileId" resultType="map">
+        SELECT DISTINCT s.FILEUPLOAD_ID fileuploadId, q.VENDOR_NAME vendorName  from meicloud_usrm_cloud_biz_sou.scc_sou_question q
+                                                 join meicloud_usrm_cloud_biz_base.scc_base_scene_file s on s.SCENE_MODULE_CODE='SCENE_SOU_QUESTION_FILE_ATTACHMENT' and s.BUSINESS_ID = q.QUESTION_ID
+        where q.PROJECT_ID = #{projectId}
+    </select>
+
+    <select id="queryMarginFileId" resultType="map">
+        SELECT DISTINCT m.PAY_VOUCHER_FILE_ID payVoucherFileId,m.VENDOR_NAME vendorName from meicloud_usrm_cloud_biz_sou.scc_npm_sou_margin m
+        where m.PROJECT_ID =#{projectId}
+          and m.PAY_VOUCHER_FILE_ID is not NULL
+    </select>
+
+    <select id="queryAnswerFileId" resultType="long">
+        SELECT DISTINCT s.FILEUPLOAD_ID from meicloud_usrm_cloud_biz_sou.scc_sou_answer a
+                                                 JOIN meicloud_usrm_cloud_biz_base.scc_base_scene_file s on s.SCENE_MODULE_CODE
+                                                                                                                IN ('SCENE_SOU_QUESTION_FILE_ATTACHMENT' , 'SCENE_SOU_ANSWER_INNER_FILE_ATTACHMENT','SCENE_SOU_ANSWER_REPLAY_FILE_ATTACHMENT')
+            and s.BUSINESS_ID = a.ANSWER_ID
+        where a.PROJECT_ID =#{projectId}
+    </select>
+
+    <select id="queryCaFileId" resultType="long">
+        SELECT DISTINCT s.FILEUPLOAD_ID from meicloud_usrm_cloud_biz_sou.scc_npm_sou_ca c
+                                                 join meicloud_usrm_cloud_biz_base.scc_base_scene_file s on s.BUSINESS_ID = c.ca_id and s.SCENE_MODULE_CODE='SCENE_SOU_CA_ATTACHMENT'
+        where
+            c.type = 'APPLY'
+          and c.`status` = 'APPROVED'
+          and c.project_id = #{projectId}
+    </select>
+
+    <select id="querySouFileId" resultType="map">
+        SELECT DISTINCT f.FILE_TYPE fileType, f.sou_doc_id souDocId from meicloud_usrm_cloud_biz_sou.scc_sou_file f
+        where f.FILE_TYPE IN ('APPLY', 'BID','ARCHIVE','TALK')
+          and f.PROJECT_ID = #{projectId}
+    </select>
+
+    <select id="queryInspectFileId" resultType="long">
+        SELECT DISTINCT a.ATTACH_ID from meicloud_usrm_cloud_biz_sou.scc_npm_inspect_attach a
+                                             JOIN meicloud_usrm_cloud_biz_sou.scc_npm_inspect p on p.INSPECT_ID = a.INSPECT_ID
+        where p.BIDING_ID = #{projectId}
+    </select>
+
+    <select id="queryNoticeFileId" resultType="long">
+        SELECT i.attachment_id fileId from meicloud_usrm_cloud_biz_sou.scc_npm_sou_bid_notice_internal i
+                                               join meicloud_usrm_cloud_biz_sou.scc_npm_sou_bid_notice n on n.bid_notice_id = i.bid_notice_id
+            and n.type = 'APPLY' and n.`status` ='APPROVED' and n.project_id = #{projectId}
+
+        UNION ALL
+        SELECT i.notice_attachment_id fileId from meicloud_usrm_cloud_biz_sou.scc_npm_sou_bid_notice_detail i
+                                                      join meicloud_usrm_cloud_biz_sou.scc_npm_sou_bid_notice n on n.bid_notice_id = i.bid_notice_id
+            and n.type = 'APPLY' and n.`status` ='APPROVED' and n.project_id = #{projectId}
+    </select>
+
+    <select id="queryRecomFileId" resultType="long">
+        select DISTINCT f.SOU_DOC_ID from meicloud_usrm_cloud_biz_sou.scc_sou_project p
+                                              join meicloud_usrm_cloud_biz_sou.scc_npm_sou_demand d on d.PROJECT_ID = p.PROJECT_ID
+                                              join meicloud_usrm_cloud_biz_sou.scc_sou_file f on f.PROJECT_ID = p.PROJECT_ID
+        where p.SOU_TYPE='recomm' and p.PROJECT_STATUS='APPROVED'
+          and p.PROJECT_ID = #{projectId}
+    </select>
+
+    <select id="queryPreFileId" resultType="long">
+        SELECT DISTINCT s.FILEUPLOAD_ID from meicloud_usrm_cloud_biz_sou.scc_npm_pre_bid_notice p
+                                                 join meicloud_usrm_cloud_biz_base.scc_base_scene_file s on s.SCENE_MODULE_CODE
+                                                                                                                = 'PRE_BID_COMM_EDIT_ATTACHMENT'
+            and s.BUSINESS_ID = p.BID_NOTICE_ID
+        where p.REQUIREMENT_HEAD_NO IN
+        <foreach collection="requirementHeadNumList" item="item" open="(" separator="," close=")">#{item}</foreach>
+    </select>
+
+    <select id="queryFileuploadByIds" resultType="com.midea.cloud.srm.model.sou.file.upload.entity.Fileupload">
+        SELECT distinct f.FILEUPLOAD_ID fileuploadId, f.FILE_FULLNAME fileFullname, f.FILE_SOURCE_NAME fileSourceName from meicloud_usrm_cloud_biz_base.scc_file_fileupload f
+        where f.FILEUPLOAD_ID IN
+        <foreach collection="fileuploadIdList" item="item" open="(" separator="," close=")">#{item}</foreach>
+    </select>
+
+    <select id="queryProjectById" resultType="com.midea.cloud.srm.model.sou.sourcing.entity.ExtSouProject">
+        SELECT p.EXT_PROJECT_NO from meicloud_usrm_cloud_biz_sou.scc_sou_project p
+        where p.PROJECT_ID = #{projectId}
+    </select>
+</mapper>

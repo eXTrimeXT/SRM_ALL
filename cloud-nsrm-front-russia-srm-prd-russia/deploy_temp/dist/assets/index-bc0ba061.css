@@ -1,0 +1,42 @@
+.tableForm[data-v-7afc856e] {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+}
+.tableForm .el-table[data-v-7afc856e] {
+  height: 100%;
+}
+.butHeader[data-v-7afc856e] {
+  padding: 10px;
+}
+.header[data-v-7afc856e] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header .tabs[data-v-7afc856e] {
+  display: flex;
+}
+.header .tabs .btn[data-v-7afc856e] {
+  font-size: 12px;
+  padding: 0px 0 4px;
+  font-weight: normal;
+  height: 24px;
+  line-height: 24px;
+  cursor: pointer;
+  box-sizing: content-box;
+  color: #393E45;
+}
+.header .tabs .btn.active[data-v-7afc856e] {
+  border-bottom: 2px solid #0077FF;
+  color: #0077FF;
+  font-weight: bold;
+}
+.header .tabs .btn + .btn[data-v-7afc856e] {
+  margin-left: 32px;
+}
+.header .tabs .btn[data-v-7afc856e]:hover {
+  color: #0077FF;
+}

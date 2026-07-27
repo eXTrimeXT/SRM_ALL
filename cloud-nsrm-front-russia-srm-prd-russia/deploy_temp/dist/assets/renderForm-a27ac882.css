@@ -1,0 +1,20 @@
+.optDiv[data-v-4a393206] {
+  padding: 5px 0;
+}
+.fileInfoDiv[data-v-4a393206] {
+  padding: 10px 0;
+}
+.toRequired[data-v-4a393206] {
+  color: red;
+  margin-right: 3px;
+}
+.formRenderFile[data-v-4a393206] {
+  padding-top: 28px;
+}
+.formRenderFile .c-upload-file[data-v-4a393206] {
+  justify-content: left !important;
+}
+.renderForm[data-v-4a393206] .red-color input,
+.renderForm[data-v-4a393206] .red-color select {
+  color: red !important;
+}

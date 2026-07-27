@@ -1,0 +1,1 @@
+alter table scc_npm_company_exception_info modify EXCEPTION_INFO text null comment '组织/品类异常信息';

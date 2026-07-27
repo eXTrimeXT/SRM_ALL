@@ -1,0 +1,101 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "BidPriceController": {
+    "batchSize": 500,
+    "threshold": 500,
+    "validator": "bidPriceImportValidator",
+    "sheets": [
+      {
+        "model": "SouBidPrice",
+        "sheetName": "招标价格库明细模板",
+        "heads": {
+          "projectNo": {
+            "title": "招标项目编号"
+          },
+          "souName": {
+            "title": "项目名称"
+          },
+          "categoryName": {
+            "title": "品类"
+          },
+          "itemDesc": {
+            "title": "名称"
+          },
+          "productType": {
+            "title": "产品类型"
+          },
+          "productConfig": {
+            "title": "产品配置"
+          },
+          "specification": {
+            "title": "规格/型号"
+          },
+          "brand": {
+            "title": "品牌"
+          },
+          "feature": {
+            "title": "项目特征"
+          },
+          "constructionItem": {
+            "title": "施工内容"
+          },
+          "quantity": {
+            "title": "数量/工程量"
+          },
+          "priceNoTax": {
+            "title": "未税单价（万元）"
+          },
+          "priceSumNoTax": {
+            "title": "未税总价（万元）"
+          },
+          "priceTax": {
+            "title": "含税单价（万元）"
+          },
+          "priceSumTax": {
+            "title": "含税总价（万元）"
+          },
+          "invoiceType": {
+            "title": "发票类型"
+          },
+          "taxRate": {
+            "title": "税率（%）"
+          },
+          "currency": {
+            "title": "币种"
+          },
+          "bidSection": {
+            "title": "标段"
+          },
+          "region": {
+            "title": "区域"
+          },
+          "unit": {
+            "title": "单位"
+          },
+          "requireQuantity": {
+            "title": "暂定数量/工程量"
+          },
+          "subitem": {
+            "title": "分项"
+          },
+          "fixedPriceNoTax": {
+            "title": "固定未税单价（万元）"
+          },
+          "provPriceSumNoTax": {
+            "title": "暂定未税总价（万元）"
+          },
+          "fixedPriceTax": {
+            "title": "固定含税单价（万元）"
+          },
+          "provPriceSumTax": {
+            "title": "暂定含税总价（万元）"
+          },
+          "remark": {
+            "title": "备注"
+          }
+        }
+      }
+    ]
+  }
+}

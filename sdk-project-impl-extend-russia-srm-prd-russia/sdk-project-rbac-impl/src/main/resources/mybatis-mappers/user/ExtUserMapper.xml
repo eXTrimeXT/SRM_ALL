@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.rbac.user.mapper.ExtUserMapper">
+
+
+    <select id="listUserRoleByParam" resultType="com.midea.cloud.srm.model.rbac.user.dto.UserRoleRespDTO">
+    select
+        ruser.USER_ID,
+        ruser.COMPANY_ID,
+        ruser.USERNAME,
+        ruser.NICKNAME,
+        ruser.PHONE,
+        ruser.EMAIL,
+        ruser.CEEA_EMP_NO,
+        ruser.CEEA_COMPANY,
+        ruser.CEEA_COMPANY_DESCR,
+        ruser.CEEA_DEPTID,
+        ruser.DEPARTMENT,
+        ruser.CEEA_JOBCODE,
+        ruser.CEEA_JOBCODE_DESCR,
+        ruser.USER_TYPE,
+        ruser.MAIN_TYPE,
+        ruser.CEEA_PO_AGENT_NUMBER,
+        ruser.CEEA_PO_AGENT_NAME,
+        ruser.IS_CONFIRM,
+        ruser.CREATED_ID,
+        ruser.CREATED_BY,
+        ruser.CREATION_DATE,
+        ruser.CREATED_BY_IP,
+        ruser.CREATED_FULL_NAME,
+        ruser.LAST_UPDATED_ID,
+        ruser.LAST_UPDATED_BY,
+        ruser.LAST_UPDATE_DATE,
+        ruser.LAST_UPDATED_BY_IP,
+        ruser.LAST_UPDATED_FULL_NAME,
+        ruser.VERSION,
+        ruser.PASSWORD_END_DATE,
+        ruser.SYN_IAM_STATUS,
+        rbac_role.ROLE_ID,
+        rbac_role.ROLE_CODE,
+        rbac_role.ROLE_TYPE,
+        role_user.START_DATE,
+        role_user.END_DATE
+    from
+    scc_rbac_user ruser
+    left join scc_rbac_role_user role_user on
+    ruser.USER_ID=role_user.USER_ID
+    left join scc_rbac_role rbac_role on
+    role_user.ROLE_ID  = rbac_role.ROLE_ID
+    <where>
+    <if test="roleName !=null and roleName !=''">
+        and exists (
+        select 1 from scc_rbac_role_language role_language  where role_language.role_id = rbac_role.role_id
+        and role_language.ROLE_NAME  like concat('%',#{roleName},'%')
+        )
+    </if>
+    <if test="null != companyId">
+        and ruser.COMPANY_ID = #{companyId}
+    </if>
+    <if test="null != userId">
+        and ruser.USER_ID = #{userId}
+    </if>
+    <if test="null != username and username !=''">
+        and ruser.USERNAME  like concat('%',#{username},'%')
+    </if>
+    <if test="null != nickname and nickname !=''">
+        and ruser.NICKNAME  like concat('%',#{nickname},'%')
+    </if>
+    <if test="null != phone and phone !=''">
+        and ruser.PHONE  like concat('%',#{phone},'%')
+    </if>
+    <if test="null != userType and userType !=''">
+        and ruser.USER_TYPE = #{userType}
+    </if>
+    <if test="null != startDate">
+        <![CDATA[ and ruser.START_DATE >= #{startDate} ]]>
+    </if>
+    <if test="null != endDate">
+        <![CDATA[ and ruser.END_DATE <= #{endDate} ]]>
+    </if>
+        <if test="null != roleCode">
+            and rbac_role.ROLE_CODE = #{roleCode}
+        </if>
+        <if test="null != roleType">
+            and rbac_role.ROLE_TYPE = #{roleType}
+        </if>
+    </where>
+        order by ruser.LAST_UPDATE_DATE
+
+    </select>
+
+    <update id="updateCompanyId" parameterType="com.midea.cloud.srm.model.rbac.user.entity.User">
+        update scc_rbac_user
+        <set>
+            <if test="companyId!= null">
+                COMPANY_ID = #{companyId},
+            </if>
+            <if test="mainType!= null">
+                MAIN_TYPE = #{mainType},
+            </if>
+            <if test="email!= null">
+                EMAIL = #{email},
+            </if>
+            <if test="department!= null">
+                DEPARTMENT = #{department},
+            </if>
+            <if test="ceeaDeptId!= null">
+                CEEA_DEPTID = #{ceeaDeptId},
+            </if>
+            <if test="startDate!= null">
+                START_DATE = #{startDate},
+            </if>
+            <if test="endDate!= null">
+                END_DATE = #{endDate},
+            </if>
+        </set>
+        where USERNAME=#{username}
+    </update>
+</mapper>

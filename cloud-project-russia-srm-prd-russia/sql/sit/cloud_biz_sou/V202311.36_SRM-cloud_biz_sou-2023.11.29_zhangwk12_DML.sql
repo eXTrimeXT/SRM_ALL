@@ -1,0 +1,1 @@
+alter table scc_sou_inq_order_item add LATEST_PRICE_TAG char default 'Y' not null comment '是否最新报价';

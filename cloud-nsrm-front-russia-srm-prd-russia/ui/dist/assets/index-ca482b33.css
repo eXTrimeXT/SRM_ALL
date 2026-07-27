@@ -1,0 +1,30 @@
+.the-vendorGreenChannelDetail-detail .sub_header[data-v-ab7ecbbe] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.the-vendorGreenChannelDetail-detail .el-table .el-date-editor[data-v-ab7ecbbe] {
+  width: 135px;
+}
+.the-vendorGreenChannelDetail-detail .btn_line[data-v-ab7ecbbe] {
+  margin: 0 0 10px 0;
+}
+.the-vendorGreenChannelDetail-detail .importbtn[data-v-ab7ecbbe] .el-button {
+  min-width: 56px;
+  height: 24px;
+  line-height: 22px;
+  font-size: 14px;
+  border-radius: 2px;
+  padding: 1px 14px;
+}
+.the-vendorGreenChannelDetail-detail .input-number-precision[data-v-ab7ecbbe] {
+  width: 100%;
+}
+.the-vendorGreenChannelDetail-detail .input-number-precision[data-v-ab7ecbbe] .el-input__inner {
+  text-align: left;
+  padding-left: 8px;
+}
+.the-vendorGreenChannelDetail-detail .col-btn[data-v-ab7ecbbe] {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.designplans.mapper.PaaAdjustMapper">
+
+    <select id="getAdjustList" parameterType="com.midea.cloud.srm.model.sou.designplans.entity.SccSouChPaaAdjust" resultType="com.midea.cloud.srm.model.sou.designplans.dto.PaaAdjustDto">
+        SELECT
+        just.ADJUST_ID AS adjustId,
+        just.DESIGN_ID AS designId,
+        just.ADJUST_CODE AS adjustCode,
+        just.ADJUST_NAME AS adjustName,
+        just.STATUS AS status,
+        just.JC_ID AS jcId,
+        just.JC_CODE AS jcCode,
+        just.NUM AS num,
+        just.EXECUTE_DATE_START AS executeDateStart,
+        just.EXECUTE_DATE_END AS executeDateEnd,
+        just.ADJUST_TYPE AS adjustType,
+        plan.DESIGN_ID AS designId,
+        just.LAST_UPDATE_DATE AS lastUpdateDate,
+        just.CREATED_BY AS createdBy,
+        just.CREATION_DATE AS creationDate,
+        just.CREATE_UNIT_ID AS createUnitId,
+        just.CREATE_UNIT_CODE AS createUnitCode,
+        just.CREATE_UNIT_NAME AS createUnitName,
+        just.CREATED_FULL_NAME AS createdFullName
+        FROM
+        scc_sou_ch_paa_adjust just left join scc_sou_ch_design_plan plan
+        ON just.JC_ID = plan.PROJECT_ID
+        <where>
+            <if test="obj.adjustCode != null and obj.adjustCode != ''">
+                AND just.ADJUST_CODE = #{obj.adjustCode,jdbcType=VARCHAR}
+            </if>
+            <if test="obj.adjustName != null and obj.adjustName != ''">
+                AND just.ADJUST_NAME = #{obj.adjustName,jdbcType=VARCHAR}
+            </if>
+            <if test="obj.createdBy != null and obj.createdBy != ''">
+                AND just.CREATED_BY = #{obj.createdBy,jdbcType=VARCHAR}
+            </if>
+            <if test="obj.creationDate != null">
+                AND just.CREATION_DATE <![CDATA[=]]> #{obj.creationDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="obj.executeDateStart != null">
+                AND just.EXECUTE_DATE_START <![CDATA[>=]]> #{obj.executeDateStart,jdbcType=TIMESTAMP}
+            </if>
+            <if test="obj.executeDateEnd != null">
+                AND just.EXECUTE_DATE_END <![CDATA[<=]]> #{obj.executeDateEnd,jdbcType=TIMESTAMP}
+            </if>
+            <if test="obj.jcId != null and obj.jcId != ''">
+                AND just.JC_ID = #{obj.jcId,jdbcType=VARCHAR}
+            </if>
+            <if test="obj.jcCode != null and obj.jcCode != ''">
+                AND just.JC_CODE = #{obj.jcCode,jdbcType=VARCHAR}
+            </if>
+            <if test="obj.status != null and obj.status != ''">
+                AND just.STATUS = #{obj.status,jdbcType=VARCHAR}
+            </if>
+            <if test="obj.createUnitId != null and obj.createUnitId != ''">
+                AND just.CREATE_UNIT_ID = #{obj.createUnitId,jdbcType=VARCHAR}
+            </if>
+            <if test="obj.createUnitCode != null and obj.createUnitCode != ''">
+                AND just.CREATE_UNIT_CODE = #{obj.createUnitCode,jdbcType=VARCHAR}
+            </if>
+            <if test="obj.createUnitName != null and obj.createUserOrgOuName != ''">
+                AND just.CREATE_UNIT_NAME = #{obj.createUnitName,jdbcType=VARCHAR}
+            </if>
+            <if test="obj.createdFullName != null and obj.createdFullName != ''">
+                AND just.CREATED_FULL_NAME = #{obj.createdFullName,jdbcType=VARCHAR}
+            </if>
+            <if test="obj.adjustType != null and obj.adjustType != ''">
+                AND just.ADJUST_TYPE = #{obj.adjustType,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,15 @@
+.bond-pay-info .el-row[data-v-8ea24366] {
+  margin-bottom: 11px;
+}
+.bond-pay-info .el-row .info-col[data-v-8ea24366] {
+  font-size: 14px;
+  position: relative;
+  line-height: 30px;
+  min-height: 30px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.bond-pay-info .el-row .info-col span[data-v-8ea24366] {
+  padding-right: 10px;
+}

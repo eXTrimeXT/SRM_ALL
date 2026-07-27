@@ -1,0 +1,1 @@
+alter table scc_npm_sou_purinq_item modify BRAND varchar(255) null comment '品牌';

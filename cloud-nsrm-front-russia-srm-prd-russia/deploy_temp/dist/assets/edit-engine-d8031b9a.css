@@ -1,0 +1,15 @@
+
+.info-fill-progress{
+  position: fixed;
+  width: 210px;
+  top: 104px;
+  right: 0px;
+  bottom: 0px;
+}
+.contractMg {
+  overflow: auto;
+  padding-right: 181px;
+}
+.order-form-contain .contract-progress{
+  top: 64px
+}

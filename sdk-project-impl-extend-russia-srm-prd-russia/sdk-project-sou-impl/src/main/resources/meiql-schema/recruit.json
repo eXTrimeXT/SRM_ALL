@@ -1,0 +1,45 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "Recruit:scc_npm_recruit": {
+    "comment": "招募",
+    "repository": "recruitRepository",
+    "keyField": "recruitId",
+    "fields": {
+      "@include": ":recruitFields"
+    },
+    "relations" : {
+      "contentList":"[RecruitContent:recruitId]",
+      "vendorList":"[RecruitVendor:recruitId]",
+      "fileList": "[RecruitFile:recruitId]"
+    }
+  },
+  "RecruitContent:scc_npm_recruit_content": {
+    "comment": "招募内容",
+    "keyField": "recruitContentId",
+    "fields": {
+      "@include": ":recruitContentFields"
+    },
+    "relations" : {
+    }
+  },
+  "RecruitVendor:scc_npm_recruit_vendor": {
+    "comment": "招募供应商",
+    "repository": "recruitVendorRepository",
+    "keyField": "recruitVendorId",
+    "fields": {
+      "@include": ":recruitVendorFields"
+    },
+    "relations" : {
+    }
+  },
+  "RecruitFile:scc_npm_recruit_file": {
+    "comment": "招募附件表",
+    "keyField": "recruitFileId",
+    "fields": {
+      "@include": ":recruitFileFields"
+    },
+    "relations" : {
+    }
+  }
+}

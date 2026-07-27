@@ -1,0 +1,17 @@
+.the-sourcingApplicationDetail-detail[data-v-a7cde80a] .el-table td.el-table__cell div {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.the-sourcingApplicationDetail-detail[data-v-a7cde80a] .el-select__tags {
+  overflow-x: auto;
+  flex-wrap: nowrap;
+}
+.the-sourcingApplicationDetail-detail[data-v-a7cde80a] .el-tag {
+  height: 16px;
+  line-height: 16px;
+}.province-select-block ul.el-select-dropdown__list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+}

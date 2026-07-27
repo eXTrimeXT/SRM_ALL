@@ -1,0 +1,83 @@
+{
+  "_version": "1.0",
+  "_type": "base",
+  "inspectFields:scc_npm_inspect": {
+    "comment": "考察申请",
+    "keyField" : "inspectId",
+    "fields" : {
+      "inspectId" : "Long:主键id",
+      "inspectNum" : "String:考察申请单号",
+      "reportNum" : "String:考察报告单号",
+      "inspectStatus" : "String:状态",
+      "reasonDesc": "String:取消原因",
+      "bidingId" : "Long:招标项目ID",
+      "bidingNum" : "String:招标项目编码",
+      "bidingName" : "String:招标项目名称",
+      "bidingHead" : "String:招标项目负责人",
+      "bidingTechHead" : "String:招标技术负责人",
+      "bidingDepartmentFlag" : "String:招标部是否参加，Y/N",
+      "orgBuId" : "Long:板块ID",
+      "orgBuCode" : "String:板块编码",
+      "orgBuName" : "String:板块名称",
+      "orgId" : "Long:业务实体ID",
+      "orgCode" : "String:业务实体编码",
+      "orgName" : "String:业务实体名称",
+      "departmentId" : "Long:部门id",
+      "departmentCode" : "String:部门编码",
+      "departmentName" : "String:部门名称",
+      "comeType" : "String:出行方式",
+      "comment" : "String:备注（拟参加人员）",
+      "leaderEvaluation" : "String:组长评估意见",
+      "@include": ":BaseFields"
+    }
+  },
+  "inspectVendorFields:scc_npm_inspect_vendor": {
+    "comment": "考察单位",
+    "keyField" : "inspectVendorId",
+    "fields" : {
+      "inspectVendorId" : "Long:主键id",
+      "inspectId" : "Long:考察申请id",
+      "vendorId" : "Long:供应商ID",
+      "vendorName" : "String:供应商名称",
+      "vendorCode" : "String:供应商编码",
+      "inspectAddress" : "String:地点",
+      "inspectCause" : "String:考察原因",
+      "inspectTime" : "Date:考察时间",
+      "inspectContent" : "String:考察内容",
+      "manageEvaluate" : "String:现场管理评价",
+      "deviceEvaluate" : "String:生产设备评价",
+      "staffEvaluate" : "String:人员状况",
+      "performanceEvaluate" : "String:绩效情况",
+      "comprehensiveEvaluation" : "String:综合评估意见",
+      "comment" : "String:其他方面",
+      "@include": ":BaseFields"
+    }
+  },
+  "inspectUserFields:scc_npm_inspect_user": {
+    "comment": "考察人员",
+    "keyField" : "inspectUserId",
+    "fields" : {
+      "inspectUserId" : "Long:主键id",
+      "inspectId" : "Long:考察申请id",
+      "userId" : "Long:用户id",
+      "username" : "String:用户姓名",
+      "company" : "String:单位",
+      "department" : "String:部门",
+      "jobDesc" : "String:岗位",
+      "bidFlag" : "String:是否评标组成员,Y/N",
+      "responsibility" : "String:负责内容",
+      "@include": ":BaseFields"
+    }
+  },
+  "inspectAttachFields:scc_npm_inspect_attach": {
+    "comment": "考察附件",
+    "keyField" : "inspectAttachId",
+    "fields" : {
+      "inspectAttachId" : "Long:主键id",
+      "inspectId" : "Long:考察申请id",
+      "attachId" : "Long:附件ID",
+      "attachName" : "String:附件名称",
+      "@include": ":BaseFields"
+    }
+  }
+}

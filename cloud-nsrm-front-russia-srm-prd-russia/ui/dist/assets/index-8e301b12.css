@@ -1,0 +1,161 @@
+.registration-notes[data-v-aa51be1e] {
+  padding: 0 178px;
+}
+.registration-notes .notes-title[data-v-aa51be1e] {
+  font-size: 14px;
+  line-height: 24px;
+  color: #161C24;
+  text-align: center;
+  font-weight: bold;
+}
+.registration-notes .notes-content[data-v-aa51be1e] {
+  padding: 16px;
+  font-size: 12px;
+  line-height: 20px;
+  color: #51555B;
+  border: 1px solid #DCDDDE;
+  border-radius: 4px;
+  margin: 15px 0 10px;
+  max-height: 395px;
+  overflow-y: auto;
+}
+.registration-notes .notes-content h3[data-v-aa51be1e] {
+  margin: 0 0 10px;
+}
+.registration-notes .notes-content p[data-v-aa51be1e] {
+  margin: 0;
+  text-indent: 2em;
+}
+.registration-notes .do-aggree[data-v-aa51be1e] {
+  height: 30px;
+  margin-bottom: 5px;
+}
+.registration-notes .do-aggree .to-login[data-v-aa51be1e] {
+  float: right;
+}
+.boldUnderline[data-v-aa51be1e] {
+  font-weight: 600;
+  text-decoration: underline;
+}
+h4[data-v-aa51be1e] {
+  margin: 4px 0 !important;
+}.registration-account .el-button {
+  border-radius: 4px;
+}
+.registration-account .el-input__inner {
+  border-radius: 4px;
+}
+.registration-account .account-form-content {
+  padding: 45px 0;
+}
+.registration-account .account-form-content .el-form {
+  width: 420px;
+  margin: 0 auto;
+}
+.registration-account .account-form-content .el-form .el-form-item__label {
+  line-height: 32px;
+}
+.registration-account .account-form-content .el-form .el-form-item {
+  margin-bottom: 24px;
+}
+.registration-account .account-form-content .el-form .el-form-item .el-input.el-input--small {
+  height: 32px;
+}
+.registration-account .account-form-content .el-form .el-form-item .el-input.el-input--small .el-input__inner {
+  height: 32px;
+}
+.registration-account .account-form-content .el-form .el-form-item .el-button {
+  height: 32px;
+  height: 32px;
+}
+.registration-account .account-form-content .el-form .el-form-item .el-button.to-login {
+  float: right;
+}
+.registration-account .verify-type-tow .send-reg-code {
+  padding-left: 5px;
+}
+.registration-account .verify-type-tow .send-reg-code > .el-button {
+  width: 100%;
+}.reg-succes[data-v-1f88db3b] {
+  width: 365px;
+  margin: 50px auto;
+  text-align: center;
+}
+.reg-succes .success-title[data-v-1f88db3b] {
+  font-size: 18px;
+  color: #52BB26;
+  line-height: 26px;
+  font-weight: 500;
+}
+.reg-succes .success-des[data-v-1f88db3b] {
+  font-size: 14px;
+  color: #51555B;
+  text-align: center;
+  line-height: 22px;
+  margin-bottom: 30px;
+}
+.reg-succes .success-icon[data-v-1f88db3b] {
+  display: inline-block;
+  text-align: center;
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  background: rgba(82, 187, 38, 0.2);
+  border-radius: 50%;
+}
+.reg-succes .success-icon .el-icon-success[data-v-1f88db3b] {
+  color: #52BB26;
+  font-size: 60px;
+}.registered-page[data-v-a4a889ec] {
+  height: 100%;
+  background-image: url("/srm/assets/reg-bulletinBoard-080c27fe.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-color: #edeff2;
+}
+.registered-page .inner-content[data-v-a4a889ec] {
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  margin: auto;
+}
+.registered-page .company-info-out[data-v-a4a889ec] {
+  width: 80%;
+  max-width: 1100px !important;
+  left: -62px;
+}
+.registered-page .reg-header[data-v-a4a889ec] {
+  height: 120px;
+  position: relative;
+  z-index: 1;
+}
+.registered-page .reg-header img[data-v-a4a889ec] {
+  border: none;
+}
+.registered-page .reg-header img.reg-logo[data-v-a4a889ec] {
+  position: absolute;
+  left: 2px;
+  top: 20px;
+}
+.registered-page .reg-header .reg-title[data-v-a4a889ec] {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  left: 0;
+  right: 0;
+  top: 45px;
+  font-size: 24px;
+  line-height: 32px;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+.registered-page .reg-main-info[data-v-a4a889ec] {
+  background: #FFFFFF;
+  position: relative;
+  padding: 16px;
+  padding-bottom: 80px;
+  z-index: 3px;
+}
+.registered-page .reg-main-info .reg-steps[data-v-a4a889ec] {
+  padding: 30px 100px;
+}

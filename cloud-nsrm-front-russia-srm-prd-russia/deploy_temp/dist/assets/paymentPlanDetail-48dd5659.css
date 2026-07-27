@@ -1,0 +1,30 @@
+.the-paymentPlanDetail-detail .form-container2[data-v-fab772f1] {
+  padding: 5px;
+}
+.the-paymentPlanDetail-detail .sub_header[data-v-fab772f1] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.the-paymentPlanDetail-detail .el-table .el-date-editor[data-v-fab772f1] {
+  width: 135px;
+}
+.the-paymentPlanDetail-detail .btn_line[data-v-fab772f1] {
+  margin: 0 0 10px 0;
+}
+.the-paymentPlanDetail-detail .the_TableView[data-v-fab772f1] {
+  padding: 0;
+}
+.the-paymentPlanDetail-detail .invoice-table[data-v-fab772f1] {
+  max-height: 200px;
+}
+.the-paymentPlanDetail-detail .topComment[data-v-fab772f1] {
+  margin-top: 15px;
+  float: right;
+}
+.the-paymentPlanDetail-detail .input-number-precision[data-v-fab772f1] {
+  width: 100%;
+}
+.the-paymentPlanDetail-detail .input-number-precision[data-v-fab772f1] .el-input__inner {
+  text-align: left;
+  padding-left: 8px;
+}

@@ -1,0 +1,84 @@
+
+.iconsWrapper[data-v-2db361b3] {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.checked[data-v-2db361b3] {
+  border: 1px solid #999;
+}
+.iconCommon[data-v-2db361b3] {
+  width: 50px;
+  height: 50px;
+  font-size: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.form-container[data-v-a7c618c9] {
+  height: 100%;
+  overflow: auto;
+}
+.buttonAddAndReduce[data-v-a7c618c9] {
+  color: #96999C;
+  font-size: 18px;
+  line-height: 28px;
+  margin: 0 5px;
+  cursor: pointer;
+}/* 拖拽相关样式 */
+/*包围div样式*/
+.box[data-v-9384eaf2] {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.box[data-v-9384eaf2] ::-webkit-scrollbar {
+  width: 7px !important;
+}
+
+/*左侧div样式*/
+.left[data-v-9384eaf2] {
+  width: calc(20% - 10px); /*左侧初始化宽度*/
+  height: 100%;
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+  padding-left: 0;
+  padding-right: 7px !important;
+}
+.left .el-tree[data-v-9384eaf2] {
+  overflow-x: hidden;
+}
+
+/*拖拽区div样式*/
+.resize[data-v-9384eaf2] {
+  cursor: col-resize;
+  position: absolute;
+  top: 36%;
+  right: 0px;
+  background-color: #d6d6d6;
+  border-radius: 5px;
+  margin-top: -10px;
+  width: 8px;
+  height: 42px;
+  background-size: cover;
+  background-position: center;
+  /*z-index: 99999;*/
+  font-size: 30px;
+  color: white;
+}
+
+/*拖拽区鼠标悬停样式*/
+.resize[data-v-9384eaf2]:hover {
+  color: #444444;
+}
+
+/*右侧div'样式*/
+.mid[data-v-9384eaf2] {
+  width: 80%; /*右侧初始化宽度*/
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: -1px 4px 5px 3px rgba(0, 0, 0, 0.11);
+}

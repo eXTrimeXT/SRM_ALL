@@ -1,0 +1,1 @@
+ALTER TABLE scc_pr_requirement_head ADD EXT_EXPECT_TOTAL_AMOUNT DECIMAL(30,8) COMMENT '预估总金额';

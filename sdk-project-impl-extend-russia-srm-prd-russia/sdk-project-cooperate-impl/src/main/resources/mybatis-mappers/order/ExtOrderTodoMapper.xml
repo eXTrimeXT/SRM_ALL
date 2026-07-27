@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.supcooperate.ext.order.mapper.ExtOrderTodoMapper">
+
+    <select id="listDeliveryTodoList" resultType="com.midea.cloud.srm.model.suppliercooperate.order.entry.Order">
+        select DISTINCT o.ORDER_ID from scc_sc_order o
+                                            JOIN scc_sc_order_detail d on d.ORDER_ID = o.ORDER_ID
+        where ((o.ORDER_STATUS IN ('APPROVED') and IFNULL(o.EXT_STATUS,'') = '')  or o.EXT_STATUS IN ('ONGOING'))  and o.VENDOR_ID=#{vendorId}
+          and d.ORDER_NUM > d.DELIVERY_NOTICE_QUANTITY
+          and o.EXT_ORDER_PROPERTY != 'SERVICE'
+    </select>
+
+    <select id="getMaterialListByPa" resultType="com.midea.cloud.srm.model.supcooperate.entity.SccScOrderPriceTrendsLine">
+        SELECT
+            min(t.noTaxPrices) AS noTaxPrice,
+            concat(t.materialCode, '-', t.areaCode) AS materialArea,
+            t.*
+        FROM
+            (
+                SELECT
+                    DATE_FORMAT(a.CREATION_DATE, '%Y-%m') AS ym,
+                    a.CEEA_UNIT_NO_TAX_PRICE AS noTaxPrices,
+                    a.MATERIAL_CODE AS materialCode,
+                    a.MATERIAL_NAME AS materialName,
+                    (
+                    SELECT
+                        sbdi.DICT_ITEM_NAME
+                    FROM
+                        meicloud_usrm_cloud_biz_base.scc_base_dict_item sbdi
+                        LEFT JOIN meicloud_usrm_cloud_biz_base.scc_base_dict sbd ON sbdi.DICT_ID = sbd.DICT_ID
+                    WHERE
+                        sbd.DICT_CODE = 'REGION'
+                        AND sbd.`LANGUAGE` = 'zh_CN'
+                        AND sbdi.DICT_ITEM_CODE = a.EXT_AREA_CODE) AS areaCode,
+                    a.EXT_BRAND AS brand,
+                    a.COMMENTS AS materialDescribe,
+                    b.CEEA_ORG_CODE AS orgCode,
+                    b.CEEA_ORG_NAME AS orgNmae,
+                    a.CEEA_TAX_RATE AS taxPrice,
+                    a.DELIVERY_DATE AS leadTime,
+                    b.VENDOR_CODE AS supCode,
+                    b.VENDOR_NAME AS supName,
+                    b.EXT_VENDOR_PHONE AS supTel,
+                    a.CREATION_DATE AS orderDate
+                FROM
+                    scc_sc_order_detail a
+                    LEFT JOIN scc_sc_order b ON a.ORDER_ID = b.ORDER_ID
+                WHERE
+                    a.MATERIAL_CODE IS NOT NULL
+                    AND a.MATERIAL_CODE != ''
+                    AND a.EXT_AREA_CODE IS NOT NULL
+                    AND a.EXT_AREA_CODE != ''
+                    <if test="localMoth != null and localMoth != ''">
+                        AND DATE_FORMAT(a.CREATION_DATE, '%Y-%m') = #{localMoth,jdbcType=VARCHAR}
+                    </if>
+                UNION ALL
+                    SELECT
+                        DATE_FORMAT(ssoh.ORDER_DATE , '%Y-%m') AS ym,
+                        ssoh.NO_TAX_PRICE AS noTaxPrices,
+                        ssoh.MATERIAL_CODE AS materialCode,
+                        ssoh.MATERIAL_NAME AS materialName,
+                        ssoh.AREA_CODE AS areaCode,
+                        ssoh.BRAND AS brand,
+                        ssoh.MATERIAL_DESCRIBE AS materialDescribe,
+                        ssoh.ORG_CODE AS orgCode,
+                        ssoh.ORG_NAME AS orgNmae,
+                        ssoh.TAX_RATE AS taxPrice,
+                        ssoh.LEAD_TIME AS leadTime,
+                        ssoh.SUP_CODE AS supCode,
+                        ssoh.SUP_NAME AS supName,
+                        ssoh.SUP_TEL AS supTel,
+                        ssoh.ORDER_DATE AS orderDate
+                    FROM
+                        scc_sc_order_history ssoh
+                    <where>
+                        <if test="localMoth != null and localMoth != ''">
+                            AND DATE_FORMAT(ssoh.ORDER_DATE, '%Y-%m') = #{localMoth,jdbcType=VARCHAR}
+                        </if>
+                    </where>
+            ) t
+        WHERE
+            concat(t.materialCode, '-', t.areaCode) IS NOT NULL
+        GROUP BY
+            t.materialCode,
+            t.areaCode,
+            t.ym
+    </select>
+</mapper>

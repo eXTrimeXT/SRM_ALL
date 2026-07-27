@@ -1,0 +1,3 @@
+ALTER TABLE `scc_npm_sou_intention_deposit_invoice`
+    ADD COLUMN `SETTLE_DOCUMENT_CODE` VARCHAR(50) NULL DEFAULT NULL COMMENT '结算单据编码' COLLATE 'utf8mb4_general_ci',
+    ADD COLUMN `CREATE_INVOICE_STATUS` VARCHAR(5) NULL DEFAULT NULL COMMENT '开具状态' COLLATE 'utf8mb4_general_ci';

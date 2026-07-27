@@ -1,0 +1,1 @@
+alter table scc_npm_sou_inq_vendor_round add VENDOR_ID bigint not null comment '供应商ID';

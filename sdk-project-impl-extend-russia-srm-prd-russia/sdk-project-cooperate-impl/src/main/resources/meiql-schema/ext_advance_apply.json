@@ -1,0 +1,13 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "AdvanceApplyDetail": {
+    "comment": "对账单明细",
+    "keyField": "advanceApplyDetailId",
+    "fields": {
+    },
+    "relations": {
+      "advanceApplyId": "AdvanceApply"
+    }
+  }
+}

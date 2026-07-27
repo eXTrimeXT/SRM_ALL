@@ -1,0 +1,301 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "SupplierController": {
+    "batchSize": 500,
+    "threshold": 500,
+    "validator": "pjCompanyInfoImportValidator",
+    "processor": "pjCompanyInfoImportProcessor",
+    "sheets": [
+      {
+        "model": "CompanyInfo",
+        "sheetName": "供应商基础数据",
+        "heads": {
+          "companyCode": {
+            "title": "供应商编码（MDM）*",
+            "required": true
+          },
+          "overseasRelation": {
+            "title": "境内外关系"
+          },
+          "companyTypeName": {
+            "title": "企业性质"
+          },
+          "companyName": {
+            "title": "供应商名称*",
+            "required": true
+          },
+          "companyEnName": {
+            "title": "企业英文名称"
+          },
+          "registeredCapital": {
+            "title": "注册资本（万元）"
+          },
+          "registCurrencyName": {
+            "title": "注册资本币种"
+          },
+          "companyCreationDate": {
+            "title": "成立日期"
+          },
+          "lcCode": {
+            "title": "统一社会信用代码*",
+            "required": true
+          },
+          "legalPerson": {
+            "title": "法定代表人"
+          },
+          "ifLongPeriod": {
+            "title": "是否长期（是：营业日期必填）"
+          },
+          "businessStartDate": {
+            "title": "营业日期从"
+          },
+          "businessEndDate": {
+            "title": "营业日期至"
+          },
+          "businessScope": {
+            "title": "营业范围*",
+            "required": true
+          },
+          "ceeaBusinessModel": {
+            "title": "商业模式"
+          },
+          "ceeaIfListed": {
+            "title": "是否上市"
+          },
+          "ceeaListedTime": {
+            "title": "上市时间"
+          },
+          "companyCountry": {
+            "title": "营业地址（国家/地区）"
+          },
+          "companyProvince": {
+            "title": "省份/州"
+          },
+          "companyCity": {
+            "title": "城市"
+          },
+          "companyAddress": {
+            "title": "详细地址"
+          },
+          "ceeaHasParentCompany": {
+            "title": "是否有集团"
+          },
+          "ceeaParentCompanyName": {
+            "title": "集团名称"
+          },
+          "groupCountry": {
+            "title": "集团所属国家"
+          },
+          "ceeaAgentBrand": {
+            "title": "品牌"
+          },
+          "ceeaCompanyIntro": {
+            "title": "企业简介"
+          },
+          "pjCompanyStatus": {
+            "title": "供应商状态"
+          },
+          "gscpStatus": {
+            "title": "gscp状态"
+          },
+          "focusFlag": {
+            "title": "是否重点关注"
+          },
+          "keySupervisionFlag": {
+            "title": "是否重点监督"
+          },
+          "biddingFlag": {
+            "title": "是否竞价"
+          },
+          "contractVerification": {
+            "title": "是否进行锲约验证"
+          },
+          "accountGroup": {
+            "title": "账户组"
+          },
+          "partner": {
+            "title": "贸易伙伴（内部供应商标识）"
+          }
+        }
+      },
+      {
+        "model": "ContactInfo",
+        "sheetName": "联系人数据",
+        "heads": {
+          "companyName": {
+            "title": "供应商名称*",
+            "required": true
+          },
+          "contactName": {
+            "title": "姓名*",
+            "required": true
+          },
+          "ceeaGender": {
+            "title": "性别"
+          },
+          "ceeaDeptName": {
+            "title": "部门"
+          },
+          "position": {
+            "title": "职位"
+          },
+          "ceeaContactMethod": {
+            "title": "联系方式*",
+            "required": true
+          },
+          "email": {
+            "title": "邮箱"
+          },
+          "ceeaDefaultContact": {
+            "title": "是否默认联系人*",
+            "required": true
+          }
+        }
+      },
+      {
+        "model": "BankInfo",
+        "sheetName": "银行数据",
+        "heads": {
+          "companyName": {
+            "title": "供应商名称*",
+            "required": true
+          },
+          "bankCode": {
+            "title": "银行代码*",
+            "required": true
+          },
+          "bankName": {
+            "title": "银行名称"
+          },
+          "unionCode": {
+            "title": "联行号(12位)"
+          },
+          "openingBank": {
+            "title": "开户行名称*",
+            "required": true
+          },
+          "bankAccountName": {
+            "title": "账户名称*",
+            "required": true
+          },
+          "bankAccount": {
+            "title": "银行账号*",
+            "required": true
+          },
+          "currencyName": {
+            "title": "币种"
+          },
+          "ceeaMainAccount": {
+            "title": "主账户"
+          }
+        }
+      },
+      {
+        "model": "User",
+        "sheetName": "供应商账号信息",
+        "heads": {
+          "companyName": {
+            "title": "供应商名称*",
+            "required": true
+          },
+          "username": {
+            "title": "用户名账户*",
+            "required": true
+          },
+          "nickname": {
+            "title": "用户名"
+          },
+          "phone": {
+            "title": "电话*",
+            "required": true
+          },
+          "email": {
+            "title": "邮箱*",
+            "required": true
+          },
+          "ceeaJobcodeDescr": {
+            "title": "职位"
+          },
+          "mainType": {
+            "title": "是否主账户*",
+            "required": true
+          }
+        }
+      },
+      {
+        "model": "OrgCategory",
+        "sheetName": "合作信息",
+        "heads": {
+          "companyName": {
+            "title": "供应商名称*",
+            "required": true
+          },
+          "orgName": {
+            "title": "组织名称*",
+            "required": true
+          },
+          "categoryCode": {
+            "title": "品类编码*",
+            "required": true
+          }
+        }
+      },
+      {
+        "model": "npmCompanySize",
+        "sheetName": "公司规模",
+        "heads": {
+          "companyName": {
+            "title": "供应商名称*",
+            "required": true
+          },
+          "totalNumber": {
+            "title": "总人数"
+          },
+          "socialSecurityNumber": {
+            "title": "社保人数"
+          },
+          "managementNumber": {
+            "title": "管理人员"
+          },
+          "developerNumber": {
+            "title": "研发人员"
+          },
+          "productionNumber": {
+            "title": "生产人员"
+          },
+          "overUndergraduateNumber": {
+            "title": "本科学历及以上"
+          }
+        }
+      },
+      {
+        "model": "npmSerciceCustom",
+        "sheetName": "服务范围",
+        "heads": {
+          "companyName": {
+            "title": "供应商名称*",
+            "required": true
+          },
+          "categoryCode": {
+            "title": "品类编码*",
+            "required": true
+          },
+          "categoryName": {
+            "title": "品类名称*",
+            "required": true
+          },
+          "contactName": {
+            "title": "联系人"
+          },
+          "performanceAmount": {
+            "title": "业绩额(万元)"
+          },
+          "mainCustom": {
+            "title": "主要客户"
+          }
+        }
+      }
+    ]
+  }
+}

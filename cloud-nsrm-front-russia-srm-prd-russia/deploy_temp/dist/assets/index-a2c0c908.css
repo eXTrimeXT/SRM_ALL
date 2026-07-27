@@ -1,0 +1,34 @@
+.questManagementDetail[data-v-5df55c4c] {
+  height: 100%;
+}
+.questManagementDetail .el-main[data-v-5df55c4c] {
+  padding-bottom: 50px;
+}
+.questManagementDetail .sub_header[data-v-5df55c4c] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.questManagementDetail .el-table .el-date-editor[data-v-5df55c4c] {
+  width: 135px;
+}
+.questManagementDetail .base-form[data-v-5df55c4c] {
+  padding: 15px 30px 0;
+}
+.questManagementDetail .toRequired[data-v-5df55c4c] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.questManagementDetail .edit_cond[data-v-5df55c4c] {
+  color: #23adf4;
+  cursor: pointer;
+}
+.chart[data-v-5df55c4c] {
+  margin-top: 10px;
+  display: flex;
+}
+.chart div[data-v-5df55c4c] {
+  width: 600px;
+  height: 400px;
+}.red-color span {
+  color: red !important;
+}

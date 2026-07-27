@@ -1,0 +1,22 @@
+.off-cursor[data-v-b3a2168b] {
+  cursor: pointer;
+}
+.search-po[data-v-b3a2168b] {
+  float: right;
+}
+[data-v-b3a2168b] .el-input__clear {
+  font-size: 12px;
+  width: 12px;
+}
+[data-v-b3a2168b] .el-input__suffix {
+  height: 28px;
+  padding: 0 4px;
+  color: #96999c;
+  line-height: 28px;
+  margin: 1px 0;
+}
+[data-v-b3a2168b] .el-input__suffix:hover {
+  color: #0077ff;
+  border-color: #96999c;
+  background-color: #f6f6f6;
+}

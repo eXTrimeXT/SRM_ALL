@@ -1,0 +1,21 @@
+{{- if .Values.app1.clusterIP.enable }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: srm-js-{{ .Values.global.module }}-{{ .Values.global.env }}
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: srm-js-{{ .Values.global.module }}-{{ .Values.global.env }}
+#    version: v1
+spec:
+  type: ClusterIP
+  selector:
+    app: srm-js-{{ .Values.global.module }}-{{ .Values.global.env }}
+  ports:
+  {{- range .Values.app1.clusterIP.ports }}
+  - name: {{ .name }}
+    port: {{ .port }}
+    targetPort: {{ .port }}
+    protocol: {{ .protocol }}
+  {{- end }}
+{{- end }}

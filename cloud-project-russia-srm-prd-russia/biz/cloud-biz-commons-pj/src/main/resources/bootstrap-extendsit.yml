@@ -1,0 +1,41 @@
+# sit环境配置
+spring:
+  cloud:
+    config:
+      profile: sit
+    #      name: application-extendsit,${spring.application.name}
+    nacos:
+      discovery:
+        # 命名空间，注册到srm-sit环境
+        namespace: srm-project-sit
+        # 注册中心地址
+        server-addr: http://10.16.87.99:8801
+        metadata:
+          # feign微服务调用路由策略标签分组
+          routingTag: sit
+      config:
+        # 命名空间，获取srm-sit命名空间的配置文件
+        namespace: srm-project-sit
+        # 配置中心地址
+        server-addr: http://10.16.87.99:8801
+
+# 微服务feign调用自定义路由策略，优先按照标签组[微服务元数据metadata.routingTag值]调用
+ribbon:
+  rule: tag
+
+# swagger文档
+knife4j:
+  production: false
+
+# eureka 切换到 nacos 注册中心，下面部分注释掉的配置忽略
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://10.18.210.85:8761/eureka/
+#  instance:
+#    metadata-map:
+#      routingTag: sit
+#      internalAnonPassword: ${spring.cloud.client.hostname}-${spring.cloud.client.ip-address}-${server.port}-${sysRandom:CsaWljuYd1}
+#      externalAnonPassword: ${spring.cloud.client.hostname}-${spring.cloud.client.ip-address}-${server.port}-${sysRandom:uqlWlqcW*9}
+
+

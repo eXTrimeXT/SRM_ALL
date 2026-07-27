@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.supcooperate.ext.requirement.pr.mapper.ExtFixPriceTimelinessRatioMapper">
+    <select id="list">
+        select
+        cp.CREATE_USER_ORG_OU_NAME,
+            cp.FIX_PRICE_STATUS ,
+        cl.ORDER_QUANTITY,
+            cl.REQUIREMENT_HEAD_NUM,
+            cl.EXT_BUY_TYPE,
+            cp.CREATED_FULL_NAME,
+            cp.CREATED_BY,
+            cl.REQUIREMENT_HEAD_NUM,
+            cl.ORG_NAME,
+            cl.EXT_USE_DEPARTMENT_NAME,
+            ch.EXT_APPROVE_TIME,
+            cl.MATERIAL_CODE,
+            cl.MATERIAL_NAME,
+        ch.AUDIT_STATUS,
+            cl.EXT_MATERIAL_MODEL,
+            cl.UNIT,
+            cl.BRAND,
+            ce.VENDOR_NAME,
+            cl.REQUIREMENT_DATE,
+            cl.REQUIREMENT_QUANTITY,
+            cl.EXT_CLOSED_CAUSE,
+            ch.AUDIT_STATUS,
+            cl.EXT_POOL_STATUS,
+            cl.EXT_BUY_TYPE,
+            cp.FIX_PRICE_NO,
+            cp.CREATION_DATE
+        from
+            meicloud_usrm_cloud_biz_supplier_cooperate.scc_pr_requirement_head ch
+                left join
+            meicloud_usrm_cloud_biz_supplier_cooperate.scc_pr_requirement_line cl
+            on ch.REQUIREMENT_HEAD_ID =cl.REQUIREMENT_HEAD_ID and ch.EXT_APPROVE_TIME is not null
+                left join
+            meicloud_usrm_cloud_biz_sou.scc_npm_sou_fix_price_line ce
+            ON
+                (ce.SOURCE_FROM_ID=cl.EXT_INQ_PROJECT_ID OR ce.SOURCE_FROM_NO=cl.REQUIREMENT_HEAD_ID)
+                    AND ce.ITEM_ID=cl.MATERIAL_ID
+                left join
+            meicloud_usrm_cloud_biz_sou.scc_npm_sou_fix_price_head cp
+            on
+                cp.FIX_PRICE_HEAD_ID=ce.FIX_PRICE_HEAD_ID
+        where
+            cl.FIX_PRICE_STATUS='PRICE_END'
+        <if test="createUserOrgOuName!=null and createUserOrgOuName!= ''">
+            and  cp.CREATE_USER_ORG_OU_NAME like  concat('%',#{createUserOrgOuName},'%')
+        </if>
+        <if test="createdBy!=null and createdBy!= ''">
+            and  cp.CREATED_BY like  concat('%',#{createdBy},'%')
+        </if>
+        <if test="createdFullName!=null and createdFullName!= ''">
+            and  cp.CREATED_FULL_NAME like  concat('%',#{createdFullName},'%')
+        </if>
+        <if test="orgName!=null and orgName!= ''">
+            and cl.ORG_NAME like  concat('%',#{orgName},'%')
+        </if>
+        <if test="extClosedCause!=null and extClosedCause!= ''">
+            and cl.EXT_CLOSED_CAUSE like  concat('%',#{extClosedCause},'%')
+        </if>
+        <if test="extUseDepartmentName!=null and extUseDepartmentName!= ''">
+            and cl.EXT_USE_DEPARTMENT_NAME like  concat('%',#{extUseDepartmentName},'%')
+        </if>
+        <if test="materialCode!=null and materialCode!= ''">
+            and cl.MATERIAL_CODE like  concat('%',#{materialCode},'%')
+        </if>
+        <if test="vendorName!=null and vendorName!= ''">
+            and ce.VENDOR_NAME like  concat('%',#{vendorName},'%')
+        </if>
+        <if test="beginTime!=null and beginTime!=''">
+            and ch.EXT_APPROVE_TIME <![CDATA[>=]]>  concat(#{beginTime},' 00:00:00')
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and ch.EXT_APPROVE_TIME <![CDATA[<=]]> concat(#{endTime},' 23:59:59')
+        </if>
+        <if test="jobNumber!=null and jobNumber!=''">
+           and cp.CREATED_BY=#{jobNumber}
+        </if>
+    </select>
+
+    <select id="get">
+        select cp.CREATED_FULL_NAME,
+               cp.CREATED_BY
+        from
+            meicloud_usrm_cloud_biz_supplier_cooperate.scc_pr_requirement_head ch
+                left join
+            meicloud_usrm_cloud_biz_supplier_cooperate.scc_pr_requirement_line cl
+            on ch.REQUIREMENT_HEAD_ID =cl.REQUIREMENT_HEAD_ID and ch.EXT_APPROVE_TIME is not null
+                left join
+            meicloud_usrm_cloud_biz_sou.scc_npm_sou_fix_price_line ce
+            ON
+                (ce.SOURCE_FROM_ID=cl.EXT_INQ_PROJECT_ID OR ce.SOURCE_FROM_NO=cl.REQUIREMENT_HEAD_ID)
+                    AND ce.ITEM_ID=cl.MATERIAL_ID
+                left join
+            meicloud_usrm_cloud_biz_sou.scc_npm_sou_fix_price_head cp
+            on
+                cp.FIX_PRICE_HEAD_ID=ce.FIX_PRICE_HEAD_ID
+        where
+            cl.FIX_PRICE_STATUS='PRICE_END' and cp.CREATED_BY is not null
+        <if test="createUserOrgOuName!=null and createUserOrgOuName!= ''">
+            and  cp.CREATE_USER_ORG_OU_NAME like  concat('%',#{createUserOrgOuName},'%')
+        </if>
+        <if test="createdBy!=null and createdBy!= ''">
+            and  cp.CREATED_BY like  concat('%',#{createdBy},'%')
+        </if>
+        <if test="createdFullName!=null and createdFullName!= ''">
+            and  cp.CREATED_FULL_NAME like  concat('%',#{createdFullName},'%')
+        </if>
+        <if test="orgName!=null and orgName!= ''">
+            and cl.ORG_NAME like  concat('%',#{orgName},'%')
+        </if>
+        <if test="extClosedCause!=null and extClosedCause!= ''">
+            and cl.EXT_CLOSED_CAUSE like  concat('%',#{extClosedCause},'%')
+        </if>
+        <if test="extUseDepartmentName!=null and extUseDepartmentName!= ''">
+            and cl.EXT_USE_DEPARTMENT_NAME like  concat('%',#{extUseDepartmentName},'%')
+        </if>
+        <if test="materialCode!=null and materialCode!= ''">
+            and cl.MATERIAL_CODE like  concat('%',#{materialCode},'%')
+        </if>
+        <if test="vendorName!=null and vendorName!= ''">
+            and ce.VENDOR_NAME like  concat('%',#{vendorName},'%')
+        </if>
+        <if test="beginTime!=null and beginTime!=''">
+            and ch.EXT_APPROVE_TIME <![CDATA[>=]]>  concat(#{beginTime},' 00:00:00')
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and ch.EXT_APPROVE_TIME <![CDATA[<=]]> concat(#{endTime},' 23:59:59')
+        </if>
+        <if test="jobNumber!=null and jobNumber!=''">
+            and cp.CREATED_BY=#{jobNumber}
+        </if>
+        group by cp.CREATED_BY
+    </select>
+</mapper>

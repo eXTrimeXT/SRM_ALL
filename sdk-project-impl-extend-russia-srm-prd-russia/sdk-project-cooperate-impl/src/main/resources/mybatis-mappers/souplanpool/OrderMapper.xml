@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.supcooperate.order.mapper.CooDesignPlanOrderMapper">
+
+    <select id="getOrderByParam" parameterType="com.midea.cloud.srm.model.sou.designplans.dto.PullQueryDto" resultType="com.midea.cloud.srm.model.sou.designplans.entity.SccSouChDemandYearData">
+        SELECT
+        ssod.EXT_AREA_ID AS areaId,
+        ssod.EXT_AREA_CODE AS areaCode,
+        ssod.EXT_AREA_NAME AS areaName,
+        ssod.CEEA_ORGANIZATION_ID AS organizationId,
+        ssod.CEEA_ORGANIZATION_NAME AS organizationCode,
+        ssod.CEEA_ORGANIZATION_CODE AS organizationName,
+        ssod.MATERIAL_ID AS materialId,
+        ssod.MATERIAL_CODE AS MATERIAL_CODE,
+        ssod.MATERIAL_NAME AS materialName,
+        ssod.SPECIFICATION AS model,
+        ssod.UNIT AS unit,
+        ssod.UNIT_CODE AS unitCode,
+        ssod.ORDER_NUM AS orderNum,
+        ssod.EXT_BRAND AS brand,
+        ssod.CEEA_UNIT_NO_TAX_PRICE AS priceTax,
+        ssod.CEEA_TAX_RATE AS taxRate,
+        ssod.CEEA_TAX_KEY AS taxRateCode,
+        ssod.CEEA_UNIT_TAX_PRICE AS ratePrice,
+        ssod.NO_TAX_AMOUNT AS moneyAmount,
+        ssod.NO_TAX_AMOUNT AS priceTotal,
+        sso.VENDOR_ID AS supId,
+        sso.VENDOR_CODE AS supCode,
+        sso.VENDOR_NAME AS supName,
+        sso.CEEA_PURCHASE_ORDER_DATE AS orderDate,
+        sso.CEEA_EMP_USER_ID AS buyUserId,
+        sso.CEEA_EMP_USERNAME AS buyUserName,
+        ssod.CEEA_CONTRACT_LINE_ID AS contractId,
+        ssod.CEEA_CONTRACT_NO AS contractCode,
+        ssod.CEEA_CONTRACT_NUM AS contractNum,
+        ssod.EXT_BUY_TYPE AS buyType,
+        ssod.CATEGORY_ID,
+        ssod.CATEGORY_CODE,
+        ssod.CATEGORY_NAME
+        FROM
+        scc_sc_order_detail ssod
+        LEFT JOIN scc_sc_order sso ON ssod.ORDER_ID = sso.ORDER_ID
+        <where>
+            <if test="pullQuery.categoryIds != null and pullQuery.categoryIds.size() > 0">
+                ssod.CATEGORY_ID in
+                <foreach collection="pullQuery.categoryIds" open="(" separator="," close=")" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="pullQuery.brand != null and pullQuery.brand != ''">
+                AND ssod.EXT_BRAND LIKE CONCAT('%%', #{pullQuery.brand,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="pullQuery.materialList != null and pullQuery.materialList.size() > 0">
+                AND ssod.MATERIAL_CODE in
+                <foreach collection="pullQuery.materialList" open="(" separator="," close=")" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="pullQuery.orderNum != null and pullQuery.orderNum != ''">
+                AND ssod.ORDER_NUM ${pullQuery.orderNum,jdbcType=VARCHAR}
+            </if>
+            <if test="pullQuery.buyMoney != null and pullQuery.buyMoney != ''">
+                AND ssod.CEEA_AMOUNT_EXCLUDING_TAX ${pullQuery.buyMoney,jdbcType=VARCHAR}
+            </if>
+            <if test="pullQuery.areaCodes != null and pullQuery.areaCodes.size() > 0 and pullQuery.areaCodes.get(0) != '0'">
+                AND ssod.EXT_AREA_CODE in
+                <foreach collection="pullQuery.areaCodes" open="(" separator="," close=")" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="pullQuery.supList != null and pullQuery.supList.size() > 0">
+                AND sso.VENDOR_CODE IN
+                <foreach collection="pullQuery.supList" open="(" separator="," close=")" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="pullQuery.orgList != null and pullQuery.orgList.size() > 0">
+                AND sso.ORGANIZATION_CODE IN
+                <foreach collection="pullQuery.orgList" open="(" separator="," close=")" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="pullQuery.personList != null and pullQuery.personList.size() > 0">
+                AND sso.CEEA_EMP_USER_ID IN
+                <foreach collection="pullQuery.personList" open="(" separator="," close=")" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="pullQuery.orderStatusList != null and pullQuery.orderStatusList.size() > 0">
+                AND sso.ORDER_STATUS IN
+                <foreach collection="pullQuery.orderStatusList" open="(" separator="," close=")" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="pullQuery.lastYearOrderDateStart != null and pullQuery.lastYearOrderDateEnd != null">
+                AND sso.CEEA_PURCHASE_ORDER_DATE BETWEEN #{pullQuery.lastYearOrderDateStart} AND #{pullQuery.lastYearOrderDateEnd}
+            </if>
+            <if test="pullQuery.lastLastYearOrderDateStart != null">
+                AND sso.CEEA_PURCHASE_ORDER_DATE BETWEEN #{pullQuery.lastLastYearOrderDateStart} AND #{pullQuery.lastLastYearOrderDateEnd}
+            </if>
+        </where>
+    </select>
+</mapper>

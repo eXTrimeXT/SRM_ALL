@@ -1,0 +1,32 @@
+.red[data-v-5f7333e5] {
+  border: 1px solid red;
+}.header[data-v-001499a1] {
+  background: #f2f2f2;
+  padding: 20px;
+}
+.header .header-title[data-v-001499a1] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header .header-title .title[data-v-001499a1] {
+  font-size: 16px;
+  font-weight: bold;
+}
+.header .header-box[data-v-001499a1] {
+  padding: 10px 30px;
+}
+.header .header-box .row[data-v-001499a1] {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.header .header-box .row + .row[data-v-001499a1] {
+  margin-top: 10px;
+}
+.header .header-box .row .row-item[data-v-001499a1] {
+  flex: 1;
+}
+.content[data-v-001499a1] {
+  padding: 10px;
+}

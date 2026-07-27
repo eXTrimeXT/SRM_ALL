@@ -1,0 +1,42 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "ExtSouExpertApplyForBuyer:scc_npm_sou_expert_apply": {
+    "comment": "专家申请",
+    "keyField": "expertApplyId",
+    "repository": "extSouExpertApplyForBuyerRepository",
+    "fields": {
+      "expertApplyId": "Long:主键",
+      "@include": ":_ExtSouExpertApply"
+    },
+    "relations": {
+      "orgList": "[ExtSouExpertOrgRelation:expertApplyId]",
+      "educationList": "[ExtSouExpertEducation:expertApplyId]",
+      "categoryList": "[ExtSouExpertCategoryRelation:expertApplyId]",
+      "workList": "[ExtSouExpertWork:expertApplyId]",
+      "workRelationList": "[ExtSouExpertWorkRelation:expertApplyId]",
+      "attachList": "[ExtSouExpertSceneFile:expertApplyId]"
+    }
+  },
+  "ExtSouExpertForBuyer:scc_npm_sou_expert": {
+    "comment": "专家库",
+    "keyField": "expertId",
+    "repository": "extSouExpertForBuyerRepository",
+    "fields": {
+      "expertApplyId": "Long:主键",
+      "@include": ":_ExtSouExpert"
+    }
+  },
+  "ExtSouExpertScoreForBuyer:scc_npm_sou_expert_score": {
+    "comment": "专家评审信息",
+    "keyField": "expertScoreId",
+    "repository": "extSouExpertScoreForBuyerRepository",
+    "fields": {
+      "expertScoreId": "Long:主键",
+      "@include": ":_ExtSouExpert"
+    },
+    "relations": {
+      "scoreLineList": "[ExtSouExpertScoreLine:expertScoreId]"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+ALTER TABLE scc_sou_question
+	ADD COLUMN ext_vendor_user_id BIGINT(20) NULL DEFAULT NULL COMMENT '供应商负责人ID',
+	ADD COLUMN ext_vendor_username VARCHAR(100) NULL DEFAULT NULL COMMENT '供应商负责人账号' ,
+	ADD COLUMN ext_vendor_nickname VARCHAR(100) NULL DEFAULT NULL COMMENT '供应商负责人名称' ,
+	ADD COLUMN ext_bid_user_id BIGINT(20) NULL DEFAULT NULL COMMENT '招标负责人ID' ,
+	ADD COLUMN ext_bid_username VARCHAR(100) NULL DEFAULT NULL COMMENT '招标负责人账号' ,
+	ADD COLUMN ext_bid_nickname VARCHAR(100) NULL DEFAULT NULL COMMENT '招标负责人名称' ,
+	ADD COLUMN ext_replay_content VARCHAR(500) NULL DEFAULT NULL COMMENT '回复内容',
+	ADD COLUMN ext_type VARCHAR(10) NULL DEFAULT NULL COMMENT '类型（SOU/招标;REQ/采购申请）',
+	ADD COLUMN ext_if_recommend_finish VARCHAR(10) NULL DEFAULT NULL COMMENT '是否推荐完成（Y/是;N/否）';
+
+ALTER TABLE scc_sou_question
+	ADD COLUMN replay_content VARCHAR(500) NULL DEFAULT NULL COMMENT '质疑回复';
+
+ALTER TABLE scc_sou_answer
+	ADD COLUMN ext_bid_user_id BIGINT(20) NULL DEFAULT NULL COMMENT '招标负责人ID' ,
+	ADD COLUMN ext_bid_username VARCHAR(100) NULL DEFAULT NULL COMMENT '招标负责人账号' ,
+	ADD COLUMN ext_bid_nickname VARCHAR(100) NULL DEFAULT NULL COMMENT '招标负责人名称',
+	ADD COLUMN ext_source VARCHAR(20) NULL DEFAULT NULL COMMENT '澄清来源';

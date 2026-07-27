@@ -1,0 +1,1 @@
+ALTER TABLE `scc_base_org_collect_info` ADD COLUMN `TEL` VARCHAR(20) NULL COMMENT '收票人电话';

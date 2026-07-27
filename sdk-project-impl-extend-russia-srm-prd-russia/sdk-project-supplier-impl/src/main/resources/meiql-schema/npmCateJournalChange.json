@@ -1,0 +1,134 @@
+{
+    "_version": "1.0",
+    "_type": "CUSTOM",
+    "npmCateJournalChange:scc_npm_auth_cate_journal_change": {
+        "comment": "品类日志表-变更表",
+        "keyField": "categoryJournalChangeId",
+        "fields": {
+            "categoryJournalChangeId": {
+                "type": "Long",
+                "dbName":"category_journal_change_id",
+                "desc": "ID",
+                "virtual": false
+            },
+            "categoryJournalId": {
+                "type": "Long",
+                "dbName":"category_journal_id",
+                "desc": "品类日志表ID",
+                "virtual": false
+            },
+            "formType": {
+                "type": "String",
+                "dbName":"form_type",
+                "desc": "品类日志单据类型",
+                "virtual": false
+            },
+            "formId": {
+                "type": "Long",
+                "dbName":"form_id",
+                "desc": "品类日志单据ID",
+                "virtual": false
+            },
+            "vendorId": {
+                "type": "Long",
+                "dbName":"vendor_id",
+                "desc": "供应商ID",
+                "virtual": false
+            },
+            "categoryName": {
+                "type": "String",
+                "dbName":"category_name",
+                "desc": "品类名称",
+                "virtual": false
+            },
+            "categoryCode": {
+                "type": "String",
+                "dbName":"category_code",
+                "desc": "品类编码",
+                "virtual": false
+            },
+            "categoryId": {
+                "type": "Long",
+                "dbName":"category_id",
+                "desc": "品类ID",
+                "virtual": false
+            },
+            "categoryServiceStatus": {
+                "type": "String",
+                "dbName":"category_service_status",
+                "desc": "品类服务状态",
+                "virtual": false
+            },
+            "categoryFullId": {
+                "type": "String",
+                "dbName":"category_full_id",
+                "desc": "品类全路径ID",
+                "virtual": false
+            },
+            "categoryFullName": {
+                "type": "String",
+                "dbName":"category_full_name",
+                "desc": "品类全路径名称",
+                "virtual": false
+            },
+            "thisYearAmount": {
+                "type": "BigDecimal",
+                "dbName":"this_year_amount",
+                "desc": "品类本年度采购金额",
+                "virtual": false
+            },
+            "startDate": {
+                "type": "Date",
+                "dbName":"start_date",
+                "desc": "生效时间",
+                "virtual": false
+            },
+            "endDate": {
+                "type": "Date",
+                "dbName":"end_date",
+                "desc": "失效时间",
+                "virtual": false
+            },
+            "contactId": {
+                "type": "Long",
+                "dbName":"contact_id",
+                "desc": "联系人ID",
+                "virtual": false
+            },
+            "contactName": {
+                "type": "String",
+                "dbName":"contact_name",
+                "desc": "联系人名称",
+                "virtual": false
+            },
+            "supplierCountLimitFlag": {
+                "type": "String",
+                "dbName":"supplier_count_limit_flag",
+                "desc": "是否强控品类供应商上限（Y：是，N：否，默认N）",
+                "virtual": false
+            },
+            "supplierCountLimit": {
+                "type": "Integer",
+                "dbName":"supplier_count_limit",
+                "desc": "品类供应商上限",
+                "virtual": false
+            },
+            "existCountOfCompany": {
+                "type": "Integer",
+                "dbName":"exist_count_of_company",
+                "desc": "存在的绿牌供应商数量",
+                "virtual": false
+            },
+            "reqHeadId": {
+                "type": "Long",
+                "dbName":"req_head_id",
+                "desc": "寻源单ID",
+                "virtual": false
+            },
+            "@include": ":BaseFields"
+        },
+        "relations": {
+            "npmSerciceCustomChanges": "[npmSerciceCustomChange:categoryJournalChangeId]"
+        }
+    }
+}

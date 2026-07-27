@@ -1,0 +1,17 @@
+{
+    "_version": "1.0",
+    "_type": "CUSTOM",
+    "InfoChangeVendor:scc_sup_info_change": {
+        "comment": "信息变更表",
+        "keyField": "changeId",
+		"repository": "pjInfoChangeRepository",
+        "fields": {
+            "changeId": "Long"
+        },
+        "relations": {
+            "npmCompanySizeChanges": "[npmCompanySizeChange:changeId]",
+            "npmFinanceReportChanges": "[npmFinanceReportChange:changeId]",
+			"npmCateJournalChanges":"[npmCateJournalChange:formId]"
+        }
+    }
+}

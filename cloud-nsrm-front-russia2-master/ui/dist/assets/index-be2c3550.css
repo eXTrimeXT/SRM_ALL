@@ -1,0 +1,12 @@
+.elementDefinition_wrapper .order-uploader[data-v-3a5a5689] {
+  display: inline-block;
+  margin: 0 10px;
+}
+.elementDefinition_wrapper .block[data-v-3a5a5689] {
+  display: flex;
+  justify-content: center;
+}
+.elementDefinition_wrapper .el-table th > .cell {
+  display: flex;
+  justify-content: center;
+}

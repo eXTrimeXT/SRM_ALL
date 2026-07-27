@@ -1,0 +1,1 @@
+alter table scc_contract_basis_annex add column REMARK varchar(500) null default null comment '备注';

@@ -1,0 +1,26 @@
+.osmaterialrequisitionEdit[data-v-9da1c48f] {
+  height: 100%;
+  padding-bottom: 50px;
+}
+.osmaterialrequisitionEdit[data-v-9da1c48f] .table-wrapper {
+  padding-left: 0;
+  padding-right: 0;
+}
+.osmaterialrequisitionEdit .sub_header[data-v-9da1c48f] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.osmaterialrequisitionEdit .el-table .el-date-editor[data-v-9da1c48f] {
+  width: 135px;
+}
+.osmaterialrequisitionEdit .base-form[data-v-9da1c48f] {
+  padding: 15px 30px 0;
+}
+.osmaterialrequisitionEdit .toRequired[data-v-9da1c48f] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.osmaterialrequisitionEdit .edit_cond[data-v-9da1c48f] {
+  color: #23adf4;
+  cursor: pointer;
+}

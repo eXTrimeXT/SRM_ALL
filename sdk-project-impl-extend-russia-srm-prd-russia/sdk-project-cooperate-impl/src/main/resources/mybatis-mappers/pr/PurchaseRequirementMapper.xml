@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.supcooperate.ext.requirement.pr.mapper.PurchaseRequirementMapper">
+
+    <select id="selectWithPriceAgree"
+            parameterType="com.midea.cloud.srm.supcooperate.ext.requirement.pr.dto.RequirementSelectionQueryDTO"
+            resultType="com.midea.cloud.srm.supcooperate.ext.requirement.pr.dto.PurchaseRequirementLineDTO">
+        SELECT line.*,
+               agree.AGREEMENT_CODE,agree.SUP_ID vendorId,agree.SUP_CODE vendorCode,agree.SUP_NAME vendorName,agree.CURRENCY_TYPE currencyName,
+               agree.PAYMENT,agree.PAY_WAY,agree.AGREEMENT_TYPE,
+               price.PRICE_TAX unitPrice,price.TAX_RATE taxRate,price.RATE_PRICE taxPrice, price.START_NUM
+        FROM meicloud_usrm_cloud_biz_supplier_cooperate.scc_pr_requirement_line line
+        JOIN meicloud_usrm_cloud_biz_sou.scc_sou_jc_agreement_info price ON line.MATERIAL_ID = price.MATERIAL_ID
+        JOIN meicloud_usrm_cloud_biz_sou.scc_sou_jc_agreement agree ON agree.AGREEMENT_ID = price.AGREEMENT_ID
+        WHERE agree.AGREEMENT_STATUS = 'EXECUTING' AND agree.SUPPLY_AREA LIKE(CONCAT('%', line.EXT_AREA_CODE,'%'))
+          AND agree.EFFECTIVE_START_DATE &lt;= NOW()
+          AND agree.EFFECTIVE_END_DATE >= NOW()
+          AND line.EXT_POOL_STATUS = 'Y'
+          AND line.EXT_BUY_TYPE IN('HAS_PRICE')
+          AND line.ORDER_QUANTITY > 0
+          AND line.CEEA_PERFORM_USER_ID IS NOT NULL
+          AND EXISTS (SELECT * FROM meicloud_usrm_cloud_biz_sou.scc_sou_jc_agreement_org ao
+                      WHERE ao.AGREEMENT_ID = agree.AGREEMENT_ID AND ao.BUY_ORG_ID = line.ORG_ID)
+        <if test="params.requirementHeadNum != null and params.requirementHeadNum != ''">
+            AND line.REQUIREMENT_HEAD_NUM like CONCAT('%',#{params.requirementHeadNum},'%')
+        </if>
+        <if test="params.materialCode != null and params.materialCode != ''">
+            AND line.MATERIAL_CODE like CONCAT('%',#{params.materialCode},'%')
+        </if>
+        <if test="params.extUseDepartmentName != null and params.extUseDepartmentName != ''">
+            AND line.EXT_USE_DEPARTMENT_NAME like CONCAT('%',#{params.extUseDepartmentName},'%')
+        </if>
+        <if test="params.orgId != null">
+            AND line.ORG_ID = #{params.orgId}
+        </if>
+        <if test="params.orgIds != null and params.orgIds.size > 0">
+            AND line.ORG_ID in
+            <foreach collection="params.orgIds" item="item" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="params.ceeaPerformUserId != null">
+            AND line.CEEA_PERFORM_USER_ID = #{params.ceeaPerformUserId}
+        </if>
+        <if test="params.materialName != null and params.materialName != ''">
+            AND line.MATERIAL_NAME like CONCAT('%',#{params.materialName},'%')
+        </if>
+        <if test="params.vendorName != null and params.vendorName != ''">
+            AND agree.SUP_NAME like CONCAT('%',#{params.vendorName},'%')
+        </if>
+        ORDER BY line.REQUIREMENT_LINE_ID DESC
+    </select>
+
+    <select id="selectWithFixPrice"
+            parameterType="com.midea.cloud.srm.supcooperate.ext.requirement.pr.dto.RequirementSelectionQueryDTO"
+            resultType="com.midea.cloud.srm.supcooperate.ext.requirement.pr.dto.PurchaseRequirementLineDTO">
+        SELECT line.*,
+               price_head.FIX_PRICE_NO,
+               price.VENDOR_ID vendorId,price.VENDOR_CODE vendorCode,price.VENDOR_NAME vendorName,price.CURRENCY_CODE currencyName,
+               price.NOTAX_PRICE unitPrice,price.TAX_RATE taxRate, price.INVOICE_TYPE, price.ORDER_REMARK,
+               price.EXT_WARRANTY_PERIOD warrantyPeriod,price.EXT_LEAD_TIME leadTime,price.PAYMENT_TERM,price.PAYMENT_METHOD
+        FROM meicloud_usrm_cloud_biz_supplier_cooperate.scc_pr_requirement_line line
+        JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_fix_price_line price ON price.REQUIREMENT_LINE_IDS LIKE(CONCAT('%', line.requirement_line_id ,'%'))
+        JOIN meicloud_usrm_cloud_biz_sou.scc_npm_sou_fix_price_head price_head ON price_head.FIX_PRICE_HEAD_ID = price.FIX_PRICE_HEAD_ID
+        WHERE price_head.FIX_PRICE_STATUS = 'APPROVED'
+          AND line.EXT_POOL_STATUS = 'Y'
+          AND line.EXT_BUY_TYPE IN('RECENT_PURCHASE','NONE_PRICE')
+          AND line.ORDER_QUANTITY > 0
+          AND line.CEEA_PERFORM_USER_ID IS NOT NULL
+
+        <if test="params.requirementLineIds != null and params.requirementLineIds.size > 0">
+            and line.REQUIREMENT_LINE_ID in
+            <foreach collection="params.requirementLineIds" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="params.requirementHeadNum != null and params.requirementHeadNum != ''">
+            AND line.REQUIREMENT_HEAD_NUM like CONCAT('%',#{params.requirementHeadNum},'%')
+        </if>
+        <if test="params.materialCode != null and params.materialCode != ''">
+            AND line.MATERIAL_CODE like CONCAT('%',#{params.materialCode},'%')
+        </if>
+        <if test="params.extUseDepartmentName != null and params.extUseDepartmentName != ''">
+            AND line.EXT_USE_DEPARTMENT_NAME like CONCAT('%',#{params.extUseDepartmentName},'%')
+        </if>
+        <if test="params.orgId != null">
+            AND line.ORG_ID = #{params.orgId}
+        </if>
+        <if test="params.orgIds != null and params.orgIds.size > 0">
+            AND line.ORG_ID in
+            <foreach collection="params.orgIds" item="item" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="params.ceeaPerformUserId != null">
+            AND line.CEEA_PERFORM_USER_ID = #{params.ceeaPerformUserId}
+        </if>
+        <if test="params.materialName != null and params.materialName != ''">
+            AND line.MATERIAL_NAME like CONCAT('%',#{params.materialName},'%')
+        </if>
+        <if test="params.vendorName != null and params.vendorName != ''">
+            AND price.VENDOR_NAME like CONCAT('%',#{params.vendorName},'%')
+        </if>
+        ORDER BY line.REQUIREMENT_LINE_ID DESC
+    </select>
+</mapper>

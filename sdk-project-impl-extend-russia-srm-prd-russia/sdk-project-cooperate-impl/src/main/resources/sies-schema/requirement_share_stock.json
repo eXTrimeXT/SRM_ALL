@@ -1,0 +1,73 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "PrShareStockController": {
+    "validator": "prShareStockImportValidator",
+    //直接同步，这里其实是解析excel，不做真正的保存
+    "processType": "sync",
+    "batchSize": 1000,
+    "sheets": [
+      {
+        "sheetName": "共享库存",
+        "heads": {
+          "materialCode": {
+            "title": "物资编码",
+            "required": true
+          },
+          "materialName": {
+            "title": "*物资名称",
+            "required": true
+          },
+          "model": {
+            "title": "规格型号",
+            "required": false
+          },
+          "unit": {
+            "title": "计量单位",
+            "required": false
+          },
+          "qty": {
+            "title": "*数量",
+            "required": true
+          },
+          "price": {
+            "title": "参考单价",
+            "required": false
+          },
+          "company": {
+            "title": "公司名称",
+            "required": false
+          },
+          "price": {
+            "title": "参考单价",
+            "required": false
+          },
+          "org": {
+            "title": "业务实体",
+            "required": false
+          },
+          "storeName": {
+            "title": "库位",
+            "required": false
+          },
+          "storeAddress": {
+            "title": "库房地址",
+            "required": false
+          },
+          "storeContacts": {
+            "title": "库房联系人",
+            "required": false
+          },
+          "area": {
+            "title": "区域",
+            "required": false
+          },
+          "department": {
+            "title": "创建单位",
+            "required": false
+          }
+        }
+      }
+    ]
+  }
+}

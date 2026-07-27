@@ -1,0 +1,24 @@
+<meiql _version="1.0" _type="standard">
+    <type name="SouInviteHeadBuyer">
+        <validators>
+            <action name="saveOrUpdate">
+                <validator type="request" msg="参数必填：vendorId">
+                    ql.notEmpty($rec["vendorId"])
+                </validator>
+                <validator type="request" msg="参数必填：vendorCode">
+                    ql.notEmpty($rec["vendorCode"])
+                </validator>
+                <validator type="request" msg="参数必填：vendorName">
+                    ql.notEmpty($rec["vendorName"])
+                </validator>
+            </action>
+            <action name="listPage">
+                <validator type="request" msg="参数必填：categoryId">
+                    if($rec["isIr"] == "Y"){
+                    ql.notEmpty($rec["categoryId"]);
+                    }
+                </validator>
+            </action>
+        </validators>
+    </type>
+</meiql>

@@ -1,0 +1,1 @@
+function isEmail(s){return/^([a-zA-Z0-9\._-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]+){1,4})$/.test(s)}function isMobile(s){return/^1[0-9]{10}$/.test(s)}function isIE(){return!!(window.ActiveXobject||"ActiveXObject"in window)}function isIE11(){return!!/Trident\/7\./.test(navigator.userAgent)}export{isIE11 as a,isEmail as b,isMobile as c,isIE as i};

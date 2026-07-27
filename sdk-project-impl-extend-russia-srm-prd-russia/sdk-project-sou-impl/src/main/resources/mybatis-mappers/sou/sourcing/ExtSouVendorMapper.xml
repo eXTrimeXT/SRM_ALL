@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.sourcing.init.mapper.ExtSouVendorMapper">
+    <select id="selectProjectVendor" parameterType="map" resultType="com.midea.cloud.srm.model.sou.sourcing.entity.SouVendor">
+        SELECT DISTINCT p.PROJECT_ID, o.VENDOR_ID from scc_sou_project p
+        JOIN scc_sou_order o ON o.PROJECT_ID = p.PROJECT_ID  and o.VENDOR_ID IN
+        <foreach collection="vendorIds" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        JOIN ext_scc_sou_order e on e.ORDER_ID = o.ORDER_ID and e.ORDER_STATUS IN ('SUBMISSION','CANCEL','WITHDRAW' )
+        WHERE p.SOU_TYPE = 'bid' and p.CREATE_APPROVAL_STATUS='APPROVED' and p.EXT_CATEGORY_ID = #{categoryId}
+        order by p.PROJECT_ID
+    </select>
+</mapper>

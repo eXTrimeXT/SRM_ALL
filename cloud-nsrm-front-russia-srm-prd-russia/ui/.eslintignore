@@ -1,0 +1,17 @@
+build
+cert
+dist
+dll
+node_modules
+public
+src/modules/basicSetting/views/multipleVideo/mutiple/NIM_Web_WebRTC2_v4.0.1.js
+src/assets/iconfont/iconfont.js
+src/library/components/webIM/webIM.js
+src/utils/diff.min.js
+build/*.js
+dist/*.js
+src/assets
+# src/modules
+src/components
+src/lang
+# src/

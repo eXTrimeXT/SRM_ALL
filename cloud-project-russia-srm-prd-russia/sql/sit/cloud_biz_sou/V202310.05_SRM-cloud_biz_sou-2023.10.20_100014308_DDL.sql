@@ -1,0 +1,23 @@
+CREATE TABLE `scc_sou_ip_address`  (
+    `ROW_ID` bigint(20) NOT NULL COMMENT '主键',
+    `BIDS_ID` bigint(20) NULL DEFAULT NULL COMMENT '招标id',
+    `SUPPLIER_ID` bigint(20) NULL DEFAULT NULL COMMENT '供应商id',
+    `SUPPLIER_CODE` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '供应商编码',
+    `SUPPLIER_NAME` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '供应商名称',
+    `IP` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'ip地址',
+    `MONITOR_TIME` datetime NULL DEFAULT NULL COMMENT '监控时间',
+    `SOURCE` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '来源',
+    `CREATED_ID` bigint(20) NOT NULL COMMENT '创建人ID',
+    `CREATED_BY` varchar(50) NOT NULL COMMENT '创建人',
+    `CREATION_DATE` datetime NOT NULL COMMENT '创建时间',
+    `CREATED_BY_IP` varchar(150) NOT NULL COMMENT '创建人IP',
+    `CREATED_FULL_NAME` varchar(100) DEFAULT NULL COMMENT '创建人姓名',
+    `LAST_UPDATED_ID` bigint(20) DEFAULT NULL COMMENT '最后更新人ID',
+    `LAST_UPDATED_BY` varchar(50) DEFAULT NULL COMMENT '更新人',
+    `LAST_UPDATE_DATE` datetime DEFAULT NULL COMMENT '最后更新时间',
+    `LAST_UPDATED_BY_IP` varchar(150) DEFAULT NULL COMMENT '最后更新人IP',
+    `LAST_UPDATED_FULL_NAME` varchar(100) DEFAULT NULL COMMENT '最后更新人姓名',
+    `TENANT_ID` varchar(30) DEFAULT NULL COMMENT '租户ID',
+    `VERSION` bigint(20) DEFAULT '0' COMMENT '版本号',
+    PRIMARY KEY (`ROW_ID`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'ip地址管理' ROW_FORMAT = Dynamic;

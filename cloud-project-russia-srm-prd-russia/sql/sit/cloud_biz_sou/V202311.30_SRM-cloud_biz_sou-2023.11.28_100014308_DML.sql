@@ -1,0 +1,1 @@
+ALTER TABLE scc_sou_jc_agreement_info add UNIT varchar(50) null comment '单位' after EXPECT_NUM;

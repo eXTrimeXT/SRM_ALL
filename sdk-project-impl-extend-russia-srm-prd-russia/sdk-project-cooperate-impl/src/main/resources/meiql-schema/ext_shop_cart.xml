@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<meiql _version="1.0" _type="custom">
+    <type name="ShopCart">
+        <validators>
+            <action name="delete">
+                <validator type="db" msg="状态不在【拟定，已撤回，已驳回】状态范围">
+                    return ql.in($rec["status"], "DRAFT", "WITHDRAW","REJECTED");
+                </validator>
+            </action>
+            <action name="submit">
+                <validator type="request" msg="状态需要在【拟定，已撤回，已驳回】才允许提交">
+                    return ql.in($rec["status"], "DRAFT", "WITHDRAW","REJECTED");
+                </validator>
+                <validator type="request" msg="汇总人必填">
+                    return ql.notNull($rec["summaryUserId"]);
+                </validator>
+                <validator type="request" msg="需求日期必填">
+                    return ql.notNull($rec["requirementDate"]);
+                </validator>
+                <validator type="request" msg="需求数量必填">
+                    return ql.notNull($rec["requirementNum"]);
+                </validator>
+            </action>
+            <action name="batchUpdate">
+                <validator type="request" msg="采购类型必填">
+                    return ql.notEmpty($rec["purchaseType"]);
+                </validator>
+                <validator type="request" msg="需求日期必填">
+                    return ql.notNull($rec["requirementDate"]);
+                </validator>
+            </action>
+            <action name="withdraw">
+                <validator type="request" msg="状态不为已提交">
+                    c = ql.newCond();
+                    ql.cond.eq(c,"shopCartId",$rec["shopCartId"]);
+                    ql.cond.notEq(c,"status","SUBMITTED");
+                    return !ql.exists("ShopCart",c);
+                </validator>
+            </action>
+            <action name="reject">
+                <validator type="request" msg="状态不为已提交">
+                    c = ql.newCond();
+                    ql.cond.eq(c,"shopCartId",$rec["shopCartId"]);
+                    ql.cond.notEq(c,"status","SUBMITTED");
+                    return !ql.exists("ShopCart",c);
+                </validator>
+                <validator type="request" msg="驳回原因必填">
+                    return ql.notEmpty($rec["extRejectReason"]);
+                </validator>
+            </action>
+            <action name="createRequirements">
+                <validator type="db" msg="状态不为已审批">
+                    return $rec["status"] == "APPROVED";
+                </validator>
+            </action>
+        </validators>
+    </type>
+</meiql>

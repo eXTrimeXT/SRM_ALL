@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlResolve, SqlNoDataSourceInspection, SqlDialectInspection -->
+<mapper namespace="com.midea.cloud.srm.sou.expert.mapper.ExtSouExpertScoreMapper">
+
+    <select id="queryExpertScores" resultType="com.midea.cloud.srm.model.sou.expert.vo.ExtSouExpertScoreQueryVO">
+        SELECT
+            score.*
+        FROM scc_npm_sou_expert_score score
+        WHERE 1 = 1
+        <if test="souName != null"> <!-- 项目名称 -->
+            AND score.SOU_NAME LIKE concat('%', concat(#{souName}, '%'))
+        </if>
+        <if test="leaderUserName != null"> <!-- 招标组长账号 -->
+            AND exists (
+                SELECT line.EXPERT_SCORE_ID FROM scc_npm_sou_expert_score_line line
+                WHERE line.EXPERT_SCORE_ID = score.EXPERT_SCORE_ID AND line.GROUP_TYPE = 'SOU_LEADER' AND line.USERNAME = #{leaderUserName}
+            )
+        </if>
+        <if test="managerUserName != null"> <!-- 招标负责人账号 -->
+            AND exists (
+            SELECT line.EXPERT_SCORE_ID FROM scc_npm_sou_expert_score_line line
+            WHERE line.EXPERT_SCORE_ID = score.EXPERT_SCORE_ID AND line.GROUP_TYPE = 'SOU_MANAGER' AND line.USERNAME = #{managerUserName}
+            )
+        </if>
+        <if test="projectAddress != null"> <!-- 项目所在地 -->
+            AND score.PROJECT_ADDRESS LIKE concat('%', concat(#{projectAddress}, '%'))
+        </if>
+        <if test="scoreTimeFrom != null"> <!-- 评价时间从 -->
+            AND score.SCORE_TIME >= #{scoreTimeFrom}
+        </if>
+        <if test="scoreTimeTo != null"> <!-- 评价时间到 -->
+            AND score.SCORE_TIME &lt;= #{scoreTimeTo}
+        </if>
+    </select>
+
+</mapper>

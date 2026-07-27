@@ -1,0 +1,45 @@
+# prd环境配置
+spring:
+  cloud:
+    config:
+      profile: prd
+    #      name: application-extendprd,${spring.application.name}
+    nacos:
+      discovery:
+        username: nacos
+        password: ENC(c9efdb30f498bf09ac874bba2f48838a693e168fe3e0e23b07401cf66dc7e442)
+        # 命名空间，注册到srm-dockeruat环境
+        namespace: prd
+        # 注册中心地址
+        server-addr: 10.246.8.40:8848
+        group: prd
+        metadata:
+          # feign微服务调用路由策略标签分组
+          routingTag: prd
+      config:
+        # 命名空间，获取srm-dockeruat命名空间的配置文件
+        namespace: prd
+        group: srm
+        # 配置中心地址
+        server-addr: 10.246.8.40:8848
+        username: nacos
+        password: ENC(c9efdb30f498bf09ac874bba2f48838a693e168fe3e0e23b07401cf66dc7e442)
+
+# swagger文档
+knife4j:
+  production: true
+
+# eureka 切换到 nacos 注册中心，下面部分注释掉的配置忽略
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://10.0.3.174:8761/eureka/,http://10.0.3.175:8761/eureka/
+#  instance:
+#    metadata-map:
+#      internalAnonPassword: ${spring.cloud.client.hostname}-${spring.cloud.client.ip-address}-${server.port}-${sysRandom:CsaWljuYd1}
+#      externalAnonPassword: ${spring.cloud.client.hostname}-${spring.cloud.client.ip-address}-${server.port}-${sysRandom:uqlWlqcW*9}
+
+#  zipkin:
+#    base-url: http://10.17.149.194:9411
+
+

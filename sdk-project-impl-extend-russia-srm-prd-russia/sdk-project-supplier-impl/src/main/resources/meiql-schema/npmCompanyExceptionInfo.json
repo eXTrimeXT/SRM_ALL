@@ -1,0 +1,65 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "npmCompanyExceptionInfo:scc_npm_company_exception_info": {
+    "comment": "供应商-异常信息",
+    "keyField": "exceptionInfoId",
+    "fields": {
+      "exceptionInfoId": {
+        "type": "Long",
+        "dbName": "exception_info_id",
+        "desc": "ID",
+        "virtual": false
+      },
+      "companyId": {
+        "type": "Long",
+        "dbName": "company_id",
+        "desc": "供应商ID",
+        "virtual": false
+      },
+      "exceptionType": {
+        "type": "String",
+        "dbName": "exception_type",
+        "desc": "异常类型",
+        "virtual": false
+      },
+      "exceptionInfo": {
+        "type": "String",
+        "dbName": "exception_info",
+        "desc": "组织/品类异常信息",
+        "virtual": false
+      },
+      "exceptionRemark": {
+        "type": "String",
+        "dbName": "exception_remark",
+        "desc": "异常备注",
+        "virtual": false
+      },
+      "businessId": {
+        "type": "Long",
+        "dbName": "business_id",
+        "desc": "单据ID",
+        "virtual": false
+      },
+      "deleteFlag": {
+        "type": "String",
+        "dbName": "delete_flag",
+        "desc": "删除标识",
+        "virtual": false
+      },
+      "orgOrCategoryId": {
+        "type": "Long",
+        "dbName": "org_or_category_id",
+        "desc": "组织/品类id",
+        "virtual": false
+      },
+      "orgOrCategoryCode": {
+        "type": "String",
+        "dbName": "org_or_category_code",
+        "desc": "组织/品类编码",
+        "virtual": false
+      },
+      "@include": ":BaseFields"
+    }
+  }
+}

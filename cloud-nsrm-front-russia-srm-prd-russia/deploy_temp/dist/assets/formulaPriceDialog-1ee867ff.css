@@ -1,0 +1,43 @@
+.the_doBidingDetail_wrapper[data-v-aa683ff6] .cur-quote-deadline {
+  padding-left: 16px;
+}
+.the_doBidingDetail_wrapper[data-v-aa683ff6] .the_footer_row {
+  float: right;
+  font-size: 18px;
+}
+.the_doBidingDetail_wrapper[data-v-aa683ff6] .the_display_content {
+  padding: 11px;
+}
+.the_doBidingDetail_wrapper[data-v-aa683ff6] .the_display_content .el-row {
+  margin-bottom: 11px;
+  font-size: 16px;
+}
+.the_doBidingDetail_wrapper[data-v-aa683ff6] .the_display_content .el-row span {
+  padding-right: 11px;
+  display: inline-block;
+  color: #999;
+}
+.the_doBidingDetail_wrapper[data-v-aa683ff6] .the_display_content .the_display_footer {
+  text-align: center !important;
+}
+.the_doBidingDetail_wrapper[data-v-aa683ff6] .the_display_content .flex-col {
+  display: flex;
+}
+.the_doBidingDetail_wrapper[data-v-aa683ff6] .the_display_content .flex-col .label {
+  line-height: 30px;
+}
+.the_doBidingDetail_wrapper[data-v-aa683ff6] .the_progress {
+  padding: 11px;
+  margin: 10px;
+  background: #eee;
+}
+.the_doBidingDetail_wrapper[data-v-aa683ff6] .the_progress .el-steps {
+  padding-bottom: 0;
+}
+.the_doBidingDetail_wrapper[data-v-aa683ff6] .the_progress .the_footer_row {
+  float: right;
+  font-size: 18px;
+}
+.the_doBidingDetail_wrapper[data-v-aa683ff6] .table1 {
+  padding: 5px 10px;
+}

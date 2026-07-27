@@ -1,0 +1,59 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "npmFinanceReportChange:scc_npm_finance_report_change": {
+    "comment": "三大报表附件-变更表",
+	"keyField": "financeReportChangeId",
+    "fields": {
+      "financeReportChangeId": {
+        "type": "Long",
+        "dbName":"finance_report_change_id",
+        "desc": "ID",
+        "virtual": false
+      },
+      "changeId": {
+        "type": "Long",
+        "dbName":"change_id",
+        "desc": "变更ID",
+        "virtual": false
+      },
+      "financeReportId": {
+        "type": "Long",
+        "dbName":"finance_report_id",
+        "desc": "ID",
+        "virtual": false
+      },
+      "fileId": {
+        "type": "Long",
+        "dbName":"file_id",
+        "desc": "文件id",
+        "virtual": false
+      },
+      "fileName": {
+        "type": "String",
+        "dbName":"file_name",
+        "desc": "文件名",
+        "virtual": false
+      },
+      "companyId": {
+        "type": "Long",
+        "dbName":"company_id",
+        "desc": "供应商ID",
+        "virtual": false
+      },
+      "year": {
+        "type": "String",
+        "dbName":"year",
+        "desc": "年份",
+        "virtual": false
+      },
+      "remark": {
+        "type": "String",
+        "dbName":"remark",
+        "desc": "备注",
+        "virtual": false
+      },
+      "@include": ":BaseFields"
+    }
+  }
+}

@@ -1,0 +1,467 @@
+<template>
+  <el-container class="flex-container wrapper" direction="vertical">
+    <el-main>
+      <el-collapse v-model="activeDims">
+        <!-- 基础信息 -->
+        <el-collapse-item :title="this.$t('common.baseInfo')" name="1">
+          <el-row>
+            <el-col :span="8">
+              <div>
+                <h3>
+                  <!-- 项目信息 -->
+                  {{ $t("vendorMod.itemInformation") }}
+                </h3>
+                <p>
+                  <!-- 项目代码 -->
+                  {{ $t("cusEntry.supplement20250211.projectCode") }}: <span>{{ projectCode }}</span></p>
+                <p>
+                  <!-- 量产时间 -->
+                  {{ $t("cusEntry.supplement20250211.productionTime") }}: <span>{{ $parseTime(productTime) }}</span></p>
+                <p>
+                  <!-- 计划定点时间 -->
+                  {{ $t("cusEntry.supplement20250211.scheduledTimePoint") }}: <span>{{ $parseTime(baseInfo.planFixedTime) }}</span></p>
+                <p>
+                  <!-- 规划生命周期产量 -->
+                  {{ $t("cusEntry.supplement20250211.plannedLifecycleOutput") }}: <span>{{ demandQuantity }}</span></p>
+                <p>
+                  <!-- RFQ包名称 -->
+                  {{ $t("cusEntry.supplement20250211.rfqPackageName") }}: <span>{{ baseInfo.rfqName }}</span></p>
+                <p>
+                  <!-- 询价单号 -->
+                  {{ $t("bidMod.inquiryNo") }}: <span>{{ baseInfo.inquiryNo }}</span></p>
+              </div>
+              <div>
+                <h3>
+                  <!-- 团队成员 -->
+                  {{ $t("cusEntry.supplement20250211.teamMember") }}
+                </h3>
+                <p>
+                  <!-- 采购工程师 -->
+                  {{ $t("cusEntry.supplement20250211.purchaseEngineer") }}: <span>{{ purchaseList }}</span></p>
+                <p>
+                  <!-- 研发工程师 -->
+                  {{ $t("cusEntry.supplement20250211.researchAndDevelopmentEngineer") }}: <span>{{ projectList }}</span></p>
+                <p>
+                  <!-- 质量工程师 -->
+                  {{ $t("cusEntry.supplement20250211.qualityEngineer") }}: <span>{{ qualityList }}</span></p>
+                <p>
+                  <!-- 成本核算 -->
+                  {{ $t("cusEntry.supplement20250211.costAccounting") }}: <span>{{ baseInfo.costUser }}</span></p>
+              </div>
+            </el-col>
+            <el-col :span="16">
+              <div class="price-line-chart-wrap">
+                <h3 class="chart-tips">
+                  <!-- 项目生命周期量纲 -->
+                  {{ $t("cusEntry.supplement20250211.projectLifecycleDimension") }}
+                </h3>
+                <div
+                  ref="priceLineChart"
+                  :class="className"
+                  :style="{ height: height, width: width }"
+                />
+              </div>
+            </el-col>
+          </el-row>
+        </el-collapse-item>
+        <!-- 供应商评估 -->
+        <el-collapse-item :title="$t('cusEntry.supplement20250211.supplierEvaluation')" name="2">
+          <div style="min-height:300px;">
+            <el-button
+              type="primary"
+              style="margin-bottom:16px;"
+              @click="toReviewDetail"
+            >
+              <!-- 查看评审 -->
+              {{ $t("cusEntry.supplement20250211.checkReview") }}
+            </el-button>
+
+            <BaseTable
+              ref="table"
+              style="height:300px;"
+              :columns="columns"
+              :data-source="dataSource"
+              :initialize="false"
+              row-key="vendorCode"
+              border
+              @asyncGetRealDataSource="asyncGetRealDataSource"
+            >
+              <template #isPartake="{ scope }">
+                <DictSelect
+                  v-model="scope.row.isPartake"
+                  :lazy-init="lazyInit"
+                  :disabled="baseInfo.topicStatus === 'FINISH'"
+                  code="YES_OR_NO"
+                />
+              </template>
+            </BaseTable>
+          </div>
+        </el-collapse-item>
+      </el-collapse>
+    </el-main>
+
+    <CToolbar>
+      <template slot="right">
+        <el-button type="ghost" @click="back">
+          <!-- 关闭 -->
+          {{ $t("base.tagsView.close") }}
+        </el-button>
+        <el-button
+          v-if="baseInfo.topicStatus !== 'FINISH'"
+          type="primary"
+          @click="save"
+        >
+          <!-- 暂存 -->
+          {{ $t("common.staging") }}
+        </el-button>
+      </template>
+    </CToolbar>
+  </el-container>
+</template>
+
+<script>
+import CToolbar from 'lib@/components/c-toolbar'
+import { tabTodoMixin } from '@/utils/mixins'
+import BaseTable from 'lib@/components/BaseTable/baseTable'
+import echarts from 'echarts'
+import { STORE_COMMON_CACHE } from '@/config/store-config'
+import resize from '@/library/composition/origin/vendorQoutePriceLineChart/resize'
+// import reviewManagementDetail from 'modb@/inquiryBySimpleBuyer/views/reviewManagement/detail'
+import 'echarts/theme/macarons'
+
+export default {
+  name: 'SsMaterials',
+  components: {
+    CToolbar,
+    BaseTable
+  },
+  mixins: [tabTodoMixin, resize],
+  data () {
+    return {
+      lazyInit: true,
+      columns: [],
+      realDataSource: [],
+      dataSource: [],
+      className: 'chart',
+      width: '100%',
+      height: '370px',
+      chart: null,
+      options: {},
+      inquiryId: null,
+      topicId: null,
+      inqMemberList: [],
+      baseInfo: {},
+      activeDims: ['1', '2', '3', '4']
+    }
+  },
+
+  computed: {
+    projectCode () {
+      let result = ''
+      result = this.getString('projectCode')
+      return result
+    },
+    productTime () {
+      let result = ''
+      result = this.getString('productTime')
+      return result
+    },
+    demandQuantity () {
+      let result = ''
+      result = this.getString('demandQuantity')
+      return result
+    },
+    purchaseList () {
+      let result = ''
+      result = this.getMember('PURCHASE')
+      return result
+    },
+    projectList () {
+      let result = ''
+      result = this.getMember('PROJECT')
+      return result
+    },
+    qualityList () {
+      let result = ''
+      result = this.getMember('QUALITY')
+      return result
+    }
+  },
+
+  async created () {
+    const { row } = this.$attrs.params
+    this.inquiryId = row.inquiryId
+    this.topicId = row.topicId
+    this.getInfo(this.inquiryId)
+    this.columns = [
+      {
+        attrs: {
+          prop: 'vendorCode',
+           // '供应商代码'
+          label: this.$t('cusEntry.supplement20250211.supplierCode') 
+        }
+      },
+      {
+        attrs: {
+          prop: 'vendorName',
+          // '供应商名称'
+          label: this.$t('common.companyName')
+        }
+      },
+      {
+        attrs: {
+          prop: 'supProductionSite',
+          // '生产基地'
+          label: this.$t('vendorMod.proBase')
+        }
+      },
+      {
+        attrs: {
+          prop: 'supplierIntention',
+          // '合作意向'
+          label: this.$t('cusEntry.supplement20250211.cooperationIntent'),
+          formatter: (cellValue, row) => {
+            return this.$getDictLabel('INTENTION_COOPERATE', cellValue)
+          }
+        }
+
+      },
+      {
+        attrs: {
+          prop: 'ssDevelopmentOpinion',
+          // '研发意见'
+          label: this.$t('cusEntry.supplement20250211.researchOpinion'),
+          formatter: (cellValue, row) => {
+            return this.$getDictLabel('REVIEW_COMMENTS', cellValue)
+          }
+        }
+
+      },
+      {
+        attrs: {
+          prop: 'ssQualityOpinion',
+          // '质量意见'
+          label: this.$t('cusEntry.supplement20250211.qualityOpinion'),
+          formatter: (cellValue, row) => {
+            return this.$getDictLabel('REVIEW_COMMENTS', cellValue)
+          }
+        }
+
+      },
+      {
+        attrs: {
+          prop: 'isPartake',
+          // '参与报价供应商'
+          label: this.$t('cusEntry.supplement20250211.participatingQuoteSupplier'),
+          formatter: (cellValue, row) => {
+            return this.$getDictLabel('YES_OR_NO', cellValue)
+          }
+        },
+        rules: { required: true, message: this.$t('vendorMod.required') },  // '必填'
+        slot: 'isPartake'
+      }
+    ]
+    await this.$store.dispatch(STORE_COMMON_CACHE.LIST_DICT_BATCH, { dictCodeList: ['YES_OR_NO', 'REVIEW_COMMENTS', 'INTENTION_COOPERATE'] })
+    this.lazyInit = false
+  },
+  mounted () {
+    this.$nextTick(() => {
+      // 以当前标签创建echarts实例
+      this.chart = echarts.init(this.$refs.priceLineChart, 'macarons')
+      // if (this.vendorPriceNodes) {
+      //   this.setChartData()
+      // }
+    })
+  },
+  beforeDestroy () {
+    if (!this.chart) {
+      return
+    }
+    // 销毁实例
+    this.chart.dispose()
+    this.chart = null
+  },
+  methods: {
+    toReviewDetail () {
+      let reviewId = this.baseInfo.reviewId
+      if (reviewId) {
+        // this.$emit('tab-add', {
+        //   component: reviewManagementDetail,
+        //   name: 'reviewManagementDetail' + this.baseInfo.inquiryId,
+        //   title: this.baseInfo.rfqName,
+        //   params: {
+        //     flag: 'view',
+        //     row: { reviewId: reviewId },
+        //     tabName: 'reviewManagementDetail' + this.baseInfo.inquiryId
+        //   }
+        // })
+      } else {
+        this.$message.warning('未发起评审')
+      }
+    },
+    save () {
+      let list = this.realDataSource.map(item => {
+        return {
+          inquiryId: item.inquiryId,
+          vendorId: item.vendorId,
+          // vendorCode:item.vendorCode,
+          // vendorName:item.vendorName,
+          // supProductionSite:item.supProductionSite,
+          // supplierIntention:item.supplierIntention,
+          // ssDevelopmentOpinion:item.ssDevelopmentOpinion,
+          // ssQualityOpinion:item.ssQualityOpinion,
+          isPartake: item.isPartake
+        }
+      })
+      // let params = {
+      //   inquiryId: this.baseInfo.inquiryId,
+      //   inqVendorMeetList: list
+      // }
+
+      this.$http({
+        url: '/api-inq/inquiry/header/saveSs',
+        method: 'POST',
+        data: list,
+        loading: true
+      })
+        .then(res => {
+          this.$message({
+            message: res.message,
+            type: 'success'
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    back () {
+      this.$emit('tab-remove', this.$attrs['tabName'])
+    },
+    getLabel (type, cellValue) {
+      let result = ''
+      if (cellValue == 'Y') return '同意'
+      if (cellValue == 'N') return '不同意'
+      return result
+    },
+    asyncGetRealDataSource (data) {
+      this.realDataSource = data
+    },
+    setChartData () {
+      let brgCarModel = this.baseInfo.brgCarModel
+      // brgCarModel = {
+      //   cy0: 0,
+      //   cy1: 300,
+      //   cy2: 220,
+      //   cy3: 600,
+      //   cy4: 800,
+      //   cy5: 1000,
+      //   cy6: 1200,
+      //   cy7: 0,
+      //   cy8: 0,
+      //   cy9: 0,
+      //   cy10: 0
+      // }
+      let xDataList = []
+      let yDataList = []
+      // 量纲有11年的数据
+      // index 0 ~ 6 一定显示， 7~10显示到非空为止
+      let endIndex = 6
+      for (let i = 10; i >= 7; i--) {
+        if (brgCarModel[`cy${i}`] > 0) {
+          endIndex = i
+          break
+        }
+      }
+      for (let i = 0; i <= endIndex; i++) {
+        let year = this.baseInfo.projectInfo[0].initialYear
+        xDataList.push(`${Number(year) + i}`)
+        yDataList.push(brgCarModel[`cy${i}`])
+      }
+
+      this.options = {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          }
+        },
+        color: ['#5470C6', '#ee6666'],
+        xAxis: {
+          type: 'category',
+          data: xDataList
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            data: yDataList,
+            type: 'bar',
+            showBackground: true,
+            backgroundStyle: {
+              color: 'rgba(180, 180, 180, 0.2)'
+            },
+            label: {
+              show: true,
+              position: 'top'
+            }
+          }
+        ]
+      }
+      this.chart.setOption(this.options)
+      this.chart.off('legendselectchanged')
+      this.chart.on('legendselectchanged', e => {
+        // const selected = this.options.legend.selected
+        // Object.keys(selected).map(key => {
+        //   selected[key] = !selected[key]
+        // })
+        // this.chart.setOption(this.options)
+      })
+    },
+    getMember (type) {
+      let result = ''
+      if (this.inqMemberList && this.inqMemberList.length) {
+        result = this.inqMemberList.filter(item => item.bidUser == type).map(item => item.nickname)
+      }
+      return result.toString()
+    },
+    getString (type) {
+      let result = ''
+      if (this.baseInfo.projectInfo && this.baseInfo.projectInfo.length) {
+        let projectInfo = this.baseInfo.projectInfo
+        result = projectInfo.map(item => item[type])
+      }
+      return result.toString()
+    },
+    getInfo () {
+      this.$http({
+        url: '/api-inq/inquiry/header/getInqInfoByMeeting',
+        method: 'GET',
+        params: { inquiryId: this.inquiryId, topicId: this.topicId },
+        loading: true
+      })
+        .then(res => {
+          const { inqMemberList, inqVendorMeetList, ...rest } = res.data
+          this.inqMemberList = inqMemberList || []
+          let dataSource = inqVendorMeetList || []
+          this.dataSource = dataSource.map(item => {
+            let obj = {
+              ...item,
+              __edit_key__: true
+            }
+            return obj
+          })
+          this.baseInfo = rest
+
+          this.setChartData()
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+
+  }
+}
+</script>
+<style  lang="scss" scoped>
+</style>

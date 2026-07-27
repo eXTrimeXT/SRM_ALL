@@ -1,0 +1,22 @@
+delete
+from scc_base_dict
+where DICT_ID in (450479272013824,450479471998976,450479789197312);
+
+delete
+from scc_base_dict_item
+where DICT_ID in (450479272013824,450479471998976,450479789197312);
+
+
+insert into scc_base_dict (DICT_ID, DICT_CODE, DICT_NAME, DESCRIPTION, LANGUAGE, LANGUAGE_NAME, DICT_ROLE, DICT_ROLE_NAME, ACTIVE_DATE, INACTIVE_DATE, CREATED_ID, CREATED_BY, CREATION_DATE, CREATED_BY_IP, CREATED_FULL_NAME, LAST_UPDATED_ID, LAST_UPDATED_BY, LAST_UPDATE_DATE, LAST_UPDATED_BY_IP, LAST_UPDATED_FULL_NAME, TENANT_ID, VERSION)
+values  (450479272013824, 'PERF_PERFORMANCE_TYPE', '项目化-绩效查询-履约类型', '', 'zh_CN', '中文', '', '', '2023-11-15', null, 8123195817787648, 'super', '2023-11-16 17:30:48', '10.254.103.115', '超级管理员', null, null, '2023-11-16 17:30:48', '10.254.103.115', '超级管理员', null, 0),
+        (450479471998976, 'PERF_WARNING_STATUS', '供应商预警-预警状态', '', 'zh_CN', '中文', '', '', '2023-11-15', null, 8123195817787648, 'super', '2023-11-16 17:32:25', '10.254.103.115', '超级管理员', null, null, '2023-11-16 17:32:25', '10.254.103.115', '超级管理员', null, 0),
+        (450479789197312, 'PERF_READ_STATUS', '供应商预警单-已读状态', '', 'zh_CN', '中文', '', '', '2023-11-15', null, 8123195817787648, 'super', '2023-11-16 17:35:00', '10.254.103.115', '超级管理员', null, null, '2023-11-16 17:35:00', '10.254.103.115', '超级管理员', null, 0);
+
+insert into scc_base_dict_item (DICT_ITEM_ID, DICT_ID, DICT_ITEM_CODE, DICT_ITEM_NAME, ITEM_LANGUAGE, ITEM_LANGUAGE_NAME, ITEM_DESCRIPTION, DICT_ITEM_NO, DICT_ITEM_MARK, ACTIVE_DATE, INACTIVE_DATE, CREATED_ID, CREATED_BY, CREATION_DATE, CREATED_BY_IP, CREATED_FULL_NAME, LAST_UPDATED_ID, LAST_UPDATED_BY, LAST_UPDATE_DATE, LAST_UPDATED_BY_IP, LAST_UPDATED_FULL_NAME, TENANT_ID, VERSION)
+values  (450479353602048, 450479272013824, 'NODE', '履约节点', 'zh_CN', '中文', '', 1, '', '2023-11-15', null, 8123195817787648, 'super', '2023-11-16 17:31:28', '10.254.103.115', '超级管理员', null, null, '2023-11-16 17:31:28', '10.254.103.115', '超级管理员', null, 0),
+        (450479393081344, 450479272013824, 'PROJECT', '履约项目', 'zh_CN', '中文', '', 2, '', '2023-11-15', null, 8123195817787648, 'super', '2023-11-16 17:31:47', '10.254.103.115', '超级管理员', null, null, '2023-11-16 17:31:47', '10.254.103.115', '超级管理员', null, 0),
+        (450479522359296, 450479471998976, 'DRAFT', '拟定', 'zh_CN', '中文', '', 1, '', '2023-11-15', null, 8123195817787648, 'super', '2023-11-16 17:32:50', '10.254.103.115', '超级管理员', null, null, '2023-11-16 17:32:50', '10.254.103.115', '超级管理员', null, 0),
+        (450479604344832, 450479471998976, 'PUBLISHED', '已发布', 'zh_CN', '中文', '', 2, '', '2023-11-15', null, 8123195817787648, 'super', '2023-11-16 17:33:30', '10.254.103.115', '超级管理员', null, null, '2023-11-16 17:33:30', '10.254.103.115', '超级管理员', null, 0),
+        (450479826542592, 450479789197312, 'Y', '已读', 'zh_CN', '中文', '', 2, '', '2023-11-15', null, 8123195817787648, 'super', '2023-11-16 17:35:18', '10.254.103.115', '超级管理员', null, null, '2023-11-16 17:35:18', '10.254.103.115', '超级管理员', null, 0),
+        (450479852593152, 450479789197312, 'N', '未读', 'zh_CN', '中文', '', 1, '', '2023-11-15', null, 8123195817787648, 'super', '2023-11-16 17:35:31', '10.254.103.115', '超级管理员', null, null, '2023-11-16 17:35:31', '10.254.103.115', '超级管理员', null, 0);
+

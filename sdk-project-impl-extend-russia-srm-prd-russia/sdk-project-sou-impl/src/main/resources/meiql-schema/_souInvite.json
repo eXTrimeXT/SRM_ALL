@@ -1,0 +1,191 @@
+{
+  "_version": "1.0",
+  "_type": "base",
+  "SouInviteHeadFields": {
+    "keyField": "inviteHeadId",
+    "fields": {
+      "inviteHeadId": "Long:主键",
+      "vendorId": "Long:供应商id",
+      "vendorCode": "String:供应商编码/企业标识",
+      "vendorName": "String:供应商名称",
+      "isIntelligentBid": "String:是否被推荐（Y是，N否）",
+      "contactName": "String:联系人",
+      "phone": "String:电话",
+      "email": "String:邮箱",
+      "mainCustomers": "String:主要客户",
+      "bidCount": "Integer:投标次数",
+      "succBidCount": "Integer:中标次数",
+      "invalidBidCount": "Integer:废标次数",
+      "lastUpdatedByIp": "String:最后更新人IP",
+      "@include": ":BaseFields",
+      "pjQualifications": {
+        "type": "String",
+        "dbName": "pj_qualifications",
+        "desc": "资质",
+        "virtual": true
+      },
+      "ceeaAgentBrand": {
+        "type": "String",
+        "dbName": "ceea_agent_brand",
+        "desc": "品牌",
+        "virtual": true
+      },
+      "categoryId": {
+        "type": "String",
+        "dbName": "category_id",
+        "desc": "品类ID",
+        "virtual": true
+      },
+      "categoryName": {
+        "type": "String",
+        "dbName": "category_name",
+        "desc": "品类",
+        "virtual": true
+      },
+      "companyCreationYear": {
+        "type": "String",
+        "dbName": "company_creation_year",
+        "desc": "成立年限",
+        "virtual": true
+      },
+      "registeredCapital": {
+        "type": "String",
+        "dbName": "registered_capital",
+        "desc": "注册资金",
+        "virtual": true
+      },
+      "registCurrency": {
+        "type": "String",
+        "dbName": "regist_currency",
+        "desc": "注册资金币种",
+        "virtual": true
+      },
+      "registCurrencyName": {
+        "type": "String",
+        "dbName": "regist_currency_name",
+        "desc": "注册资金币种名称",
+        "virtual": true
+      },
+      "companyAddress": {
+        "type": "String",
+        "dbName": "company_address",
+        "desc": "公司地址",
+        "virtual": true
+      },
+      "bidBeginTime": {
+        "type": "Date",
+        "dbName": "bid_begin_time",
+        "desc": "参与投标时间从",
+        "virtual": true
+      },
+      "bidLastTime": {
+        "type": "Date",
+        "dbName": "bid_last_time",
+        "desc": "参与投标时间至",
+        "virtual": true
+      },
+      "orgBuName": {
+        "type": "String",
+        "dbName": "org_bu_name",
+        "desc": "板块",
+        "virtual": true
+      },
+      "orgName": {
+        "type": "String",
+        "dbName": "org_name",
+        "desc": "所属公司",
+        "virtual": true
+      },
+      "projectName": {
+        "type": "String",
+        "dbName": "project_name",
+        "desc": "项目",
+        "virtual": true
+      },
+      "beginRegisteredCapital": {
+        "type": "String",
+        "dbName": "begin_registered_capital",
+        "desc": "注册资金从",
+        "virtual": true
+      },
+      "endRegisteredCapital": {
+        "type": "String",
+        "dbName": "endRegisteredCapital",
+        "desc": "注册资金至",
+        "virtual": true
+      },
+      "beginCompanyCreationYear": {
+        "type": "String",
+        "dbName": "begin_company_creation_year",
+        "desc": "成立年限从",
+        "virtual": true
+      },
+      "endCompanyCreationYear": {
+        "type": "String",
+        "dbName": "end_company_creation_year",
+        "desc": "成立年限至",
+        "virtual": true
+      },
+      "isIr": {
+        "type": "String",
+        "dbName": "is_IR",
+        "desc": "是否智能推荐查询表示（Y是，N否）",
+        "virtual": true
+      }
+    }
+  },
+  "SouInviteItemFields": {
+    "keyField": "inviteItemId",
+    "fields": {
+      "inviteItemId": "Long:主键",
+      "inviteHeadId": "Long:邀请供应商头表主键",
+      "projectNo": "String:项目编号",
+      "projectName": "String:项目名称",
+      "orgBuId": "Long:板块ID",
+      "orgBuCode": "String:板块编码",
+      "orgBuName": "String:板块名称",
+      "orgId": "Long:公司ID(对应产品的业务实体id)",
+      "orgCode": "String:公司编码(对应产品的业务实体编码)",
+      "orgName": "String:公司名称(对应产品的业务实体名称)",
+      "bidCreationDate": "Date:创建时间",
+      "categoryId": "Long:品类ID",
+      "categoryCode": "String:品类编码",
+      "categoryName": "String:品类",
+      "isBid": "String:是否投标（Y是，N否）",
+      "isInvalidBid": "String:是否废标（Y是，N否）",
+      "isSuccBid": "String:是否中标（Y是，N否）",
+      "techScore": "BigDecimal:技术得分",
+      "totalScore": "BigDecimal:综合得分",
+      "performanceScore": "BigDecimal:绩效得分",
+      "notParticipatingReason": "String:不参与的原因",
+      "lastUpdatedByIp": "String:最后更新人IP",
+      "@include": ":BaseFields",
+      "vendorId": {
+        "type": "Long",
+        "dbName": "vendor_id",
+        "desc": "供应商ID",
+        "virtual": true
+      }
+    }
+  },
+  "SouInviteHistoryFields": {
+    "keyField": "inviteHistoryId",
+    "fields": {
+      "inviteHistoryId": "Long:主键",
+      "inviteHeadId": "Long:邀请供应商头ID",
+      "projectName": "String:项目名称",
+      "souType": "String:来源单类型(寻源单RFP,申请单PR)",
+      "souId": "Long:来源单主键ID",
+      "souNo": "String:来源单号",
+      "vendorId": "Long:供应商id",
+      "vendorCode": "String:供应商编码/企业标识",
+      "vendorName": "String:供应商名称",
+      "phone": "String:电话",
+      "lastUpdatedByIp": "String:最后更新人IP",
+      "categoryId": "Long:物料小类ID",
+      "categoryCode": "String:物料小类编码",
+      "categoryName": "String:物料小类名称",
+      "@include": ":BaseFields"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+.barcoderuleheadEdit[data-v-47bb035c] {
+  height: 100%;
+  padding-bottom: 50px;
+}
+.barcoderuleheadEdit[data-v-47bb035c] .table-wrapper {
+  padding-left: 0;
+  padding-right: 0;
+}
+.barcoderuleheadEdit .sub_header[data-v-47bb035c] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.barcoderuleheadEdit .el-table .el-date-editor[data-v-47bb035c] {
+  width: 135px;
+}
+.barcoderuleheadEdit .base-form[data-v-47bb035c] {
+  padding: 15px 30px 0;
+}
+.barcoderuleheadEdit .toRequired[data-v-47bb035c] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.barcoderuleheadEdit .edit_cond[data-v-47bb035c] {
+  color: #23adf4;
+  cursor: pointer;
+}

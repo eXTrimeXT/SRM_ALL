@@ -1,0 +1,22 @@
+{{- if (get .Values.app1.nodePort.enable .Values.global.env | default .Values.app1.nodePort.enable.default) }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: srm-java-{{ .Values.global.module }}-{{ .Values.global.env }}-nodeport
+  namespace: srm-{{ .Values.global.env }}
+  labels:
+    app: srm-java-{{ .Values.global.module }}-{{ .Values.global.env }}-nodeport
+#    version: v1
+spec:
+  type: NodePort
+  selector:
+    app: srm-java-{{ .Values.global.module }}-{{ .Values.global.env }}
+  ports:
+ {{- range .Values.app1.nodePort.ports }}
+  - name: {{ .name }}
+    port: {{ .port }}
+    targetPort: {{ .port }}
+    protocol: {{ .protocol }}
+    nodePort: {{ get .nodePort $.Values.global.env }}
+  {{- end }}
+{{- end }}

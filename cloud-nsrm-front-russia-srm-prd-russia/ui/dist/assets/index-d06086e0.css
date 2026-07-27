@@ -1,0 +1,45 @@
+.cost_element_list_wrapper[data-v-137bea3c] {
+  height: 400px;
+  width: 100%;
+}
+.cost_element_list_wrapper .order-uploader[data-v-137bea3c] {
+  display: inline-block;
+  margin: 0 10px;
+}
+.cost_element_list_wrapper .block[data-v-137bea3c] {
+  display: flex;
+  justify-content: center;
+}
+.cost_element_list_wrapper .el-table th > .cell {
+  display: flex;
+  justify-content: center;
+}
+.priceModelEdit[data-v-323a940b] {
+  height: 100%;
+}
+.priceModelEdit .sub_header[data-v-323a940b] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.priceModelEdit .el-table .el-date-editor[data-v-323a940b] {
+  width: 135px;
+}
+.priceModelEdit .toRequired[data-v-323a940b] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.priceModelEdit .edit_cond[data-v-323a940b] {
+  color: #23adf4;
+  cursor: pointer;
+}.price_model_list_wrapper .order-uploader[data-v-c066fb8d] {
+  display: inline-block;
+  margin: 0 10px;
+}
+.price_model_list_wrapper .block[data-v-c066fb8d] {
+  display: flex;
+  justify-content: center;
+}
+.price_model_list_wrapper .el-table th > .cell {
+  display: flex;
+  justify-content: center;
+}

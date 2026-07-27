@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.midea.cloud.srm.biz.pj.rbac.user.mapper.UserMapper">
+
+    <update id="updateUserCompanyName" parameterType="java.lang.String">
+        update meicloud_usrm_cloud_rbac.scc_rbac_user u
+        join meicloud_usrm_cloud_biz_supplier.scc_sup_company_info c on u.COMPANY_ID = c.COMPANY_ID
+        set u.CEEA_COMPANY = c.COMPANY_NAME where u.USERNAME = #{username}
+    </update>
+
+</mapper>

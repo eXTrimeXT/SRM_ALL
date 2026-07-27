@@ -1,0 +1,1 @@
+alter table scc_npm_sou_fix_price_line change FIX_PRICE_LINE_STATUS FIX_PRICE_LINE_STATUS varchar(20) null comment '审批状态';

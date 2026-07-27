@@ -1,0 +1,75 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "InvoiceNotice": {
+    "comment": "对账单",
+    "repository": "extInvoiceNoticeRepository",
+    "keyField" : "invoiceNoticeId",
+    "fields" : {
+      "extStatus" : "String:补充状态",
+      "extVendorContacts" : "String:供应商联系人",
+      "extVendorPhone" : "String:供应商联系人电话",
+      "extInvoiceType" : "String:发票类型",
+      "extInvoiceCompany" : "String:发票公司名称",
+      "extInvoiceOpeningName" : "String:发票开户行",
+      "extInvoiceOpeningAccount" : "String:发票银行账号",
+      "extInvoiceTaxpayerNum" : "String:纳税识别号",
+      "extInvoiceAddress" : "String:发票地址",
+      "extInvoicePhone" : "String:发票电话",
+      "extInvoiceReceiver" : "String:发票收票人",
+      "extInvoiceReceiveAddr" : "String:发票收票人地址",
+      "extDepartmentId" : "String:申请部门id",
+      "extDepartmentCode" : "String:申请部门编码",
+      "extDepartmentName" : "String:申请部门名称",
+      "extApplicantName" : "String:申请人名称",
+      "extApplicantCode" : "String:申请人工号",
+      "extApplyDate" : "Date:申请日期",
+      "collectMail": "String:收票人邮箱"
+    }
+  },
+  "InvoiceNoticeDetail": {
+    "comment": "对账单明细",
+    "keyField": "invoiceDetailId",
+    "fields": {
+      "extMaterialModel" : "String:规格"
+    },
+    "relations": {
+      "invoiceNoticeId": "InvoiceNotice"
+    }
+  },
+  "InvoiceNoticeVendor": {
+    "comment": "对账单",
+    "repository": "extInvoiceNoticeRepository",
+    "keyField" : "invoiceNoticeId",
+    "fields" : {
+      "extStatus" : "String:补充状态",
+      "extVendorContacts" : "String:供应商联系人",
+      "extVendorPhone" : "String:供应商联系人电话",
+      "extInvoiceType" : "String:发票类型",
+      "extInvoiceCompany" : "String:发票公司名称",
+      "extInvoiceOpeningName" : "String:发票开户行",
+      "extInvoiceOpeningAccount" : "String:发票银行账号",
+      "extInvoiceTaxpayerNum" : "String:纳税识别号",
+      "extInvoiceAddress" : "String:发票地址",
+      "extInvoicePhone" : "String:发票电话",
+      "extInvoiceReceiver" : "String:发票收票人",
+      "extInvoiceReceiveAddr" : "String:发票收票人地址",
+      "extDepartmentId" : "String:申请部门id",
+      "extDepartmentCode" : "String:申请部门编码",
+      "extDepartmentName" : "String:申请部门名称",
+      "extApplicantName" : "String:申请人名称",
+      "extApplicantCode" : "String:申请人工号",
+      "extApplyDate" : "Date:申请日期"
+    }
+  },
+  "InvoiceNoticeDetailVendor": {
+    "comment": "对账单明细",
+    "keyField": "invoiceDetailId",
+    "fields": {
+      "extMaterialModel" : "String:规格"
+    },
+    "relations": {
+      "invoiceNoticeId": "InvoiceNoticeVendor"
+    }
+  }
+}

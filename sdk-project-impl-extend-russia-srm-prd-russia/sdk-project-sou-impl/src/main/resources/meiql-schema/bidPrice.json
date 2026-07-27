@@ -1,0 +1,12 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "BidPrice:scc_npm_sou_bid_price": {
+    "comment": "招标价格库",
+    "repository": "bidPriceRepository",
+    "keyField": "borrowId",
+    "fields": {
+      "@include": ":bidPriceFields"
+    }
+  }
+}

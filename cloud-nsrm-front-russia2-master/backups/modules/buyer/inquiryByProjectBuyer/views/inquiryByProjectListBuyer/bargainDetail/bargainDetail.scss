@@ -1,0 +1,230 @@
+.the-bargain-detail-wrap {
+  .el-button {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+
+  .el-tabs__header {
+    display: none;
+  }
+
+  .the_top_item {
+    margin: 0;
+    padding-left: 5px;
+    display: flex;
+
+    >li {
+      line-height: 30px;
+      flex: 1;
+      list-style: none;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+      span:first-child {
+        font-weight: bolder;
+      }
+
+      span:last-child {
+        padding: 0 5px;
+      }
+    }
+  }
+
+  .the_file_part {
+
+    .left_div,
+    .right_div {
+      width: 50%;
+      padding: 3px;
+      float: left;
+
+      >p>span {
+        padding-right: 11px;
+      }
+    }
+  }
+
+  .main-header {
+    border: none;
+  }
+
+  .the_display_content {
+    .el-row {
+      margin-bottom: 10px;
+      font-size: 14px;
+      min-height: 22px;
+
+      span {
+        padding-right: 10px;
+        display: inline-block;
+        color: #999;
+      }
+    }
+
+    .the_display_footer {
+      text-align: center !important;
+    }
+  }
+
+  .the_biding_control_row {
+    padding: 3px;
+
+    ::v-deep (.el-col>span) {
+      padding-right: 10px;
+
+      &.labelTitle {
+        display: inline-block;
+        width: 120px;
+        text-align: right;
+      }
+    }
+
+    ::v-deep (.el-col>.el-input) {
+      width: 125px;
+    }
+
+    ::v-deep (.el-col>.el-select) {
+      width: 125px;
+    }
+  }
+
+  .el-tabs__content {
+    padding: 0 10px 50px 10px;
+    box-sizing: border-box;
+    height: 100%;
+
+    .el-tab-pane {
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  }
+
+  .biding_text .el-row--flex {
+    margin-bottom: 10px;
+  }
+
+  .the_btns>.el-button {
+    float: right;
+    margin-left: 10px;
+  }
+
+  .the_QuickSearch_wrapper {
+    display: inline-block;
+    vertical-align: middle;
+    width: 125px;
+
+    span {
+      line-height: 33px;
+      padding-right: 8px;
+    }
+  }
+
+  .business_biding_text .el-col>span {
+    padding-right: 10px;
+  }
+
+  .the_btn_check {
+    display: inline;
+    padding: 10px 0 10px 0px;
+  }
+
+  .the_follow_tender_dialog .el-row {
+    margin-bottom: 10px;
+
+    .el-col>span {
+      padding-right: 10px;
+    }
+  }
+
+  .the_check_groups {
+    padding: 10px;
+    padding-top: 0;
+
+    .el-row {
+      margin-bottom: 10px;
+    }
+  }
+
+  .detail-menu-aside {
+    .detail-menu {
+      border: 0 solid #e6e6e6;
+      background: #fff;
+
+      &>.el-menu-item {
+        height: 30px;
+        line-height: 30px;
+        padding: 0 20px !important;
+        color: #393E45;
+      }
+
+      .el-submenu {
+        .el-menu {
+          background: #fff;
+
+          .el-menu-item {
+            height: 26px;
+            line-height: 25px;
+            padding: 0 20px !important;
+            min-width: 150px;
+            font-size: 12px;
+            color: #393E45;
+          }
+        }
+      }
+
+      .el-submenu__title {
+        height: 30px;
+        line-height: 30px;
+        color: #393E45;
+      }
+
+      .el-menu-item.is-active {
+        background-color: #88c1f4;
+
+        &::before {
+          height: 100% !important;
+          display: none !important;
+        }
+      }
+
+      .el-menu-item.is-disabled {
+        display: none;
+      }
+
+      .el-menu-item .el-icon-success {
+        color: #13cc33;
+      }
+    }
+  }
+
+  .the_projectResult_btns {
+    padding: 5px;
+  }
+
+  .tab-form-style {
+    // padding-bottom: 0 !important;
+  }
+
+  .the_pingxuan_former {
+    padding-top: 5px;
+
+    .el-row .el-col {
+      height: 40px;
+    }
+  }
+
+  .importbtn ::v-deep (.el-button) {
+    min-width: 56px;
+    height: 24px;
+    line-height: 22px;
+    font-size: 14px;
+    border-radius: 2px;
+    padding: 1px 10px;
+  }
+
+  .flex-container-right {
+    position: relative;
+  }
+}

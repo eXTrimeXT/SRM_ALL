@@ -1,0 +1,39 @@
+.ladder-price-form-row[data-v-efb48413] {
+  display: flex;
+  margin-bottom: 10px;
+}
+.ladder-price-form-row .form-col[data-v-efb48413]:not(:last-child) {
+  margin-right: 30px;
+}
+.ladder-price-form-row .form-col[data-v-efb48413] {
+  height: 30px;
+  line-height: 30px;
+}
+.ladder-price-form-row .form-col .label[data-v-efb48413] {
+  padding-right: 15px;
+}.inquiry-detail-require-info-tab .required-column-label[data-v-f3951568] {
+  color: red;
+  margin-right: 5px;
+}.invite-suppliers .invite-suppliers-operation[data-v-a8916eb3] {
+  margin-bottom: 10px;
+}
+.invite-suppliers .select-company-search[data-v-a8916eb3] {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 10px;
+}[data-v-122a6684] .the-inquiryDetail-detail .inquiry-detail-border-card > .el-tabs--border-card {
+  margin-right: 10px;
+}
+[data-v-122a6684] .the-inquiryDetail-detail .sub_header {
+  padding: 4px 11px;
+  background: #eee;
+}
+[data-v-122a6684] .the-inquiryDetail-detail .sub_header span {
+  padding-right: 11px;
+}
+[data-v-122a6684] .the-inquiryDetail-detail .el-table .el-date-editor {
+  width: 135px;
+}
+[data-v-122a6684] .the-inquiryDetail-detail .main-header {
+  border: none;
+}

@@ -1,0 +1,1 @@
+ALTER TABLE `scc_contract_model_head` ADD COLUMN `EXT_TEMPLATE_CODE` VARCHAR(100) NULL COMMENT '范本编号';

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.cm.contract.mapper.ExtPerPlanMapper">
+
+    <select id="queryContractPerPlanByPlanStartTime" resultType="com.midea.cloud.srm.model.contract.dto.ContractPerPlanStartTimeDto">
+        SELECT h.CONTRACT_NAME as contractName,
+               h.CONTRACT_NO as contractNo,
+               m.PLAN_START_DATE as planStartDate,
+               h.EXT_CONTRACT_HANDLER_ACCOUNT as extContractHandlerAccount,
+               m.MILESTONE_TYPE AS milestoneType
+        FROM scc_contract_head h
+                 INNER JOIN scc_cont_per_plan p ON h.CONTRACT_HEAD_ID = p.CONTRACT_HEAD_ID
+                 INNER JOIN scc_cont_per_plan_milestone m ON m.PER_PLAN_ID = p.PER_PLAN_ID
+        WHERE m.PLAN_START_DATE = #{remindDate}
+          and p.STATUS in
+        <foreach collection="statuses" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+
+    </select>
+
+</mapper>

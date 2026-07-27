@@ -1,0 +1,35 @@
+
+/* .table-wrapper {
+  padding-left: 16px;
+  padding-right: 4px;
+} */
+.base-table[data-v-88c7f7f7] {
+  min-height: 0;
+}
+.required[data-v-88c7f7f7] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.header-wrapper[data-v-88c7f7f7] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search-button[data-v-88c7f7f7] {
+  color: #502c2c;
+  margin-left: 10px;
+  cursor: pointer;
+  font-weight: bolder;
+  margin-right: 10px;
+}
+.form-wrapper[data-v-88c7f7f7] {
+  display: flex;
+  min-height: 0;
+  height: 100%;
+  flex-direction: column;
+  flex: 1;
+}
+.highlight[data-v-88c7f7f7] {
+  color: #ef2f24;
+}
+

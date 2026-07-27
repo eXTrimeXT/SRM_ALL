@@ -1,0 +1,4 @@
+ALTER TABLE `scc_pr_requirement_line`
+    CHANGE COLUMN `EXT_USE_TO` `EXT_USE_TO` VARCHAR(500) COMMENT '用途';
+ALTER TABLE `scc_sc_delivery_note_detail`
+    CHANGE COLUMN `EXT_FINISH_TIME` `EXT_FINISH_TIME` DATETIME COMMENT '完成时间';

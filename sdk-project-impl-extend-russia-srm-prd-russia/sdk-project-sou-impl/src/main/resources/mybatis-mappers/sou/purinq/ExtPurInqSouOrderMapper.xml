@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlDialectInspection -->
+<mapper namespace="com.midea.cloud.srm.sou.purinq.dao.ExtPurInqSouOrderMapper">
+
+    <select id="listVendorOrderHis" resultType="com.midea.cloud.srm.model.sou.sourcing.entity.SouOrderItem">
+        SELECT
+            sou_project.PROJECT_ID,             <!-- 寻源单ID -->
+            sou_project.PROCESS_CONFIG_ID,      <!-- 流程配置ID -->
+            sou_project.SOU_NO,                 <!-- 寻源单号 -->
+            sou_project.SOU_NAME,               <!-- 寻源单标题 -->
+            sou_project.CURRENT_ROUND,          <!-- 当前轮次 -->
+            sou_project.PUBLISH_SCOPE,          <!-- 发布范围 -->
+            sou_project.PROJECT_STATUS,         <!-- 寻源单状态 -->
+            inq_project.EXT_PROJECT_STATUS,     <!-- 询价单状态 -->
+            sou_order.ORDER_NO,                 <!-- 报价单号 -->
+            sou_order.ORDER_STATUS,             <!-- 报价单状态 -->
+            sou_project.SIGN_UP_END_TIME,       <!-- 报名截止时间 -->
+            sou_project.ORDER_START_TIME,       <!-- 报价开始时间 -->
+            sou_project.ORDER_END_TIME,         <!-- 报价截止时间 -->
+            sou_project.PUBLISH_TIME,           <!-- 发布时间 -->
+            sou_project.ALLOW_WITHDRAW,         <!-- 是否允许撤回报价 -->
+            sou_project.CREATED_BY,             <!-- 创建人 -->
+            sou_order.CREATED_FULL_NAME,        <!-- 创建人昵称 -->
+            sou_order.LAST_UPDATED_FULL_NAME    <!-- 修改人昵称 -->
+        FROM scc_sou_order_item order_item
+        LEFT JOIN scc_sou_order sou_order on order_item.ORDER_ID = sou_order.ORDER_ID
+        LEFT JOIN scc_sou_project sou_project on order_item.PROJECT_ID = sou_project.PROJECT_ID
+        LEFT JOIN scc_npm_sou_purinq_project inq_project on inq_project.PROJECT_ID = order_item.PROJECT_ID
+        LEFT JOIN scc_sou_item sou_item on order_item.SOU_ITEM_ID = sou_item.SOU_ITEM_ID
+        WHERE 1 = 1
+        AND sou_project.SOU_TYPE = 'ext_pur_inq'
+        AND order_item.ORDER_STATUS IN ('SUBMISSION', 'CANCEL')
+        <if test="vendorId != null"> <!-- 供应商ID -->
+            AND order_item.VENDOR_ID = #{vendorId}
+        </if>
+        <if test="vendorName != null"> <!-- 供应商名称 -->
+            AND exists (
+            SELECT * from scc_sou_vendor vendor
+            WHERE vendor.PROJECT_ID = order_item.PROJECT_ID
+            AND vendor.VENDOR_ID = order_item.VENDOR_ID AND vendor.VENDOR_NAME LIKE concat('%', concat(#{vendorName}, '%'))
+            )
+        </if>
+        <if test="souNo != null"> <!-- 询价单号 -->
+            AND sou_project.SOU_NO like concat('%', concat(#{souNo}, '%'))
+        </if>
+        <if test="itemCode != null"> <!-- 物料编码 -->
+            AND sou_item.ITEM_CODE like concat('%', concat(#{itemCode}, '%'))
+        </if>
+        <if test="itemDesc != null"> <!-- 物料名称 -->
+            AND sou_item.ITEM_DESC like concat('%', concat(#{itemDesc}, '%'))
+        </if>
+        <if test="forBuyer"> <!-- 采购商端(只有评选中和询价结束，才允许查看历史报价) -->
+            AND (
+            sou_project.CURRENT_ROUND > order_item.ROUND
+            OR
+            inq_project.EXT_PROJECT_STATUS IN ('EVALUATING', 'PRICE_END')
+            )
+        </if>
+        order by project.SOU_NO desc, sou_item.SORT_INDEX asc
+    </select>
+
+    <select id="listOrders" resultType="com.midea.cloud.srm.model.sou.openapi.sourcing.vo.order.ApiSouOrderQueryVO">
+        SELECT
+            sou_project.PROJECT_ID,             <!-- 寻源单ID -->
+            sou_project.PROCESS_CONFIG_ID,      <!-- 流程配置ID -->
+            sou_project.SOU_NO,                 <!-- 寻源单号 -->
+            sou_project.SOU_NAME,               <!-- 寻源单标题 -->
+            sou_project.CURRENT_ROUND,          <!-- 当前轮次 -->
+            sou_project.PUBLISH_SCOPE,          <!-- 发布范围 -->
+            sou_project.PROJECT_STATUS,         <!-- 寻源单状态 -->
+            sou_order.ORDER_NO,                 <!-- 报价单号 -->
+            sou_order.ORDER_STATUS,             <!-- 报价单状态 -->
+            sou_project.SIGN_UP_END_TIME,       <!-- 报名截止时间 -->
+            sou_project.ORDER_START_TIME,       <!-- 报价开始时间 -->
+            sou_project.ORDER_END_TIME,         <!-- 报价截止时间 -->
+            sou_project.PUBLISH_TIME,           <!-- 发布时间 -->
+            sou_project.ALLOW_WITHDRAW,         <!-- 是否允许撤回报价 -->
+            sou_project.CREATED_BY,             <!-- 创建人 -->
+            sou_order.CREATED_FULL_NAME,        <!-- 创建人昵称 -->
+            sou_order.LAST_UPDATED_FULL_NAME,   <!-- 修改人昵称 -->
+            vendor.JOIN_ROUND,                  <!-- 供应商加入的轮次 -->
+        case when vendor.SIGN_UP_STATUS is null then 'NO_SIGN_UP' else vendor.SIGN_UP_STATUS end sign_up_status <!-- 报名状态 -->
+        FROM scc_sou_project sou_project
+        LEFT JOIN scc_npm_sou_purinq_project inq_project on sou_project.PROJECT_ID = inq_project.PROJECT_ID
+        LEFT JOIN scc_sou_order sou_order
+            ON sou_project.PROJECT_ID = sou_order.PROJECT_ID
+            AND sou_order.ROUND = sou_project.CURRENT_ROUND
+            AND sou_order.VENDOR_ID = #{queryParam.vendorId}
+        LEFT JOIN scc_sou_vendor vendor on vendor.PROJECT_ID = sou_project.PROJECT_ID and vendor.VENDOR_ID = #{queryParam.vendorId}
+        WHERE
+            sou_project.PROJECT_STATUS NOT IN ('DRAFT') <!-- 拟定的不能查询出来 -->
+            AND sou_project.SOU_TYPE = #{souType} <!-- 寻源类型 -->
+        <if test="queryParam.souNo != null and queryParam.souNo.length() > 0"> <!-- 寻源单号 -->
+            AND sou_project.SOU_NO LIKE concat('%', concat(#{queryParam.souNo}, '%'))
+        </if>
+        <if test="queryParam.souName != null and queryParam.souName.length() > 0"> <!-- 寻源单名称 -->
+            AND sou_project.SOU_NAME LIKE concat('%', concat(#{queryParam.souName}, '%'))
+        </if>
+        <if test="queryParam.extProjectStatus != null"> <!-- 寻源单状态 -->
+            AND inq_project.EXT_PROJECT_STATUS = #{queryParam.extProjectStatus}
+        </if>
+        <!-- 如果是公开招标则所有供应商均能看到；如果是邀请招标，供应商只能看到自己被邀请的单据 -->
+        <!-- 而且考虑到界面上有物料查询，如果是邀请招标，供应商必须要对指定物料有报价权限才能够看到询价单 -->
+        AND ( sou_project.PUBLISH_SCOPE = 'OPEN_TENDER'
+        AND EXISTS( SELECT * FROM scc_sou_item sou_item where sou_item.PROJECT_ID = sou_project.PROJECT_ID
+        <if test="queryParam.itemDesc != null and queryParam.itemDesc.length() > 0"> <!-- 物料名称 -->
+            AND sou_item.ITEM_DESC LIKE concat('%', concat(#{queryParam.itemDesc}, '%'))
+        </if>
+        )
+        OR sou_project.PUBLISH_SCOPE = 'INVITE_TENDER'
+        AND EXISTS(
+        SELECT PROJECT_ID
+        FROM scc_sou_vendor
+        WHERE PROJECT_ID = sou_project.PROJECT_ID
+        AND VENDOR_ID = #{queryParam.vendorId}
+        <if test="queryParam.itemId != null"> <!-- 物料ID -->
+            AND EXISTS (
+            SELECT sou_item.SOU_ITEM_ID
+            FROM scc_sou_item sou_item
+            WHERE sou_item.PROJECT_ID = sou_project.PROJECT_ID
+            AND sou_item.ITEM_ID = #{queryParam.itemId}
+            )
+        </if>
+        <if test="queryParam.itemDesc != null and queryParam.itemDesc.length() > 0"> <!-- 物料名称 -->
+            AND EXISTS (
+            SELECT sou_item.SOU_ITEM_ID
+            FROM scc_sou_item sou_item
+            WHERE sou_item.PROJECT_ID = sou_project.PROJECT_ID
+            AND sou_item.ITEM_DESC LIKE concat('%', concat(#{queryParam.itemDesc}, '%'))
+            )
+        </if>
+        )
+        )
+        <!-- 下面进行报价单状态筛选 -->
+        <if test="queryParam.orderStatus != null">
+            <if test="queryParam.orderStatus.name().equals('DRAFT')"> <!-- 待报价:要么不存在报价单，要么最新的报价单是待报价状态 -->
+                AND (
+                sou_order.PROJECT_ID IS NULL
+                OR
+                sou_order.ORDER_STATUS = 'DRAFT'
+                )
+            </if>
+            <!-- 已报价、已撤回、已作废  SouOrderStatusEnum-->
+            <if test="queryParam.orderStatus.name().equals('SUBMISSION') or queryParam.orderStatus.name().equals('WITHDRAW') or queryParam.orderStatus.name().equals('CANCEL')">
+                AND sou_order.ORDER_STATUS = #{queryParam.orderStatus}
+            </if>
+            <!-- 价格确认相关状态：待添加 -->
+        </if>
+        order by sou_project.SOU_NO desc
+    </select>
+
+</mapper>

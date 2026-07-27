@@ -1,0 +1,1 @@
+rename table scc_sou_purinq_order_item to scc_npm_sou_purinq_order_item;

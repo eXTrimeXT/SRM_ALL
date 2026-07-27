@@ -1,0 +1,41 @@
+.btn_line[data-v-eaace75b] {
+  display: flex;
+  margin: 0 0 8px 0;
+}
+.required-tag[data-v-eaace75b] {
+  z-index: 99;
+}
+[data-v-eaace75b] .el-form-item__label {
+  display: flex;
+  text-align: right !important;
+}
+[data-v-eaace75b] .el-form-item__content {
+  position: initial;
+}
+.el-tooltip[data-v-eaace75b] .el-button {
+  min-width: 56px;
+  font-size: 14px;
+  border-radius: 2px;
+  padding: 8px 16px;
+}
+.list-page-query[data-v-eaace75b] .el-form-item__label {
+  text-align: right !important;
+}
+.blackEdit .sub_header[data-v-eaace75b] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.blackEdit .el-table .el-date-editor[data-v-eaace75b] {
+  width: 135px;
+}
+.blackEdit .base-form[data-v-eaace75b] {
+  padding: 15px 30px 0;
+}
+.blackEdit .toRequired[data-v-eaace75b] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.blackEdit .edit_cond[data-v-eaace75b] {
+  color: #23adf4;
+  cursor: pointer;
+}

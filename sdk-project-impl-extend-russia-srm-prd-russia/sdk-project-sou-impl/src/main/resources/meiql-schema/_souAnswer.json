@@ -1,0 +1,144 @@
+{
+  "_version": "1.0",
+  "_type": "base",
+  "AnswerFields:scc_sou_answer": {
+    "keyField": "answerId",
+    "comment": "澄清表",
+    "fields": {
+      "answerId": "Long:ID",
+      "answerNum": {
+        "convert": "seqGen:SCC_SOU_ANSWER_NO",
+        "type": "String",
+        "desc": "澄清编号"
+      },
+      "questionId": "Long:质疑ID",
+      "questionNum": "String:质疑编号",
+      "projectId": "Long:寻源模块基础表ID,该表与基础表为一对一关系",
+      "souNo": "String:寻源单号",
+      "souName": "String:寻源单名称",
+      "souType": "String:寻源类型",
+      "submitTime": "Date:提交时间",
+      "answerStatus": "String:澄清状态[字典值BRG_ANSWER_STATUS]",
+      "reasonDesc": "String:废弃原因",
+      "answerTitle": "String:澄清标题",
+      "answerContent": "String:澄清内容",
+      "extBidUserId": "Long:招标负责人ID",
+      "extBidUsername": "String:招标负责人账号",
+      "extBidNickname": "String:招标负责人名称",
+      "extSource": "String:澄清来源",
+      "extSectorCode": "String:板块代码",
+      "extSectorId": "Long:板块ID",
+      "extSectorName": "String:板块名称",
+      "extDeptName": "String:部门名称",
+      "extDeptId": "Long:部门Id",
+      "extDeptCode": "String:部门代码",
+      "extCompanyName": "String:公司名称",
+      "extCompanyId": "Long:公司Id",
+      "extCompanyCode": "String:公司代码",
+      "extCategoryName": "String:品类名称",
+      "extCategoryId": "Long:品类Id",
+      "extCategoryCode": "String:品类代码",
+      "extReplayFlag": "String:负责人回复标识,Y/N 默认N",
+      "vendorName": {
+        "type": "String",
+        "desc": "供应商名称",
+        "virtual": true
+      },
+      "@include": ":BaseFields"
+    }
+  },
+  "AnswerVendorFields" : {
+    "keyField" : "answerVendorId",
+    "comment": "澄清供应商表",
+    "fields" : {
+      "answerVendorId" : "Long:主键ID",
+      "answerId" : "Long:澄清ID",
+      "lineNum" : "Integer:序号",
+      "vendorId" : "Long:供应商ID",
+      "vendorCode" : "String:供应商编码",
+      "vendorName" : "String:供应商名称",
+      "ifRead" : "String:是否已查阅",
+      "readTime" : "Date:查询时间",
+      "ifReplay" : "String:是否已回复",
+      "lastReplayTime" : "Date:最新回复时间",
+      "confirmStatus" : "String:确认状态",
+      "replayId" : "Long:最新回复id",
+      "@include": ":BaseFields"
+    }
+  },
+  "QuestionFields": {
+    "keyField": "questionId",
+    "comment": "质疑表",
+    "fields": {
+      "questionId": "Long:ID",
+      "questionNum": {
+        "convert": "seqGen:SEQ_BIDING_QUESTION_CODE",
+        "type": "String",
+        "desc": "质疑编号"
+      },
+      "projectId": "Long:寻源模块基础表ID,该表与基础表为一对一关系",
+      "souNo": "String:寻源单号",
+      "souName": "String:寻源单名称",
+      "souType": "String:寻源类型",
+      "questionTitle": "String:质疑标题",
+      "submitTime": "Date:提交时间",
+      "questionStatus": "String:质疑状态",
+      "reasonDesc": "String:废弃原因",
+      "questionContent": "String:质疑内容",
+      "rejectReason": "String:驳回原因",
+      "rejectTime": "Date:驳回时间",
+      "vendorId": "Long:供应商ID",
+      "vendorCode": "String:供应商编号",
+      "vendorName": "String:供应商名称",
+      "@include": ":BaseFields",
+      "extIfRecommendFinish": "String:推荐是否完成",
+      "extVendorUserId": "Long:供应商负责人ID",
+      "extVendorUsername": "String:供应商负责人账号",
+      "extVendorNickname": "String:供应商负责人名称",
+      "extBidUserId": "Long:招标负责人ID",
+      "extBidUsername": "String:招标负责人账号",
+      "extBidNickname": "String:招标负责人名称",
+      "extReplayContent": "String:质疑回复",
+      "extType": "String:类型",
+      "extSectorCode": "String:板块代码",
+      "extSectorId": "Long:板块ID",
+      "extSectorName": "String:板块名称",
+      "extDeptName": "String:部门名称",
+      "extDeptId": "Long:部门Id",
+      "extDeptCode": "String:部门代码",
+      "extCompanyName": "String:公司名称",
+      "extCompanyId": "Long:公司Id",
+      "extCompanyCode": "String:公司代码",
+      "extCategoryName": "String:品类名称",
+      "extCategoryId": "Long:品类Id",
+      "extCategoryCode": "String:品类代码"
+    }
+  },
+  "ReplayFields": {
+    "keyField": "replayId",
+    "comment": "澄清回复表",
+    "fields": {
+      "replayId": "Long:回复id",
+      "answerId": "澄清ID",
+      "answerVendorId": "Long:主键ID",
+      "replayContent": "String:回复内容",
+      "@include": ":BaseFields"
+    }
+  },
+  "ReplayFileFields": {
+    "keyField": "replayFileId",
+    "comment": "澄清回复附件表",
+    "fields": {
+      "replayFileId": "Long:回复附件ID",
+      "replayId": "Long:回复id",
+      "replayTime": "Date:回复时间",
+      "remark": "String:备注",
+      "fileId": "Long:附件ID",
+      "fileName": "String:附件名称",
+      "signStatus": "String:签署状态",
+      "signTime": "Date:签署时间",
+      "isDelete":"String:是否删除",
+      "@include": ":BaseFields"
+    }
+  }
+  }

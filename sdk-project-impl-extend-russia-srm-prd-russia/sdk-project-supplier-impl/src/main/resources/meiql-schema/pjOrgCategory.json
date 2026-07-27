@@ -1,0 +1,24 @@
+{
+    "_version": "1.0",
+    "_type": "CUSTOM",
+    "OrgCategory:scc_sup_org_category": {
+        "comment": "供应商品类关系",
+		"keyField": "orgCategoryId",
+        "repository": "pjOrgCategoryRepository",
+        "fields": {
+			"orgCategoryId":"Long",
+            "pjOrgStatus": {
+                "type": "String",
+                "dbName":"pj_org_status",
+                "desc": "组织状态",
+                "virtual": false
+            },
+            "pjCategoryStatus": {
+                "type": "String",
+                "dbName":"pj_category_status",
+                "desc": "品类状态",
+                "virtual": false
+            }
+        }
+    }
+}

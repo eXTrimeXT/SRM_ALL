@@ -1,0 +1,24 @@
+.capacityreportEdit[data-v-50e9619b] {
+  height: 100%;
+}
+.capacityreportEdit .sub_header[data-v-50e9619b] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.capacityreportEdit .el-table .el-date-editor[data-v-50e9619b] {
+  width: 135px;
+}
+.capacityreportEdit .base-form[data-v-50e9619b] {
+  padding: 15px 30px 0;
+}
+.capacityreportEdit .toRequired[data-v-50e9619b] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.capacityreportEdit .edit_cond[data-v-50e9619b] {
+  color: #23adf4;
+  cursor: pointer;
+}
+.form-wrapper[data-v-50e9619b] {
+  padding-bottom: 10px !important;
+}

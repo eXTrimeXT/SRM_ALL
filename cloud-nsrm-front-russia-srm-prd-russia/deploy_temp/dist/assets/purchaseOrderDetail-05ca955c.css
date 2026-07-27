@@ -1,0 +1,43 @@
+.the_main_po_list .the_render_list[data-v-5a0bf35f] {
+  display: flex;
+  list-style: none;
+}
+.the_main_po_list .the_render_list li[data-v-5a0bf35f] {
+  width: 150px;
+  border-left: 1px solid #ccc;
+}
+.the_main_po_list .the_render_list li span[data-v-5a0bf35f] {
+  display: block;
+}
+.the_main_po_list .sub_header[data-v-5a0bf35f] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.the_main_po_list .el-table .el-date-editor[data-v-5a0bf35f] {
+  width: 135px;
+}
+.the_main_po_list .toRequired[data-v-5a0bf35f] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.the_main_po_list .the_header > span[data-v-5a0bf35f] {
+  padding-right: 11px;
+}
+.the_main_po_list .the_header .el-button[data-v-5a0bf35f] {
+  float: right;
+  margin-right: 11px;
+}
+.the_main_po_list .btn_line[data-v-5a0bf35f] {
+  margin: 0 0 10px 0;
+}
+.the_main_po_list .topComment[data-v-5a0bf35f] {
+  margin-top: 15px;
+  float: right;
+}
+.form-container2[data-v-5a0bf35f] {
+  padding: 16px 16px 0 16px;
+}
+.detail-add .el-form-item[data-v-5a0bf35f] {
+  padding-left: 0;
+  padding-right: 0;
+}

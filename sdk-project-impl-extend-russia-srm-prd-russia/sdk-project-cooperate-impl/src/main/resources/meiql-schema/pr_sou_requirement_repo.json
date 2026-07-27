@@ -1,0 +1,42 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "PrSouProjectPlanForBuyer:scc_npm_pr_project_plan": {
+    "comment": "项目计划",
+    "keyField": "projectPlanId",
+    "repository": "prSouProjectPlanForBuyerRepository",
+    "fields": {
+      "projectPlanId": "Long:主键",
+      "@include": ":_ExtPrSouProjectPlan"
+    }
+  },
+  "PrSouRequirementPoolForBuyer:scc_pr_requirement_head": {
+    "comment": "招标计划池",
+    "keyField": "requirementHeadId",
+    "repository": "prSouRequirementPoolForBuyerRepository",
+    "fields": {
+      "requirementHeadId": "Long:主键",
+      "extPublicEndTime": "Date:公示截止时间",
+      "@include": ":requirementHeadFields"
+    },
+    "relations": {
+      "souReqHead": "[ExtPrSouRequirementHead:requirementHeadId]",
+      "souGroupList": "[ExtPrSouRequirementGroup:requirementHeadId]",
+      "souVendorList": "[ExtPrSouRequirementVendor:requirementHeadId]",
+      "souAttachList": "[ExtPrSouRequirementAttach:requirementHeadId]"
+    }
+  },
+  "PrSouRequirementCancelForBuyer:scc_npm_pr_require_cancel": {
+    "comment": "招标计划取消",
+    "keyField": "requirementCancelId",
+    "repository": "prSouRequirementCancelForBuyerRepository",
+    "fields": {
+      "requirementCancelId": "Long:主键",
+      "@include": ":_ExtPrSouRequirementCancel"
+    },
+    "relations": {
+      "cancelLineList": "[ExtPrSouRequirementCancelLine:requirementCancelId]",
+      "cancelAttachList": "[ExtPrSouRequirementCancelAttach:requirementCancelId]"
+    }
+  }
+}

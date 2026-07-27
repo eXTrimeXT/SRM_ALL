@@ -1,0 +1,28 @@
+.bargain-orders-detail-wrap[data-v-3489a4c4] .el-form .el-form-item {
+  margin-bottom: 0 !important;
+}
+.bargain-orders-detail-wrap[data-v-3489a4c4] .the_display_content {
+  padding: 11px;
+}
+.bargain-orders-detail-wrap[data-v-3489a4c4] .the_display_content .el-row {
+  margin-bottom: 11px;
+  font-size: 16px;
+}
+.bargain-orders-detail-wrap[data-v-3489a4c4] .the_display_content .el-row span {
+  padding-right: 11px;
+  display: inline-block;
+  color: #999;
+}
+.bargain-orders-detail-wrap[data-v-3489a4c4] .the_display_content .the_display_footer {
+  text-align: center !important;
+}.bargain-orders-sign-up[data-v-ca9405a4] .sign-up-progress {
+  padding: 11px;
+  background: #eee;
+}
+.bargain-orders-sign-up[data-v-ca9405a4] .sign-up-progress .el-steps {
+  padding-bottom: 0;
+}
+.bargain-orders-sign-up[data-v-ca9405a4] .sign-up-progress .the_footer_row {
+  float: right;
+  font-size: 20px;
+}

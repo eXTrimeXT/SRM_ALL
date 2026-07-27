@@ -1,0 +1,64 @@
+{
+  "_version": "1.0",
+  "_type": "base",
+  "recruitFields:scc_npm_recruit": {
+    "comment": "招募",
+    "keyField" : "recruitId",
+    "fields" : {
+      "recruitId" : "Long:主键id",
+      "name" : "String:名称",
+      "title" : "String:标题",
+      "status" : "String:状态",
+      "orgBuId" : "Long:板块ID",
+      "orgBuCode" : "String:板块编码",
+      "orgBuName" : "String:板块名称",
+      "orgId" : "Long:业务实体ID",
+      "orgCode" : "String:业务实体编码",
+      "orgName" : "String:业务实体名称",
+      "departmentId" : "Long:部门id",
+      "departmentCode" : "String:部门编码",
+      "departmentName" : "String:部门名称",
+      "categoryId" : "Long:品类id",
+      "categoryCode" : "String:品类编码",
+      "categoryName" : "String:品类名称",
+      "publishTime" : "Date:发布时间",
+      "deadlineTime" : "Date:截止时间",
+      "startBpmUsername" : "String:bpm发起人账号",
+      "startBpmNickname" : "String:bpm发起人名称",
+      "@include": ":BaseFields"
+    }
+  },
+  "recruitContentFields:scc_npm_recruit_content": {
+    "comment": "招募内容",
+    "keyField" : "recruitContentId",
+    "fields" : {
+      "recruitContentId" : "Long:主键id",
+      "recruitId" : "Long:招募id",
+      "content" : "String:内容"
+    }
+  },
+  "recruitVendorFields:scc_npm_recruit_vendor": {
+    "comment": "招募供应商",
+    "keyField": "recruitVendorId",
+    "fields": {
+      "recruitVendorId": "Long:主键id",
+      "recruitId": "Long:招募id",
+      "companyName": "String:报名公司",
+      "contactName": "String:报名联系人",
+      "contactMobile": "String:报名联系电话",
+      "contactEmail": "String:报名联系邮箱",
+      "@include": ":BaseFields"
+    }
+  },
+  "recruitFileFields:scc_npm_recruit_file": {
+      "comment": "招募附件表",
+      "keyField" : "recruitFileId",
+      "fields" : {
+        "recruitFileId" : "Long:主键id",
+        "recruitId" : "Long:招募主表id",
+        "fileId" : "Long:招募附件id",
+        "fileName" : "String:招募附件名称",
+        "@include": ":BaseFields"
+      }
+  }
+}

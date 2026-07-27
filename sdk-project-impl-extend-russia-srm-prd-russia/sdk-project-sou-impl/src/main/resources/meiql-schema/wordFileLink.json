@@ -1,0 +1,14 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "WordFileLink:scc_sou_word_file_link": {
+    "keyField": "wordFileLinkId",
+    "comment":"寻源核心-word文件映射pdf表",
+    "fields": {
+      "wordFileLinkId": "Long",
+      "pdfFileLinkId": "Long",
+      "pdfFileLinkName": "String",
+      "@include": ":BaseFields"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+    "_version": "1.0",
+    "_type": "CUSTOM",
+    "sup_entry_config_ide:scc_sup_entry_config": {
+        "comment": "准入流程配置",
+        "fields": {
+            "pjIfAuth":"二开-是否现场评审",
+			"pjIfAuthSample":"二开-是否样品确认",
+			"pjIfMaterial":"二开-是否物料试用"
+        }
+    }
+}

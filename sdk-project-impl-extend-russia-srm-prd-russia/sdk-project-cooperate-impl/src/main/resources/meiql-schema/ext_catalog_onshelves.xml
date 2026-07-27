@@ -1,0 +1,75 @@
+<meiql _version="1.0" _type="custom">
+    <type name="CatalogOnShelves">
+        <validators>
+            <action name="addToShoppingCart">
+                <validator type="request" msg="参数必填：商品ID不能为空">
+                    ql.notEmpty($rec["catalogOnShelvesId"])
+                </validator>
+                <validator type="request" msg="数量要大于0">
+                    return ql.notEmpty($rec["requirementNum"]) &amp;&amp; ql.gt($rec["requirementNum"], 0);
+                </validator>
+                <validator type="db" msg="已下架，请重新查询采购目录">
+                    return $rec["status"] == "ON_SHELVES";
+                </validator>
+                <validator type="db" msg="已下架，请重新查询采购目录">
+                    return $rec["status"] == "ON_SHELVES";
+                </validator>
+                <validator type="db" msg="价格有效期已过期，请重新查询采购目录">
+                    return ql.le($rec["effectiveDate"],ql.nowDate()) &amp;&amp; ql.ge($rec["expirationDate"],ql.nowDate()) ;
+                </validator>
+                <validator type="db" msg="已存在于购物车中">
+                    c = ql.newCond();
+                    ql.cond.eq(c,"materialCode", $rec["materialCode"]);
+                    ql.cond.eq(c,"materialName", $rec["materialName"]);
+                    ql.cond.eq(c,"orgId", $rec["orgId"]);
+                    ql.cond.eq(c,"organizationId", $rec["organizationId"]);
+                    ql.cond.eq(c,"status", "DRAFT");
+                    ql.cond.eq(c,"createdBy", $user.username);
+                    ql.cond.eq(c,"supplierId", $rec["vendorId"]);
+                    return !ql.exists("ShopCart",c);
+                </validator>
+            </action>
+            <action name="add">
+                <validator type="request" msg="协议状态不能为空">
+                    ql.notEmpty($rec["extPriceLibraryStatus"])
+                </validator>
+                <validator type="request" msg="超出协议状态范围：【待执行，执行中】">
+                    return ql.in($rec["extPriceLibraryStatus"], "APPROVING", "APPROVED");
+                </validator>
+            </action>
+            <action name="submit,onShelves">
+                <validator type="request" msg="该协议编号已存在采购目录上下架，不能重复新增">
+                    c = ql.newCond();
+                    ql.cond.eq(c,"priceLibraryId",$rec["priceLibraryId"]);
+                    ql.cond.eq(c,"materialId",$rec["materialId"]);
+                    if(ql.notNull($rec["catalogOnShelvesId"])){
+                    ql.cond.notEq(c,"catalogOnShelvesId",$rec["catalogOnShelvesId"]);
+                    }
+                    return !ql.exists("CatalogOnShelves",c);
+                </validator>
+                <validator type="request" msg="协议编号不能为空">
+                    return ql.notNull($rec["priceLibraryNo"]);
+                </validator>
+                <validator type="request" msg="价格有效期已过期，操作失败">
+                    return ql.le($rec["effectiveDate"],ql.nowDate()) &amp;&amp; ql.ge($rec["expirationDate"],ql.nowDate()) ;
+                </validator>
+                <validator type="request" msg="该协议已终止，不允许上架">
+                    return ql.notIn($rec["extPriceLibraryStatus"], "STOP");
+                </validator>
+            </action>
+            <action name="accept">
+                <validator type="request" msg="价格有效期已过期，操作失败">
+                    return ql.le($rec["effectiveDate"],ql.nowDate()) &amp;&amp; ql.ge($rec["expirationDate"],ql.nowDate()) ;
+                </validator>
+            </action>
+            <action name="save">
+                <validator type="request" msg="协议编号不能为空">
+                    return ql.notNull($rec["priceLibraryNo"]);
+                </validator>
+                <validator type="request" msg="协议状态不能为空">
+                    return ql.notNull($rec["extPriceLibraryStatus"]);
+                </validator>
+            </action>
+        </validators>
+    </type>
+</meiql>

@@ -1,0 +1,14 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "ContractNoSeq:scc_contract_no_seq": {
+    "keyField": "contractNoSeqId",
+    "fields": {
+      "contractNoSeqId": "Long",
+      "contractHeadId":"Long",
+      "contractNo":"String",
+      "contractExtMaxSeq":"Long",
+      "@include": ":BaseFields"
+    }
+  }
+}

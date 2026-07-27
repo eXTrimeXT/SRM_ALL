@@ -1,0 +1,48 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "VendorAnswer:scc_sou_answer": {
+    "keyField": "answerId",
+    "comment": "澄清表",
+    "repository": "vendorAnswerRepository",
+    "fields": {
+      "@include": ":AnswerFields",
+      "answerVendorId": {
+        "type": "Long",
+        "desc": "澄清供应商ID",
+        "virtual": true
+      },
+      "replayId": {
+        "type": "Long",
+        "desc": "最新回复ID",
+        "virtual": true
+      },
+      "confirmStatus": {
+        "type": "String",
+        "desc": "确认状态",
+        "virtual": true
+      },
+      "ifReplay": {
+        "type": "String",
+        "desc": "是否已回复",
+        "virtual": true
+      }
+    },
+    "relations": {
+      "answerVendors": "[AnswerVendor:answerId]",
+      "sceneFiles": "[AnswerSceneFile:answerId]"
+    }
+  },
+  "VendorQuestion:scc_sou_question": {
+    "keyField": "questionId",
+    "comment": "质疑表",
+    "repository": "questionVendorRepository",
+    "fields": {
+      "@include": ":QuestionFields"
+    },
+    "relations": {
+      "sceneFiles": "[QuestionSceneFile:questionId]",
+      "replayFiles": "[QuestionReplaySceneFile:questionId]"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+.demoorderEdit[data-v-57bfb9ec] {
+  height: 100%;
+}
+.demoorderEdit .sub_header[data-v-57bfb9ec] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.demoorderEdit .el-table .el-date-editor[data-v-57bfb9ec] {
+  width: 135px;
+}
+.demoorderEdit .base-form[data-v-57bfb9ec] {
+  padding: 15px 30px 0;
+}
+.demoorderEdit .toRequired[data-v-57bfb9ec] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.demoorderEdit .edit_cond[data-v-57bfb9ec] {
+  color: #23adf4;
+  cursor: pointer;
+}

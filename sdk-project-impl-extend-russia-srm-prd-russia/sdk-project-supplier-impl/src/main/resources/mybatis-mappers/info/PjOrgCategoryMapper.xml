@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sup.ext.pjorgcategory.mapper.PjOrgCategoryMapper">
+
+
+    <select id="listPageHeader" resultType="com.midea.cloud.srm.model.sup.orgcategory.entity.PjOrgCategory">
+        select t.*
+        from (select ssoc.COMPANY_ID, ssci.COMPANY_CODE,
+        ssci.COMPANY_NAME,ssoc.CATEGORY_ID,ssoc.CATEGORY_CODE,ssoc.CATEGORY_NAME,SSOC.LAST_UPDATE_DATE
+        from scc_sup_org_category ssoc
+        left join scc_sup_company_info ssci on ssoc.COMPANY_ID = ssci.COMPANY_ID
+        WHERE ssci.COMPANY_CODE IS NOT NULL
+        <if test="companyId != null  ">
+            and ssoc.COMPANY_ID = #{companyId}
+        </if>
+        <if test="categoryId != null  ">
+            and ssoc.CATEGORY_ID = #{categoryId}
+        </if>
+        <if test="null != orgIdList and orgIdList.size() > 0">
+            AND ssoc.ORG_ID in
+            <foreach collection="orgIdList" item="item" index="index"
+                     open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="serviceStatus != null ">
+            and ssoc.SERVICE_STATUS = #{serviceStatus}
+        </if>
+        <if test="pjOrgStatus != null  and pjOrgStatus != ''">
+            and ssoc.PJ_ORG_STATUS = #{pjOrgStatus}
+        </if>
+        <if test="pjCategoryStatus != null  and pjCategoryStatus != ''">
+            and ssoc.PJ_CATEGORY_STATUS = #{pjCategoryStatus}
+        </if>
+        ORDER BY SSOC.LAST_UPDATE_DATE DESC
+        ) t
+        group by t.COMPANY_ID,t.CATEGORY_ID
+        order by t.LAST_UPDATE_DATE desc ,t.CATEGORY_ID
+    </select>
+    <select id="listByHeaderKey" resultType="com.midea.cloud.srm.model.sup.orgcategory.entity.PjOrgCategory">
+        select ssoc.org_category_id,
+        ssoc.company_id,
+        ssoc.org_id,
+        ssoc.org_code,
+        ssoc.org_name,
+        ssoc.parent_org_id,
+        ssoc.parent_org_code,
+        ssoc.parent_org_name,
+        ssoc.full_path_id,
+        ssoc.category_id,
+        ssoc.category_code,
+        ssoc.category_name,
+        ssoc.category_full_id,
+        ssoc.category_full_name,
+        ssoc.service_status,
+        ssoc.start_date,
+        ssoc.end_date,
+        ssoc.if_single_supplier,
+        ssoc.created_id,
+        ssoc.created_by,
+        ssoc.creation_date,
+        ssoc.created_by_ip,
+        ssoc.created_full_name,
+        ssoc.last_updated_id,
+        ssoc.last_updated_by,
+        ssoc.last_update_date,
+        ssoc.last_updated_by_ip,
+        ssoc.last_updated_full_name,
+        ssoc.tenant_id,
+        ssoc.version,
+        ssoc.limit_time_use,
+        ssoc.category_state_code,
+        ssoc.contract_sign,
+        ssoc.company_status,
+        ssoc.warning_status,
+        ssoc.temp_company_flag,
+        ssoc.category_level,
+        ssoc.old_company_status,
+        ssoc.last_warning_status,
+        ssoc.last_category_level,
+        ssoc.last_service_status,
+        IF( ssci.IS_BACKLIST = 'Y' or ssci.TIME_LIMIT_FLAG = 'Y'or ssoc.PJ_ORG_STATUS = 'N' , 'N' , 'Y' ) AS pj_org_status,
+        IF( ssci.IS_BACKLIST = 'Y' or ssci.TIME_LIMIT_FLAG = 'Y'or ssoc.PJ_CATEGORY_STATUS = 'N' , 'N' , 'Y') AS pj_category_status
+        from scc_sup_org_category ssoc
+        left join scc_sup_company_info ssci on ssoc.COMPANY_ID = ssci.COMPANY_ID
+        where (ssoc.CATEGORY_ID,ssoc.COMPANY_ID) in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            (#{item.categoryId},#{item.companyId})
+        </foreach>
+        <if test="null != pjOrgCategory.orgIdList and pjOrgCategory.orgIdList.size() > 0">
+            AND ssoc.ORG_ID in
+            <foreach collection="pjOrgCategory.orgIdList" item="item" index="index"
+                     open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="pjOrgCategory.serviceStatus != null ">
+            and ssoc.SERVICE_STATUS = #{pjOrgCategory.serviceStatus}
+        </if>
+        <if test="pjOrgCategory.pjOrgStatus != null  and pjOrgCategory.pjOrgStatus != ''">
+            and ssoc.PJ_ORG_STATUS = #{pjOrgCategory.pjOrgStatus}
+        </if>
+        <if test="pjOrgCategory.pjCategoryStatus != null  and pjOrgCategory.pjCategoryStatus != ''">
+            and ssoc.PJ_CATEGORY_STATUS = #{pjOrgCategory.pjCategoryStatus}
+        </if>
+    </select>
+</mapper>

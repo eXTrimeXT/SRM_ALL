@@ -1,0 +1,15 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "TimerTask:scc_npm_sou_timer_task": {
+    "keyField": "taskId",
+    "comment": "定时任务扫描表",
+    "fields": {
+      "taskId" : "Long:主键id",
+      "businessId" : "Long:业务ID",
+      "businessType" : "String:业务编码",
+      "taskStartTime" : "Date:业务编码",
+      "@include": ":BaseFields"
+    }
+  }
+}

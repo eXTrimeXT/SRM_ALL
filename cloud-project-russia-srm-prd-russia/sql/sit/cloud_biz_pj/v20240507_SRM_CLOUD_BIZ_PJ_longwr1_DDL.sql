@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS meicloud_usrm_cloud_biz_pj.scc_pj_contract_seal (
+CONTRACT_SEAL_ID BIGINT(20) NOT NULL COMMENT '主键',
+SIGN_COMPANY_NAME varchar(255) NOT NULL COMMENT '签章单位名称',
+SEAL_NAME varchar(255) NOT NULL COMMENT '印章名称',
+SEAL_ID BIGINT(20) NOT NULL COMMENT '印章ID',
+CREATED_ID bigint(20) NOT NULL COMMENT '创建人ID',
+CREATED_BY varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
+CREATION_DATE datetime NOT NULL COMMENT '创建时间',
+CREATED_BY_IP varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人IP',
+CREATED_FULL_NAME varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '创建人姓名',
+LAST_UPDATED_ID bigint(20) NULL COMMENT '最后更新人ID',
+LAST_UPDATED_BY varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '更新人',
+LAST_UPDATE_DATE datetime NULL COMMENT '最后更新时间',
+LAST_UPDATED_BY_IP varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '最后更新人IP',
+LAST_UPDATED_FULL_NAME varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '最后更新人姓名',
+TENANT_ID varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '租户ID',
+VERSION bigint(20) DEFAULT 0 NULL COMMENT '版本号',
+CONSTRAINT scc_pj_contract_seal_pk PRIMARY KEY (CONTRACT_SEAL_ID)
+)
+    ENGINE=InnoDB
+    DEFAULT CHARSET=utf8mb4
+    COLLATE=utf8mb4_unicode_ci
+    COMMENT='合同印章维护表';

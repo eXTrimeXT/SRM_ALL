@@ -1,0 +1,99 @@
+<meiql _version="1.0" _type="custom">
+    <type name="DeliveryNote,DeliveryNoteVendor">
+        <validators>
+            <action name="saveOrUpdate">
+                <validator type="request" range="list" msg="参数缺失">
+                    return ql.notEmpty($recs);
+                </validator>
+                <validator type="request" msg="仅支持一条数据">
+                    return count($recs) == 1;
+                </validator>
+                <validator type="request" msg="单据状态不能为空">
+                    return ql.notEmpty($rec["deliveryNoteStatus"]);
+                </validator>
+                <validator type="request" msg="传参状态错误">
+                    return ql.in($rec["deliveryNoteStatus"], "CREATE", "DELIVERED");
+                </validator>
+                <validator type="request" msg="供应商不能为空">
+                    return ql.notEmpty($rec["vendorCode"]) &amp;&amp; ql.notNull($rec["vendorId"]) &amp;&amp; ql.notEmpty($rec["vendorName"]);
+                </validator>
+                <validator type="request" msg="业务实体不能为空">
+                    return ql.notEmpty($rec["orgCode"]) &amp;&amp; ql.notNull($rec["orgId"]) &amp;&amp; ql.notEmpty($rec["orgName"]);
+                </validator>
+                <validator type="request" msg="库存组织不能为空">
+                    return ql.notEmpty($rec["organizationCode"]) &amp;&amp; ql.notNull($rec["organizationId"]) &amp;&amp; ql.notEmpty($rec["organizationName"]);
+                </validator>
+                <validator type="request" msg="送货单明细不能为空">
+                    return ql.notEmpty(ql.clearDel($rec["detailList"]));
+                </validator>
+                <validator type="request" msg="只有[拟定]状态才能修改">
+                    if (ql.notNull($rec["deliveryNoteId"])) {
+                        c = ql.newCond();
+                        ql.cond.eq(c,"deliveryNoteId", $rec["deliveryNoteId"]);
+                        r = ql.query("DeliveryNote", c);
+                        return ql.notEmpty(r) &amp;&amp; (r[0]["deliveryNoteStatus"] == "CREATE");
+                    }
+                    return true;
+                </validator>
+            </action>
+
+            <action name="delete">
+                <validator type="request" range="list" msg="参数缺失">
+                    return ql.notEmpty($recs);
+                </validator>
+                <validator type="request" msg="单据id不能为空">
+                    return ql.notEmpty($rec["deliveryNoteId"]);
+                </validator>
+                <validator type="db" range="list" msg="单据不存在">
+                    return ql.notEmpty($recs);
+                </validator>
+                <validator type="db" msg="单据状态不为[拟定]，请检查!">
+                    return $rec["deliveryNoteStatus"] == "CREATE";
+                </validator>
+            </action>
+
+            <action name="confirm">
+                <validator type="request" range="list" msg="参数缺失">
+                    return ql.notEmpty($recs);
+                </validator>
+                <validator type="request" msg="单据id不能为空">
+                    return ql.notEmpty($rec["deliveryNoteId"]);
+                </validator>
+                <validator type="db" range="list" msg="单据不存在">
+                    return ql.notEmpty($recs);
+                </validator>
+                <validator type="db" msg="单据状态不为[拟定]，请检查!">
+                    return $rec["deliveryNoteStatus"] == "CREATE";
+                </validator>
+            </action>
+
+            <action name="cancel">
+                <validator type="request" range="list" msg="参数缺失">
+                    return ql.notEmpty($recs);
+                </validator>
+                <validator type="request" msg="单据id不能为空">
+                    return ql.notEmpty($rec["deliveryNoteId"]);
+                </validator>
+                <validator type="db" range="list" msg="单据不存在">
+                    return ql.notEmpty($recs);
+                </validator>
+                <validator type="db" msg="单据状态不为[已发货]，请检查!">
+                    return $rec["deliveryNoteStatus"] == "DELIVERED";
+                </validator>
+            </action>
+        </validators>
+    </type>
+
+    <type name="DeliveryNoteDetail,DeliveryNoteDetailVendor">
+        <validators>
+            <action name="create,update">
+                <validator type="request" range="list" msg="送货单明细缺失">
+                    return ql.notEmpty($recs);
+                </validator>
+                <validator type="request" msg="送货数量必须大于0">
+                    return ql.notNull($rec["deliveryQuantity"]) &amp;&amp; ql.gt($rec["deliveryQuantity"], 0);
+                </validator>
+            </action>
+        </validators>
+    </type>
+</meiql>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<meiql _version="1.0" _type="custom">
+    <type name="ReviewForm">
+        <validators>
+            <action name="save">
+                <validator type="request" msg="供应商不能为空">
+                    !ql.isEmpty($rec["vendorId"])
+                </validator>
+                <validator type="request" msg="供应商不存在,请检查">
+                    c = ql.newCond();
+                    ql.cond.eq(c,"companyId",$rec["vendorId"]);
+                    return ql.exists("CompanyInfo",c);
+                </validator>
+                <validator type="request" msg="引入组织列表不能为空">
+                    ql.length(ql.clearDel($rec["orgJournals"]),1)
+                </validator>
+                <validator type="request" msg="引入品类列表不能为空">
+                    ql.length(ql.clearDel($rec["cateJournals"]),1)
+                </validator>
+                <validator type="request" msg="财务信息列表不能为空">
+                    return true;
+                </validator>
+                <!--<validator type="request" msg="供应商品类关系中,品类状态为合格状态,不可新增资质审查">
+                    &lt;!&ndash;组织id集合&ndash;&gt;
+                    let orgJournals = ql.clearDel($rec["orgJournals"]);
+                    let orgCount = count(orgJournals);
+                    let orgIdList = seq.array_of(long, orgCount);
+                    for i in range(0,orgCount) {
+                        orgIdList[i] = orgJournals[i]['orgId']
+                    }
+                    &lt;!&ndash;品类id集合&ndash;&gt;
+                    let cateJournals = ql.clearDel($rec["cateJournals"]);
+                    let cateCount = count(cateJournals);
+                    let cateIdList = seq.array_of(long, cateCount);
+                    for i in range(0,cateCount) {
+                        cateIdList[i] = cateJournals[i]['categoryId']
+                    }
+                    &lt;!&ndash;查询&ndash;&gt;
+                    c = ql.newCond();
+                    ql.cond.eq(c,"companyId",$rec["vendorId"]);
+                    ql.cond.in(c,"orgId",orgIdList);
+                    ql.cond.in(c,"categoryId",cateIdList);
+                    ql.cond.eq(c,"serviceStatus","QUALIFIED");
+                    return !ql.exists("OrgCategory",c);
+                </validator>-->
+                <validator type="request" msg="供应商品类关系中,供应商状态为清算中状态,不可新增资质审查;">
+                    <!--组织id集合-->
+                    let orgJournals = ql.clearDel($rec["orgJournals"]);
+                    let orgCount = count(orgJournals);
+                    let orgIdList = seq.array_of(long, orgCount);
+                    for i in range(0,orgCount) {
+                    orgIdList[i] = orgJournals[i]['orgId']
+                    }
+                    <!--品类id集合-->
+                    let cateJournals = ql.clearDel($rec["cateJournals"]);
+                    let cateCount = count(cateJournals);
+                    let cateIdList = seq.array_of(long, cateCount);
+                    for i in range(0,cateCount) {
+                    cateIdList[i] = cateJournals[i]['categoryId']
+                    }
+                    <!--查询-->
+                    c = ql.newCond();
+                    ql.cond.eq(c,"companyId",$rec["vendorId"]);
+                    ql.cond.in(c,"orgId",orgIdList);
+                    ql.cond.in(c,"categoryId",cateIdList);
+                    ql.cond.eq(c,"companyStatus","CALCING");
+                    return !ql.exists("OrgCategory",c);
+                </validator>
+                <validator type="request" msg="不可维护重复的财务信息数据">
+                    <!--组织id集合-->
+                    return true;
+                </validator>
+            </action>
+            <action name="delete">
+                <validator type="db" msg="只能删除拟定状态的记录">
+                    $rec["approveStatus"] == "DRAFT"
+                </validator>
+            </action>
+        </validators>
+    </type>
+
+</meiql>

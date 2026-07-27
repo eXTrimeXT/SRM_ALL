@@ -1,0 +1,50 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "Inspect:scc_npm_inspect": {
+    "comment": "考察申请",
+    "repository": "inspectRepository",
+    "keyField": "inspectId",
+    "fields": {
+      "@include": ":inspectFields",
+      "inspectNum" : {
+        "convert": "seqGen:SEQ_INSPECT_NO",
+        "type": "String",
+        "dbName": "inspect_num",
+        "desc": "考察申请单号"
+      }
+    },
+    "relations" : {
+      "vendorList":"[InspectVendor:inspectId]",
+      "userList":"[InspectUser:inspectId]",
+      "attachList":"[InspectAttach:inspectId]"
+    }
+  },
+  "InspectVendor:scc_npm_inspect_vendor": {
+    "comment": "考察单位",
+    "keyField": "inspectVendorId",
+    "fields": {
+      "@include": ":inspectVendorFields"
+    },
+    "relations" : {
+    }
+  },
+  "InspectUser:scc_npm_inspect_user": {
+    "comment": "考察人员",
+    "keyField": "inspectUserId",
+    "fields": {
+      "@include": ":inspectUserFields"
+    },
+    "relations" : {
+    }
+  },
+  "InspectAttach:scc_npm_inspect_attach": {
+    "comment": "考察附件",
+    "keyField": "inspectAttachId",
+    "fields": {
+      "@include": ":inspectAttachFields"
+    },
+    "relations" : {
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.previewDiv[data-v-dfa7a322] {
+  font-size: 16px;
+  color: #333;
+  padding-top: 28px;
+  font-weight: bold;
+  line-height: 30px;
+}
+.orderNoConfig .el-input-number--mini .el-input-number__increase,
+.orderNoConfig .el-input-number--mini .el-input-number__decrease {
+  width: 28px;
+  font-size: 12px;
+  height: 30px !important;
+  line-height: 30px !important;
+}

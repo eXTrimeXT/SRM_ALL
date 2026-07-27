@@ -1,0 +1,76 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "ExtPrSouProjectPlan:scc_npm_pr_project_plan": {
+    "comment": "项目计划",
+    "keyField": "projectPlanId",
+    "fields": {
+      "projectPlanId": "Long:主键",
+      "@include": ":_ExtPrSouProjectPlan"
+    }
+  },
+  "ExtPrSouRequirementHead:scc_npm_pr_require_head": {
+    "comment": "招标计划",
+    "keyField": "requirementHeadId",
+    "fields": {
+      "requirementHeadId": "Long:主键",
+      "@include": ":_ExtPrSouRequirementHead"
+    }
+  },
+  "ExtPrSouRequirementGroup:scc_npm_pr_require_group": {
+    "comment": "招标计划工作成员",
+    "keyField": "requirementGroupId",
+    "fields": {
+      "requirementGroupId": "Long:主键",
+      "@include": ":_ExtPrSouRequirementGroup"
+    }
+  },
+  "ExtPrSouRequirementVendor:scc_npm_pr_require_vendor": {
+    "comment": "招标计划推荐供应商",
+    "keyField": "requirementVendorId",
+    "fields": {
+      "requirementVendorId": "Long:主键",
+      "@include": ":_ExtPrSouRequirementVendor"
+    }
+  },
+  "ExtPrSouRequirementAttach:scc_npm_pr_require_attach": {
+    "comment": "招标计划附件",
+    "keyField": "requirementAttachId",
+    "fields": {
+      "requirementAttachId": "Long:主键",
+      "@include": ":_ExtPrSouRequirementAttach"
+    }
+  },
+  "ExtPrSouRequirementCancel:scc_npm_pr_require_cancel": {
+    "comment": "招标计划取消",
+    "keyField": "requirementCancelId",
+    "fields": {
+      "requirementCancelId": "Long:ID",
+      "@include": ":_ExtPrSouRequirementCancel"
+    }
+  },
+  "ExtPrSouRequirementCancelLine:scc_npm_pr_require_cancel_line": {
+    "comment": "招标计划取消明细",
+    "keyField": "requirementCancelLineId",
+    "fields": {
+      "requirementCancelLineId": "Long:ID",
+      "@include": ":_ExtPrSouRequirementCancelLine"
+    }
+  },
+  "ExtPrSouRequirementCancelAttach:scc_npm_pr_require_cancel_file": {
+    "comment": "招标计划取消附件",
+    "keyField": "requirementCancelAttachId",
+    "fields": {
+      "requirementCancelAttachId": "Long:ID",
+      "@include": ":_ExtPrSouRequirementCancelAttach"
+    }
+  },
+  "ExtPrSouRequirementBidResult:scc_npm_pr_require_bid_result": {
+    "comment": "招标计划定标信息",
+    "keyField": "bidResultId",
+    "fields": {
+      "bidResultId": "Long:ID",
+      "@include": ":_ExtPrSouRequirementBidResult"
+    }
+  }
+}

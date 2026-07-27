@@ -1,0 +1,1 @@
+alter table scc_npm_sou_inq_vendor add NEW_VENDOR_TAG char(1) default 'N' not null comment '是否新供应商';

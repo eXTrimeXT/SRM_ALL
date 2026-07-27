@@ -1,0 +1,13 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "RolePermission:scc_rbac_role_permission": {
+    "keyField": "rolePermissionId",
+    "fields": {
+      "rolePermissionId": "Long",
+      "roleId": "Long",
+      "permissionId": "Long",
+      "@include": ":BaseFields"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+<meiql _version="1.0" _type="standard">
+    <type name="Dca">
+        <validators>
+            <action name="submit">
+                <validator type="request" msg="存在中落标通知单，不允许取消。">
+                    c = ql.newCond();
+                    ql.cond.notEq(c,"status","ABANDONED");
+                    ql.cond.eq(c,"projectId",$rec["projectId"]);
+                    existRec = ql.query("BidNotice",c);
+                    return ql.le(count(existRec),0);
+                </validator>
+            </action>
+        </validators>
+    </type>
+</meiql>

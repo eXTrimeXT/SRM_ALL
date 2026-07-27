@@ -1,0 +1,21 @@
+.tableForm[data-v-eb709851] {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+}
+.tableForm .el-table[data-v-eb709851] {
+  height: 100%;
+}
+.download-link-wrap .download-link-item[data-v-eb709851] {
+  color: #1890ff;
+}
+.download-link-wrap .close-icon[data-v-eb709851] {
+  font-weight: bold;
+  cursor: pointer;
+}
+.toRequired[data-v-eb709851] {
+  color: #ff4949;
+  padding-right: 2px;
+}

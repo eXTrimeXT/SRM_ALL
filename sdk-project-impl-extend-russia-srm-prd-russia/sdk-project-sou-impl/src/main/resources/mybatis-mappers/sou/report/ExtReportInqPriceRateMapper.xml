@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.report.inq.mapper.ExtReportInqPriceRateMapper">
+
+    <select id="listPriceRate" parameterType="map" resultType="com.midea.cloud.srm.model.sou.report.inq.dto.ExtInquiryPriceRateDto">
+        select DISTINCT v.VENDOR_ID, v.VENDOR_CODE, v.VENDOR_NAME, i.ORG_OU_ID, i.ORG_OU_CODE, i.ORG_OU_NAME from scc_sou_vendor v
+        join scc_sou_project p on p.PROJECT_ID = v.PROJECT_ID and p.SOU_TYPE='inq' and p.CREATE_APPROVAL_STATUS='APPROVED'
+        join scc_sou_item i on i.PROJECT_ID = p.PROJECT_ID
+        <where>
+            <if test="creationDateFrom != null">and p.CREATION_DATE >= #{creationDateFrom}</if>
+            <if test="creationDateTo != null"><![CDATA[and p.CREATION_DATE < #{creationDateTo}]]></if>
+            <if test="vendorCode != null and vendorCode != ''">and v.VENDOR_CODE like CONCAT('%', #{vendorCode},'%')</if>
+            <if test="vendorName != null and vendorName != ''">and v.VENDOR_NAME like CONCAT('%', #{vendorName},'%')</if>
+            <if test="orgOuCode != null and orgOuCode != ''">and i.ORG_OU_CODE=#{orgOuCode}</if>
+            <if test="orgOuId != null">and i.ORG_OU_ID=#{orgOuId}</if>
+        </where>
+    </select>
+
+    <select id="statisticsInqTimes" parameterType="map" resultType="com.midea.cloud.srm.model.sou.report.inq.dto.ExtInquiryPriceRateDto">
+        select t.VENDOR_ID, t.ORG_OU_ID, COUNT(t.PROJECT_ID) INQ_TIMES from (
+        select DISTINCT v.VENDOR_ID, i.ORG_OU_ID, p.PROJECT_ID from scc_sou_vendor v
+        join scc_sou_project p on p.PROJECT_ID = v.PROJECT_ID and p.SOU_TYPE='inq' and p.CREATE_APPROVAL_STATUS='APPROVED'
+        join scc_sou_item i on i.PROJECT_ID = p.PROJECT_ID
+        <where>
+            <if test="creationDateFrom != null">and p.CREATION_DATE >= #{creationDateFrom}</if>
+            <if test="creationDateTo != null"><![CDATA[and p.CREATION_DATE < #{creationDateTo}]]></if>
+            <if test="dataList != null and dataList.size() > 0">
+                and (v.VENDOR_ID, i.ORG_OU_ID) IN <foreach collection="dataList" item="item" open="(" close=")" separator=",">
+                (#{item.vendorId}, #{item.orgOuId})
+            </foreach>
+            </if>
+        </where>
+        ) t GROUP BY t.VENDOR_ID, t.ORG_OU_ID
+    </select>
+
+    <select id="statisticsOrderTimes" parameterType="map" resultType="com.midea.cloud.srm.model.sou.report.inq.dto.ExtInquiryPriceRateDto">
+        select t.VENDOR_ID, t.ORG_OU_ID, COUNT(t.PROJECT_ID) ORDER_TIMES from (
+        select DISTINCT v.VENDOR_ID, i.ORG_OU_ID, o.PROJECT_ID from scc_sou_vendor v
+        join scc_sou_project p on p.PROJECT_ID = v.PROJECT_ID and p.SOU_TYPE='inq' and p.CREATE_APPROVAL_STATUS='APPROVED'
+        join scc_sou_item i on i.PROJECT_ID = p.PROJECT_ID
+        join scc_sou_order o on o.PROJECT_ID = p.PROJECT_ID and o.VENDOR_ID = v.VENDOR_ID and o.ORDER_STATUS='SUBMISSION'
+        <where>
+            <if test="creationDateFrom != null">and p.CREATION_DATE >= #{creationDateFrom}</if>
+            <if test="creationDateTo != null"><![CDATA[and p.CREATION_DATE < #{creationDateTo}]]></if>
+            <if test="dataList != null and dataList.size() > 0">
+                and (v.VENDOR_ID, i.ORG_OU_ID) IN <foreach collection="dataList" item="item" open="(" close=")" separator=",">
+                (#{item.vendorId}, #{item.orgOuId})
+            </foreach>
+            </if>
+        </where>
+        ) t
+        GROUP BY t.VENDOR_ID, t.ORG_OU_ID
+    </select>
+
+
+    <select id="statisticsItemTimes" parameterType="map" resultType="com.midea.cloud.srm.model.sou.report.inq.dto.ExtInquiryPriceRateDto">
+        SELECT t.VENDOR_ID, t.ORG_OU_ID, COUNT(t.ITEM_ID) ITEM_TIMES from (
+        select DISTINCT v.VENDOR_ID, i.ORG_OU_ID, oi.PROJECT_ID, oi.ITEM_ID from scc_sou_vendor v
+        join scc_sou_project p on p.PROJECT_ID = v.PROJECT_ID and p.SOU_TYPE='inq' and p.CREATE_APPROVAL_STATUS='APPROVED'
+        join scc_sou_item i on i.PROJECT_ID = p.PROJECT_ID
+        join scc_sou_order o on o.PROJECT_ID = p.PROJECT_ID and o.VENDOR_ID = v.VENDOR_ID and o.ORDER_STATUS='SUBMISSION'
+        join scc_sou_order_item oi on oi.PROJECT_ID = o.PROJECT_ID and oi.ORDER_ID = o.ORDER_ID and oi.ORDER_STATUS='SUBMISSION' and i.SOU_ITEM_ID = oi.SOU_ITEM_ID
+        <where>
+            <if test="creationDateFrom != null">and p.CREATION_DATE >= #{creationDateFrom}</if>
+            <if test="creationDateTo != null"><![CDATA[and p.CREATION_DATE < #{creationDateTo}]]></if>
+            <if test="dataList != null and dataList.size() > 0">
+                and (v.VENDOR_ID, i.ORG_OU_ID) IN <foreach collection="dataList" item="item" open="(" close=")" separator=",">
+                (#{item.vendorId}, #{item.orgOuId})
+            </foreach>
+            </if>
+        </where>
+        ) t
+        GROUP BY t.VENDOR_ID, t.ORG_OU_ID
+    </select>
+</mapper>

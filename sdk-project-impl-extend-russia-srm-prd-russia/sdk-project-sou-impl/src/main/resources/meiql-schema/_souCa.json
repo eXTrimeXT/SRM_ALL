@@ -1,0 +1,189 @@
+{
+  "_version": "1.0",
+  "_type": "base",
+  "CaFields" : {
+    "keyField": "caId",
+    "fields" : {
+      "caId" : "Long:定/废标申请单ID",
+      "type" : "String:类型",
+      "status" : "String:单据状态",
+      "extOrgBuId" : "Long:板块ID",
+      "extOrgBuCode" : "String:板块编码",
+      "extOrgBuName" : "String:板块名称",
+      "extOrgOuId" : "Long:公司ID",
+      "extOrgOuCode" : "String:公司编码",
+      "extOrgOuName" : "String:公司名称",
+      "projectId" : "Long:项目ID",
+      "souName" : "String:寻源名称",
+      "souNo" : "String:寻源单号",
+      "souType" : "String:寻源类型",
+      "extProjectNo" : "String:招标项目编号",
+      "demandDepartmentId" : "String:需求部门ID",
+      "demandDepartmentCode" : "String:需求部门编码",
+      "demandDepartmentName" : "String:需求部门名称",
+      "demandUserId" : "String:需求人id(可多选)",
+      "demandUserName" : "String:需求人工号",
+      "demandUserNickname" : "String:需求人名称",
+      "warrantyPeriod" : "String:质保期",
+      "extBudget" : "BigDecimal:预算",
+      "timeLimit" : "String:工期/交货期要求",
+      "publishTime" : "Date:发标时间",
+      "busEndTime" : "Date:收标时间",
+      "techEvaluationTime" : "Date:评标结束",
+      "priceOpeningTime" : "Date:开价格标时间",
+      "projectOverviewAndBidScope" : "String:项目概况与招标范围",
+      "paymentRequirements" : "String:付款要求",
+      "remark" : "String:备注",
+      "discardDescription" : "String:废弃说明",
+      "startBpmUsername":"String:bpm发起人账号",
+      "startBpmNickname":"String:bpm发起人名称",
+      "startBpmDiscardUsername":"String:废弃 bpm发起人账号",
+      "startBpmDiscardNickname":"String:废弃 bpm发起人名称",
+      "caRound":"String:轮次",
+      "vendorFlairAdjure": "String:供应商资质要求",
+      "vendorBizAdjure": "String:供应商业绩要求",
+      "budgetPriceDiff": "String:预算与报价差异分析",
+      "previousPurchase": "String:前期采购情况",
+      "manufacturerAnalysis": "String:厂家报价差异分析",
+      "applicantNo": {
+        "type": "String",
+        "desc": "合并申请单号",
+        "virtual": true
+      },
+      "applicantId": {
+        "type": "String",
+        "desc": "合并申请单Id",
+        "virtual": true
+      },
+      "caNegotiateExtend": {
+        "type": "Object",
+        "desc": "供应商谈判内容",
+        "virtual": true
+      },
+      "extCategoryId": "Long:品类ID",
+      "extCategoryCode": "String:品类编码",
+      "extCategoryName": "String:品类名称",
+      "ifWrite": "String:是否填写",
+      "techWeight": "BigDecimal:技术权重",
+      "contractOperatorUserId": "Long:合同经办人ID",
+      "contractOperatorUsername": "String:合同经办人账号",
+      "contractOperatorNickname": "String:合同经办人名称",
+      "extScoreRule": "String:评分规则（字典）",
+      "extSouProcess": "String:招标流程",
+      "caRound": "String:轮次，字典 NPM_CA_PRICE_ROUND",
+      "@include": ":BaseFields",
+      "approvalUserId" : "Long:第一层级审批人ID",
+      "approvalUserName" : "String:第一层级审批人账号",
+      "approvalNickname" : "String:第一层级审批人姓名",
+      "historyPriceList": {
+        "type": "List",
+        "desc": "价格历史",
+        "virtual": true
+      }
+    }
+  },
+  "CaOrderFields": {
+    "keyField": "caOrderId",
+    "fields" : {
+      "caOrderId" : "Long:主鍵",
+      "lineNum" : "Integer:序号",
+      "caId" : "Long:定标申请ID",
+      "vendorId" : "Long:供应商ID",
+      "vendorCode" : "String:供应商编码",
+      "vendorName" : "String:供应商名称",
+      "extVendorAttr" : "String:供应商属性",
+      "orderStatus" : "String:投标状态",
+      "tenderPackageName" : "String:投标包名",
+      "withdrawReason" : "String:撤回原因",
+      "extNotjoinReason": "String:不参与原因",
+      "rejectReason" : "String:废标原因",
+      "@include": ":BaseFields"
+    }
+  },
+  "CaSupplierFields" : {
+    "keyField": "caSupplierId",
+    "fields" : {
+      "caSupplierId" : "Long:供应商总体情况ID",
+      "lineNum" : "Integer:序号",
+      "caId" : "Long:定标申请ID",
+      "vendorId" : "Long:供应商ID",
+      "vendorCode" : "String:供应商编码",
+      "vendorName" : "String:供应商名称",
+      "bidTotalPrice" : "BigDecimal:投标含税总价（万元）",
+      "techScore" : "BigDecimal:技术得分",
+      "priceScore" : "BigDecimal:价格得分",
+      "compositeScore" : "BigDecimal:综合得分",
+      "comprehensiveEvaluation" : "String:综合评定",
+      "orderItemId" : "Long:报价行ID",
+      "orderId" : "Long:报价单ID",
+      "@include": ":BaseFields"
+    }
+  },
+  "CaSelectionResultFields" : {
+    "keyField": "selectionResultId",
+    "fields" : {
+      "selectionResultId" : "Long:供应商选定结果ID",
+      "lineNum" : "Integer:序号",
+      "caId" : "Long:定标申请ID",
+      "vendorId" : "Long:供应商ID",
+      "vendorCode" : "String:供应商编码",
+      "vendorName" : "String:供应商名称",
+      "isWin" : ":是否中标",
+      "winRange" : "String:中标范围",
+      "winReason" : "String:中/落标原因",
+      "orderItemId" : "String:报价行ID",
+      "orderId" : "Long:报价单ID",
+      "@include": ":BaseFields"
+    }
+  },
+  "CaTenderTimeFields" : {
+    "keyField": "tenderTimeId",
+    "fields" : {
+      "tenderTimeId": "Long:主键ID",
+      "caId": "Long:定/废标申请单ID",
+      "type": "String:工作内容，字典：CA_TENDER_TIME_TYPE",
+      "planTime": "Date:计划完成时间",
+      "actualTime": "Date:实际时间",
+      "department": "String:责任部门",
+      "dutyOfficer": "String:责任人",
+      "remark": "String:备注",
+      "sortIndex": "Integer:排序",
+      "@include": ":BaseFields"
+    }
+  },
+  "CaNegotiateFields" : {
+    "keyField": "negotiateId",
+    "fields" : {
+      "negotiateId": "Long:主键ID",
+      "caId": "Long:定/废标申请单ID",
+      "vendorId": "Long:供应商ID",
+      "vendorCode": "String:供应商编码",
+      "vendorName": "String:供应商名称",
+      "negotiate": "String:谈判",
+      "sortIndex": "Integer:排序",
+      "@include": ":BaseFields"
+    }
+  },
+  "CaPriceFields" : {
+    "keyField": "caPriceId",
+    "fields" : {
+      "caPriceId": "Long:主键ID",
+      "bidPriceId": "Long:招标价格库ID",
+      "caId": "Long:定/废标申请单ID",
+      "souName": "String:项目名称",
+      "projectNo": "String:项目编号",
+      "itemDesc": "String:名称",
+      "specification": "String:规格型号",
+      "brand": "String:品牌",
+      "priceTax": "BigDecimal:含税单价（万元）",
+      "fixedPriceTax" : "BigDecimal:固定含税单价（万元）",
+      "region" : "String:区域",
+      "souPrincipalUserId" : "Long:招标负责人ID",
+      "souPrincipalUserName" : "String:招标负责人账号",
+      "souPrincipal" : "String:招标负责人",
+      "bidDate" : "Date:定标时间",
+      "priceSumTax" : "BigDecimal:含税总价(万元)",
+      "@include": ":BaseFields"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.the_catSelect-wrap[data-v-4771dfff] {
+  margin-right: 5px;
+}
+.mb10[data-v-4771dfff] {
+  margin-bottom: 5px;
+}
+.el-divider[data-v-4771dfff] {
+  margin: 0;
+}
+.paginationWrap[data-v-4771dfff] {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+[data-v-4771dfff] .smallInput>input {
+  height: 24px;
+  line-height: 24px;
+  min-height: 24px;
+}
+.checkboxCon[data-v-4771dfff] {
+  width: 100%;
+  text-align: center;
+}

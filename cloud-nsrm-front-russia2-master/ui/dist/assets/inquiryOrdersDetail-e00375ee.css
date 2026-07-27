@@ -1,0 +1,23 @@
+.price-input[data-v-52f71834] .el-input__inner {
+  text-align: center;
+}
+.price-input-number[data-v-52f71834] {
+  max-width: 100%;
+}
+.price-input-number[data-v-52f71834] .el-input {
+  line-height: 1;
+}.the-inquiryOrdersDetail-detail .sub_header[data-v-60ff1faa] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.the-inquiryOrdersDetail-detail .el-table .el-date-editor[data-v-60ff1faa] {
+  width: 135px;
+}
+.the-inquiryOrdersDetail-detail .flex-col[data-v-60ff1faa] {
+  display: flex;
+  margin: 10px 0;
+}
+.the-inquiryOrdersDetail-detail .flex-col .label[data-v-60ff1faa] {
+  line-height: 30px;
+  margin-right: 10px;
+}

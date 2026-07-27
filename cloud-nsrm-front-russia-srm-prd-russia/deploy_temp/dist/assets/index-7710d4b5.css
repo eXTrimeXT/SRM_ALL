@@ -1,0 +1,13 @@
+.sysThemeConfig-page .buttonAddAndReduce {
+  color: #96999C;
+  font-size: 18px;
+  line-height: 28px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+.sysThemeConfig-page .input-with-select .el-input-group__prepend {
+  background-color: #fff;
+}
+.sysThemeConfig-page .marginTop {
+  margin-top: 16px;
+}

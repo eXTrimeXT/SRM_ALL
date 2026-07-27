@@ -1,0 +1,54 @@
+spring:
+  cloud:
+    # 配置中心切换到nacos，下面注释掉的配置忽略
+    #    config:
+    #      discovery:
+    #        enabled: true
+    #        serviceId: config-center
+    nacos:
+      # nacos 注册中心通用配置
+      discovery:
+        metadata:
+          appName: ${spring.application.name}
+          internalAnonPassword: ${spring.cloud.client.hostname}-${spring.cloud.client.ipaddress}-${server.port}-${sysRandom:CsaWljuYd1}
+          externalAnonPassword: ${spring.cloud.client.hostname}-${spring.cloud.client.ipaddress}-${server.port}-${sysRandom:uqlWlqcW*9}
+        service: ${spring.application.name}
+      # nacos 配置中心通用配置
+      config:
+        refresh-enabled: true
+        file-extension: yml
+        shared-configs:
+          - data-id: global-env.properties
+            refresh: true
+            group: global
+          - data-id: srm-env.properties
+            refresh: true
+            group: srm
+          - data-id: srm-init.properties
+            refresh: true
+            group: srm
+        extension-configs:
+          - data-id: srm-common.yml
+            refresh: true
+            group: srm
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+server:
+  max-http-header-size: 102400
+
+# eureka 切换到 nacos 注册中心，下面eureka注释掉的通用配置忽略
+#eureka:
+#  client:
+#    registry-fetch-interval-seconds: 5
+#  instance:
+#    lease-expiration-duration-in-seconds: 15
+#    lease-renewal-interval-in-seconds: 5
+#    prefer-ip-address: true
+#    instance-id: ${spring.cloud.client.hostname}:${spring.cloud.client.ip-address}:${server.port}
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+    bean: sm4Encryptor #指定使用sm4算法
+

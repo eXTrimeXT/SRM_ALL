@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.perf.projectscoreman.mapper.ProjectScoreManMapper">
+
+    <select id="listByGroupList" resultType="com.midea.cloud.srm.model.perf.projectscoreman.entity.ProjectScoreMan">
+        select * from scc_npm_project_score_man
+        where (PROJECT_SCORE_ITEMS_ID,SCORE_MAN_ACCOUNT,CATEGORY_ID) in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            (#{item.projectScoreItemsId},#{item.scoreManAccount},#{item.categoryId})
+        </foreach>
+    </select>
+
+
+</mapper>

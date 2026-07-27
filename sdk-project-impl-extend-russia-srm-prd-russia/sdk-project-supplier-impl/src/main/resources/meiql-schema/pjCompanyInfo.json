@@ -1,0 +1,362 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "CompanyInfo:scc_sup_company_info": {
+    "comment": "供应商信息表",
+    "keyField": "companyId",
+    "repository": "pjCompanyInfoRepository",
+    "fields": {
+      "companyId": "Long",
+      "sunshineFileId": {
+        "type": "String",
+        "dbName": "sunshine_file_id",
+        "desc": "阳光协议文件ID",
+        "virtual": false
+      },
+      "sunshineFileName": {
+        "type": "String",
+        "dbName": "sunshine_file_name",
+        "desc": "阳光协议文件名",
+        "virtual": false
+      },
+      "groupCountry": {
+        "type": "String",
+        "dbName": "group_country",
+        "desc": "集团所属国家",
+        "virtual": false
+      },
+      "totalAssets": {
+        "type": "BigDecimal",
+        "dbName": "total_assets",
+        "desc": "总资产(万元)",
+        "virtual": false
+      },
+      "currentAssets": {
+        "type": "BigDecimal",
+        "dbName": "current_assets",
+        "desc": "流动资产(万元)",
+        "virtual": false
+      },
+      "fixedAssets": {
+        "type": "BigDecimal",
+        "dbName": "fixed_assets",
+        "desc": "固定资产(万元)",
+        "virtual": false
+      },
+      "avgAnnualOutput": {
+        "type": "BigDecimal",
+        "dbName": "avg_annual_output",
+        "desc": "近三年年均产值(万元)",
+        "virtual": false
+      },
+      "avgAnnualProfit": {
+        "type": "BigDecimal",
+        "dbName": "avg_annual_profit",
+        "desc": "近三年年均净利润(万元)",
+        "virtual": false
+      },
+      "focusFlag": {
+        "type": "String",
+        "dbName": "focus_flag",
+        "desc": "是否重点关注",
+        "virtual": false
+      },
+      "positionLimitFlag": {
+        "type": "String",
+        "dbName": "position_limit_flag",
+        "desc": "是否单位受限",
+        "virtual": false
+      },
+      "categoryLimitFlag": {
+        "type": "String",
+        "dbName": "category_limit_flag",
+        "desc": "是否品类受限",
+        "virtual": false
+      },
+      "timeLimitFlag": {
+        "type": "String",
+        "dbName": "time_limit_flag",
+        "desc": "是否时间受限",
+        "virtual": false
+      },
+      "limitDate": {
+        "type": "LocalDate",
+        "dbName": "limit_date",
+        "desc": "限制日期",
+        "virtual": false
+      },
+      "contractVerification": {
+        "type": "String",
+        "dbName": "contract_verification",
+        "desc": "锲约验证",
+        "virtual": false
+      },
+      "biddingFlag": {
+        "type": "String",
+        "dbName": "bidding_flag",
+        "desc": "是否竞价",
+        "virtual": false
+      },
+      "keySupervisionFlag": {
+        "type": "String",
+        "dbName": "key_supervision_flag",
+        "desc": "是否重点监督",
+        "virtual": false
+      },
+      "accountGroup": {
+        "type": "String",
+        "dbName": "account_group",
+        "desc": "账户组",
+        "virtual": false
+      },
+      "partner": {
+        "type": "String",
+        "dbName": "partner",
+        "desc": "贸易伙伴",
+        "virtual": false
+      },
+      "gscpStatus": {
+        "type": "String",
+        "dbName": "gscp_status",
+        "desc": "GSCP状态",
+        "virtual": false
+      },
+      "pjCompanyStatus": {
+        "type": "String",
+        "dbName": "pj_company_status",
+        "desc": "二开-供应商状",
+        "virtual": false
+      },
+      "extSex": {
+        "type": "String",
+        "dbName": "ext_sex",
+        "desc": "性别",
+        "virtual": false
+      },
+      "extIdCardOppositeFileId": {
+        "type": "Long",
+        "dbName": "ext_id_card_opposite_file_id",
+        "desc": "身份证反面文件id",
+        "virtual": false
+      },
+      "extIdCardOppositeFileName": {
+        "type": "String",
+        "dbName": "ext_id_card_opposite_file_name",
+        "desc": "身份证反面文件名",
+        "virtual": false
+      },
+      "pjQualifications": {
+        "type": "String",
+        "dbName": "pj_qualifications",
+        "desc": "资质",
+        "virtual": false
+      },
+      "registeredCapitalEnd": {
+        "type": "String",
+        "desc": "注册资本结束",
+        "virtual": false
+      },
+      "allowClearWithoutSealFlag": {
+        "type": "String",
+        "desc": "是否允许澄清免签章",
+        "virtual": false
+      },
+      "allowBidWithoutSealFlag": {
+        "type": "String",
+        "desc": "是否允许投标免签章",
+        "virtual": false
+      },
+      "allowQuotationWithoutSealFlag": {
+        "type": "String",
+        "desc": "是否允许报价免签章",
+        "virtual": false
+      },
+      "contactName": {
+        "type": "String",
+        "desc": "联系人",
+        "virtual": true
+      },
+      "ceeaContactMethod": {
+        "type": "String",
+        "desc": "联系电话",
+        "virtual": true
+      },
+      "infoCompleteFlag": {
+        "type": "String",
+        "dbName": "info_complete_flag",
+        "desc": "信息是否完善",
+        "virtual": false
+      },
+      "extRejectAttribute1": {
+        "type": "String",
+        "dbName": "ext_reject_attribute1",
+        "desc": "批注1",
+        "virtual": false
+      },
+      "extRejectAttribute2": {
+        "type": "String",
+        "dbName": "ext_reject_attribute2",
+        "desc": "批注2",
+        "virtual": false
+      },
+      "extRejectAttribute3": {
+        "type": "String",
+        "dbName": "ext_reject_attribute3",
+        "desc": "批注3",
+        "virtual": false
+      },
+      "extRejectAttribute4": {
+        "type": "String",
+        "dbName": "ext_reject_attribute4",
+        "desc": "批注4",
+        "virtual": false
+      },
+      "extRejectAttribute5": {
+        "type": "String",
+        "dbName": "ext_reject_attribute5",
+        "desc": "批注5",
+        "virtual": false
+      },
+      "extRejectAttribute6": {
+        "type": "String",
+        "dbName": "ext_reject_attribute6",
+        "desc": "批注6",
+        "virtual": false
+      },
+      "extRejectAttribute7": {
+        "type": "String",
+        "dbName": "ext_reject_attribute7",
+        "desc": "批注7",
+        "virtual": false
+      },
+      "extRejectAttribute8": {
+        "type": "String",
+        "dbName": "ext_reject_attribute8",
+        "desc": "批注8",
+        "virtual": false
+      },
+      "extRejectAttribute9": {
+        "type": "String",
+        "dbName": "ext_reject_attribute9",
+        "desc": "批注9",
+        "virtual": false
+      },
+      "extRejectAttribute10": {
+        "type": "String",
+        "dbName": "ext_reject_attribute10",
+        "desc": "批注10",
+        "virtual": false
+      },
+      "extRejectAttribute11": {
+        "type": "String",
+        "dbName": "ext_reject_attribute11",
+        "desc": "批注11",
+        "virtual": false
+      },
+      "extRejectAttribute12": {
+        "type": "String",
+        "dbName": "ext_reject_attribute12",
+        "desc": "批注12",
+        "virtual": false
+      },
+      "extRejectAttribute13": {
+        "type": "String",
+        "dbName": "ext_reject_attribute13",
+        "desc": "批注13",
+        "virtual": false
+      },
+      "extRejectAttribute14": {
+        "type": "String",
+        "dbName": "ext_reject_attribute14",
+        "desc": "批注14",
+        "virtual": false
+      },
+      "extRejectAttribute15": {
+        "type": "String",
+        "dbName": "ext_reject_attribute15",
+        "desc": "批注15",
+        "virtual": false
+      },
+      "extRejectAttribute16": {
+        "type": "String",
+        "dbName": "ext_reject_attribute16",
+        "desc": "批注16",
+        "virtual": false
+      },
+      "extRejectAttribute17": {
+        "type": "String",
+        "dbName": "ext_reject_attribute17",
+        "desc": "批注17",
+        "virtual": false
+      },
+      "extRejectAttribute18": {
+        "type": "String",
+        "dbName": "ext_reject_attribute18",
+        "desc": "批注18",
+        "virtual": false
+      },
+      "extRejectAttribute19": {
+        "type": "String",
+        "dbName": "ext_reject_attribute19",
+        "desc": "批注19",
+        "virtual": false
+      },
+      "extRejectAttribute20": {
+        "type": "String",
+        "dbName": "ext_reject_attribute20",
+        "desc": "批注20",
+        "virtual": false
+      }
+    },
+    "relations": {
+      "npmCompanySizes": "[npmCompanySize:companyId]",
+      "npmCompanyExceptionInfos": "[npmCompanyExceptionInfo:companyId]",
+      "npmFinanceReports": "[npmFinanceReport:companyId]",
+      "userInfoList": "[UserList:companyId]"
+    }
+  },
+  "UserList": {
+    "comment": "用户信息",
+    "keyField": "userId",
+    "repository": "userListRepository",
+    "fields": {
+      "userId": "Long:用户ID",
+      "companyId": "Long:公司ID",
+      "username": "String:账号",
+      "password": "String:密码",
+      "nickname": "String:昵称",
+      "phone": "String:手机",
+      "email": "String:邮箱",
+      "position": "String:岗位",
+      "ceeaEmpNo": "String:员工工号（新增）",
+      "ceeaCompany": "String:公司（新增）",
+      "ceeaCompanyDescr": "String:公司描述（新增）",
+      "ceeaDeptid": "String:部门编码",
+      "department": "String:部门",
+      "ceeaJobcode": "String:岗位代码",
+      "ceeaJobcodeDescr": "String:岗位描述",
+      "userType": "String:用户类型： 采购商/ BUYER, 供应商/ VENDOR",
+      "mainType": "String:账号类型： 主账号/ Y, 子账号/N",
+      "ceeaPoAgentNumber": "String:erp采购员工号",
+      "ceeaPoAgentName": "String:erp采购员姓名",
+      "startDate": "Date:生效日期",
+      "endDate": "Date:失效日期",
+      "isConfirm": "String:确认是否已阅读协议(Y是,N否)",
+      "createdId": "Long:创建人ID",
+      "createdBy": "String:创建人",
+      "creationDate": "Date:创建时间",
+      "createdByIp": "String:创建人IP",
+      "createdFullName": "String:创建人姓名",
+      "lastUpdatedId": "Long:最后更新人ID",
+      "lastUpdatedBy": "String:更新人",
+      "lastUpdateDate": "Date:最后更新时间",
+      "lastUpdatedByIp": "String:最后更新人IP",
+      "lastUpdatedFullName": "String:最后更新人姓名",
+      "tenantId": "String:租户ID",
+      "version": "Long:版本号",
+      "passwordEndDate": "Date:密码失效时间",
+      "synIamStatus": "String:同步IAM状态,NEW_SUCCESS/新增同步成功，NEW_FAIL/新增同步失败",
+      "@include": ":BaseFields"
+    }
+  }
+}

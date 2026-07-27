@@ -1,0 +1,26 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "PrShareStock:scc_npm_pr_share_stock": {
+    "comment": "共享库存",
+    "keyField": "stockId",
+    "fields": {
+      "stockId": "Long:主键id",
+      "materialCode": "String:物料编码",
+      "materialName": "String:物料名称",
+      "model": "String:规格型号",
+      "unit": "String:计量单位",
+      "qty": "BigDecimal:数量",
+      "price": "BigDecimal:参考单价",
+      "company": "String:公司名称",
+      "org": "String:业务实体",
+      "area": "String:区域",
+      "department": "String:创建单位",
+      "storeName": "String:库位",
+      "storeAddress": "String:库房地址",
+      "storeContacts": "String:库房联系人",
+      "@include": ":BaseFields"
+    },
+    "relations": {}
+  }
+}

@@ -1,0 +1,70 @@
+.competition-project-quote[data-v-cdb380c6] {
+  padding-bottom: 20px;
+}
+[data-v-cdb380c6] .competition-project-quote .progress-wrap {
+  padding: 11px;
+  margin: 10px;
+  background: #eee;
+  height: 80px;
+}
+[data-v-cdb380c6] .competition-project-quote .progress-wrap .el-steps {
+  padding-bottom: 0;
+}
+[data-v-cdb380c6] .competition-project-quote .evaluate-method-wrap {
+  padding: 11px;
+}
+[data-v-cdb380c6] .competition-project-quote .evaluate-method-wrap .el-row {
+  margin-bottom: 11px;
+  font-size: 16px;
+}
+[data-v-cdb380c6] .competition-project-quote .evaluate-method-wrap .el-row span {
+  padding-right: 11px;
+  display: inline-block;
+  color: #999;
+}
+[data-v-cdb380c6] .competition-project-quote .details-info-wrap {
+  padding: 5px;
+}
+[data-v-cdb380c6] .competition-project-quote .details-info-wrap .label {
+  padding: 0 11px;
+  line-height: 30px;
+}
+[data-v-cdb380c6] .competition-project-quote .details-info-wrap .refresh-tips {
+  text-align: center;
+  color: red;
+  font-size: 14px;
+}[data-v-af8b23bc] .sign-up-wrap .sign-up-progress {
+  padding: 11px;
+  background: #eee;
+}
+[data-v-af8b23bc] .sign-up-wrap .sign-up-progress .el-steps {
+  padding-bottom: 0;
+}
+[data-v-af8b23bc] .sign-up-wrap .sign-up-progress .the_footer_row {
+  float: right;
+  font-size: 20px;
+}.hall-info[data-v-5fdc7d9c] {
+  border-bottom: 1px solid #eee;
+}
+.hall-info[data-v-5fdc7d9c] .el-col p > span {
+  padding-right: 11px;
+}[data-v-0064e197] .the_inquiryVendorBiddingDetail_wrapper .el-form .el-form-item {
+  margin-bottom: 0 !important;
+}
+[data-v-0064e197] .the_inquiryVendorBiddingDetail_wrapper .the_display_content {
+  padding: 11px;
+}
+[data-v-0064e197] .the_inquiryVendorBiddingDetail_wrapper .the_display_content .el-row {
+  margin-bottom: 11px;
+  font-size: 16px;
+}
+[data-v-0064e197] .the_inquiryVendorBiddingDetail_wrapper .the_display_content .el-row span {
+  padding-right: 11px;
+  display: inline-block;
+  color: #999;
+}
+[data-v-0064e197] .the_inquiryVendorBiddingDetail_wrapper .the_display_content .the_display_footer {
+  text-align: center !important;
+}[data-v-0620979d] .the_vendorBiddingList_wrapper .el-button-group .el-button {
+  margin-left: 5px !important;
+}

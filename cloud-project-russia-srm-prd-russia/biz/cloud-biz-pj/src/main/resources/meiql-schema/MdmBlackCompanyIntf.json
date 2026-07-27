@@ -1,0 +1,15 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "MdmBlackCompanyIntf:scc_pj_sup_blackcompany_intf": {
+    "keyField": "mdmBlackCompanyIntfId",
+    "fields": {
+      "mdmBlackCompanyIntfId": "Long",
+      "processStatus": "String:处理状态，PENDING：未处理，COMPLETED：处理完成，ERROR：处理错误",
+      "processMessage": "String:处理信息",
+      "processDate": "Date:处理时间",
+      "synNum": "Long:接收数量",
+      "@include": ":BaseFields"
+    }
+  }
+}

@@ -1,0 +1,86 @@
+@import '@/styles/variables.scss';
+
+.render-table {
+  position: relative;
+  height: 100%;
+  min-height: var(--render-table--min-height, 0);
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  &__table {
+    flex: 1;
+    overflow: hidden;
+
+    .vxe-table--render-default {
+      .vxe-header--column {
+        &.is--sortable {
+          &::hover {
+            cursor: pointer;
+          }
+        }
+
+        &.col--center {
+          .vxe-cell {
+            justify-content: center;
+          }
+        }
+
+        &.col--right {
+          .vxe-cell {
+            justify-content: right;
+          }
+        }
+
+        .vxe-cell {
+          display: flex;
+          align-items: center;
+
+          .description-tips {
+            margin: 0 4px;
+            font-size: var(----render-table--description-tips__size, 16px);
+            cursor: pointer;
+          }
+        }
+      }
+
+      .vxe-body--column > .vxe-cell {
+        // 去除 SRM 的样式定制
+        .el-button.el-button--text {
+          min-width: fit-content;
+
+          &:not(:last-child) {
+            margin-right: 0;
+          }
+        }
+
+        .render-pix-form-item-feedback-layout-terse {
+          margin-bottom: 0;
+        }
+
+        .render-pix-form-item-feedback-layout-popover {
+          margin-bottom: 0;
+        }
+
+        .render-pix-form-item-error-help {
+          position: relative;
+          top: 0;
+          left: 0;
+        }
+      }
+    }
+  }
+
+  &__link {
+    color: $primary-color;
+    transition: all .36s;
+
+    &:hover {
+      color: $input-hover-border-color;
+    }
+  }
+}

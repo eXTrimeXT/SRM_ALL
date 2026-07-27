@@ -1,0 +1,32 @@
+.costElementEdit[data-v-568aa9ff] {
+  height: 100%;
+}
+.costElementEdit .sub_header[data-v-568aa9ff] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.costElementEdit .el-table .el-date-editor[data-v-568aa9ff] {
+  width: 135px;
+}
+.costElementEdit .base-form[data-v-568aa9ff] {
+  padding: 15px 30px 0;
+}
+.costElementEdit .toRequired[data-v-568aa9ff] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.costElementEdit .edit_cond[data-v-568aa9ff] {
+  color: #23adf4;
+  cursor: pointer;
+}.cost_element_list_wrapper .order-uploader[data-v-acaeeb93] {
+  display: inline-block;
+  margin: 0 10px;
+}
+.cost_element_list_wrapper .block[data-v-acaeeb93] {
+  display: flex;
+  justify-content: center;
+}
+.cost_element_list_wrapper .el-table th > .cell {
+  display: flex;
+  justify-content: center;
+}

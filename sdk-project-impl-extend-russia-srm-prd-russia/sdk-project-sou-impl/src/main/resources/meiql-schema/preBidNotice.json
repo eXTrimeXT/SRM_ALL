@@ -1,0 +1,86 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "PreBidNoticeBuyer:scc_npm_pre_bid_notice": {
+    "keyField": "bidNoticeId",
+    "comment": "标前交流通知表",
+    "repository": "preBidNoticeBuyerRepository",
+    "fields": {
+      "@include": ":PreBidNoticeFields"
+    },
+    "relations": {
+      //标前交流通知-技术交流供应商表
+      "noticeVendorList": "[PreBidNoticeVendorBuyer:bidNoticeId]",
+      //交流大纲签字版附件
+      "commSignFiles": "[CommSignSceneFile:bidNoticeId]",
+      //交流大纲编辑附件
+      "commEditFiles": "[CommEditSceneFile:bidNoticeId]"
+    }
+  },
+  "PreBidNoticeVendorBuyer:scc_npm_pre_bid_notice_vendor": {
+    "keyField": "bidNoticeVendorId",
+    "comment": "标前交流通知-技术交流供应商表",
+    "fields": {
+      "@include": ":PreBidNoticeVendorFields"
+    },
+    "relations": {
+      "bidNoticeId": "PreBidNotice"
+    }
+  },
+  "PreBidNotice:scc_npm_pre_bid_notice": {
+    "keyField": "bidNoticeId",
+    "comment": "标前交流通知表",
+    "repository": "npmPreBidNoticeBuyerRepository",
+    "fields": {
+      "@include": ":PreBidNoticeFields"
+    },
+    "relations": {
+      //标前交流通知-技术交流供应商表
+      "noticeVendorList": "[PreBidNoticeVendor:bidNoticeId]",
+      //交流大纲签字版附件
+      "commSignFiles": "[CommSignSceneFile:bidNoticeId]",
+      //交流大纲编辑附件
+      "commEditFiles": "[CommEditSceneFile:bidNoticeId]"
+    }
+  },
+  "PreBidNoticeVendor:scc_npm_pre_bid_notice_vendor": {
+    "keyField": "bidNoticeVendorId",
+    "comment": "标前交流通知-技术交流供应商表",
+    "fields": {
+      "@include": ":PreBidNoticeVendorFields"
+    },
+    "relations": {
+      "bidNoticeId": "PreBidNotice"
+    }
+  },
+  "CommSignSceneFile": {
+    "repository": "souSceneFileRepository",
+    "keyField": "sceneFileId",
+    "comment": "交流大纲签字版附件",
+    "fields": {
+      "sceneFileId": "Long",
+      "sceneKey": {
+        "convert": "scene:PRE_BID_COMM_SIGN_ATTACHMENT"
+      },
+      "businessFiled": {
+        "convert": "businessId:bidNoticeId"
+      },
+      "@include": ":SceneFileFields"
+    }
+  },
+  "CommEditSceneFile": {
+    "repository": "souSceneFileRepository",
+    "keyField": "sceneFileId",
+    "comment": "交流大纲编辑附件",
+    "fields": {
+      "sceneFileId": "Long",
+      "sceneKey": {
+        "convert": "scene:PRE_BID_COMM_EDIT_ATTACHMENT"
+      },
+      "businessFiled": {
+        "convert": "businessId:bidNoticeId"
+      },
+      "@include": ":SceneFileFields"
+    }
+  }
+}

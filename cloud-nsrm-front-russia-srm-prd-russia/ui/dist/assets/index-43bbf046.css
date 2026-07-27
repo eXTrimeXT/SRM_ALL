@@ -1,0 +1,31 @@
+.the-vendorGreenChannelDetail-detail .sub_header[data-v-d2cca572] {
+  margin: 0 0 10px;
+}
+.the-vendorGreenChannelDetail-detail .el-table .el-date-editor[data-v-d2cca572] {
+  width: 135px;
+}
+.companyInfoFill[data-v-d2cca572] {
+  padding-right: 24%;
+  padding-bottom: 40px;
+}
+.download-link-wrap .close-icon[data-v-d2cca572] {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+}
+[data-v-d2cca572] .vue-treeselect--disabled .vue-treeselect__control {
+  border-color: #DCDDDE !important;
+  border-radius: 5px;
+}
+[data-v-d2cca572] .vue-treeselect--disabled .vue-treeselect__control-arrow-container {
+  display: none;
+}
+[data-v-d2cca572] .vue-treeselect--disabled .vue-treeselect__control:before {
+  content: "\e63f";
+  position: absolute;
+  cursor: not-allowed;
+  color: #96999C;
+  font-size: 14px;
+  font-family: "pix-iconfont";
+  right: 10px;
+}

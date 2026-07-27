@@ -1,0 +1,9 @@
+alter table scc_sou_project add column     `ORG_BU_ID`      bigint        NULL COMMENT '板块ID' after CREATED_FULL_NAME;
+alter table scc_sou_project add column     `ORG_BU_CODE`    VARCHAR(32)   NULL COMMENT '板块编码' after ORG_BU_ID;
+alter table scc_sou_project add column     `ORG_BU_NAME`    varchar(250)  NULL COMMENT '板块名' after ORG_BU_CODE;
+alter table scc_sou_project add column     `COMPANY_ID`     bigint        NULL COMMENT '公司ID(对应产品的业务实体id)' after ORG_BU_NAME;
+alter table scc_sou_project add column     `COMPANY_COD`    varchar(32)   NULL COMMENT '公司编码(对应产品的业务实体编码)' after ORG_ID;
+alter table scc_sou_project add column     `COMPANY_NAME`   VARCHAR(250)  NULL COMMENT '公司名称(对应产品的业务实体编码)' after ORG_CODE;
+alter table scc_sou_project add column     `DEP_ID`         BIGINT        NULL COMMENT '部门ID' after ORG_Name;
+alter table scc_sou_project add column     `DEP_CODE`       VARCHAR(32)   NULL COMMENT '部门编码' after DEP_ID;
+alter table scc_sou_project add column     `DEP_NAME`       VARCHAR(250)  NULL COMMENT '部门' after DEP_CODE;

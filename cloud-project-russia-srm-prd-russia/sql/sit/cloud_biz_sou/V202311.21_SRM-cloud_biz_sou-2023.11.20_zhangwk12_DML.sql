@@ -1,0 +1,1 @@
+alter table scc_sou_inq_order_item add EXT_WIN_REASON text not null comment '中标原因';

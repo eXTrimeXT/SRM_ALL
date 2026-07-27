@@ -1,0 +1,62 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "ContractHead:scc_contract_head": {
+    "keyField": "contractHeadId",
+    "repository":"contractHeadExtRepository",
+    "fields": {
+      "contractHeadId": "Long",
+      "extContractHandlerId": "Long",
+      "extPricePoolFlag":"String",
+      "extScoreFlag":"String",
+      "extInvestNo":"String",
+      "extInviteHeadId":"Long",
+      "extInviteFinishDate":"Date",
+      "extSectorId":"Long",
+      "extSectorName":"String",
+      "extSectorCode":"String",
+      "extEvaluateFlag":"String",
+      "extCategoryId":"Long",
+      "extCategoryName":"String",
+      "extCategoryCode":"String",
+      "extContractHandlerName":"String",
+      "extContractHandlerAccount":"String",
+      "extFixPriceLineId":"Long",
+      "extFixPriceNo":"String",
+      "extStampSignSeq":"String",
+      "extContentFinal":"String",
+      "startBpmUsername":"String:bpm发起人账号",
+      "startBpmNickname":"String:bpm发起人名称",
+      "extHandlerBuId":"Long:合同经办人部门id",
+      "extHandlerBuCode":"String:合同经办人部门编码",
+      "extHandlerBuName":"String:合同经办人部门名称",
+      "extIncome":"String:收支方向,out-我方付款,in-我方收款",
+      "extRent":"String:是否租赁合同，Y或N",
+      "extCycle":"String:是否周期合同，Y或N",
+      "sealName":"String:印章名称",
+      "sealId":"String",
+      "autoSign":"Integer",
+      "creditCode":{
+        "type": "String",
+        "desc": "统一社会信用代码",
+        "virtual": true
+      },
+       "extInviteHeadName":{
+        "type": "String",
+        "desc": "招标负责人名称",
+        "virtual": true
+      },
+      "extInviteHeadAccount":{
+        "type": "String",
+        "desc": "招标负责人账号",
+        "virtual": true
+      }
+    },
+    "relations":{
+      "stampAnnexes":"[StampAnnex:contractHeadId]",
+      "operationLogs":"[OperationLog:contractHeadId]",
+      "basisAnnexes":"[ContractBasisAnnex:contractHeadId]"
+    }
+
+  }
+}

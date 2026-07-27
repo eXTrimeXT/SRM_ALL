@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.designplans.mapper.LedgerMapper">
+
+    <select id="getLedgerList" parameterType="com.midea.cloud.srm.model.sou.designplans.entity.SccSouChLedger" resultType="com.midea.cloud.srm.model.sou.designplans.entity.SccSouChLedger">
+        SELECT
+        sscl.LEDGER_ID AS ledgerId,
+        DATE_FORMAT(sscl.CONTRACT_END_DATE, '%Y-%m') AS expirationMonth,
+        sscl.PROJECT_NAME AS projectName,
+        sscdp.NUM AS num,
+        sscl.CONTRACT_START_DATE AS contractStartDate,
+        sscl.CONTRACT_END_DATE AS contractEndDate,
+        sscl.DELAY_REASON AS delayReason,
+        sscl.NEXT_SUGGEST AS nextSuggest,
+        sscl.HEAD_PERSON AS headPerson,
+        sscl.PROJECT_TOTAL_MONEY AS projectTotalMoney,
+        sscl.ADD_NUM AS addNum,
+        sscl.ADD_BEFORE_MONEY AS addBeforeMoney,
+        sscl.ADD_AFTER_MONEY AS addAfterMoney,
+        sscl.ADD_DECREMENT_MONEY AS addDecrementMoney,
+        sscl.ADD_DECREMENT_RATIO AS addDecrementRatio,
+        sscl.ABO_BEFORE_MONEY AS aboBeforeMoney,
+        sscl.ABO_AFTER_MONEY AS aboAfterMoney,
+        sscl.ABO_DECREMENT_MONEY AS aboDecrementMoney,
+        sscl.ABO_DECREMENT_MONEY AS aboDecrementRatio,
+        sscl.LAST_UPDATE_DATE AS lastUpdateDate,
+        sscl.DATA_SOURCE AS dataSource
+        FROM
+        scc_sou_ch_ledger sscl
+        LEFT JOIN scc_sou_ch_design_plan sscdp  ON sscdp.PROJECT_ID = sscl.LEDGER_ID
+        <where>
+            <if test="obj.expirationMonth != null and obj.expirationMonth != ''">
+                AND DATE_FORMAT(sscl.CONTRACT_END_DATE, '%Y-%m') = #{obj.expirationMonth,jdbcType=VARCHAR}
+            </if>
+            <if test="obj.projectName != null and obj.projectName != ''">
+                AND sscl.PROJECT_NAME = #{obj.projectName,jdbcType=VARCHAR}
+            </if>
+            <if test="obj.num != null">
+                AND sscdp.NUM = #{obj.num,jdbcType=INTEGER}
+            </if>
+            <if test="obj.ledgerId != null">
+                AND sscl.LEDGER_ID = #{obj.ledgerId}
+            </if>
+            <if test="obj.headPerson != null and obj.headPerson != ''">
+                AND sscl.HEAD_PERSON LIKE CONCAT('%', #{obj.headPerson,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="obj.contractStartDate != null">
+                AND sscl.CONTRACT_START_DATE <![CDATA[>=]]> #{obj.contractStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="obj.contractEndDate != null">
+                AND sscl.CONTRACT_END_DATE <![CDATA[<=]]> #{obj.contractEndDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="obj.projectTotalMoney != null">
+                AND sscl.PROJECT_TOTAL_MONEY <![CDATA[>=]]> #{obj.projectTotalMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="obj.projectTotalMoneyEnd != null">
+                AND sscl.PROJECT_TOTAL_MONEY <![CDATA[<=]]> #{obj.projectTotalMoneyEnd,jdbcType=DECIMAL}
+            </if>
+            <if test="obj.dataSource != null and obj.dataSource != ''">
+                AND sscl.DATA_SOURCE = #{obj.dataSource,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="getScheduleList" parameterType="com.midea.cloud.srm.model.sou.designplans.dto.ScheduleDto" resultType="com.midea.cloud.srm.model.sou.designplans.dto.ScheduleDto">
+        SELECT
+        DATE_FORMAT(sscl.CONTRACT_END_DATE, '%Y-%m') AS expirationMonth,
+        sscl.LEDGER_ID AS ledgerId,
+        sscl.PROJECT_NAME AS projectName,
+        sscdp.NUM as num,
+        sscdp.STATUS as mainPlanStatus,
+        sscl.CONTRACT_START_DATE AS contractStartDate,
+        sscl.CONTRACT_END_DATE AS contractEndDate,
+        sscl.DELAY_REASON AS delayReason,
+        sscl.HEAD_PERSON AS headPerson,
+        sscl.PROJECT_TOTAL_MONEY AS projectTotalMoney
+        FROM
+        scc_sou_ch_ledger sscl
+        LEFT JOIN scc_sou_ch_design_plan sscdp ON sscdp.PROJECT_ID = sscl.LEDGER_ID
+        <where>
+            <if test="obj.expirationMonth != null and obj.expirationMonth != ''">
+                AND DATE_FORMAT(sscl.CONTRACT_END_DATE, '%Y-%m') = #{obj.expirationMonth,jdbcType=VARCHAR}
+            </if>
+            <if test="obj.projectName != null and obj.projectName != ''">
+                AND sscl.PROJECT_NAME = #{obj.projectName,jdbcType=VARCHAR}
+            </if>
+            <if test="obj.headPerson != null and obj.headPerson != ''">
+                AND sscl.HEAD_PERSON LIKE CONCAT('%', #{obj.headPerson,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="obj.num != null">
+                AND sscdp.NUM <![CDATA[>=]]> #{obj.num,jdbcType=INTEGER}
+            </if>
+            <if test="obj.endNum != null">
+                AND sscdp.NUM <![CDATA[<=]]> #{obj.endNum,jdbcType=INTEGER}
+            </if>
+            <if test="obj.contractStartDate != null">
+                AND sscl.CONTRACT_START_DATE <![CDATA[>=]]> #{obj.contractStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="obj.contractEndDate != null">
+                AND sscl.CONTRACT_END_DATE <![CDATA[<=]]> #{obj.contractEndDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="obj.projectTotalMoney != null">
+                AND sscl.PROJECT_TOTAL_MONEY <![CDATA[>=]]> #{obj.projectTotalMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="obj.projectTotalMoneyEnd != null">
+                AND sscl.PROJECT_TOTAL_MONEY <![CDATA[<=]]> #{obj.projectTotalMoneyEnd,jdbcType=DECIMAL}
+            </if>
+        </where>
+    </select>
+
+</mapper>

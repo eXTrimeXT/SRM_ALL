@@ -1,0 +1,116 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "ExtInqOrderImportController": {
+    "batchSize": 500,
+    "threshold": 500,
+    "validator": "extInqOrderImportValidator",
+    "sheets": [
+      {
+        "model": "InqSouOrderItem",
+        "sheetName": "供应商报价明细",
+        "heads": {
+          "souItemId": {
+            "title": "ID(请勿改动)"
+          },
+          "index": {
+            "title": "序号"
+          },
+          "round": {
+            "title": "轮次"
+          },
+          "orgOuName": {
+            "title": "业务实体"
+          },
+          "areaName": {
+            "title": "区域",
+            "enhance": {
+              "decorator": "dictDecorator",
+              "params": {
+                "code": "REGION"
+              }
+            }
+          },
+          "noCodeItem": {
+            "title": "是否无料号寻源",
+            "enhance": {
+              "decorator": "dictDecorator",
+              "params": {
+                "code": "YES_OR_NO"
+              }
+            }
+          },
+          "itemCode": {
+            "title": "物料编码"
+          },
+          "itemDesc": {
+            "title": "物料名称"
+          },
+          "categoryName": {
+            "title": "物料分类"
+          },
+          "extMaterialModel": {
+            "title": "规格型号"
+          },
+          "requireQuantity": {
+            "title": "数量"
+          },
+          "unit": {
+            "title": "基本计量单位"
+          },
+          "extBrand": {
+            "title": "品牌"
+          },
+          "taxKey": {
+            "title": "税率"
+          },
+          "invoiceType": {
+            "title": "发票类型",
+            "enhance": {
+              "decorator": "dictDecorator",
+              "params": {
+                "code": "EXT_SOU_INQ_ORDER_INVOICE_TYPE"
+              }
+            }
+          },
+          "orderNotaxPrice": {
+            "title": "未税单价"
+          },
+          "orderTaxPrice": {
+            "title": "含税单价"
+          },
+          "priceTaxTotal": {
+            "title": "价税合计"
+          },
+          "advancePaymentRemark": {
+            "title": "预付款说明",
+            "enhance": {
+              "decorator": "dictDecorator",
+              "params": {
+                "code": "YES_OR_NO"
+              }
+            }
+          },
+          "isLadder": {
+            "title": "是否阶梯报价",
+            "enhance": {
+              "decorator": "dictDecorator",
+              "params": {
+                "code": "YES_OR_NO"
+              }
+            }
+          },
+          "extLeadTime": {
+            "title": "到货周期(自然日)"
+          },
+          "extWarrantyPeriod": {
+            "title": "质保期(自然日)"
+          },
+          "orderRemark": {
+            "title": "备注"
+          }
+        }
+      }
+    ]
+  }
+}

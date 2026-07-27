@@ -1,0 +1,36 @@
+.ladder-price-form-row[data-v-806d81b9] {
+  display: flex;
+  margin-bottom: 10px;
+}
+.ladder-price-form-row .form-col[data-v-806d81b9]:not(:last-child) {
+  margin-right: 30px;
+}
+.ladder-price-form-row .form-col[data-v-806d81b9] {
+  height: 30px;
+  line-height: 30px;
+}
+.ladder-price-form-row .form-col .label[data-v-806d81b9] {
+  padding-right: 15px;
+}.price-input[data-v-6e93e68f] .el-input__inner {
+  text-align: center;
+}
+.price-input-number[data-v-6e93e68f] {
+  max-width: 100%;
+}
+.price-input-number[data-v-6e93e68f] .el-input {
+  line-height: 1;
+}.the-inquiryOrdersDetail-detail .sub_header[data-v-611b6cc8] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.the-inquiryOrdersDetail-detail .el-table .el-date-editor[data-v-611b6cc8] {
+  width: 135px;
+}
+.the-inquiryOrdersDetail-detail .flex-col[data-v-611b6cc8] {
+  display: flex;
+  margin: 10px 0;
+}
+.the-inquiryOrdersDetail-detail .flex-col .label[data-v-611b6cc8] {
+  line-height: 30px;
+  margin-right: 10px;
+}

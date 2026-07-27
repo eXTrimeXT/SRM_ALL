@@ -1,0 +1,39 @@
+.vendor-checkbox-group[data-v-e08679dc] {
+  margin-top: 15px;
+  max-height: 180px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+.vendor-checkbox-group[data-v-e08679dc] >  .el-checkbox {
+  display: block;
+}
+.vendor-checkbox-group[data-v-e08679dc] >  .el-checkbox .el-checkbox__label {
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}.header-info[data-v-a07dc1f6] {
+  background-color: #f5f7fa;
+  border-bottom: 1px solid #e6ebf5;
+  padding: 0;
+  margin: 0;
+}
+.header-info .header-info-warap[data-v-a07dc1f6] {
+  margin: 0;
+  padding-left: 5px;
+  display: flex;
+}
+.header-info .header-info-warap > li[data-v-a07dc1f6] {
+  line-height: 30px;
+  flex: 1;
+  list-style: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.header-info .header-info-warap > li span[data-v-a07dc1f6]:first-child {
+  font-weight: bolder;
+}
+.header-info .header-info-warap > li span[data-v-a07dc1f6]:last-child {
+  padding: 0 5px;
+}

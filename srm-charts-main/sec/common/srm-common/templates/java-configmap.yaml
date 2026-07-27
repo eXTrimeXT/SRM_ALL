@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.global.name }}-java-config
+  namespace: {{ .Values.global.namespace }}
+data:
+  bootstrap-extenddev.yml: |
+    jasypt.encryptor.password: {{ .Values.global.jasypt.password }}
+    # dev环境配置
+    spring:
+      profiles:
+        active: {{ .Values.global.profiles }}
+      cloud:
+        config:
+          profile: dev
+        #      name: application-extenddockeruat,${spring.application.name}
+        nacos:
+          discovery:
+            # 命名空间，注册到srm-dockeruat环境
+            namespace: {{ .Values.global.nacos.discovery.namespace }}
+            # 注册中心地址
+            server-addr: {{ .Values.global.nacos.discovery.serverAddr }}
+            group: {{ .Values.global.nacos.discovery.group }}
+            metadata:
+              # feign微服务调用路由策略标签分组
+              routingTag: dev
+          config:
+            # 命名空间，获取srm-dockeruat命名空间的配置文件
+            namespace: {{ .Values.global.nacos.config.namespace }}
+            group: {{ .Values.global.nacos.config.group }}
+            # 配置中心地址
+            server-addr:{{ .Values.global.nacos.config.serverAddr }}
+      devtools:
+        restart:
+          enabled: true
+
+    # 微服务feign调用自定义路由策略，优先按照标签组[微服务元数据metadata.routingTag值]调用
+    ribbon:
+      rule: tag
+
+    # swagger文档
+    knife4j:
+      production: false
+

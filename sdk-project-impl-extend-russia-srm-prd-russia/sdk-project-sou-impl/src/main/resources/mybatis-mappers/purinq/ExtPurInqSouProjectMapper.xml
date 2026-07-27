@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlDialectInspection -->
+<mapper namespace="com.midea.cloud.srm.sou.purinq.dao.ExtPurInqSouProjectMapper">
+
+    <select id="listPurInqProjects" resultType="com.midea.cloud.srm.model.sou.sourcing.entity.SouProject">
+        SELECT sou_project.*
+        FROM scc_sou_project sou_project
+        WHERE sou_project.SOU_TYPE = 'ext_pur_inq'
+        <if test="designProjectCode != null"> <!-- 项目编号 -->
+            AND exists (
+                SELECT * FROM scc_npm_sou_purinq_project inq_project
+                WHERE inq_project.PROJECT_ID = sou_project.PROJECT_ID
+                AND inq_project.DESIGN_PROJECT_CODE LIKE concat('%', concat(#{designProjectCode}, '%'))
+            )
+        </if>
+        <if test="souNo != null"> <!-- 寻源单号 -->
+            AND sou_project.SOU_NO LIKE concat('%', concat(#{souNo}, '%'))
+        </if>
+        <if test="souName != null"> <!-- 寻源单名称 -->
+            AND sou_project.SOU_NAME LIKE concat('%', concat(#{souName}, '%'))
+        </if>
+        <if test="extProjectStatus != null and extProjectStatus.name().equals('EVALUATING')"> <!-- 寻源状态 -->
+            AND sou_project.PROJECT_STATUS in ('ORDER_END', 'BUSINESS_EVAL', 'TECH_EVAL')
+        </if>
+        <if test="extProjectStatus != null and !extProjectStatus.name().equals('EVALUATING')"> <!-- 寻源状态 -->
+            AND sou_project.PROJECT_STATUS = #{extProjectStatus}
+        </if>
+        <if test="scoreRuleType != null"> <!-- 评分规则 -->
+            AND sou_project.SCORE_RULE_TYPE = #{scoreRuleType}
+        </if>
+        <if test="createdId != null"> <!-- 创建人ID -->
+            AND sou_project.CREATED_ID = #{createdId}
+        </if>
+        <if test="createdBy != null"> <!-- 创建人账号 -->
+            AND sou_project.CREATED_BY LIKE concat('%', concat(#{createdBy}, '%'))
+        </if>
+        <if test="createApprovalStatus != null"> <!-- 立项审核状态 -->
+            AND sou_project.CREATE_APPROVAL_STATUS = #{createApprovalStatus}
+        </if>
+        <if test="creationDateFrom != null"> <!-- 创建时间从 -->
+            AND sou_project.CREATION_DATE >= #{creationDateFrom}
+        </if>
+        <if test="creationDateTo != null"> <!-- 创建时间到 -->
+            AND sou_project.CREATION_DATE &lt;= #{creationDateTo}
+        </if>
+        <if test="publishTimeFrom != null"> <!-- 发布时间从 -->
+            AND sou_project.PUBLISH_TIME >= #{publishTimeFrom}
+        </if>
+        <if test="publishTimeTo != null"> <!-- 发布时间到 -->
+            AND sou_project.PUBLISH_TIME &lt;= #{publishTimeTo}
+        </if>
+        ORDER BY sou_project.SOU_NO desc
+    </select>
+
+</mapper>

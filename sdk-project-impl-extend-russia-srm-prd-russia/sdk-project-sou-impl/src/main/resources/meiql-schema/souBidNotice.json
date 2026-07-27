@@ -1,0 +1,54 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "BidNotice:scc_npm_sou_bid_notice" : {
+    "keyField" : "bidNoticeId",
+    "comment":"中/落标通知",
+    "repository":"bidNoticeRepository",
+    "fields" : {
+      "@include": ":BidNoticeFields",
+      "bidNoticeNo" : {
+        "convert": "seqGen:SEQ_SOU_TN_NO",
+        "type": "String",
+        "dbName": "bid_notice_no",
+        "desc": "中/落标通知单号"
+      }
+    },
+    "relations" : {
+      "bidNoticeDetails": "[BidNoticeDetail:bidNoticeId]",
+      "bidNoticeInternals": "[BidNoticeInternal:bidNoticeId]",
+      "sceneFiles": "[BidNoticeSceneFile:bidNoticeId]"
+    }
+  },
+  "BidNoticeDetail:scc_npm_sou_bid_notice_detail" : {
+    "keyField" : "bidNoticeDetailId",
+    "repository":"bidNoticeDetailRepository",
+    "comment":"中/落标通知明细表",
+    "fields" : {
+      "@include": ":BidNoticeDetailFields"
+    }
+  },
+  "BidNoticeInternal:scc_npm_sou_bid_notice_internal" : {
+    "keyField" : "selectionResultId",
+    "repository":"bidNoticeInternalRepository",
+    "comment":"内部通知书",
+    "fields" : {
+      "@include": ":BidNoticeInternalFields"
+    }
+  },
+  "BidNoticeSceneFile": {
+    "repository": "souSceneFileRepository",
+    "comment":"中/落标通知附件",
+    "keyField" : "sceneFileId",
+    "fields" : {
+      "sceneFileId": "Long",
+      "sceneKey":  {
+        "convert": "scene:SCENE_SOU_TN_ATTACHMENT"
+      },
+      "businessFiled": {
+        "convert": "businessId:bidNoticeId"
+      },
+      "@include": ":SceneFileFields"
+    }
+  }
+}

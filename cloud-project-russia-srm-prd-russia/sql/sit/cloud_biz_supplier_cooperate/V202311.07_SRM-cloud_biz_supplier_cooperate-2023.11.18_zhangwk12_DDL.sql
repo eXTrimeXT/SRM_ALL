@@ -1,0 +1,1 @@
+alter table scc_npm_pr_require_head modify PUBLIC_END_TIME datetime null comment '公示截止时间';

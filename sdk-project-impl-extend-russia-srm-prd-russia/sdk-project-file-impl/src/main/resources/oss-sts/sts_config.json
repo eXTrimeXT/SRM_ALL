@@ -1,0 +1,36 @@
+{
+  "sts_ai_helper_local":{
+    "Version": "1",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "oss:GetObject",
+          "oss:PutObject"
+        ],
+        "Resource": [
+          "acs:oss:*:*:srm-prd/external/ai_helper_local/*",
+          "acs:oss:*:*:srm-uat/external/ai_helper_local/*",
+          "acs:oss:*:*:srm-dev/external/ai_helper_local/*"
+        ]
+      }
+    ]
+  },
+  "sts_ai_helper_temp":{
+    "Version": "1",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "oss:GetObject",
+          "oss:PutObject"
+        ],
+        "Resource": [
+          "acs:oss:*:*:srm-prd/external/ai_helper_temp/*",
+          "acs:oss:*:*:srm-uat/external/ai_helper_temp/*",
+          "acs:oss:*:*:srm-dev/external/ai_helper_temp/*"
+        ]
+      }
+    ]
+  }
+}

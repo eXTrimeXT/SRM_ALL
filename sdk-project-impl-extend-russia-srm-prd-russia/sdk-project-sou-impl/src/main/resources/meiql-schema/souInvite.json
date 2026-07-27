@@ -1,0 +1,33 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "SouInviteHeadBuyer:scc_npm_sou_invite_head": {
+    "keyField": "inviteHeadId",
+    "comment": "邀请供应商头表",
+    "repository": "inviteHeadBuyerRepository",
+    "fields": {
+      "@include": ":SouInviteHeadFields"
+    },
+    "relations": {}
+  },
+  "SouInviteItemBuyer:scc_npm_sou_invite_item": {
+    "keyField": "inviteItemId",
+    "comment": "邀请供应商行表",
+    "repository": "inviteItemBuyerRepository",
+    "fields": {
+      "@include": ":SouInviteItemFields"
+    },
+    "relations": {}
+  },
+  "SouInviteHistoryBuyer:scc_npm_sou_invite_history": {
+    "keyField": "inviteHistoryId",
+    "comment": "邀请供应商历史表",
+    "repository": "inviteHistoryBuyerRepository",
+    "fields": {
+      "@include": ":SouInviteHistoryFields"
+    },
+    "relations": {
+      "inviteHeadId": "SouInviteHeadBuyer"
+    }
+  }
+}

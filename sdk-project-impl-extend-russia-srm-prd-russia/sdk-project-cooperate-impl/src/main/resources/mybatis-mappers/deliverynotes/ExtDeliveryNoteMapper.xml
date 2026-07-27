@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.supcooperate.ext.deliverynotes.mapper.ExtDeliveryNoteMapper">
+
+    <select id="deliveryList" resultType="com.midea.cloud.srm.model.supcooperate.excel.DeliveryNoteExcel">
+        select DELIVERY_NOTE_ID,
+               ORGANIZATION_ID,
+               FULL_PATH_ID,
+               VENDOR_ID,
+               DELIVERY_NUMBER,
+               DELIVERY_DATE,
+               EXPECTED_ARRIVAL_DATE,
+               OLD_DELIVERY_NOTE_ID,
+               DELIVERY_NOTE_STATUS,
+               COMMENTS,
+               ORGANIZATION_NAME,
+               VENDOR_CODE,
+               VENDOR_NAME,
+               SUBMITTED_ID,
+               SUBMITTED_BY,
+               SUBMITTED_TIME,
+               CREATED_ID,
+               CREATED_BY,
+               CREATION_DATE,
+               CREATED_BY_IP,
+               CREATED_FULL_NAME,
+               LAST_UPDATED_ID,
+               LAST_UPDATED_BY,
+               LAST_UPDATE_DATE,
+               LAST_UPDATED_BY_IP,
+               LAST_UPDATED_FULL_NAME,
+               TENANT_ID,
+               VERSION,
+               ORGANIZATION_CODE,
+               CONTACT_PEOPLE,
+               CONTACT_NUMBER,
+               ORG_ID,
+               ORG_CODE,
+               ORG_NAME,
+               CEEA_DELIVERY_PLACE,
+               DATA_SOURCE,
+               DELIVERY_TYPE,
+               CREATED_BY_CODE,
+               CEEA_CONSIGN_TYPE,
+               CEEA_DELIVERY_SYSTEM,
+               PURCHASE_CONFIRM_STATUS,
+               IF_CREATE_DELIVERY_APPOINTMENT,
+               RECEIVED_FACTORY_ID,
+               RECEIVED_FACTORY,
+               ORDER_SOURCE,
+               EXT_STATUS,
+               EXT_VENDOR_CONTACTS,
+               EXT_VENDOR_PHONE,
+               EXT_EXPRESS_TYPE,
+               EXT_EXPRESS_NO,
+               EXT_EXPRESS_MAN,
+               EXT_EXPRESS_PHONE,
+               EXT_DEPARTMENT_ID,
+               EXT_DEPARTMENT_CODE,
+               EXT_DEPARTMENT_NAME,
+               EXT_APPLICANT_NAME,
+               EXT_APPLICANT_CODE,
+               EXT_APPLY_DATE,
+               EXT_UN_TAX_AMOUNT,
+               EXT_IN_TAX_AMOUNT,
+               EXT_CURRENCY_ID,
+               EXT_CURRENCY_CODE,
+               EXT_CURRENCY_NAME,
+               EXT_RECEIVE_CONTACT,
+               EXT_RECEIVE_TELEPHONE,
+               EXT_PURCHASER_NO,
+               EXT_PURCHASER_ID,
+               EXT_PURCHASER_NAME,
+               EXT_PURCHASER_ORG_NAME,
+               EXT_PURCHASER_PHONE,
+               EXT_PURCHASER_EMAIL,
+               EXT_JD_ORDER_ID
+            from scc_sc_delivery_note
+           <where>
+                  <if test="deliveryNumber != null and deliveryNumber != ''">
+                         AND DELIVERY_NUMBER=#{deliveryNumber}
+                  </if>
+                  <if test="deliveryNoteStatus != null and deliveryNoteStatus != ''">
+                         AND DELIVERY_NOTE_STATUS=#{deliveryNoteStatus}
+                  </if>
+                  <if test="orgName != null and orgName != ''">
+                         AND ORG_NAME=#{orgName}
+                  </if>
+                  <if test="orgId != null and orgId != ''">
+                         AND ORG_ID=#{orgId}
+                  </if>
+                  <if test="extPurchaserNo != null and extPurchaserNo != ''">
+                         AND EXT_PURCHASER_NO=#{extPurchaserNo}
+                  </if>
+                  <if test="vendorName != null and vendorName != ''">
+                         AND VENDOR_NAME=#{vendorName}
+                  </if>
+                  <if test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+                         AND DELIVERY_DATE between #{beginDate} and #{endDate}
+                  </if>
+           </where>
+    </select>
+</mapper>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.report.bid.mapper.ExtReportBidSuperviseMapper">
+
+    <select id="listSuperviseReport" parameterType="com.midea.cloud.srm.model.sou.report.bid.dto.SuperviseReportQueryDto"
+            resultType="com.midea.cloud.srm.model.sou.report.bid.dto.SuperviseReportDto">
+        SELECT p.SOU_NO,
+        p.EXT_PROJECT_NO,
+        p.SOU_NAME,
+        p.PROJECT_ID,
+        p.EXT_SCALE_QUANTITY,
+        p.EXT_BUDGET,
+        p.EXT_CATEGORY_ID,
+        p.EXT_CATEGORY_CODE,
+        p.EXT_CATEGORY_NAME,
+        p.CREATION_DATE,
+        p.EXT_ORG_BU_ID,
+        p.EXT_ORG_BU_CODE,
+        p.EXT_ORG_BU_NAME,
+        p.EXT_ORG_OU_ID,
+        p.EXT_ORG_OU_CODE,
+        p.EXT_ORG_OU_NAME,
+        v.VENDOR_ID,
+        v.VENDOR_CODE,
+        v.VENDOR_NAME,
+        v.EXT_VENDOR_ATTR,
+        v.LINKMAN_NAME,
+        v.PHONE,
+        v.EXT_IS_NEW_VENDOR,
+        o.ORDER_ID,
+        p.EXT_TECH_PRINCIPAL,
+        p.EXT_TECH_PRINCIPAL_TEL,
+        p.CREATED_FULL_NAME,
+        p.EXT_SOU_PROCESS,
+        o.ORDER_STATUS,
+        p.PROJECT_STATUS
+        FROM scc_sou_project p
+        join scc_sou_vendor v on v.PROJECT_ID = p.PROJECT_ID
+        join scc_sou_order o on o.PROJECT_ID = p.PROJECT_ID and o.VENDOR_ID = v.VENDOR_ID
+        JOIN ext_scc_sou_order eo on eo.ORDER_ID = o.ORDER_ID and eo.ROUND = 1 and eo.ORDER_STATUS IN ('SUBMISSION', 'CANCEL')
+        <if test="requirementPlanType != null and requirementPlanType != ''">
+            join (select DISTINCT nd.PROJECT_ID from meicloud_usrm_cloud_biz_supplier_cooperate.scc_pr_requirement_head h
+            join meicloud_usrm_cloud_biz_supplier_cooperate.scc_npm_pr_require_head eh on eh.REQUIREMENT_HEAD_ID = h.REQUIREMENT_HEAD_ID and eh.REQUIRE_FROM = #{requirementPlanType}
+            join scc_npm_sou_demand nd on nd.APPLICANT_NO = h.REQUIREMENT_HEAD_NUM ) pt on pt.PROJECT_ID = p.PROJECT_ID
+        </if>
+        <if test="vendorPrincipal != null and vendorPrincipal != ''">
+            JOIN (select DISTINCT nd.PROJECT_ID from meicloud_usrm_cloud_biz_supplier_cooperate.scc_pr_requirement_head h
+            join meicloud_usrm_cloud_biz_supplier_cooperate.scc_npm_pr_require_group rg on rg.REQUIREMENT_HEAD_ID = h.REQUIREMENT_HEAD_ID and rg.GROUP_TYPE='VENDOR' and rg.FULL_NAME like CONCAT('%',#{vendorPrincipal},'%')
+            join scc_npm_sou_demand nd on nd.APPLICANT_NO = h.REQUIREMENT_HEAD_NUM) vt on vt.PROJECT_ID = p.PROJECT_ID
+        </if>
+        <if test="techSocreFrom != null or techSocreTo != null or comprehensiveScoreFrom != null or comprehensiveScoreTo != null">
+            JOIN (SELECT DISTINCT ca.project_id, cs.vendor_id from scc_npm_sou_ca ca
+            join  scc_npm_sou_ca_supplier cs on cs.ca_id = ca.ca_id
+            <if test="techSocreFrom != null"> <![CDATA[and cs.tech_score >= #{techSocreFrom}]]>  </if>
+            <if test="techSocreTo != null"> <![CDATA[and cs.tech_score <= #{techSocreTo}]]>  </if>
+            <if test="comprehensiveScoreFrom != null"> <![CDATA[and cs.composite_score >= #{comprehensiveScoreFrom}]]>  </if>
+            <if test="comprehensiveScoreTo != null"> <![CDATA[and cs.composite_score <= #{comprehensiveScoreTo}]]>  </if>
+            where ca.type = 'APPLY' and ca.`status` = 'APPROVED') cs on cs.project_id = p.PROJECT_ID and cs.vendor_id = v.VENDOR_ID
+        </if>
+        <if test="isWin != null and isWin != ''">
+            JOIN (SELECT DISTINCT ca.project_id, cs.vendor_id from scc_npm_sou_ca ca
+            join  scc_npm_sou_ca_selection_result cs on cs.ca_id = ca.ca_id
+            and cs.is_win =#{isWin}
+            where ca.type = 'APPLY' and ca.`status` = 'APPROVED') cr on cr.project_id = p.PROJECT_ID and cr.vendor_id = v.VENDOR_ID
+        </if>
+        where p.SOU_TYPE = 'bid'
+        <if test="extProjectNo != null and extProjectNo != ''">and p.EXT_PROJECT_NO like
+            CONCAT('%',#{extProjectNo},'%')
+        </if>
+        <if test="extOrgBuCode != null and extOrgBuCode != ''">and p.EXT_ORG_BU_CODE like
+            CONCAT('%',#{extOrgBuCode},'%')
+        </if>
+        <if test="extOrgBuName != null and extOrgBuName != ''">and p.EXT_ORG_BU_NAME like
+            CONCAT('%',#{extOrgBuName},'%')
+        </if>
+        <if test="extOrgOuName != null and extOrgOuName != ''">and p.EXT_ORG_OU_NAME like
+            CONCAT('%',#{extOrgOuName},'%')
+        </if>
+        <if test="companyShortCode != null and companyShortCode != ''">and substring(p.EXT_PROJECT_NO, 1, 2) like
+            CONCAT(#{companyShortCode},'%')
+        </if>
+        <if test="year != null and year != ''">and DATE_FORMAT(p.CREATION_DATE,'%Y') like
+            CONCAT('%',#{year},'%')
+        </if>
+        <if test="month != null and month != ''">and DATE_FORMAT(p.CREATION_DATE,'%m') like
+            CONCAT('%',#{month},'%')
+        </if>
+        <if test="souName != null and souName != ''">and p.SOU_NAME like CONCAT('%',#{souName},'%')</if>
+        <if test="extSouProcess != null and extSouProcess != ''">
+            and p.EXT_SOU_PROCESS = #{extSouProcess}
+        </if>
+        <if test="itemDesc != null and itemDesc != ''">
+            and p.EXT_CATEGORY_NAME like CONCAT('%',#{itemDesc},'%')
+        </if>
+        <if test="souPrincipal != null and souPrincipal != ''">
+            and p.CREATED_FULL_NAME like CONCAT('%',#{souPrincipal},'%')
+        </if>
+        <if test="extTechPrincipal != null and extTechPrincipal != ''">
+            and p.EXT_TECH_PRINCIPAL like CONCAT('%',#{souPrincipal},'%')
+        </if>
+        <if test="leaderPrincipal != null and leaderPrincipal != ''">
+            and EXISTS (
+            select 1 from scc_sou_group le where le.PROJECT_ID = p.PROJECT_ID and le.GROUP_ROLE = 'LEADER' and le.FULL_NAME like CONCAT('%',#{leaderPrincipal},'%') limit 1
+            )
+        </if>
+        <if test="totalBudgetFrom != null">
+            and p.EXT_BUDGET >= #{totalBudgetFrom}
+        </if>
+        <if test="totalBudgetTo != null">
+            <![CDATA[and p.EXT_BUDGET <= #{totalBudgetTo}]]>
+        </if>
+        <if test="vendorName != null and vendorName != ''">
+            and v.VENDOR_NAME like CONCAT('%',#{vendorName},'%')
+        </if>
+        <if test="extVendorAttr != null and extVendorAttr != ''">
+            and v.EXT_VENDOR_ATTR = #{extVendorAttr}
+        </if>
+        <if test="linkmanName != null and linkmanName != ''">
+            and v.LINKMAN_NAME like CONCAT('%',#{linkmanName},'%')
+        </if>
+        <if test="phone != null and phone != ''">
+            and v.PHONE like CONCAT('%',#{phone},'%')
+        </if>
+        <if test="extIsNewVendor != null and extIsNewVendor != ''">
+            and v.EXT_IS_NEW_VENDOR = #{extIsNewVendor}
+        </if>
+        GROUP BY o.ORDER_ID
+        ORDER BY p.PROJECT_ID DESC
+    </select>
+</mapper>

@@ -1,0 +1,228 @@
+{{- if .Values.global.ingress.enable }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 500M
+  name: {{ .Values.global.domain }}
+  namespace: {{ .Values.global.namespace }}
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: {{ .Values.global.domain }}
+      http:
+        paths:
+{{- if.Values.global.ingress.allInOne }}
+          - backend:
+              service:
+                name: srm-js-front-{{ .Values.global.env }}
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-gateway-{{ .Values.global.env }}
+                port:
+                  number: 9005
+            path: /cloud-srm
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-base-{{ .Values.global.env }}
+                port:
+                  number: 8831
+            path: /api-base
+            pathType: Prefix
+          - backend:
+              service:
+                  name: srm-java-reduce-{{ .Values.global.env }}
+                port:
+                  number: 8060
+            path: /api-rd
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-file-{{ .Values.global.env }}
+                port:
+                  number: 8803
+            path: /api-file
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-oauth-{{ .Values.global.env }}
+                port:
+                  number: 8805
+            path: /api-oauth
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-rbac-{{ .Values.global.env }}
+                port:
+                  number: 8806
+            path: /api-rbac
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-report-{{ .Values.global.env }}
+                port:
+                  number: 8843
+            path: /api-report
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-onlineview-{{ .Values.global.env }}
+                port:
+                  number: 8811
+            path: /api-onlineview
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-api-{{ .Values.global.env }}
+                port:
+                  number: 8809
+            path: /api-ac
+            pathType: Prefix
+{{ else }}
+          - backend:
+              service:
+                name: srm-js-front-{{ .Values.global.env }}
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-gateway-{{ .Values.global.env }}
+                port:
+                  number: 9005
+            path: /cloud-srm
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-base-{{ .Values.global.env }}
+                port:
+                  number: 8831
+            path: /api-base
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-bid-{{ .Values.global.env }}
+                port:
+                  number: 8836
+            path: /api-bid
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-competition-{{ .Values.global.env }}
+                port:
+                  number: 8844
+            path: /api-comp
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-contract-{{ .Values.global.env }}
+                port:
+                  number: 8838
+            path: /api-cm
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-file-{{ .Values.global.env }}
+                port:
+                  number: 8803
+            path: /api-file
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-inq-{{ .Values.global.env }}
+                port:
+                  number: 8834
+            path: /api-inq
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-oauth-{{ .Values.global.env }}
+                port:
+                  number: 8805
+            path: /api-oauth
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-performance-{{ .Values.global.env }}
+                port:
+                  number: 8839
+            path: /api-pef
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-price-{{ .Values.global.env }}
+                port:
+                  number: 8840
+            path: /api-price
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-rbac-{{ .Values.global.env }}
+                port:
+                  number: 8806
+            path: /api-rbac
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-cooperate-{{ .Values.global.env }}
+                port:
+                  number: 8835
+            path: /api-sup-ce
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-supplier-{{ .Values.global.env }}
+                port:
+                  number: 8832
+            path: /api-sup
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-bargaining-{{ .Values.global.env }}
+                port:
+                  number: 8841
+            path: /api-brg
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-ppap-{{ .Values.global.env }}
+                port:
+                  number: 8846
+            path: /api-ppap
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-report-{{ .Values.global.env }}
+                port:
+                  number: 8843
+            path: /api-report
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-onlineview-{{ .Values.global.env }}
+                port:
+                  number: 8811
+            path: /api-onlineview
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-api-{{ .Values.global.env }}
+                port:
+                  number: 8809
+            path: /api-ac
+            pathType: Prefix
+          - backend:
+              service:
+                name: srm-java-sou-{{ .Values.global.env }}
+                port:
+                  number: 8847
+            path: /api-sou
+            pathType: Prefix
+{{- end }}
+{{- end }}

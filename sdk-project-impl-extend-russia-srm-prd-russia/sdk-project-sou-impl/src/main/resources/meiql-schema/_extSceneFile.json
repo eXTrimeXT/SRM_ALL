@@ -1,0 +1,41 @@
+{
+  "_version": "1.0",
+  "_type": "base",
+  "ExtSceneFileFields": {
+    "fields": {
+      "originalBusinessId": "",
+      "businessId": "",
+      "sceneTemplateId": "",
+      "templateFileId": "",
+      "sceneUniqueCode": "",
+      "sceneCode": "",
+      "sceneModuleCode": "",
+      "attachmentType": "",
+      "attachmentNam": "",
+      "fileuploadId": "",
+      "fileName": "",
+      "fileCustomName": "",
+      "businessFileType": "",
+      "fileLink": "",
+      "fileUploadTime": "",
+      "expireTime": "",
+      "remark": "",
+      "vendorId": "",
+      "vendorCode": "",
+      "vendorName": "",
+      "monitorFlag": "",
+      "fileStatus": "",
+      "createdId": "",
+      "createdBy": "",
+      "creationDate": "Date",
+      "createdByIp": "",
+      "createdFullName": "",
+      "lastUpdatedId": "",
+      "lastUpdatedBy": "",
+      "lastUpdateDate": "Date",
+      "lastUpdatedFullName": "",
+      "tenantId": "",
+      "version": ""
+    }
+  }
+}

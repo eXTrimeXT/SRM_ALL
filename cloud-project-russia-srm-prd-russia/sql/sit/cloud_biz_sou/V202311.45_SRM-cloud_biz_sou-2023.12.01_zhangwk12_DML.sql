@@ -1,0 +1,1 @@
+alter table scc_npm_sou_fix_price_line add ADVANCE_PAYMENT_REMARK char default 'N' null comment '预付款说明';

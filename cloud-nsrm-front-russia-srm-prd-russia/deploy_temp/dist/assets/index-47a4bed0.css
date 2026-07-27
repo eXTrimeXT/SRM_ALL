@@ -1,0 +1,17 @@
+.the-vendorGreenChannelDetail-detail .sub_header[data-v-f5681e25] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.the-vendorGreenChannelDetail-detail .el-table .el-date-editor[data-v-f5681e25] {
+  width: 135px;
+}
+.the-vendorGreenChannelDetail-detail .el-input-number--mini[data-v-f5681e25] {
+  width: 100%;
+}
+.the-vendorGreenChannelDetail-detail .delivery-dialog[data-v-f5681e25] .el-table__body-wrapper {
+  height: 200px !important;
+}
+.el-form-item .el-input-number--mini .el-input-number__increase,
+.el-form-item .el-input-number--mini .el-input-number__decrease {
+  height: 24px !important;
+}

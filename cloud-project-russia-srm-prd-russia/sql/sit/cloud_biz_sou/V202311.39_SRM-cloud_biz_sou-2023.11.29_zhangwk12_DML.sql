@@ -1,0 +1,1 @@
+alter table scc_npm_sou_inq_vendor add JOIN_ROUND int default 1 not null comment '加入轮次';

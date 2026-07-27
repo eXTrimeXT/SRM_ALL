@@ -1,0 +1,32 @@
+<meiql _version="1.0" _type="standard">
+    <type name="ExternalMaterial">
+        <validators>
+            <action name="createMaterialMapping">
+                <validator type="request" msg="参数必填：materialId">
+                    ql.notEmpty($rec["materialId"])
+                </validator>
+                <validator type="request" msg="参数必填：materialCode">
+                    ql.notEmpty($rec["materialCode"])
+                </validator>
+                <validator type="request" msg="参数必填：materialName">
+                    ql.notEmpty($rec["materialName"])
+                </validator>
+                <validator type="request" msg="参数必填：externalMaterialId">
+                    ql.notEmpty($rec["externalMaterialId"])
+                </validator>
+                <validator type="request" msg="已有映射关系，请先删除。">
+                    c = ql.newCond();
+                    ql.cond.eq(c,"mappingFlag","N");
+                    ql.cond.eq(c,"externalMaterialId",$rec["externalMaterialId"]);
+                    existRec = ql.query("ExternalMaterial",c);
+                    return ql.gt(count(existRec),0);
+                </validator>
+            </action>
+            <action name="removeMaterialMapping">
+                <validator type="request" msg="参数必填：externalMaterialId">
+                    ql.notEmpty($rec["externalMaterialId"])
+                </validator>
+            </action>
+        </validators>
+    </type>
+</meiql>

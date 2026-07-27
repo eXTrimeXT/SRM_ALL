@@ -1,0 +1,11 @@
+.single-table[data-v-c13ec6de] {
+  height: 100%;
+}
+.pagination[data-v-c13ec6de] {
+  padding-top: 10px;
+}
+.main[data-v-c13ec6de] {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}

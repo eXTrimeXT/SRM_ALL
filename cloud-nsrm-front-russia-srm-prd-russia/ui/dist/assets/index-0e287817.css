@@ -1,0 +1,5 @@
+.reviewFormList .render-table {
+  position: relative;
+  height: 0;
+  flex: 1;
+}

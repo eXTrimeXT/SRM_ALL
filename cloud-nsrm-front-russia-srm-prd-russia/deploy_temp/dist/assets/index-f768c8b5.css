@@ -1,0 +1,99 @@
+.box-warp[data-v-4bc7308e] {
+  display: flex;
+}
+.box-warp .box-one[data-v-4bc7308e] {
+  width: 32%;
+  height: 116px;
+  background: #FFFFFF;
+  border: 1px solid #B9BABD;
+  border-radius: 2px;
+  margin: 0 1%;
+  cursor: pointer;
+  display: flex;
+}
+.box-warp .box-one .box-center[data-v-4bc7308e] {
+  margin: 16px 27px 0 13px;
+}
+.box-warp .box-one .box-center .blueOne[data-v-4bc7308e] {
+  font-size: 16px;
+  color: #161C24;
+  line-height: 24px;
+  font-weight: 500;
+}
+.box-warp .box-one .box-center .comments[data-v-4bc7308e] {
+  font-size: 12px;
+  color: #73777C;
+  line-height: 20px;
+}
+.box-warp .box-one img[data-v-4bc7308e] {
+  width: 48px;
+  height: 42px;
+  margin: 16px 0 0 16px;
+}
+.box-warp .box-one .title[data-v-4bc7308e] {
+  font-size: 20px;
+}
+.box-warp .clickClass[data-v-4bc7308e] {
+  background-image: url("/srm/assets/frame-024134fd.svg");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  border: 1px solid #0077FF;
+}
+.box-warp .clickClass .blueOne[data-v-4bc7308e] {
+  color: #0077FF !important;
+}
+.bzBox {
+  position: relative;
+}
+.bzTitle {
+  position: absolute;
+  top: -20px;
+  left: 4px;
+}
+.bzTitle::before{
+  content:'*';
+  margin-right:4px;
+  display: inline-block;
+  vertical-align: top;
+  color: #FF4A4D;
+  font-family: SimSun, sans-serif;
+}
+.vendorGreen .companyInfo {
+  display: flex;
+  padding: 16px;
+  width: 100%;
+}
+.vendorGreen .render-form-container__fixed-footer {
+  padding-top: 0px;
+}
+.info-fill-progress {
+  position: fixed;
+  width: 210px;
+  top: 104px;
+  right: 0px;
+  bottom: 0px;
+}
+.vendorGreen {
+  overflow: auto;
+  padding-right: 181px;
+}
+.order-form-contain .contract-progress {
+  top: 64px;
+}
+.rdCapableList {
+  height: 80px;
+  margin-bottom: 20px;
+}
+.vendorGreen
+  .render-pix-form-item-feedback-layout-loose.render-pix-form-item-feedback-has-text:not(
+    .render-pix-form-item-inset
+  ) {
+  margin-bottom: var(--mb-md);
+}
+.el-message--error{
+  white-space:pre-line
+}
+.dialogMain .el-dialog__body {
+  max-height: 363px;
+  overflow: auto;
+}

@@ -1,0 +1,82 @@
+<meiql _version="1.0" _type="custom">
+    <type name="InvoiceNotice,InvoiceNoticeVendor">
+        <validators>
+            <action name="saveOrUpdate">
+                <validator type="request" range="list" msg="参数缺失">
+                    return ql.notEmpty($recs);
+                </validator>
+                <validator type="request" msg="仅支持一条数据">
+                    return count($recs) == 1;
+                </validator>
+                <validator type="request" msg="用户类型不能为空">
+                    return ql.notEmpty($rec["userType"]);
+                </validator>
+                <validator type="request" msg="单据状态不能为空">
+                    return ql.notEmpty($rec["invoiceNoticeStatus"]);
+                </validator>
+                <validator type="request" msg="传参状态错误">
+                    return ql.in($rec["invoiceNoticeStatus"], "DRAFT", "SUBMITTED", "VENDOR_SUBMITTED");
+                </validator>
+                <validator type="request" msg="供应商不能为空">
+                    if ($rec["invoiceNoticeStatus"] == "DRAFT") {
+                        return true;
+                    }
+                    return ql.notEmpty($rec["vendorCode"]) &amp;&amp; ql.notNull($rec["vendorId"]) &amp;&amp; ql.notEmpty($rec["vendorName"]);
+                </validator>
+                <validator type="request" msg="业务实体不能为空">
+                    if ($rec["invoiceNoticeStatus"] == "DRAFT") {
+                        return true;
+                    }
+                    return ql.notEmpty($rec["orgCode"]) &amp;&amp; ql.notNull($rec["orgId"]) &amp;&amp; ql.notEmpty($rec["orgName"]);
+                </validator>
+                <validator type="request" msg="库存组织不能为空">
+                    if ($rec["invoiceNoticeStatus"] == "DRAFT") {
+                        return true;
+                    }
+                    return ql.notEmpty($rec["organizationCode"]) &amp;&amp; ql.notNull($rec["organizationId"]) &amp;&amp; ql.notEmpty($rec["organizationName"]);
+                </validator>
+                <validator type="request" msg="对账单明细不能为空">
+                    if ($rec["invoiceNoticeStatus"] == "DRAFT") {
+                        return true;
+                    }
+                    return ql.notEmpty(ql.clearDel($rec["detailList"]));
+                </validator>
+                <validator type="request" msg="只有单据为[拟定|采购已驳回|审批已驳回|撤回]状态才能修改">
+                    if (ql.notNull($rec["invoiceNoticeId"])) {
+                        c = ql.newCond();
+                        ql.cond.eq(c,"invoiceNoticeId",$rec["invoiceNoticeId"]);
+                        r = ql.query("InvoiceNotice",c);
+                        return ql.notEmpty(r) &amp;&amp; (r[0]["invoiceNoticeStatus"] == "DRAFT" || r[0]["invoiceNoticeStatus"] == "FIRST_REJECTED" || r[0]["invoiceNoticeStatus"] == "REJECTED" || r[0]["invoiceNoticeStatus"] == "WITHDRAW");
+                    }
+                    return true;
+                </validator>
+            </action>
+
+            <action name="delete">
+                <validator type="request" range="list" msg="参数缺失">
+                    return ql.notEmpty($recs);
+                </validator>
+                <validator type="request" msg="单据id不能为空">
+                    return ql.notEmpty($rec["invoiceNoticeId"]);
+                </validator>
+                <validator type="db" range="list" msg="单据不存在">
+                    return ql.notEmpty($recs);
+                </validator>
+                <validator type="db" msg="单据状态不为[拟定]，请检查!">
+                    return $rec["invoiceNoticeStatus"] == "DRAFT" || $rec["extStatus"] == "REFUSE";
+                </validator>
+            </action>
+        </validators>
+    </type>
+
+    <type name="InvoiceNoticeDetail,InvoiceNoticeDetailVendor">
+        <validators>
+            <action name="create,update">
+                <validator type="request" msg="入库退货明细id不能为空">
+                    return ql.notNull($rec["warehousingReturnDetailId"]);
+                </validator>
+            </action>
+        </validators>
+    </type>
+
+</meiql>

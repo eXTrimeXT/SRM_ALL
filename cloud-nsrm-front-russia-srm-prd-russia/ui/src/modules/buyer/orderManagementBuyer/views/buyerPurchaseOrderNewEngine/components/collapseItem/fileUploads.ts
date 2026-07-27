@@ -1,0 +1,134 @@
+import {
+  expression,
+  i18nExpression,
+  generateXindexInOrder
+} from '@meicloud/render-engine'
+
+export default {
+  type: 'void',
+  'x-component': 'CollapseItem',
+  'x-component-props': {
+    title: i18nExpression('orderMod.orderAttachInfo') // 订单附件信息
+  },
+  properties: {
+    toolbar: {
+      type: 'void',
+      'x-component': 'ButtonList',
+      'x-component-props': {
+        class: 'list-form__toolbar'
+      },
+      'x-reactions': expression(`(field) => {
+              field.visible = !$form.readPretty
+            }`),
+      properties: {
+        add: {
+          type: 'void',
+          title: i18nExpression('common.add'),
+          'x-component-props': {
+            type: 'primary',
+            '@click': expression(`() => {
+              $self.query('.attachmentList').take().componentProps.componentInstance.addRow()
+             }`)
+          }
+        }
+      }
+    },
+    attachmentList: {
+      type: 'array',
+      'x-component': 'RenderTable',
+      'x-component-props': {
+        editMode: true,
+        preColumns: 'seq',
+        maxHeight: 400,
+        pagination: false,
+        sortable: false,
+        // 联表主键的 key
+        primaryKey: 'attachId',
+        // 启用级联删除的储值行为
+        cascadeDeletion: true
+      },
+      'x-query-engine-skip': true,
+      'x-query-engine-relation': 'attachmentList:*',
+      properties: generateXindexInOrder({
+        attachId: {
+          type: 'string',
+          'x-hidden': true
+        },
+        attachName: {
+          type: 'string',
+          'x-component': 'SrmCommonFile',
+          'x-read-pretty': expression('$form.readPretty'),
+          'x-render-table-column': {
+            title: i18nExpression('bidMod.fileName'),
+            minWidth: 150
+          },
+          'x-component-props': {
+            extraData: {
+              uploadType: 'DEF',
+              sourceType: 'WEB_APP',
+              fileModular: 'sup',
+              fileFunction: 'purPaymentApply',
+              fileType: 'images'
+            },
+            defaultFile: {
+              fileId: expression('$table.getRowByIndex($self.index)?.fileuploadId'),
+              fileName: expression('$self.value')
+            },
+            '@on-change': expression(`({ file }) => {
+                let row = $table.getRowByIndex($self.index)
+                const { fileId = '', fileName = '', createdBy = '', creationDate = ''} = file || {}
+                row.fileuploadId = fileId.toString() || null
+                row.attachName = fileName
+                row.createdUserName = createdBy
+                row.creationDate = creationDate
+              }`)
+          }
+        },
+
+        createdUserName: {
+          type: 'string',
+          title: i18nExpression('quota.uploadBy'),
+          'x-render-table-column': {
+            minWidth: 120
+          },
+          'x-read-pretty': true
+        },
+        creationDate: {
+          type: 'string',
+          title: i18nExpression('quota.uploadDate'),
+          'x-render-table-column': {
+            minWidth: 120
+          },
+          'x-read-pretty': true
+        },
+
+        operation: {
+          type: 'void',
+          title: i18nExpression('common.operation'),
+          'x-render-table-column': {
+            width: 60,
+            fixed: 'right'
+          },
+          'x-component': 'RenderTableButtonList',
+          'x-reactions': expression(`(field) => {
+                  field.visible = !$form.readPretty
+                }`),
+          properties: {
+            delete: {
+              type: 'void',
+              title: i18nExpression('common.delete'),
+              'x-component-props': {
+                type: 'text',
+                '@click': expression(`
+                        () => {
+                          $table.remove($self.index)
+                        }
+                      `)
+              }
+            }
+          }
+        }
+      })
+    }
+  }
+}

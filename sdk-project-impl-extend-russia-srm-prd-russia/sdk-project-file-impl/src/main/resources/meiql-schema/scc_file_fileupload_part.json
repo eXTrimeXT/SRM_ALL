@@ -1,0 +1,36 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "FileUploadPart:scc_file_fileupload_part": {
+    "comment": "大文件上传分片表",
+    "keyField" : "fileuploadPartId",
+    "fields" : {
+      "fileuploadPartId": "Long:ID",
+      "fingerprint": "String:文件指纹",
+      "uploadType": "String:上传介质类型",
+      "businessId": "Long:业务ID，用于业务单据关联",
+      "fileModular": "String:文件所属模块",
+      "fileFunction": "String:文件所属功能",
+      "fileType": "String:文件所属类型",
+      "fileFullname": "String:文件全路径名",
+      "fileExtendType": "String:文件扩展名",
+      "fileSourceName": "String:原始文件名",
+      "fileSize": "Long:文件大小",
+      "filePath": "String:文件路径",
+      "filePureName": "String:纯文件名",
+      "sourceType": "String:来源类型",
+      "expireTime": "Date:临时文件过期时间",
+      "sceneFileSourceName": "String:场景附件模板原始名称",
+      "sceneFileuploadId": "Long:场景附件模板文件ID",
+      "sceneAttachmentId": "Long:场景附件管理ID",
+      "comment": "String:备注",
+      "chunkSize": "Long:分片大小，单位byte",
+      "lastChunkSize": "Long:最后分片大小，单位byte",
+      "chunkAmount": "Long:分片数量",
+      "chunkNum": "Long:分片序号",
+      "uploadStatus": "String:上传状态",
+      "uploadId": "String:阿里组装分片用ID",
+      "@include": ":BaseFields"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+<meiql _version="1.0" _type="standard">
+    <type name="SouInviteItemBuyer">
+        <validators>
+            <action name="create">
+                <validator type="request" msg="参数必填：vendorId">
+                    ql.notEmpty($rec["vendorId"])
+                </validator>
+
+                <validator type="request" msg="参数必填：isBid">
+                    ql.notEmpty($rec["isBid"])
+                </validator>
+                <validator type="request" msg="参数必填：isInvalidBid">
+                    ql.notEmpty($rec["isInvalidBid"])
+                </validator>
+                <validator type="request" msg="参数必填：isSuccBid">
+                    ql.notEmpty($rec["isSuccBid"])
+                </validator>
+            </action>
+            <action name="update">
+                <validator type="request" msg="参数必填：inviteItemId">
+                    ql.notEmpty($rec["inviteItemId"])
+                </validator>
+            </action>
+        </validators>
+    </type>
+</meiql>

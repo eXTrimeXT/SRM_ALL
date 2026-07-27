@@ -1,0 +1,1 @@
+alter table scc_npm_sou_fix_price_line change EXT_SOU_FIX_PRICE_LINE_STATUS HAS_CLOSED char(1) default 'N' not null comment '是否关闭';

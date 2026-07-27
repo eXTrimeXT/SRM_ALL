@@ -1,0 +1,58 @@
+# local环境配置
+spring:
+  cloud:
+    config:
+      profile: local
+    #      name: application-extendlocal,${spring.application.name}
+    nacos:
+      discovery:
+        # 命名空间，注册到srm-dockeruat环境
+        namespace: dev
+        # 注册中心地址
+        server-addr: http://10.246.99.228:8848
+        group: dev
+        metadata:
+          # feign微服务调用路由策略标签分组
+          routingTag: local
+        # 账号密码访问
+        username: nacos
+        password: ENC(1bee7a35864e8a2ce35bf7a044c16ea8820ea668c578f9dc24d466078a3f64c3)
+      config:
+        # 命名空间，获取srm-dockeruat命名空间的配置文件
+        namespace: dev
+        group: srm
+        # 配置中心地址
+        server-addr: http://10.246.99.228:8848
+        # 账号密码访问
+        username: nacos
+        password: ENC(1bee7a35864e8a2ce35bf7a044c16ea8820ea668c578f9dc24d466078a3f64c3)
+  devtools:
+    restart:
+      enabled: true
+
+# 微服务feign调用自定义路由策略，优先调用本地已存在微服务，找不到本地服务，按照标签组[微服务元数据metadata.routingTag值]调用
+ribbon:
+  rule: local
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.16.87.99:8761/eureka/
+# swagger文档
+knife4j:
+  production: false
+
+# eureka 切换到 nacos 注册中心，下面部分注释掉的配置忽略
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://10.16.87.99:8761/eureka/
+#  instance:
+#    metadata-map:
+#      routingTag: local
+#      internalAnonPassword: ${spring.cloud.client.hostname}-${spring.cloud.client.ip-address}-${server.port}-${sysRandom:CsaWljuYd1}
+#      externalAnonPassword: ${spring.cloud.client.hostname}-${spring.cloud.client.ip-address}-${server.port}-${sysRandom:uqlWlqcW*9}
+
+#  zipkin:
+#    base-url: http://10.17.149.194:9411
+

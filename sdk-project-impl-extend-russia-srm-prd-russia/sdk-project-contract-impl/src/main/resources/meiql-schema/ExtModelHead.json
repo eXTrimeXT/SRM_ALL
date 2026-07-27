@@ -1,0 +1,11 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "ModelHead:scc_contract_model_head": {
+    "keyField": "modelHeadId",
+    "fields": {
+      "extNoExamineFlag":"String",
+      "extTemplateCode":"String"
+    }
+  }
+}

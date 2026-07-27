@@ -1,0 +1,4 @@
+.passwordInput .el-input__suffix {
+  padding: 0 5px;
+  cursor: pointer;
+}

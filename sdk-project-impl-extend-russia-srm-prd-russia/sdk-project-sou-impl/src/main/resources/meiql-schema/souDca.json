@@ -1,0 +1,39 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "Dca:scc_npm_sou_ca" : {
+    "keyField" : "caId",
+    "repository":"dcaRepository",
+    "comment":"废标申请",
+    "fields" : {
+      "@include": ":CaFields",
+      "originalCaId" : "Long:原定标申请ID",
+      "originalCaNo" : "String:原定标申请单号",
+      "abandonDesc":"String:废弃定标说明",
+      "caNo" : {
+        "convert": "seqGen:SEQ_SOU_DCA_NO",
+        "type": "String",
+        "dbName": "ca_no",
+        "desc": "废标申请单号"
+      }
+    },
+    "relations" : {
+      "sceneFiles": "[DcaSceneFile:caId]"
+    }
+  },
+  "DcaSceneFile": {
+    "repository": "souSceneFileRepository",
+    "comment":"定标申请附件",
+    "keyField" : "sceneFileId",
+    "fields" : {
+      "sceneFileId": "Long",
+      "sceneKey":  {
+        "convert": "scene:SCENE_SOU_DCA_ATTACHMENT"
+      },
+      "businessFiled": {
+        "convert": "businessId:caId"
+      },
+      "@include": ":SceneFileFields"
+    }
+  }
+}

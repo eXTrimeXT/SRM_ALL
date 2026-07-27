@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.sou.sourcing.init.mapper.ExtSouProjectMapper">
+
+    <select id="statisticalBidTimes" parameterType="map" resultType="map">
+        SELECT
+            count( 1 ) bidTimes,
+            COUNT( t.is_win = 'Y' ) winTimes,
+            t.VENDOR_ID vendorId,
+            t.VENDOR_NAME vendorName
+        FROM
+            (
+                SELECT
+                    p.PROJECT_ID,
+                    d.is_win,
+                    v.VENDOR_ID,
+                    v.VENDOR_NAME
+                FROM
+                    scc_sou_project p
+                        JOIN scc_sou_vendor v ON v.PROJECT_ID = p.PROJECT_ID
+                        AND v.VENDOR_ID IN <foreach collection="vendorIdList" item="item" open="(" separator="," close=")">#{item}</foreach>
+                        LEFT JOIN scc_npm_sou_bid_notice n ON n.project_id = p.PROJECT_ID
+                        AND n.type = 'APPLY'
+                        AND n.`status` = 'APPROVED'
+                        LEFT JOIN scc_npm_sou_bid_notice_detail d ON d.bid_notice_id = n.bid_notice_id
+                        AND d.is_win = 'Y'
+                        AND d.vendor_id = v.VENDOR_ID
+                WHERE
+                    p.SOU_TYPE = 'bid'
+                  AND p.EXT_CATEGORY_ID = #{extCategoryId}
+                GROUP BY
+                    p.PROJECT_ID, v.VENDOR_ID
+            ) t GROUP BY t.VENDOR_ID
+    </select>
+</mapper>

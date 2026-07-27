@@ -1,0 +1,31 @@
+.innerboxcodeEdit[data-v-feaf2fa3] {
+  height: 100%;
+}
+.innerboxcodeEdit .sub_header[data-v-feaf2fa3] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.innerboxcodeEdit .el-table .el-date-editor[data-v-feaf2fa3] {
+  width: 135px;
+}
+.innerboxcodeEdit .base-form[data-v-feaf2fa3] {
+  padding: 15px 30px 0;
+}
+.innerboxcodeEdit .toRequired[data-v-feaf2fa3] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.innerboxcodeEdit .edit_cond[data-v-feaf2fa3] {
+  color: #23adf4;
+  cursor: pointer;
+}
+.innerboxcodeEdit tableBoxCode th.gutter[data-v-feaf2fa3] {
+  display: table-cell !important;
+}
+.innerboxcodeEdit tableBoxCode colgroup.gutter[data-v-feaf2fa3] {
+  display: table-cell !important;
+}
+.required[data-v-feaf2fa3] {
+  color: #ff4949;
+  padding-right: 2px;
+}
