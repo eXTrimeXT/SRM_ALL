@@ -1,0 +1,1 @@
+http://10.168.130.235:8081/#browse/browse:maven-public:com%2Fmidea%2Fcloud-biz%2Fmeiqing-V3.0.11.1
