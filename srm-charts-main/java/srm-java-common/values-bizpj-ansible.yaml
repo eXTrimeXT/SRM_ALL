@@ -77,8 +77,8 @@ app1:
     - key: APP_OPTS
       val:
 #        default:  --spring.profiles.active=extenddev --spring.cloud.nacos.discovery.server-addr=nacos-cs.dev:8848 --spring.cloud.nacos.discovery.namespace=dev --spring.cloud.nacos.config.server-addr=nacos-cs.dev:8848 --spring.cloud.nacos.config.namespace=dev --spring.cloud.nacos.config.group=srm --spring.cloud.nacos.discovery.group=dev  --spring.cloud.nacos.config.username=nacos  --spring.cloud.nacos.config.password=d9R-_m3lRP5~ --spring.cloud.nacos.discovery.username=nacos  --spring.cloud.nacos.discovery.password=d9R-_m3lRP5~
-        default:  --spring.profiles.active=extenddev --spring.cloud.nacos.discovery.server-addr=localhost:8848 --spring.cloud.nacos.discovery.namespace=dev --spring.cloud.nacos.config.server-addr=localhost:8848 --spring.cloud.nacos.config.namespace=dev --spring.cloud.nacos.config.group=srm --spring.cloud.nacos.discovery.group=dev  --spring.cloud.nacos.config.username=nacos  --spring.cloud.nacos.config.password=d9R-_m3lRP5~ --spring.cloud.nacos.discovery.username=nacos  --spring.cloud.nacos.discovery.password=d9R-_m3lRP5~
-  #    - key: JAVA_OPTS_enable
+        default:  --spring.profiles.active=dev --spring.cloud.nacos.discovery.server-addr=localhost:8848 --spring.cloud.nacos.discovery.namespace=dev --spring.cloud.nacos.config.server-addr=localhost:8848 --spring.cloud.nacos.config.namespace=dev --spring.cloud.nacos.config.group=srm --spring.cloud.nacos.discovery.group=dev  --spring.cloud.nacos.config.username=nacos  --spring.cloud.nacos.config.password=nacos --spring.cloud.nacos.discovery.username=nacos  --spring.cloud.nacos.discovery.password=TEST
+    - key: JAVA_OPTS_enable
   #      val: true
   #    - key: APP_OPTS
   #      val: --spring.cloud.nacos.discovery.server-addr=ip:8848 --spring.cloud.nacos.discovery.namespace=44662d3f-dcfa-452f-bdxxxxxxx #默认为空

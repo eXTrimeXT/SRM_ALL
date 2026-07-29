@@ -13,7 +13,6 @@ RUN zip -r -u /home/apps/app.jar BOOT-INF/classes/com/midea/cloud/* -n jar
 RUN zip -r -u /home/apps/app.jar BOOT-INF/classes/meiql-schema/* -n jar
 
 COPY ./target/sdk-project-base-impl*.jar /home/apps/plugins
-# COPY ./target/lib/sdk*.jar /home/apps/plugins/
 COPY ./lib/gwm-open-sdk*.jar /home/apps/plugins/
-
+q
 ENTRYPOINT sh run.sh app.jar

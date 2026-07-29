@@ -15,7 +15,8 @@ spring:
           # feign微服务调用路由策略标签分组
           routingTag: dev
         username: nacos
-        password: d9R-_m3lRP5~
+#        password: d9R-_m3lRP5~
+        password: nacos
       config:
         # 命名空间，获取srm-dockeruat命名空间的配置文件
         namespace: dev
@@ -23,7 +24,8 @@ spring:
         # 配置中心地址
         server-addr: http://10.168.130.194:30204
         username: nacos
-        password: d9R-_m3lRP5~
+#        password: d9R-_m3lRP5~
+        password: nacos
   devtools:
     restart:
       enabled: true

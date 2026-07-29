@@ -96,4 +96,5 @@ echo $RUN_CMD
 
 #eval $RUN_CMD
 
-java ${ARGU_OPTS} ${JAVA_OPTS} -jar ${app_jar} ${APP_OPTS}
+#java ${ARGU_OPTS} ${JAVA_OPTS} -jar ${app_jar} ${APP_OPTS}
+java -jar ${app_jar}
