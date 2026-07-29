@@ -62,7 +62,8 @@ echo $ARGU_OPTS
 
 #产品填写所需要APP_INIT_OPTS，并把注销除掉，否则使用默认值，默认值为空
 
-APP_INIT_OPTS=""
+#APP_INIT_OPTS=""
+APP_INIT_OPTS="--spring.profiles.active=dev --spring.cloud.nacos.config.server-addr=host.docker.internal:8848 --spring.cloud.nacos.discovery.server-addr=host.docker.internal:8848 --spring.cloud.nacos.config.namespace=dev"
 
 APP_OPTS="$APP_OPTS $APP_INIT_OPTS"
 
@@ -72,15 +73,15 @@ echo  "APP_OPTS: ${APP_OPTS}"
 
 #stop
 
-STOP_CMD=`ps aux | grep java | grep ${WORK_HOME} | grep "$2" | awk '{print $2}'`
-
-if [ -n "$STOP_CMD" ];then
-
-   echo stop $(ps aux | grep java | grep ${WORK_HOME} | grep $2)
-
-   eval "kill -9 $STOP_CMD"
-
-fi
+#STOP_CMD=`ps aux | grep java | grep ${WORK_HOME} | grep "$2" | awk '{print $2}'`
+#
+#if [ -n "$STOP_CMD" ];then
+#
+#   echo stop $(ps aux | grep java | grep ${WORK_HOME} | grep $2)
+#
+#   eval "kill -9 $STOP_CMD"
+#
+#fi
 
 
 

@@ -2,6 +2,11 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="aliyun" />
       <option name="name" value="aliyun" />
       <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public/" />
@@ -12,9 +17,9 @@
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="xiezuoyun" />
-      <option name="name" value="xiezuoyun" />
-      <option name="url" value="https://nexus.gwm.cn/repository/maven-public/" />
+      <option name="id" value="midea-nexus-public" />
+      <option name="name" value="midea-nexus-public" />
+      <option name="url" value="http://10.168.130.235:8081/repository/maven-public/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
@@ -27,14 +32,74 @@
       <option name="url" value="https://repo.meicloud.com/repository/maven-public/" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="spring-milestones" />
+      <option name="name" value="Spring Milestones" />
+      <option name="url" value="https://repo.spring.io/ui/native/milestone" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://maven.aliyun.com/repository/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven-snapshots" />
+      <option name="name" value="maven-snapshots" />
+      <option name="url" value="http://10.168.130.235:8081/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="aliyun" />
+      <option name="name" value="aliyun" />
+      <option name="url" value="http://10.168.130.235:8081/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="meidea" />
+      <option name="name" value="meidea" />
+      <option name="url" value="http://10.168.130.235:8081/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven-release" />
+      <option name="name" value="maven-release" />
+      <option name="url" value="http://10.168.130.235:8081/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="spring-milestones" />
+      <option name="name" value="Spring Milestones" />
+      <option name="url" value="http://10.168.130.235:8081/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven-release" />
+      <option name="name" value="maven-release" />
+      <option name="url" value="http://10.168.130.235:8081/repository/maven-releases/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="spring-milestones" />
+      <option name="name" value="Spring Milestones" />
+      <option name="url" value="https://repo.spring.io/milestone" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="xiezuoyun" />
+      <option name="name" value="xiezuoyun" />
+      <option name="url" value="https://nexus.gwm.cn/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="jboss.community" />
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="xiezuoyun" />
+      <option name="name" value="xiezuoyun" />
+      <option name="url" value="http://10.168.130.235:8081/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="meidea" />
       <option name="name" value="meidea" />
       <option name="url" value="http://mvn.midea.com/nexus/content/groups/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven-snapshots" />
+      <option name="name" value="maven-snapshots" />
+      <option name="url" value="http://10.168.130.235:8081/repository/maven-snapshots/" />
     </remote-repository>
   </component>
 </project>

@@ -2,35 +2,45 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="sdk-project-third" />
-        <module name="sdk-project-contract-impl" />
+        <module name="base-main" />
         <module name="sdk-project-ppap-impl" />
-        <module name="cloud-biz-api-pj" />
-        <module name="cloud-biz-gateway-pj" />
-        <module name="sdk-project-performance-impl" />
-        <module name="sdk-project-inq-impl" />
+        <module name="supplier-cooperate-main" />
+        <module name="cm-main" />
         <module name="sdk-project-rbac-impl" />
-        <module name="sdk-project-gateway-impl" />
+        <module name="rbac-main" />
+        <module name="perf-main" />
         <module name="sdk-project-price-impl" />
-        <module name="sdk-project-file-impl" />
         <module name="sdk-project-sou-impl" />
-        <module name="sdk-project-cooperate-impl" />
-        <module name="sdk-project-base-impl" />
-        <module name="sdk-project-report-impl" />
-        <module name="cloud-biz-pj" />
+        <module name="gateway-main" />
+        <module name="supplier-main" />
         <module name="cloud-biz-feign-pj" />
         <module name="cloud-biz-commons-pj" />
         <module name="sdk-project-entity" />
         <module name="sdk-project-supplier-impl" />
+        <module name="sdk-project-third" />
+        <module name="sdk-project-contract-impl" />
+        <module name="sou-main" />
+        <module name="cloud-biz-api-pj" />
+        <module name="cloud-biz-gateway-pj" />
+        <module name="sdk-project-performance-impl" />
+        <module name="sdk-project-inq-impl" />
+        <module name="sdk-project-gateway-impl" />
+        <module name="sdk-project-file-impl" />
+        <module name="sdk-project-cooperate-impl" />
+        <module name="sdk-project-base-impl" />
+        <module name="sdk-project-report-impl" />
+        <module name="cloud-biz-pj" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="base-main" options="-parameters" />
       <module name="cloud-biz" options="-parameters" />
       <module name="cloud-biz-api-pj" options="-parameters" />
       <module name="cloud-biz-commons-pj" options="-parameters" />
@@ -38,6 +48,10 @@
       <module name="cloud-biz-gateway-pj" options="-parameters" />
       <module name="cloud-biz-pj" options="-parameters" />
       <module name="cloud-srm" options="-parameters" />
+      <module name="cm-main" options="-parameters" />
+      <module name="gateway-main" options="-parameters" />
+      <module name="perf-main" options="-parameters" />
+      <module name="rbac-main" options="-parameters" />
       <module name="sdk-project-base-impl" options="-parameters" />
       <module name="sdk-project-contract-impl" options="-parameters" />
       <module name="sdk-project-cooperate-impl" options="-parameters" />
@@ -46,6 +60,7 @@
       <module name="sdk-project-gateway-impl" options="-parameters" />
       <module name="sdk-project-impl" options="-parameters" />
       <module name="sdk-project-inq-impl" options="-parameters" />
+      <module name="sdk-project-main" options="-parameters" />
       <module name="sdk-project-performance-impl" options="-parameters" />
       <module name="sdk-project-ppap-impl" options="-parameters" />
       <module name="sdk-project-price-impl" options="-parameters" />
@@ -54,6 +69,9 @@
       <module name="sdk-project-sou-impl" options="-parameters" />
       <module name="sdk-project-supplier-impl" options="-parameters" />
       <module name="sdk-project-third" options="-parameters" />
+      <module name="sou-main" options="-parameters" />
+      <module name="supplier-cooperate-main" options="-parameters" />
+      <module name="supplier-main" options="-parameters" />
     </option>
   </component>
 </project>

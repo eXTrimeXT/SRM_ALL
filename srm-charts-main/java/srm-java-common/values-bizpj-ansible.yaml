@@ -76,7 +76,8 @@ app1:
         default: -Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8  -agentlib:ByteCodeDecryptor  -Djasypt.encryptor.password=b-Q0Z7_q~H-g~~-X    #默认值
     - key: APP_OPTS
       val:
-        default:  --spring.profiles.active=extenddev --spring.cloud.nacos.discovery.server-addr=nacos-cs.dev:8848 --spring.cloud.nacos.discovery.namespace=dev --spring.cloud.nacos.config.server-addr=nacos-cs.dev:8848 --spring.cloud.nacos.config.namespace=dev --spring.cloud.nacos.config.group=srm --spring.cloud.nacos.discovery.group=dev  --spring.cloud.nacos.config.username=nacos  --spring.cloud.nacos.config.password=d9R-_m3lRP5~ --spring.cloud.nacos.discovery.username=nacos  --spring.cloud.nacos.discovery.password=d9R-_m3lRP5~
+#        default:  --spring.profiles.active=extenddev --spring.cloud.nacos.discovery.server-addr=nacos-cs.dev:8848 --spring.cloud.nacos.discovery.namespace=dev --spring.cloud.nacos.config.server-addr=nacos-cs.dev:8848 --spring.cloud.nacos.config.namespace=dev --spring.cloud.nacos.config.group=srm --spring.cloud.nacos.discovery.group=dev  --spring.cloud.nacos.config.username=nacos  --spring.cloud.nacos.config.password=d9R-_m3lRP5~ --spring.cloud.nacos.discovery.username=nacos  --spring.cloud.nacos.discovery.password=d9R-_m3lRP5~
+        default:  --spring.profiles.active=extenddev --spring.cloud.nacos.discovery.server-addr=localhost:8848 --spring.cloud.nacos.discovery.namespace=dev --spring.cloud.nacos.config.server-addr=localhost:8848 --spring.cloud.nacos.config.namespace=dev --spring.cloud.nacos.config.group=srm --spring.cloud.nacos.discovery.group=dev  --spring.cloud.nacos.config.username=nacos  --spring.cloud.nacos.config.password=d9R-_m3lRP5~ --spring.cloud.nacos.discovery.username=nacos  --spring.cloud.nacos.discovery.password=d9R-_m3lRP5~
   #    - key: JAVA_OPTS_enable
   #      val: true
   #    - key: APP_OPTS
