@@ -63,7 +63,10 @@ echo $ARGU_OPTS
 #产品填写所需要APP_INIT_OPTS，并把注销除掉，否则使用默认值，默认值为空
 
 #APP_INIT_OPTS=""
-APP_INIT_OPTS="--spring.profiles.active=dev --spring.cloud.nacos.config.server-addr=host.docker.internal:8848 --spring.cloud.nacos.discovery.server-addr=host.docker.internal:8848 --spring.cloud.nacos.config.namespace=dev"
+#APP_INIT_OPTS="--spring.profiles.active=dev --spring.cloud.nacos.config.server-addr=host.docker.internal:8848 --spring.cloud.nacos.discovery.server-addr=host.docker.internal:8848 --spring.cloud.nacos.config.namespace=dev"
+#APP_INIT_OPTS="--spring.profiles.active=dev --spring.cloud.nacos.config.server-addr=host.docker.internal:8848 --spring.cloud.nacos.config.username=nacos --spring.cloud.nacos.config.password=root --spring.cloud.nacos.config.namespace=dev --spring.cloud.nacos.discovery.server-addr=host.docker.internal:8848 --spring.cloud.nacos.discovery.username=nacos --spring.cloud.nacos.discovery.password=root"
+APP_INIT_OPTS="--spring.profiles.active=dev --spring.cloud.nacos.config.server-addr=host.docker.internal:8848 --spring.cloud.nacos.config.username=nacos --spring.cloud.nacos.config.password=nacos --spring.cloud.nacos.config.namespace=dev --spring.cloud.nacos.discovery.server-addr=host.docker.internal:8848 --spring.cloud.nacos.discovery.username=nacos --spring.cloud.nacos.discovery.password=nacos"
+
 
 APP_OPTS="$APP_OPTS $APP_INIT_OPTS"
 
