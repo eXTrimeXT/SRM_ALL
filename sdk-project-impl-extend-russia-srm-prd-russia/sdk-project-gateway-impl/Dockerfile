@@ -4,4 +4,6 @@ FROM hub.gwm.cn/feishengchancaigoushuzihuapingtai-test/srm/srm-backend-gateway:m
 RUN mkdir -p /home/apps/plugins
 WORKDIR /home/apps/
 COPY ./target/*.jar /home/apps/plugins
-ENTRYPOINT sh run.sh app.jar
+COPY run.sh .
+
+ENTRYPOINT ["sh", "run.sh", "app.jar"]
