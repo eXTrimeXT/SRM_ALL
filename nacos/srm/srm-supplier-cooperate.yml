@@ -1,0 +1,17 @@
+# meiql:
+#   nacos:
+#     serverAddr: nacos-cs.dev:8848
+#     namespace: dev
+#     group: srm
+#     enable: true
+#     username: ${global.nacos.user}
+#     password: ${global.nacos.password}
+#   schemaFile:
+#     - path:classpath*:meiql-schema/*.json
+    #- nacos:MeiqlTest.json
+pr:
+  config:
+    #需求规则-自动分单短信模板    
+    pushMsgTemplate: REQUIREMENT_AUTO_PUSH
+    #需求规则-查询历史供应商周期
+    searchHistoryDays: 180

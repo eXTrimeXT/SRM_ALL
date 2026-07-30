@@ -1,0 +1,18 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "PurchaseExchangeRate:meicloud_usrm_cloud_biz_base.scc_base_purchase_ex_rate": {
+    "keyField": "exchangeRateId",
+    "fields": {
+      "exchangeRateId": "Long",
+      "fromCurrencyCode": "String",
+      "toCurrencyCode": "String",
+      "exchangeDate": "Date",
+      "priceTax": "String",
+      "rateType": "String",
+      "sourceType": "String",
+      "enabled": "String",
+      "@include": ":BaseFields"
+    }
+  }
+}

@@ -1,0 +1,287 @@
+spring:
+  datasource:
+    url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}biz_pj?${srm.db.connectParam}
+  flyway:
+    # flyway自动配置 true 开启
+    enabled: false
+
+mybatis-plus:
+  type-aliases-package: com.midea.cloud.srm.model.pj
+
+# meicloud:
+#   paas:
+#     audit:
+#       enable: false
+
+server:
+  servlet:
+    context-path: /api-pj
+iam:
+  #iam设置srm域
+  iamDomain: gwmit.cn
+
+rocketmq:
+  consumer:
+    namesrvAddr: #舍弃，因消费者可能对应不同地址
+    tag: "*"
+    messageModel: 0 #0:clustering\1:broadcasting
+    srmProjectReviewConsumer:
+      namesrvAddr: ${global.rocketmq.name-server}
+      groupName: srm-project-review-test
+      topic: SRM_PROJECT_REVIEW_TOPIC
+    sunHonestyMqConsumer:
+      namesrvAddr: 10.246.101.217:9876
+      groupName: srm-student-center-test
+      topic: lcs_train_student
+gwm:
+  appkey: 85X2XXT7MAXX
+  appId: com.awspaas.user.apps.srm20240129
+  secret: 021f2270513c462aab6453e37d15dfd8
+  #来源系统
+  opersource: RUS_SRM
+  preappkey: 850T8A7B9648
+  presecret: acfae103027447838b0c019ca278b0e6
+  srmbpmTodoGroupId: obj_17a51da90e80426b96370ff570114d70
+  #营业执照OCR识别URL
+  recognizeLicenceOcrUrl: https://gwapi.gwm.cn/rest/public/pubqc/api/tripartite/ocr/ticket/BizLicenseOCR
+  #身份证正面OCR识别URL
+  recognizeIDCardFrontOcrUrl: https://gwapi.gwm.cn/rest/public/pubqc/api/tripartite/ocr/ticket/idCard
+  #身份证反面OCR识别URL
+  recognizeIDCardBackOcrUrl: https://gwapi.gwm.cn/rest/public/pubqc/api/tripartite/ocr/ticket/idcardne
+  #生产appKey,ocr识别只有生产接口，本地测试配置，不配置这个prdAppkey默认获取appkey
+  prdAppkey: 6SS4T6X52X40
+  #生产secret,ocr识别只有生产接口，本地测试配置，不配置这个prdSecret默认获取secret
+  prdSecret: 4c35a4eed7824afdb3f988b51ec42a54
+  #内部供应商查询接口
+  internalSupplier:
+    appKey: 6SS4T6X52X40
+    secret: 4c35a4eed7824afdb3f988b51ec42a54
+    appCode: 13192890f4c64de38ff5e6ce593b8def
+  sso:
+    #通过公共token获取用户信息接口
+    getUserInfoByTokenUrl: http://auth.test.paas.gwm.cn/authenticate/getUserInfoByToken
+    #jwt token互信登录
+    verifyTokenUrl: https://srm-cnp-bdtest.gwm.cn/cloud-srm/sys/verifyToken
+    #平台code
+    platform_code: 692e8def19081157c0c6cbfbce95ed95
+  #阿里云资源名称
+  # sts:
+  #   endpoint: sts.res.cloud.gwm.cn
+  #   roleArn: acs:ram::1743748119189675:role/srm-role-xingzhou41394
+  #知识大脑
+  gwkb:
+    appkey: 58f916def80d4fa2bea51027b9def100
+    secret: 6d4ad22e46424b27a5ddc78b37a1efab
+    login-url: https://gwkb-test.gwm.cn/prod-api/auth/login
+    fileCompare-url: https://gwkb-test.gwm.cn/prod-api/mindmatrix/fileCompare/getSRMResult
+    bidReviewPush-url: https://gwkb-test.gwm.cn/prod-api/mindmatrix/bidReview/push
+    bidReviewScanFile-url: https://gwkb-test.gwm.cn/prod-api/mindmatrix/bidReview/getParseFailedFileList
+    bidReviewItemsQuotation-url: https://gwkb-test.gwm.cn/prod-api/mindmatrix/bidReview/getItemsQuotation
+  bpm:
+    #SRM组织角色推送bpm
+    src-system: com.awspaas.user.apps.app20230971602
+    api-username: GW00244106
+
+  url:
+
+    # 开放平台-资金系统查询服务-支行信息（联行号）查询
+    branchBankSyncFromOpen-url: https://gwapi.gwm.cn/rest/fd/fund/fd/fund/zj/serach/api/dtxg/cc/BASE-0117
+
+      # 阳光诚信自助平台-用户同步测试url
+    sunHonestySysPushUser-url: http://10.251.84.14/api/open/receiveUserServer
+    # 阳光诚信自助平台-单点认证获取code
+    sunHonestySys-getPreAuthCode-url: http://10.251.84.14/api/getPreAuthCode
+    # 阳光诚信自助平台-srm平台码
+    sunHonestySys-platformCode: 9913cc1c46a546ff9cc54746d0d82a43
+    # 阳光诚信自助平台-加密key
+    sunHonestySys-encryptKey: 483bf82e315b4600
+    # 阳光诚信自助平台-单点认证平台url
+    sunHonestySys-externalSso-url: http://10.251.84.14:8089/externalSso?code=%s&platformCode=%s&redirectUrl=trainingTasks?id=643
+
+    #DataWorks数据服务-供应商360视图-根据供应商ids获取对应参与率、中标率、被邀请率
+    getSupplierWinningRateByVendoridOrCode-url: http://bc474ee84e4245cc86b911b7549894f6.apigateway.res.cloud.gwm.cn/sc/srm/getSupplierWinningRateByVendorId?appCode=414ddb6d1aeb4db2963de3dddf193935&vendor_id=%s
+    #DataWorks数据服务-供应商360视图-供应商历史合作信息-项目品类投标中标信息
+    getSupHistoricalCooperationByIdOrCode-url: http://bc474ee84e4245cc86b911b7549894f6.apigateway.res.cloud.gwm.cn/sc/srm/getSupHistoricalCooperationByVendorId?appCode=414ddb6d1aeb4db2963de3dddf193935&vendor_id=%s
+    
+    # 组织列表
+    org-list: https://gwapi.gwm.cn/sandbox/hr/staff/domain/org/list
+    # org-list: https://gwapi.gwm.cn/rest/hr/staff/domain/org/list
+    # 人员列表
+    employee-list: https://gwapi.gwm.cn/sandbox/hr/staff/domain/employee/list
+    # employee-list: https://gwapi.gwm.cn/rest/hr/staff/domain/employee/list
+    # 员工信息查询
+    user-info: https://gwapi.gwm.cn/rest/hr/staff/domain/employee/get
+    # user-info: https://gwapi.gwm.cn/rest/hr/staff/domain/employee/get
+    # 员工信息查询批量
+    user-info-batch: https://gwapi.gwm.cn/rest/hr/staff/domain/employee/get/batch
+    # user-info-batch: https://gwapi.gwm.cn/rest/hr/staff/domain/employee/get/batch
+    # 创建流程
+    flow-create: https://gwapi.gwm.cn/pre/public/flow/native/createProcess
+    # flow-create: https://gwapi.gwm.cn/rest/public/flow/native/createProcess
+    # 更新流程
+    flow-update: https://gwapi.gwm.cn/pre/public/flow/native/updateBoData
+    # flow-update: https://gwapi.gwm.cn/rest/public/flow/native/updateBoData
+    # 提交流程
+    flow-resubmit: https://gwapi.gwm.cn/pre/public/flow/native/resubmitProcess
+    #新版流程对接接口
+    #发起流程
+    startProcessByCategoty-url: https://gwapi.gwm.cn/pre/public/flow/thirdSys/startProcessByCategoty
+    #退回任务
+    rollBackTask-url: https://gwapi.gwm.cn/pre/public/flow/thirdSys/rollBackTask
+    #转办任务
+    forwardTask-url: https://gwapi.gwm.cn/pre/public/flow/thirdSys/forwardTask
+    #提交任务
+    commitTask-url: https://gwapi.gwm.cn/pre/public/flow/thirdSys/commitTask
+    #预执行接口
+    predict-url: https://bpmuat.gwm.cn/bpmapi/process/predict
+    # flow-resubmit: https://gwapi.gwm.cn/rest/public/flow/native/resubmitProcess
+    # 获取审批历史
+    process-comment-info: https://gwapi.gwm.cn/pre/public/flow/common/comment/getCommentAndTodoTaskList
+    # process-comment-info: https://gwapi.gwm.cn/rest/public/flow/common/portal/api/processEngineAPI/processIntegration/queryCommentInfo
+    # 通过信用代码获取公司信息
+    blackcompany-info: https://gwapi.gwm.cn/sandbox/public/mdm/sun/blackcompany/info
+    # blackcompany-info: https://gwapi.gwm.cn/rest/public/mdm/sun/blackcompany/info
+    #申请供应商编码
+    create-supplier: https://gwapi.gwm.cn/sandbox/mdm/supplierinfo/supplierinfo/createSupplier
+    #create-supplier: https://gwapi.gwm.cn/rest/mdm/supplierinfo/supplierinfo/createSupplier
+     #创建供应商主数据视图
+    create-supplierview: https://gwapi.gwm.cn/sandbox/pd/product/api/erp/material/gateway/gwm-controller/sapWebService/createSuppliCompanyView
+    #create-supplierview: https://gwapi.gwm.cn/rest/pd/product/api/erp/material/gateway/gwm-controller/sapWebService/createSuppliCompanyView
+    #根据名称查询供应商信息
+    find-supplierByName: https://gwapi.gwm.cn/sandbox/mdm/supplierinfo/supplierinfo/searchListByFullName
+    #find-supplierByName: https://gwapi.gwm.cn/rest/mdm/supplierinfo/supplierinfo/searchListByFullName
+     #根据社会信用码查询供应商信息
+    find-supplierByTaxcodes: https://gwapi.gwm.cn/sandbox/mdm/supplierinfo/supplierinfo/searchListByTaxCodes
+    #find-supplierByTaxcodes: https://gwapi.gwm.cn/rest/mdm/supplierinfo/supplierinfo/searchListByTaxCodes
+    #接收MDM失信名单数据
+    receive-blackcompany: https://gwapi.gwm.cn/sandbox/public/mdm/sun/blackcompany/searchPage
+    #修改供应商信息
+    edit-supplier: https://gwapi.gwm.cn/sandbox/mdm/supplierinfo/supplierinfo/edit
+    #edit-supplier: https://gwapi.gwm.cn/rest/mdm/supplierinfo/supplierinfo/edit
+    #供应商大数据-爱企查
+    #company-aqc: http://10.246.0.214:16666/search/company 生产环境
+    company-aqc: http://10.255.128.79:81/gwm_ips/rest/SrmPassUtil/searchCompany
+    #品类
+    category: https://gwapi.gwm.cn/sandbox/mdm/Nonproductionmaterials/material-category/page
+    #category: https://gwapi.gwm.cn/rest/mdm/Nonproductionmaterials/material-category/page
+    #鉴权接口获取令牌
+    findToken-url: http://gscp.gwmtest.cn/AuthServer/oauth/token
+    #鉴权接口获取令牌username 
+    findTokenUsername: DPS
+    #鉴权接口获取令牌password 
+    findTokenPassword: DPSshaicha.1
+    #筛查接口
+    import-screening: http://gscp.gwmtest.cn/api/asm-screening-api/v1/import-screening 
+    #筛查接口机构
+    import-screening-accountId: 1003
+    #筛查接口数据集ID
+    import-screening-datasetId: 1067
+    #筛查接口webservice ID
+    import-screening-profileId: 4a636fe2-d1d1-4e2c-a65d-8f2da5f13e43
+    #钉钉消息-发送工作通知接口 url
+    #dingding-workNotices-url: https://gwapi.gwm.cn/rest/msg/dingding/workNotices
+    dingding-workNotices-url: https://gwapi.gwm.cn/sandbox/msg/dingding/workNotices
+    #飞书消息-发送工作通知接口 url
+    feishu-workNotices-url: https://gwapi.gwm.cn/sandbox/public/news/msg/fs-msg-info/send-batch-msg
+    #开放平台短信下发
+    sms-notice-url: https://gwapi.gwm.cn/rest/public/pubqc/api/tripartite/capability/notification
+    #大汉三通短信下发-短信下发 url
+    sms-Submit-url: http://www.dh3t.com/json/sms/Submit
+    #短信下发-用户账号 
+    # sms-Submit-account:  3449136
+    sms-Submit-account:  111111
+    #短信下发-密码 
+    sms-Submit-password: To82Tiq9
+    #短信下发-短信签名
+    sms-Submit-sign: 【长城汽车】
+    #邮件接口-发送普通邮件 url
+    #sendEmail-url: https://gwapi.gwm.cn/rest/rd/email/send/text
+    sendEmail-url: https://gwapi.gwm.cn/sandbox/rd/email/send/text
+    #根据社会信用代码查询供应商信息 url
+    searchListByTaxCodes-url: https://gwapi.gwm.cn/sandbox/mdm/supplierinfo/supplierinfo/searchListByTaxCodes
+    #searchListByTaxCodes-url: https://gwapi.gwm.cn/rest/mdm/supplierinfo/supplierinfo/searchListByTaxCodes
+    #按流程分组发起流程
+    #flowCategory-create: https://gwapi.gwm.cn/rest/public/flow/native/createProcessByCategory
+    flowCategory-create: https://gwapi.gwm.cn/pre/public/flow/native/createProcessByCategory
+    #发起人撤回流程
+    flow-rollBack: https://gwapi.gwm.cn/pre/public/flow/native/rollBackProcess
+    #契约锁-多文件创建合同文档接口url
+    contractLock-createbyfiles: http://10.255.128.120:8182/
+    #契约锁-accessKey
+    accessKey: oRgwc3NkL6
+    #契约锁-accessSecret
+    accessSecret: YWLkTOmqP2PAL0qfXUJwAnWOoXoLgC 
+    #契约锁-categoryId
+    categoryId: 3150019311663075996 
+    #组织角色
+    organizationRole: https://gwapi.gwm.cn/pre/public/flow/dw/bo/updateDwBoData
+    #汇率列表接口
+    price-rate-url: https://gwapi.gwm.cn/rest/mdm/exchangerate/rate/page
+    #内部供应商查询
+    internalSupplier-url: https://gwapi.gwm.cn/rest/fd/fdqc/fi/md/com/fi/com/getLegalCompanyByCreditCode
+    #实时快递查询
+    logisticsInfo-url: https://gwapi.gwm.cn/rest/sc/kuaidi100/orderQuery/kuaidi100/orderQuery
+    #logisticsInfo-url: https://gwapi.gwm.cn/sandbox/sc/kuaidi100/orderQuery/kuaidi100/orderQuery
+    #二批长城开放平台_创建已签署合同接口
+    #createContract-url: https://gwapi.gwm.cn/rest/LF/agreement/lcss/contract/legal/contract/sync/collect/v1
+    createContract-url: https://gwapi.gwm.cn/sandbox/LF/agreement/lcss/contract/legal/contract/sync/collect/v1
+    #非生产物料主数据
+    material-url: https://gwapi.gwm.cn/sandbox/mdm/Nonproductionmaterials/nonproductive-material/page
+    #法务-法人公司主数据
+    incorporated-company-info-url: https://gwapi.gwm.cn/sandbox/mdm/incorporatedCompany/incorporated-company-info/page
+    #发票
+    invoiceSearchUrl: https://gwapi.gwm.cn/sandbox/fd/inv1/income/invoice/invoice/capability/invoice/invoiceListQuery
+    invoiceReimburseUrl: https://gwapi.gwm.cn/sandbox/fd/inv1/income/invoice/invoice/capability/invoice/reimburseUpdate
+    #分页查询子公司用户列表
+    user-mployeeCompanyPage: https://gwapi.gwm.cn/sandbox/hr/staff/roster/open/employee/company/pageCustomEmployee
+    #查询子公司组织树
+    org-companyPageByParentId: https://gwapi.gwm.cn/sandbox/hr/staff/roster/open/organization/company/getOrgTreeByParentId
+    #认领结果查询接口
+    #claimUrl: https://gwapi.gwm.cn/sandbox/fd/fund/fd/fund/zj/serach/api/dtxg/cc/ARMG-1002
+    claimUrl: https://gwapi.gwm.cn/pre/fd/fund/fd/fund/zj/serach/api/dtxg/cc/ARMG-1002
+    #应收单撤销查询接口
+    #receivableUrl: https://gwapi.gwm.cn/sandbox/fd/fund/fd/fund/zj/serach/api/dtxg/cc/ARMG-1003
+    receivableUrl: https://gwapi.gwm.cn/pre/fd/fund/fd/fund/zj/serach/api/dtxg/cc/ARMG-1003
+    #接收应收单信息接口
+    #receiveUrl: https://gwapi.gwm.cn/sandbox/fd/fund/fd/fund/zj/serach/api/dtxg/cc/ARMG-1001
+    receiveUrl: https://gwapi.gwm.cn/pre/fd/fund/fd/fund/zj/serach/api/dtxg/cc/ARMG-1001
+    #创建第三方待办任务
+    createEAITaskInstanceUrl: https://gwapi.gwm.cn/sandbox/public/bpm/portal/api/customAPI/task/createEAITaskInstance
+    #完成第三方待办任务
+    completeEAITaskUrl: https://gwapi.gwm.cn/sandbox/public/bpm/bpmeai/task/completeEAITask
+    #发票开具创建
+    createInvoiceUrl: https://gwapi.gwm.cn/sandbox/fd/sif/sale/settle/api/cwgxsettle/sale/settle/create/invoice
+    #结算结果查询
+    settleResultUrl: https://gwapi.gwm.cn/sandbox/fd/sif/sale/settle/api/cwgxsettle/sale/settle/result
+    #推送采购订单到EDM
+    edmPurOrderPushUrl: http://edmqa-cnp-bdtest.gwmit.cn/scim-edm-service/scim-edm-sparepart/SRM/receiveOrder
+    #EDM草稿信息回传接口
+    edmPurDraftPushUrl: http://edmqa-cnp-bdtest.gwmit.cn/scim-edm-service/scim-edm-sparepart/SRM/updatePurchApplyState
+    #批量付款及自动提交审批
+    paymentSaveOutSourceOneUrl: https://gwapi.gwm.cn/sandbox/fd/fdqc/paymentRequest/saveOutSourceOneVo/paymentRequest/saveOutSourceOneVo
+    #结算记账
+    settleAccounting: https://gwapi.gwm.cn/sandbox/fd/sif/sale/settle/api/cwgxsettle/sale/settle/accounting
+ipaas:
+  flow:
+    api: http://ipaas-cnp-bduat.gwmit.cn/flow/api/
+    gscp_token_url: AuthServer/oauth/token
+    gscp_import_screening_url: api/asm-screening-api/v1/import-screening
+    
+#用于api-pj/external/file/download接口鉴权
+downloadFile:
+  #外围系统身份标识，多个系统以英文;间隔
+  appids: bpm;
+  #aes秘钥，多个系统以英文;间隔
+  secrets: M3PdjEw56SkC0kx46DwykEXnuXWqWyNw;
+
+# meiql:
+#   nacos:
+#     serverAddr: ${srm.nacos.url}
+#     namespace: ${srm.nacos.namespace}
+#     group: srm
+#     enable: true
+#     username: ${srm.nacos.user}
+#     password: ${srm.nacos.password}
+#   schemaFile:
+#     - path:classpath*:meiql-schema/*.json
+    #- nacos:MeiqlTest.json

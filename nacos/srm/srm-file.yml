@@ -1,0 +1,3 @@
+file:
+  upload:
+    whitelist: jpg/jpeg/png/xls/xlsx/doc/docx/ppt/pptx/pdf/cad/ofd/wps/rar/zip/gzip/ico/svg/md/tif/tiff/bmp/psd/7z/gif/docm

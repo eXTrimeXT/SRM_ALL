@@ -1,0 +1,107 @@
+logging:
+  level:
+    iam: info
+spring:
+  datasource:
+    url: jdbc:mysql://${iam.db.host}:${iam.db.port}/${iam.db.schema}?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+    username: ${iam.db.username}
+    password: ${iam.db.password}
+  redis:
+    password: ${global.redis.password}
+    sentinel:
+      master: ${iam.redis.sentinel.master}
+      nodes: ${iam.redis.sentinel.nodes}
+  flyway:
+    # 注意这里只能是false（flyway迁移通过代码中进行操作，兼容多租户部署场景）
+    enabled: false
+    # 已购买的服务：upm——iam基础脚本，permss——集成权限自助，business——集成业务产品中台，portal——集成门户，integrate——iam集成集团内部服务后的基础脚本(此配置和upm二选一)
+    expand_available_apps: integrate
+    # 指定 baseline 的版本号, 低于该版本号的 SQL脚本会被忽略：1.1.2版本之前部署的项目请填写1.1.2，初始化的项目可以不填或者填写1.1.1
+    baseline-version: 1.1.1
+    # 是否允许不按顺序迁移: 例如upm已经使用到版本1.1.3版本，现在才购买了permss服务，这种情况需要将out-of-order设置为true，即不按版本顺序执行，否则permss的1.1.3版本之前的脚步不会执行
+    out-of-order: false
+    placeholder-prefix: '&{'
+    placeholder-suffix: '}&'
+    integrate-service-replace: true
+    placeholders:
+      aps: ${global.aps.register-address}
+      emap: ${global.emap.register-address}
+      emcs: ${global.mc.register-address}
+      idaas_auth: ${global.iam.register-address}/iam
+      idaas_sim: ${global.iam.register-address}/upm
+      ies: ${global.ies.register-address}/ies
+      iet: ${global.iet.register-address}/iet
+      ipaas: ${global.ipaas.register-address}
+      mflow: ${global.bpm.register-address}
+      mportal-console: ${global.mportal.register-address}
+      plm: ${global.plm.register-address}
+      tdc: ${global.tdc.register-address}
+      mbi: ${global.mbi.register-address}
+      mdv: ${global.mdv.register-address}
+      opm: ${global.opm.register-address}
+      srm: ${global.srm.register-address}
+      auditLog: ${global.audit.callback-address}
+idaas:
+  license:
+    lic-path: /apps/license/license.lic
+    lic-prop-path: /apps/license/license.properties
+  protocol: ${iam.protocol}
+  swagger:
+    enabled: false
+  datasource:
+    platform:
+      url: jdbc:mysql://${iam.db.host}:${iam.db.port}/${iam.db.schema}?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+      username: ${iam.db.username}
+      password: ${iam.db.password}
+    platformapp:
+      url: jdbc:mysql://${iam.db.host}:${iam.db.port}/${iam.db.schema}?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+      username: ${iam.db.username}
+      password: ${iam.db.password}
+  host: ${iam.host}
+  tenant-mode: ${iam.tenant-model}
+  tenant:
+    db-schema-prefix: iam_
+    db-catalog-prefix: iam_
+  tenant-param: 15
+  system-id: upm
+  rocketmq:
+    access-key: ${global.rocketmq.accesskey}
+    secret-key: ${global.rocketmq.secretkey}
+    name-server: ${global.rocketmq.name-server}
+    # name-server: rocketmq-ingress-huadong-4-internal.cmecloud.cn:9872
+    producer-group: producer_${global.env}
+    consumer-group: idaas_bdc_upm_${global.env}
+    topic: ${global.iam.rocketmq.topic}
+    # namespace: MQ_INST_1691743599810_8sGsVH3C
+    # producer:
+    #   namespace: MQ_INST_1691743599810_8sGsVH3C
+    # consumer:
+    #   namespace: MQ_INST_1691743599810_8sGsVH3C
+    debug-mode: true
+    dynamicTopic: true
+  limit:
+    privilege:
+      perm:
+        max-permModule-size: 600
+meicloud:
+  paas: 
+    osca: 
+      type: minio
+      endPoint: ${global.minio.url}
+      accessKeyId: ${global.minio.accessKey}
+      accessKeySecret: ${global.minio.secretKey}
+      repository: 
+        type: local
+      prefixChar: iam-${global.env}
+      maxMByte: 5    
+server:
+  port: 8000
+  servlet:
+    session: 
+      cookie: 
+        sameSite: Lax
+jasypt:
+  encryptor:
+    bean: sm4Encryptor
+    # 加密盐值 必须和生成的盐值一样
+    password: ${iam.jasypt.encryptor.passwd}

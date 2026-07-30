@@ -1,0 +1,24 @@
+spring:
+  redis:
+    schema: singleton
+    host: 10.246.99.219
+    port: 6379
+    password: 'KZiKHNKDWfF!CNM2'
+    timeout: 60000
+    jedis:
+      pool:
+        max-active: 100
+        max-wait: 10
+        max-Idle: 10
+        min-Idle: 0
+        
+feign:
+  client:
+    config:
+      default:
+        logger-level: full
+
+cloud:
+  scc:
+    feign:
+      ignore-headers: authorization,content-type,content-length,host,content-encoding,accept-encoding,transfer-encoding

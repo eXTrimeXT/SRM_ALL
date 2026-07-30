@@ -1,0 +1,20 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "AuthenticationScreen:meicloud_usrm_cloud_biz_supplier.scc_sup_company_info": {
+    "keyField": "companyId",
+    "fields": {
+       "companyId": "Long",
+       "businessLicenseNo": "String",
+       "companyName": "String",
+       "companyEnName": "String",
+       "companyCountry": "String",
+       "companyAddress": "String",
+       "legalPerson": "String",
+       "contractVerification": "String",
+       "lcCode": "String",
+       "idNumber": "String",
+       "@include": ":BaseFields"
+    }
+  }
+}

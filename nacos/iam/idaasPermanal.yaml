@@ -1,0 +1,66 @@
+logging:
+  level:
+    iam: info
+spring:
+  datasource:
+    url: jdbc:mysql://${iam.db.host}:${iam.db.port}/${iam.db.schema}?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+    username: ${iam.db.username}
+    password: ${iam.db.password}
+  redis:
+    password: ${global.redis.password}
+    sentinel:
+      master: ${iam.redis.sentinel.master}
+      nodes: ${iam.redis.sentinel.nodes}
+idaas:
+  protocol: ${iam.protocol}
+  swagger:
+    enabled: false
+  datasource:
+    platform:
+      url: jdbc:mysql://${iam.db.host}:${iam.db.port}/${iam.db.schema}?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+      username: ${iam.db.username}
+      password: ${iam.db.password}
+    platformapp:
+      url: jdbc:mysql://${iam.db.host}:${iam.db.port}/${iam.db.schema}?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+      username: ${iam.db.username}
+      password: ${iam.db.password}
+  host: ${iam.host}
+  tenant-mode: ${iam.tenant-model}
+  tenant:
+    db-schema-prefix: iam_
+    db-catalog-prefix: iam_
+  tenant-param: 15
+  system-id: permanal
+  rocketmq:
+    access-key: ${global.rocketmq.accesskey}
+    secret-key: ${global.rocketmq.secretkey}
+    name-server: ${global.rocketmq.name-server}
+    producer-group: producer_${global.env}
+    consumer-group: idaas_bdc_permanal_${global.env}
+    topic: ${global.iam.rocketmq.topic}
+    debug-mode: true
+    dynamicTopic: true
+xxl:
+  job:
+    accessToken: ${global.xxljob.accessToken}
+    admin-address: ${global.xxljob.addresses}
+    executor:
+      app-name: ${global.env}_permanal
+      #address: ${global.xxljob.permanal.address}
+      ip: ${iam.xxljob.permanal.callback.ip}
+      port: 9901
+      log-path: /tmp/applogs/xxl-job/jobhandler
+      log-retention-days: 30
+    username: ${global.xxljob.username}
+    password: ${global.xxljob.password}
+server:
+  port: 8001
+  servlet:
+    session: 
+      cookie: 
+        sameSite: Lax
+jasypt:
+  encryptor:
+    bean: sm4Encryptor
+    # 加密盐值 必须和生成的盐值一样
+    password: ${iam.jasypt.encryptor.passwd}

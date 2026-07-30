@@ -1,0 +1,75 @@
+logging:
+  level:
+    iam: info
+pss:
+  extattrs:
+    bizdomain: bizDomain
+    position: position
+    accountTypeCode: accountTypeCode
+    roleType: appRoleBizType
+    canApplyGroup: canApplyGroup
+  risk:
+    listenTops:
+      - IDAAS%BDCUSERSIT%t410916834
+      - IDAAS%BDCUSERSIT%t400000001
+      - IDAAS%BDCUSERSIT%T647951018
+      - IDAAS%BDCUSERSIT%T541406279
+yuhong:
+  host: http://yuhong.com:8080
+  processSubmitUrl: /yuhong/process/submit
+  auditProcessSubmitUrl: /yuhong/process/audit/submit
+  processDetailUrl: https://portaluat.yuhong.com.cn/spa/workflow/static4mobileform/index.html#/req?requestid=
+  realSend: false
+  checkTime: 60
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 500MB
+  datasource:
+    url: jdbc:mysql://${iam.db.host}:${iam.db.port}/${iam.db.schema}?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+    username: ${iam.db.username}
+    password: ${iam.db.password}
+  redis:
+    password: ${global.redis.password}
+    sentinel:
+      master: ${iam.redis.sentinel.master}
+      nodes: ${iam.redis.sentinel.nodes}
+idaas:
+  logout:
+    url: /iam/cas/logout
+  datasource:
+    platform:
+      url: jdbc:mysql://${iam.db.host}:${iam.db.port}/${iam.db.schema}?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+      username: ${iam.db.username}
+      password: ${iam.db.password}
+    platformapp:
+      url: jdbc:mysql://${iam.db.host}:${iam.db.port}/${iam.db.schema}?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+      username: ${iam.db.username}
+      password: ${iam.db.password}
+  host: ${iam.host}
+  tenant-mode: ${iam.tenant-model}
+  tenant:
+    db-schema-prefix: iam_
+    db-catalog-prefix: iam_
+  system-id: pss
+  rocketmq:
+    access-key: ${global.rocketmq.accesskey}
+    secret-key: ${global.rocketmq.secretkey}
+    name-server: ${global.rocketmq.name-server}
+    producer-group: producer_${global.env}
+    consumer-group: idaas_bdc_pss_${global.env}
+    topic: ${global.iam.rocketmq.topic}
+    debug-mode: true
+    dynamicTopic: true
+server:
+  port: 8004
+  servlet:
+    session: 
+      cookie: 
+        sameSite: Lax
+jasypt:
+  encryptor:
+    bean: sm4Encryptor
+    # 加密盐值 必须和生成的盐值一样
+    password: ${iam.jasypt.encryptor.passwd}

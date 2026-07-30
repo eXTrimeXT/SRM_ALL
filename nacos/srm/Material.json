@@ -1,0 +1,9 @@
+{
+  "_version": "1.0",
+  "_type": "plugin",
+  "MtPart": {
+    "fields": {
+      "dimensionUnit": "String:规格类型"
+    }
+  }
+}

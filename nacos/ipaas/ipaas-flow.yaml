@@ -1,0 +1,307 @@
+spring:
+  boot:
+    admin:
+      client:
+        url: http://127.0.0.1:18096/ssc/workflow
+      discovery:
+        enabled: false
+  redis:
+    lettuce:
+      pool:
+        max-active: 10
+        max-wait: -1ms
+        min-idle: 0
+        max-idle: 5
+    database: ${ipaas.redis.database:11}
+    password: ${global.redis.password}
+    sentinel:
+      master: ${global.redis.sentinel.master}
+      nodes: ${global.redis.sentinel.nodes}
+  datasource:
+    dynamic:
+      druid:
+        initialSize: 0  #初始连接数，默认0
+        minIdle: 5 # 池中维护的最小空闲连接数，默认为 0 个
+        maxActive: 20 # 池中最大连接数，包括闲置和使用中的连接，默认为 8 个。
+        maxWait: 60000 #获取连接的最大等待时间，单位毫秒
+        stat: # 配置 StatFilter ，对应文档 https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_StatFilter
+          logSlowSql: true # 开启慢查询记录
+          slowSqlMillis: 5000 # 慢 SQL 的标准，单位：毫秒
+          mergeSql: true # SQL合并配置
+        #缓存PreparedStatement的最大数量，默认-1（不缓存）。大于0时会自动开启缓存PreparedStatement
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,slf4j,wall #监控统计用的filter:stat,日志用的filter:log4j,防御sql注入的filter:wall
+      primary: mysql
+      datasource:
+        mysql:
+          type: com.alibaba.druid.pool.DruidDataSource
+          url: jdbc:mysql://${ipaas.db.host}:${ipaas.db.port}/${ipaas.db.schema}?${global.jdbc.connection.params}
+          username: ${ipaas.db.username}
+          password: ${ipaas.db.password}
+          driver-class-name: com.mysql.cj.jdbc.Driver
+
+  flyway:
+    #开发环境设置为false，其他环境开启true
+    enabled: true
+    # 迁移前校验 SQL 文件是否存在问题
+    validate-on-migrate: false
+    # 一定要设置为true，否则会清空数据库
+    clean-disabled: true
+    # 最开始已经存在表结构，且不存在 flyway_schema_history 表时，需要设置为 true
+    baseline-on-migrate: true
+    # 基础版本，为老项目（未包含flyway的版本）升级时，一定要根据实际项目的情况设置baseline-version，跳过已存在表的脚本
+    baseline-version: 0
+    # 区分oracle 和 mysql
+    locations: classpath:db/migration/mysql
+
+generic-store:
+  url: jdbc:mysql://${ipaas.db.host}:${ipaas.db.port}/${ipaas.db.store.schema}?${global.jdbc.connection.params}
+  username: ${ipaas.db.username}
+  # 使用数据库DbConnectUtil的加密   9607#VCOv%czsJ,d
+  password: ${ipaas.db.password}
+  timeout: 10000
+  type: 1
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+bizlog:
+  mq:
+    topic: chainLog
+    producerGroup: chainLogProducerGroup
+    consumerGroup: chainLogConsumerGroup
+    namespace: ipaas
+    rocketmq:
+      open: true
+      namesrAddr: ${ipaas.rocketmq.name-server}
+      accessKey: ${ipaas.rocketmq.accessKey}
+      secretKey: ${ipaas.rocketmq.secretKey}
+    kafka:
+      open: false
+      borkerAddr: 10.73.43.9:9092
+  storage:
+    type: db
+    es:
+      hosts: ${ipaas.es.url}
+      username: ${ipaas.es.accessKey}
+      password: ${ipaas.es.secretKey}
+
+default:
+  consumerGroup: workflowConsumerGroup
+  rocketmq:
+    open: false
+    namesrAddr: 10.18.125.109:30861
+  kafka:
+    open: false
+    borkerAddr: 10.18.125.109:27485
+
+webService:
+  url: http://0.0.0.0:18097/ipaas/webservice/
+
+iam:
+  enable: false
+  api-host: http://120.31.129.156:38997/iam/idaas-apis/apis
+  get-token-url: ${iam.api-host}/v1/paas/auth/ticketValidate
+  ignore-filter-paths:
+    - /iam-auth-token
+    - /func/list
+
+tenant:
+  enable: true
+  excludeTables:
+    - job_record
+    - flow_sys_app
+    - flow_sys_user
+    - flow_sys_app_user_rela
+    - flow_sys_role
+    - flow_sys_user_role_rela
+    - flow_sys_role_app_rela
+    - flow_sys_role_res_rela
+    - flow_sys_resource
+    - flow_sys_user_app_rela
+    - task_retry_record
+    - task_shard
+    - task_shard_item
+  default-tenant-id:
+
+auth:
+  #是否启用登录验证码(ipaas登录起作用)
+  enable-captcha: false
+  enable: true
+  # login-page: "iam,mportal"
+  login-page: "default"
+  iam:
+    client-id: ${ipaas.iam.accessKeyId}
+    client-secret: ${ipaas.iam.accessKeySecret}
+    host: ${ipaas.iam.domain}
+    upm-context: ${ipaas.iam.upmContext}
+    auth-context: ${ipaas.iam.authContext}
+
+j2cache:
+  # L1缓存配置
+  l1-cache:
+    # Region配置
+    region:
+      # 默认的caffeine配置，支持10000个，1H ttl
+      default: "10000, 1h"
+      # 自定义L1 cache配置
+      user-cache: "1000, 1m"
+
+# redisson:
+#   lock:
+#     server:
+#       address: mymaster,${global.redis.sentinel.nodes}
+#       type: sentinel
+#       password: ${global.redis.password}
+#       database: 11
+redisson:
+  lock:
+    server:
+      # address: 10.26.34.97:30202    ##sentinel-哨兵配置(第一个主节点名称，后面是)： 
+      address: mymaster,${global.redis.sentinel.nodes}
+      type: sentinel   #连接类型，支持standalone-单机节点，sentinel-哨兵，cluster-集群，masterslave-主从
+      database: 11
+      password: ${global.redis.password}
+      waitTime: 66 #注解aop能力，的分布式锁的等待时间
+      leaseTime: 66  #注解aop能力，的分布式锁的续约时间
+      config:      ##redisson的其他配置项
+        pingConnectionInterval: 5
+        retryAttempts: 38
+        connectTimeout: 60000
+springfox:
+  documentation:
+    # 总开关（同时设置auto-startup=false，否则/v3/api-docs等接口仍能继续访问）
+    enabled: false
+    auto-startup: false
+    swagger-ui:
+      enabled: false
+cxf:
+  servlet:
+    init:
+      hide-service-list-page : true
+apaas:
+  snowflake:
+    enable: false
+    port: 10070
+    mode: redis
+    # 应对 异地多活 数据中心 当前支持最大数据中心数是16
+    #    datacenter: 12
+    redis:
+      host: 127.0.0.1:6666
+      database: ${ipaas.redis.database:11}
+      password: ${global.redis.password}
+      # sentinel:
+    #     master: ${global.redis.sentinel.master}
+    #     nodes: ${global.redis.sentine.nodes}
+  metrics:
+    enable: false
+    address: ${global.apaas.register-address}
+  client:
+    audit:
+      #是否启用审计功能，默认为true（需要关闭，可设置为false。）
+      enable: false
+      # 应用code，与IAM系统的appCode需要一致，用于权限控制。
+      # 应用名称，默认${spring.application.name}
+      #      app-name: ipaas
+      # 服务code,用于应用有多个服务时区分，不填默认app-code
+      #      service-code: ipaas-admin
+      # 服务名,用于应用有多个服务时区分，不填默认app-name
+      #      service-name: ipaas-admin
+      # 审计规则注册匹配规则，默认不用配置，全部export
+      exporter-url:
+        # 需要注册的url
+        #include-path:
+        #  - /user/**
+        # 不用注册的url
+        exclude-path:
+          - /**
+      # 审计控制台地址，使用naocos方式不用填，否则填入审计日志域名，例如https://apaas-dev-stable.meicloud.com/
+      register-address:
+      # 日志上报方式，可以选择1、rocketMq方式上报（默认），2、使用http的方式上报
+      log-writer:
+        # 1、日志上报方式，默认rocketMq
+        type: rocketmq
+        # rocketmq配置（不需配置，默认从global-env.properties获取）
+        rocketmq:
+          # rocketmq地址（不需配置，默认从global-env.properties获取）
+          namesrvAddr:
+          # accesskey、secretkey（不需配置，默认从global-env.properties获取）
+          accesskey:
+          secretkey:
+
+ipaas:
+  upload:
+    file:
+      # 100M
+      maxFileSize: 100
+      maxRequestSize: 100
+
+system-protect:
+  enabled: true
+  highest-single-system-load: 2.5
+  highest-cpu-usage: 0.9
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 11000
+        readTimeout: 11000
+
+xxl:
+  job:
+    access-token: ${ipaas.xxljob.accessToken}
+    admin:
+      addresses: ${ipaas.xxljob.addresses}
+      username: admin
+      password: ${ipaas.xxljob.password}
+    retry:
+      enabled: true
+      enable-flyway-migration: false
+    executor:
+      appname: ${ipaas.xxljob.executor.appname}
+      title: ipaas-task
+      enable-auto-create: true
+      logpath: ${ipaas.xxljob.logpath}
+
+seata:
+  enabled: false
+  enable-auto-datasource-proxy: false
+  application-id: ipaas-seata-prd
+  tx-service-group: ipaas-seata-prd
+  service:
+    vgroup-mapping:
+      #ipaas-seata-${global.env}(此key必须跟tx-service-group配置项的值一致)
+      ipaas-seata-prd: default
+    group-list:
+      default: 10.211.55.5:8091 # seata服务端地址,启用seata时必须修改
+  client:
+    rm:
+      lock:
+        retry-interval: 10
+        retry-times: 5
+        retry-policy-branch-rollback-on-conflict: true
+    tm:
+      commit-retry-count: 5
+      rollback-retry-count: 5
+    undo:
+      data-validation: true # 二阶段回滚镜像校验（默认true开启）
+      log-serialization: jackson # undo序列化方式（默认jackson）
+      log-table: seata_undo_log  # 自定义undo表名（默认undo_log）
+
+## 202408 增量
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    env:
+      show-values: always
+    health:
+      show-details: always
+  health:
+    db:
+      enabled: false

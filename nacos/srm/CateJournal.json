@@ -1,0 +1,16 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "CateJournal:meicloud_usrm_cloud_biz_supplier.ceea_sup_auth_cate_journal": {
+    "keyField": "categoryJournalId",
+    "fields": {
+      "categoryJournalId": "Long",
+      "formId": "Long",
+      "formType": "String",
+      "vendorId": "Long",
+      "categoryId": "Long",
+      "thisYearAmount": "BigDecimal",
+      "@include": ":BaseFields"
+    }
+  }
+}

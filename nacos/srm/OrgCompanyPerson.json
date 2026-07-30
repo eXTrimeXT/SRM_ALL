@@ -1,0 +1,19 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "OrgCompanyPerson:meicloud_usrm_cloud_biz_base.scc_base_org_company_person": {
+    "keyField": "companyPersonId",
+    "fields": {
+      "companyPersonId": "Long",
+      "organizationId": "Long",
+      "username": "String",
+      "name": "String",
+      "department": "String",
+      "position": "String",
+      "phone": "String",
+      "email": "String",
+      "remark": "String",
+      "@include": ":BaseFields"
+    }
+  }
+}

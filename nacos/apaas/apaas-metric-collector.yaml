@@ -1,0 +1,74 @@
+meicloud:
+  metrics:
+    collector:
+      dataSource:
+        mc:
+          ref: mcDataSource
+        tdc:
+          ref: tdcDataSource
+        mflow:
+          ref: camundaBpmDataSource
+        iet:
+          ref: ietDataSource
+        bpmp:
+          url: jdbc:mysql://{{ env.database.bpmp.master.host }}:{{ env.database.bpmp.master.port }}/${global.mysqldb.prefix}bpmp_base?${global.jdbc.connection.params}
+          username: {{ env.database.bpmp.master.username }}
+          password: {{ env.database.bpmp.master.password }}
+          driver-class-name: com.mysql.cj.jdbc.Driver
+      task:
+        - name: inbox_monthly_count
+          cron: 0 10 1 * * ?
+          dataSource: mc
+          sql: |
+            select concat('month=',DATE_FORMAT(create_time, '%Y%m'), ',source=', source_sys) as tag, count(1) as value from inbox_message_content 
+            where create_time >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 3 MONTH), '%Y-%m-01')
+            and create_time < DATE_FORMAT(CURDATE(), '%Y-%m-01') group by source_sys, DATE_FORMAT(create_time, '%Y-%m')
+        - name: mflow_instance_monthly_count
+          cron: 0 10 1 * * ?
+          dataSource: mflow
+          sql: |
+            SELECT concat('month=',DATE_FORMAT(create_time, '%Y%m')) as tag,count(1) as value FROM t_wf_instance_info
+            WHERE create_time >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 3 MONTH), '%Y-%m-01') and create_time < DATE_FORMAT(CURDATE(), '%Y-%m-01')
+            GROUP BY DATE_FORMAT(create_time, '%Y-%m')
+        - name: tdc_monthly_count1
+          cron: 0 10 1 * * ?
+          dataSource: tdc
+          sql: |
+            SELECT concat('month=',DATE_FORMAT(gmt_create, '%Y%m')) as tag, count(1) as value FROM tdc_todo
+            WHERE gmt_create >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 3 MONTH), '%Y-%m-01')
+            GROUP BY DATE_FORMAT(gmt_create, '%Y-%m')
+        - name: iet_monthly_count
+          cron: 0 10 1 * * ?
+          dataSource: iet
+          sql: |
+            SELECT concat('month=',DATE_FORMAT(create_time, '%Y%m')) as tag, count(1) as value FROM `job_running_status`
+            WHERE create_time >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 3 MONTH), '%Y-%m-01')
+            GROUP BY DATE_FORMAT(create_time, '%Y-%m');
+        - name: audit_monthly_count
+            cron: 0 10 1 * * ?
+            collector: auditMonthlyTotalCollector
+        - name: bpmp_material_count
+          cron: 0 10 1 * * ?
+          dataSource: bpmp
+          sql: |
+            SELECT '' tag, COUNT(1) value FROM `${global.mysqldb.prefix}bpmp_material`.`mt_part` WHERE is_delete=0
+        - name: bpmp_bom_count
+          cron: 0 10 1 * * ?
+          dataSource: bpmp
+          sql: |
+            SELECT '' tag, COUNT(1) value FROM `${global.mysqldb.prefix}bpmp_material`.`mt_bom_info` WHERE is_delete=0
+        - name: bpmp_inventory_count2
+          cron: 0 10 1 * * ?
+          dataSource: bpmp
+          sql: |
+            SELECT '' tag, COUNT(1) value FROM `${global.mysqldb.prefix}bpmp_inventory`.`inv_current_inventory` WHERE is_delete=0
+        - name: bpmp_order_count
+          cron: 0 10 1 * * ?
+          dataSource: bpmp
+          sql: |
+            SELECT '' tag, COUNT(1) value FROM `${global.mysqldb.prefix}bpmp_order`.`order_head` WHERE is_delete=0
+        - name: bpmp_price_count
+          cron: 0 10 1 * * ?
+          dataSource: bpmp
+          sql: |
+            SELECT '' tag, COUNT(1) value FROM `${global.mysqldb.prefix}bpmp_price`.`price_library` WHERE is_delete=0

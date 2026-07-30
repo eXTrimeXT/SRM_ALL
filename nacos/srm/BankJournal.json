@@ -1,0 +1,23 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "BankJournal:meicloud_usrm_cloud_biz_supplier.scc_sup_auth_bank_journal": {
+    "keyField": "bankJournalId",
+    "fields": {
+      "bankJournalId": "Long",
+      "formId": "Long",
+      "formType": "String",
+      "vendorId": "Long",
+      "bankCode": "String",
+      "bankName": "String",
+      "openingBank": "String",
+      "unionCode": "String",
+      "bankAccountName": "String",
+      "bankAccount": "String",
+      "currencyCode": "String",
+      "ceeaMainAccount": "String",
+      "ceeaEnabled": "String",
+      "@include": ":BaseFields"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "FileRecord:meicloud_usrm_cloud_biz_supplier.scc_sup_file_record": {
+    "keyField": "fileRecordId",
+    "fields": {
+      "fileRecordId": "Long",
+      "formId": "Long",
+      "formType": "String",
+      "fileName": "String",
+      "templateFileId": "Long",
+      "fileId": "Long",
+      "remark": "String",
+      "@include": ":BaseFields"
+    }
+  }
+}

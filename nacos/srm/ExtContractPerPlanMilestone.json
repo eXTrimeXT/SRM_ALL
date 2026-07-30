@@ -1,0 +1,11 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "PerPlanMilestone:scc_cont_per_plan_milestone": {
+    "keyField": "perPlanMilestoneId",
+    "fields": {
+      "perPlanMilestoneId": "Long",
+      "extCreatePerformFlag": "String"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "OrganizationRelation:meicloud_usrm_cloud_biz_base.scc_base_organization_rel": {
+    "keyField": "relId",
+    "fields": {
+      "relId": "Long",
+      "organizationId": "Long",
+      "parentOrganizationId": "Long",
+      "@include": ":BaseFields"
+    }
+  }
+}

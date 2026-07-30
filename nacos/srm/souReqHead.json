@@ -1,0 +1,78 @@
+{
+  "_version": "1.0",
+  "_type": "standard",
+  "SouReqHeadBuyer:scc_npm_sou_req_head" : {
+    "keyField" : "reqHeadId",
+    "comment": "寻源需求单头表",
+    "fields" : {
+      "@include": ":SouReqHeadFields"
+    },
+    "relations" : {
+      "souReqApplyList": "[SouReqApply:reqHeadId]",
+      "souReqAttachList": "[SouReqAttach:reqHeadId]"
+    }
+  },
+  "SouReqAttachBuyer:scc_npm_sou_req_attach" : {
+    "keyField" : "souReqAttachId",
+    "comment": "寻源需求单附件",
+    "fields" : {
+      "@include": ":SouReqAttachFields"
+    },
+    "relations" : {
+      "reqHeadId": "SouReqHead"
+    }
+  },
+  "SouInfoHistoryBuyer:scc_npm_sou_info_history" : {
+    "keyField" : "infoHistoryId",
+    "comment": "寻源单公示信息修改历史",
+    "fields" : {
+      "@include": ":SouInfoHistoryFields"
+    },
+    "relations" : {
+      "reqHeadId": "SouReqHead"
+    }
+  },
+  "SouReqApplyBuyer:scc_npm_sou_req_apply" : {
+    "keyField" : "applyId",
+    "comment": "寻源需求单报名",
+    "fields" : {
+      "@include": ":SouReqApplyFields"
+    },
+    "relations" : {
+      "reqHeadId": "SouReqHead",
+      "souReqApplyAttachList": "[SouReqApplyAttach:applyId]"
+    }
+  },
+  "SouReqApplyAttachBuyer:scc_npm_sou_req_apply_attach" : {
+    "keyField" : "applyAttachId",
+    "comment": "寻源需求单报名附件",
+    "fields" : {
+      "@include": ":SouReqApplyAttachFields"
+    },
+    "relations" : {
+      "applyId": "SouReqApply"
+    }
+  },
+  "SouDepositInvoiceBuyer:scc_npm_sou_deposit_invoice" : {
+    "keyField" : "depositInvoiceId",
+    "comment": "寻源单意向金开票",
+    "fields" : {
+      "@include": ":SouDepositInvoiceFields"
+    },
+    "relations" : {
+      "reqHeadId": "SouReqHead",
+      "applyId": "SouReqApply"
+    }
+  },
+  "SouDepositRefundBuyer:scc_npm_sou_deposit_refund" : {
+    "keyField" : "depositRefundId",
+    "comment": "寻源单意向金退款",
+    "fields" : {
+      "@include": ":SouDepositRefundFields"
+    },
+    "relations" : {
+      "reqHeadId": "SouReqHead",
+      "applyId": "SouReqApply"
+    }
+  }
+}

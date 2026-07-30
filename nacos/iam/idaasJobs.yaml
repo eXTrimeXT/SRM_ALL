@@ -1,0 +1,136 @@
+logging:
+  level:
+    iam: info
+spring:
+  datasource:
+    url: jdbc:mysql://${iam.db.host}:${iam.db.port}/${iam.db.schema}?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+    username: ${iam.db.username}
+    password: ${iam.db.password}
+  redis:
+    password: ${global.redis.password}
+    sentinel:
+      master: ${iam.redis.sentinel.master}
+      nodes: ${iam.redis.sentinel.nodes}
+idaas:
+  proxy-host:
+    enable: false
+  protocol: ${iam.protocol}
+  swagger:
+    enabled: false
+  datasource:
+    platform:
+      url: jdbc:mysql://${iam.db.host}:${iam.db.port}/${iam.db.schema}?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+      username: ${iam.db.username}
+      password: ${iam.db.password}
+    platformapp:
+      url: jdbc:mysql://${iam.db.host}:${iam.db.port}/${iam.db.schema}?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+      username: ${iam.db.username}
+      password: ${iam.db.password}
+  host: ${iam.host}
+  tenant-mode: ${iam.tenant-model}
+  tenant:
+    db-schema-prefix: iam_
+    db-catalog-prefix: iam_
+  tenant-param: 15
+  system-id: jobs
+  rocketmq:
+    access-key: ${global.rocketmq.accesskey}
+    secret-key: ${global.rocketmq.secretkey}
+    name-server: ${global.rocketmq.name-server}
+    producer-group: producer_${global.env}
+    consumer-group: idaas_bdc_jobs_${global.env}
+    topic: ${global.iam.rocketmq.topic}
+    debug-mode: true
+    dynamicTopic: true
+meicloud:
+  paas:
+    audit:
+      #是否启用审计功能，默认为true
+      enable: false
+      # 是否动态注册规则，默认true
+      enableDynamicRegister: true
+      # 应用code（必填）
+      app-code: IDAAS
+      # 应用名称（必填）
+      app-name: IDAAS
+      # 应用秘钥（必填）
+      app-secret: 6a8faa69-51fa-4b25-8b06-4d1fd6c4f4de
+      # 服务code,用于应用有多个服务时区分，不填默认app-code
+      service-code: IDAAS-POC
+      # 服务名,用于应用有多个服务时区分，不填默认app-name
+      service-name: IDAAS-POC
+        # 审计规则注册匹配规则，详见下方备注
+        # exporter-url:
+        # 需要注册的url
+      #include-path:
+      # - /user/**
+      # 不用注册的url
+      # exclude-path:
+      #  - /exclude/**
+      # 审计控制台地址（必填）
+      register-address: ${global.audit.register-address}
+      # 日志上报方式（必填）
+      log-writer:
+        # 日志上报方式，这里以rocketmq为例，业务系统为生产者（必填）
+        type: rocketmq
+        # rocketmq配置（必填）
+        rocketmq:
+          # rocketmq地址（必填）
+          namesrvAddr: ${global.rocketmq.name-server}
+          instanceName: ${global.rocketmq.name-server}
+          # 日志上报到rocketmq的主题（必填）
+          topic: ${global.audit.rocketmq.topic}
+          groupName: ${global.audit.rocketmq.groupName}
+  ship:
+    sms:
+      enabled: false
+      midea:
+        app_key:
+        tenant_code:
+        sign_name:
+        send_account:
+        send_password:
+        in_platform: MCL
+        encrypt_level: 3
+        gate_url:
+  mail:
+    enabled: false
+    host: ${global.mail.server_host}
+    port: ${global.mail.server_port}
+    auth: true
+    user: ${global.mail.user_name}
+    paas: ${global.mail.user_password}
+    from: ${global.mail.from_address}
+    debug: true
+    splitlongparameters: false
+    encodefilename: false
+    ssl-enable: true
+    socket-factory-fallback: true
+    socket-factory-port: 465
+    timeout: 0
+    connectionTimeout: 0
+    startttls-enable: true
+xxl:
+  job:
+    accessToken: ${global.xxljob.accessToken}
+    admin-address: ${global.xxljob.addresses}
+    executor:
+      app-name: ${global.env}_jobs
+      #address: ${global.xxljob.jobs.address}
+      ip: ${iam.xxljob.jobs.callback.ip}
+      port: 9901
+      log-path: /tmp/applogs/xxl-job/jobhandler
+      log-retention-days: 30
+    username: ${global.xxljob.username}
+    password: ${global.xxljob.password}
+server:
+  port: 8003
+  servlet:
+    session: 
+      cookie: 
+        sameSite: Lax
+jasypt:
+  encryptor:
+    bean: sm4Encryptor
+    # 加密盐值 必须和生成的盐值一样
+    password: ${iam.jasypt.encryptor.passwd}

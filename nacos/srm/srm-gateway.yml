@@ -1,0 +1,16 @@
+cloud:
+  scc:
+    sign:
+      appId: bpm
+      appSec: bpm32349823
+#自定义服务名字（自定义路由映射）
+zuul:
+  routes:
+    #以后order-service与product-service这种方式不能访问了，统一入口为apigateway，
+    viewSrm: /cloud-srm/api-pj/external/bpm/viewSrm
+    
+  #ignored-services: order-service
+  #对外禁用-service结尾的服务
+  #ignored-patterns: /*-service/**
+  #解决获取不到cookie的问题（这里置空，表明不过滤任何请求头）
+  #sensitive-headers:

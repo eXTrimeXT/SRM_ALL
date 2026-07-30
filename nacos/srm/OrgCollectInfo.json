@@ -1,0 +1,17 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "OrgCollectInfo:meicloud_usrm_cloud_biz_base.scc_base_org_collect_info": {
+    "keyField": "collectId",
+    "fields": {
+      "collectId": "Long",
+      "organizationId": "Long",
+      "collectPerson": "String",
+      "tel": "String",
+      "collectAddress": "String",
+      "isDefault": "String",
+      "collectMail":"String",
+      "@include": ":BaseFields"
+    }
+  }
+}

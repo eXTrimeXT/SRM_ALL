@@ -1,0 +1,19 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "OrgInvoiceInfo:meicloud_usrm_cloud_biz_base.scc_base_org_invoice_info": {
+    "keyField": "invoiceId",
+    "fields": {
+      "invoiceId": "Long",
+      "organizationId": "Long",
+      "invoiceType": "String",
+      "companyName": "String",
+      "openingName": "String",
+      "openingAccount": "String",
+      "taxpayerNum": "String",
+      "phone": "String",
+      "address": "String",
+      "@include": ":BaseFields"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "SccBaseSceneFile:scc_base_scene_file": {
+    "keyField": "sceneFileId",
+    "fields": {
+      "sceneFileId": "Long: 表ID主键供其他表做外键",
+	  "originalBusinessId": "Long: 原业务ID用于旧业务单据关联",
+	  "businessId": "Long: 业务ID用于业务单据关联",
+	  "sceneTemplateId": "Long: 附件场景表ID",
+	  "templateFileId": "Long: 平台附件模板ID",
+	  "sceneUniqueCode": "String: 附件模板的唯一编码",
+	  "sceneCode": "String: 流程场景",
+	  "sceneModuleCode": "String: 功能名称",
+	  "attachmentType": "String: 附件类型",
+	  "attachmentName": "String: 模板附件名称",
+	  "attachmentSourceName": "String: 模板附件原始名称",
+	  "required": "String: 是否必填",
+	  "defaultFile": "String: 是否默认附件",
+	  "fileuploadId": "String: 平台id(存放平台)",
+	  "fileName": "String: 附件名称",
+	  "fileLink": "String: 附件地址（一般为网络链接）",
+	  "businessFileType": "String: 业务文件类型",
+	  "fileCustomName": "String: 附件自定义",
+	  "fileUploadTime": "Date: 上传时间",
+	  "expireTime": "Date: 附件过期时间",
+	  "remark": "String: 附件备注",
+	  "vendorId": "Long: 供应商ID",
+	  "vendorCode": "String: 供应商编码",
+	  "vendorName": "String: 供应商名称",
+	  "fileStatus": "String: 文件状态",
+	  "extendField1": "String: 扩展字段1",
+	  "extendField2": "String: 扩展字段2",
+	  "extendField3": "String: 扩展字段3",
+	  "extendField4": "String: 扩展字段4",
+	  "extendField5": "String: 扩展字段5",
+	  "monitorFlag": "String: 是否证件监控(Y/N)",
+      "@include": ":BaseFields"
+    }
+  }
+}

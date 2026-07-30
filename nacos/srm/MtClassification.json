@@ -1,0 +1,12 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "MtClassification": {
+    "comment": "物料目录",
+    "keyField": "masterId",
+    "fields": {
+      "id": "Long:id",
+      "ifBid": "String:是否招标范围"
+    }
+  }
+}

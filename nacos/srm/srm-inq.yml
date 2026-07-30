@@ -1,0 +1,12 @@
+meiql:
+  nacos:
+    # serverAddr: nacos-cs.dev:8848
+    serverAddr: 10.168.154.42:8848    
+    namespace: dev
+    group: srm
+    enable: true
+    username: ${global.nacos.user}
+    password: ${global.nacos.password}
+  schemaFile:
+    - path:classpath*:meiql-schema/*.json
+    #- nacos:MeiqlTest.json

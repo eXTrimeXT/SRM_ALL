@@ -1,0 +1,53 @@
+gwm:
+  sts:
+    #STS访问点
+    endpoint: sts.res.cloud.gwm.cn
+    srm:
+      #阿里云资源名称
+      roleArn: acs:ram::1743748119189675:role/srm-role-xingzhou41394
+    ai-helper:
+       #阿里云资源名称
+      roleArn: acs:ram::1743748119189675:role/sts-oss-51523-srm
+onlyoffice:
+  server:
+    host: srm-cnp-bdtest.gwm.cn/cloud-srm/api-file/files-anon/onlyoffice/api
+    downUrl: http://srm-dev.oss0c83-cn-baoding-gwmcloud-d01-a.ops.cloud.gwm.cn/
+meicloud:
+  paas:
+    osca:
+     #填写项目所需的存储商类型 目前支持oss cos obs minio
+      type: minio
+     # 访问网点
+      endPoint: ${srm.minio.endpoint}
+      #accessKey
+      accessKeyId: ${srm.minio.accessKeyId}
+      # sk
+      accessKeySecret: ${srm.minio.accessKeySecret}
+      # 地域 cos必填外 其他类型选填
+      regionId:
+      bucket: ${srm.minio.bucketName}
+      #largeFileByInUrl: https://srm-cnp-bduat-oss.gwm.cn/
+      largeFileByInUrl: https://srm-uat.oss0c83-cn-baoding-gwmcloud-d01-a.ops.cloud.gwm.cn/
+      largeFileByExtUrl: https://srm-cnp-bduat.gwm.cn/stsOss/
+      repository:
+        type: local
+      # 病毒扫描配置
+      virus-scan:
+        #  是否开启 不配置默认是false
+        enable: false
+        # clamav 服务ip
+        clam-av-host: 43.143.213.99
+        # clamav 服务port
+        clam-av-port: 3310
+        # vir scan apikey
+        # vir-scan-api-key: 82a9e9dc56aef3a40745e090fbdb0c3a
+file:
+  upload:
+    whitelist: jpg/jpeg/png/xls/xlsx/doc/docx/ppt/pptx/pdf/cad/ofd/wps/rar/zip/gzip/ico/svg/md/tif/tiff/bmp/psd/7z/gif/docm
+srm:
+  file:
+    upload:
+      whitelist: jpg/jpeg/png/xls/xlsx/doc/docx/ppt/pptx/pdf/cad/ofd/wps/rar/zip/gzip/ico/svg/md/tif/tiff/bmp/psd/7z/gif/docm
+  sies: 
+    exportProp:
+      batchSize: 50

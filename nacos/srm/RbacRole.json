@@ -1,0 +1,28 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "SccRbacRole:scc_rbac_role": {
+    "comment": "角色值集表",
+    "keyField": "roleId",
+    "fields": {
+	  "roleId": "Long:角色ID",
+	  "roleCode": "String:角色编码",
+	  "roleType": "String:BUYER(采购商角色), BUYER_INIT(采购商初始化角色), SUPPLIER(供应商角色), SUPPLIER_INIT(供应商初始化角色), REG_DEFAULT(注册初始化角色)",
+	  "startDate": "Date:生效日期",
+	  "endDate": "Date:失效日期",
+      "@include": ":BaseFields"
+    }
+  },
+  "SccRbacRoleUser:scc_rbac_role_user": {
+    "comment": "用户角色表",
+    "keyField": "roleUserId",
+    "fields": {
+	  "roleUserId": "Long:角色用户关联ID",
+	  "roleId": "Long:角色ID",
+	  "userId": "Long:用户ID",
+	  "startDate": "Date:生效时间",
+	  "endDate": "Date:失效时间",
+      "@include": ":BaseFields"
+    }
+  }
+}

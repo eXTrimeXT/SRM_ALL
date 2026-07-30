@@ -1,0 +1,12 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "ContractPartner:scc_contract_partner": {
+    "keyField": "partnerId",
+    "fields": {
+      "partnerId": "Long",
+      "extEmployeeNumber":"String",
+      "extStampStatus":"String:契约锁盖章状态，STAMP-已盖章，UNSTAMP-未盖章"
+    }
+  }
+}

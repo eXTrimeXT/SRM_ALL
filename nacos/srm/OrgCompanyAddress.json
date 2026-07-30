@@ -1,0 +1,22 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "OrgCompanyAddress:meicloud_usrm_cloud_biz_base.scc_base_org_company_address": {
+    "keyField": "companyAddressId",
+    "fields": {
+      "companyAddressId": "Long",
+      "organizationId": "Long",
+      "country": "String",
+      "area": "String",
+      "city": "String",
+      "address": "String",
+      "phone": "String",
+      "postalCode": "String",
+      "remark": "String",
+      "isActive": "String",
+      "addressRegion": "String",
+      "isDefault": "String",
+      "@include": ":BaseFields"
+    }
+  }
+}

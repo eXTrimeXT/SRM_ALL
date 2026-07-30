@@ -1,0 +1,836 @@
+apaas:
+  tableSchema: meicloud_apaas_workflow
+oasis:
+  restapi: 
+    client: 
+      type: extIdeFlowEventService
+#ipaas系统相关
+ipaas:
+  #系统接口地址
+  systemUrl: https://srm-ipaas.hmmr.ru
+  #srm系统相关
+  srm:
+    authorization: Basic bTRraVIxc2phOFYzY2JEb2Vnc1htOHlTOWpqakNEUHU=
+secret: hfzkRRtlj]tB3FD297322pWe4F43cnoWgAPG9asQKFq2zv1d
+logging:
+  level:
+    com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver: WARN
+    springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator: WARN
+    srm: info
+    com.midea: debug
+    com.midea.cloud.meiql: DEBUG
+  file: logs/${spring.application.name}.log
+  #config: classpath:logback-spring.xml
+  config: classpath:logback-local.xml
+  logstashhost: 10.17.149.194 #logstash服务器
+  com.midea.cloud.common.extensions.JacksonConfigExtend: INFO
+  #多时区日期转换工具类，设置为DEBUG可打印日期时间转换日志【打印的日志量较多，默认为INFO不打印】
+  com.midea.cloud.component.coreencrypt.convert.msg.FastjsonConfigExtend: INFO
+  #多时区日期转换工具类，设置为DEBUG可打印日期时间转换日志【打印的日志量较多，默认为INFO不打印】
+
+# redis 缓存连接配置
+spring:
+  redis:
+    timeout: 60000
+    lettuce:
+      pool:
+        max-active: 100
+        max-wait: 10
+        max-Idle: 10
+        min-Idle: 0
+    password: ${srm.redis.password}
+    host: ${global.redis.host}
+    port: ${global.redis.port}
+#    sentinel:
+#      master: ${global.redis.sentinel.master}
+      # password: ${global.redis.sentinel.password}
+#      nodes: ${global.redis.sentinel.nodes}
+# druid数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${srm.db.common.username}
+    password: ${srm.db.common.password}
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      runtime:
+        url: ${srm.db.urlPrefix}/${srm.schema.ide_runtime}?useUnicode=true&useAffectedRows=true&characterEncoding=utf-8&allowMultiQueries=true&rewriteBatchedStatements=true&useSSL=false&serverTimezone=Europe/Moscow
+      initial-size: 5
+      min-idle: 5 #回收空闲连接时，将保证至少有minIdle个连接
+      max-active: 100
+      max-wait: 10000 #程序向连接池中请求连接时,超过maxWait的值后，认为本次请求失败
+      time-between-eviction-runs-millis: 60000 #检查空闲连接的频率，单位毫秒
+      remove-abandoned: true #要求程序从池中get到连接后, N 秒后必须close,否则druid 会强制回收
+      remove-abandoned-timeout: 7200 #设置druid 强制回收连接的时限，当程序从池中get到连接开始算起，超过此  应大于业务运行最长时间值后，druid将强制回收该连接，单位秒
+      test-while-idle: true #当程序请求连接，池在分配连接时，是否先检查该连接是否有效
+      validation-query: select 2 #检查池中的连接是否仍可用的 SQL 语句,drui会连接到数据库执行该SQL mysql:select 1,oracle:select 1 from dual
+      filter:
+        stat:
+          enabled: true #默认值为true，监控sql,慢sql等功能
+          log-slow-sql: true
+          slow-sql-millis: 5000
+        wall:
+          enabled: false #默认值为false，sql防火墙，支持过滤sql，如禁止使用delete *等操作。
+      stat-view-servlet:
+        enabled: ${srm.db.druid.statViewServlet.enabled}
+        login-username: ${srm.db.druid.statViewServlet.username}
+        login-password: ${srm.db.druid.statViewServlet.password}
+        allow: 10.1.1.1/8,172.1.1.1/8,192.1.1.1/8 #配置允许访问监控页面的IP地址
+      web-stat-filter:
+        enabled: false #默认值为true，统计web关联的监控信息如session/url等，建议修改为false
+        session-stat-enable: false #该功能模块代码不完善，特定场景下会诱发异常，非特别需求，建议修改为false
+      connection-properties: remarksReporting=true
+# spring 相关配置
+  mvc:
+    servlet:
+      load-on-startup: 1
+  aop:
+    proxy-target-class: true
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+
+  sleuth:
+    sampler:
+      probability: 1.0
+    web:
+      enabled: true
+    async:
+      enabled: false
+    integration:
+      enabled: false
+    scheduled:
+      enabled: false
+    feign:
+      enabled: false
+    zuul:
+      enabled: false
+# 最大上传文件和请求包大小配置
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+# flyway配置
+  flyway:
+    # 如果数据库不是空表，需要设置成 true，否则启动报错
+    baseline-on-migrate: true
+    # 与 baseline-on-migrate: true 搭配使用
+    baseline-version: 1.0.0
+    encoding: UTF-8
+    # 禁止清理数据库表
+    clean-disabled: true
+    # 校验
+    validate-on-migrate: false
+    # 版本控制日志表，默认flyway_schema_history,不同系统建议修改改数据
+    table: flyway_schema_history
+    sql-migration-separator: _
+    placeholder-prefix: "_${"
+    placeholders:
+      placeholder_database_cloud_biz_pj: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_pj}
+      placeholder_database_cloud_biz_base: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_base}
+      placeholder_database_cloud_biz_cost: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_cost}
+      placeholder_database_cloud_biz_supplier: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_supplier}
+      placeholder_database_cloud_biz_bidding: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_bidding}
+      placeholder_database_cloud_biz_supplier_cooperate: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_supplier_cooperate}
+      placeholder_database_cloud_biz_inquiry: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_inquiry}
+      placeholder_database_cloud_biz_competition: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_competition}
+      placeholder_database_cloud_biz_sou: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_sou}
+      placeholder_database_cloud_rbac: ${srm.db.schemaPrefix}${srm.schema.cloud_rbac}
+      placeholder_database_cloud_biz_contract: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_contract}
+      placeholder_database_cloud_biz_performance: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_performance}
+      placeholder_database_cloud_biz_api: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_api}
+      placeholder_database_cloud_biz_bargaining: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_bargaining}
+      placeholder_database_cloud_biz_price: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_price}
+      placeholder_database_cloud_biz_report: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_report}
+      placeholder_database_cloud_biz_ppap: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_ppap}
+
+# mybatis plus配置
+#mybatis-plus:
+#  global-config:
+#    db-config:
+#      id-type: assign_id
+      #mysql用"`%s`" oracle用"\"%s\""
+#      columnFormat: "`%s`"
+#  config-location: ${srm.mybatis-plus.config-location}
+#  mapper-locations: classpath*:/mybatis-mappers-extend/**/*.xml,classpath*:/mybatis-mappers-nextend/**/*.xml,classpath*:/mybatis-mappers/**/*.xml
+
+
+cloud:
+  scc:
+    ## 用户全球化多时区默认值设置
+    user:
+      defaultTimeZone: "GMT+3" # 用户默认时区
+      defaultDateFormat: "yyyy-MM-dd" # 用户默认日期格式
+      defaultDateTimeFormat: "yyyy-MM-dd HH:mm:ss" # 用户默认日期时间格式【含时分秒】
+      defaultGMTEnable: "Y" # 是否开启GMT日期渲染
+      defaultNumberFormat: "zh_CN" # 用户默认数字格式化
+    enableTimeZoneConvert: ${srm.front.open.globalization.enable} # 全球化启用开关
+    # 会签回调实现类路径
+    signServiceBeans:
+      - com.midea.cloud.srm.cm.contract.service.impl.ContractSignCallbackServiceImpl
+      - com.midea.cloud.srm.sou.meiql.bidnotices.service.impl.BidSignCallbackServiceImpl
+      - com.midea.cloud.srm.sup.info.service.impl.SignCallbackServiceImpl
+      - com.midea.cloud.srm.pr.division.service.impl.SignCallbackServiceImpl
+      - com.midea.cloud.srm.sou.meiql.bidnotices.service.impl.BidTechSignCallbackServiceImpl
+      - com.midea.cloud.srm.sou.meiql.bidnotices.service.impl.BidBusinessSignCallbackServiceImpl
+      - com.midea.cloud.srm.sou.meiql.answer.service.impl.AnswerSignCallbackServiceImpl
+    # bpm回调配置白名单路径
+    bpmRedirectWhiteUris:
+      - "http://srm-cnp-bdtest.gwmit.cn"
+      - "https://srm-dev.hmmr.ru"
+      - "https://localhost:7899"
+    sign:
+      appId: bpm
+      appSec: bpm32349823
+    ## swagger展示配置
+    swagger:
+      showKey: ${srm.swagger.showKey}
+    metadata:
+      ## 扩展属性开关
+      enable-extend: false
+    feignIgnoreHeaders:
+      - authorization
+      - content-type
+      - "content-length"
+      - host
+      - "content-encoding"
+      - "accept-encoding"
+      - "transfer-encoding"
+      - "cloud-time-zone"
+    select:
+      limit:
+        defaultLimit: 50000
+        mapperMap:
+          "mapper1": -1
+          "com.midea.cloud.srm.rbac.user.mapper.UserMapper.getUserPermissionByRoleIds": -1
+          "com.midea.cloud.srm.base.organization.mapper.OrganizationRelationMapper.selectByParam": -1
+          "com.midea.cloud.srm.biz.pj.base.noitce.mapper.PjNoticeMapper.getOrgRelLastUpdateDate": -1
+          "com.midea.cloud.srm.base.purchase.mapper.PurchaseCategoryMapper.selectList": -1
+          "com.midea.cloud.srm.sou.sourcing.init.mapper.ExtSouProjectMapper.selectById": -1
+          "com.midea.cloud.srm.sou.sourcing.vendor.mapper.ExtSouOrderMapper.selectById": -1
+          "com.midea.cloud.srm.biz.pj.changchengapi.bpm.mapper.CommitTaskParamMapper.selectOne": -1
+          "com.midea.cloud.srm.biz.pj.changchengapi.bpm.mapper.BpmNewFlagMapper.selectOne": -1
+          "com.midea.cloud.srm.base.flow.mapper.ExtFlowMapper.queryActInstances": -1
+          "com.midea.cloud.srm.sup.ext.register.mapper.MessagePromptMapper.getMessagePromptMessage": -1
+    database:
+      prefix: ${srm.db.schemaPrefix}
+      # suffix: ${srm.db.schemaSuffix}
+      repDbPlaceholder: "(?<=\\s)cloud_"
+      # 合并数据库schema替换,格式(${db_schema}|${db2_schema})->${reduce_db_schema}  多个合并数据库表达式使用英文逗号,分割
+      reduceDbRepExpr: # 例: (cloud_biz_base|cloud_biz_supplier)->cloud_reduce,(cloud_file|cloud_rbac)->cloud_reduce2
+    # 特殊json输出处理uri集合
+    specialJsonWriteUri:
+      - '/swagger-resources'
+      - '/v2/api-docs'
+      - '/partner'
+      - '/order/api'
+      - '/purchase/aps'
+      - '/purchase/api'
+      - '/cont/api'
+      - '/runtime'
+      - '/mt/api'
+      - '/quaSample/api'
+      - '/sup/inventory/api'
+      - '/sup/coop/inWarehouse'
+      - '/lics'
+    # 特殊异常处理类全限定名集合 *表示不控制，页面会收到所有后端exception的message信息提示
+    specialHandleExs:
+      - 'com.alibaba.excel.exception.ExcelAnalysisException'
+      - 'java.lang.IllegalArgumentException'
+      - ${srm.base.specialHandleExs}
+    # xss过滤白名单处理
+    xss:
+      xssHandleUris: "/*/ureport/preview,/*/base/noticetemplate/modify,/*/base/noticetemplate/add,/*/modelHead/add,/*/modelHead/modifyAll,/*/base/material-item-sec/modify,/*/base/material-item-sec/add,/*/notice/notice/modify,/*/notice/notice/add,/*/buyer/qa/souAnswer/tempSaveOrSubmit/*,/*/api-ql/ModelHead/save,/*/api-ql/ModelHead/update,/*/vendor/qa/souQuestion/submit/**,/*/vendor/qa/souQuestion/save/**" # 对特定接口执行xss注入检查
+    sql:
+      sqlHandleUris: /*/test/**  # 防sql注入检查
+    # 第三方调用认证接口支持
+    supportExternalAnon: cloud-biz-gateway
+    # 是否开启接口权限校验，不开启会有安全问题
+    checkAuthSecurity: true
+    # 接口权限严管控模式是否开启
+    checkAuthStrictModel: true
+    # 特殊角色接口权限严管控模式，配置以角色编码命名，多个角色编码以英文逗号分隔
+    strictModelRole:
+    # swagger访问账号名
+    swagger-username: ${srm.swagger.swagger-username}
+    # swagger访问密码
+    swagger-password: ${srm.swagger.swagger-password}
+    # 是否设置Cookie安全属性
+    useSecureCookie: false
+    # 单点跳转url域名白名单范围限制
+    redirectDomain-whileList: "localhost,127.0.0.1,srm-dev.meicloud.com,srm-sit.meicloud.com,srm-uat.meicloud.com,srm-prdtest.meicloud.com,10.74.88.104:7899,localhost:7899"
+    service-path: "{'': ''}"
+    client:
+      default-client: nsrm
+      info:
+        - code: nsrm
+          name: 默认租户
+          datasouces:
+            BASE:
+              driverClassName: com.mysql.cj.jdbc.Driver
+              url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_base}?${srm.db.connectParam}
+              username: ${srm.db.common.username}
+              password: ${srm.db.common.password}
+              minimumIdle: 0
+              maximumPoolSize: 100
+            SUP:
+              driverClassName: com.mysql.cj.jdbc.Driver
+              url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_supplier}?${srm.db.connectParam}
+              username: ${srm.db.common.username}
+              password: ${srm.db.common.password}
+              minimumIdle: 0
+              maximumPoolSize: 100
+            PJ:
+              driverClassName: com.mysql.cj.jdbc.Driver
+              url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_pj}?${srm.db.connectParam}
+              username: ${srm.db.common.username}
+              password: ${srm.db.common.password}
+              minimumIdle: 0
+              maximumPoolSize: 100
+        - code: nsrm1
+          name: 测试租户
+          datasouces:
+            BASE:
+              driverClassName: com.mysql.cj.jdbc.Driver
+              url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_base}?${srm.db.connectParam}
+              username: ${srm.db.common.username}
+              password: ${srm.db.common.password}
+              minimumIdle: 0
+              maximumPoolSize: 100
+            SUP:
+              driverClassName: com.mysql.cj.jdbc.Driver
+              url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_supplier}?${srm.db.connectParam}
+              username: ${srm.db.common.username}
+              password: ${srm.db.common.password}
+              minimumIdle: 0
+              maximumPoolSize: 100
+            PJ:
+              driverClassName: com.mysql.cj.jdbc.Driver
+              url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_pj}?${srm.db.connectParam}
+              username: ${srm.db.common.username}
+              password: ${srm.db.common.password}
+              minimumIdle: 0
+              maximumPoolSize: 100
+
+
+
+
+#springbootadmin资源监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: env,beans,httptrace
+      base-path: /actuator
+  health:
+    db:
+      enabled: false
+    mail:
+      enabled: false
+    redis:
+      enabled: false
+    elasticsearch:
+      enabled: false
+
+security:
+  oauth2:
+    resource:
+      prefer-token-info: false
+ribbon:
+  ConnectTimeout: 500000
+  ReadTimeout: 600000
+feign:
+  httpclient:
+    enabled: true # 默认开启
+  client:
+    config:
+      default: # 默认全局服务调用超时配置
+        connectTimeout: 500000 # 连接超时
+        readTimeout: 600000 # 接口请求超时
+      serviceAdmin: # 自定义服务调用超时配置
+        connectTimeout: 500000
+        readTimeout: 600000
+#elasticsearch
+es:
+  host: ${srm.es.host}
+  port: ${srm.es.port}
+  scheme: ${srm.es.scheme}
+
+##全局校验开关
+verify:
+  repeat:
+    submit: false
+##seata配置
+seata:
+  enabled: ${srm.seata.enabled}
+  enableAutoDataSourceProxy: ${srm.seata.enableAutoDataSourceProxy}
+  application-id: ${srm.seata.application-id}
+  tx-service-group: ${srm.seata.tx-service-group}
+  service:
+    vgroup-mapping:
+      meicloud-dev-tx-group: ${srm.seata.service.vgroup-mapping.meicloud-dev-tx-group}
+  config:
+    type: ${srm.seata.config.type}
+    nacos:
+      server-addr: ${srm.seata.config.nacos.server-addr}
+      namespace: ${srm.seata.config.nacos.namespace}
+      group: ${srm.seata.config.nacos.group}
+      data-id: ${srm.seata.config.nacos.data-id}
+  registry:
+    type: ${srm.seata.registry.type}
+    nacos:
+      application: ${srm.seata.registry.nacos.application}
+      server-addr: ${srm.seata.registry.nacos.server-addr}
+      namespace: ${srm.seata.registry.nacos.namespace}
+      group: ${srm.seata.registry.nacos.group}
+#iam同步消息队列
+rocketmq:
+  name-server: ${srm.rocketmq.name-server}
+  producer:
+    group: ${spring.application.name}
+
+# iam 数据连接相关配置
+iam:
+  user:
+    sync:
+      topic: ${srm.iam.user.sync.topic}
+      mqSynchronize: 1
+      consume:
+        all: 1
+        filter: srm
+    client:
+      id: ${srm.iam.client.id}
+      secret: ${srm.iam.client.secret}
+    base:
+      url: ${srm.url.iam}
+    push:
+      vendorTypeCode: srm
+      buyerTypeCode: innerAccountType
+idm:
+  tokenType: bearer
+  ####获取IDM用户信息url
+  profileUrl: ${srm.url.iam}/${srm.iam.auth.application.context:${iam.auth.application.context:iam}}/oauth2/user
+  user:
+    sync:
+      topic: ${srm.iam.user.sync.topic}
+      mqSynchronize: 1
+      typeCode: srm
+
+# apaas审计日志配置
+meicloud:
+  # 统一mq配置
+  mq:
+    default-binder: rocketmq
+  paas:
+    audit: #审计日志相关配置
+      enable: false
+      app-code: SRM
+      app-name: SRM-base
+      app-secret: leZKi3l2DWqbM0WLC2UEyf5rdXSk0pxnasXa15SH
+      # 控制台地址
+      register-address: ${srm.url.apaas}
+      log-writer:
+        type: http
+#    ies:
+#      upload: 
+#        type: oss
+#        endpoint: ${srm.oss.endpoint}
+#        accessKeyId: ${srm.oss.accessKeyId}
+#        accessKeySecret: ${srm.oss.accessKeySecret}
+#        bucketName: ${srm.oss.bucketName}
+    minio: #IDE SDK依赖这个配置
+      outerUrl: http://10.168.130.50:9000/
+
+#IDE SDK依赖-start
+api:
+  baseUrl: ${srm.url.ide}/
+ide:
+  meiunion: ${srm.url.ide}/lcdp/meiunion
+  service-info:
+    tenantId: ${srm.ide.tenantId}
+    projectCode: ${srm.ide.projectCode}
+    operation:
+      code: query,add,delete,update,saveOrUpdate
+tenantId: ${srm.ide.tenantId}
+projectCode: ${srm.ide.projectCode}
+operation:
+  code: query,add,delete,update,saveOrUpdate
+standard-audit-field-map:
+  fieldListMap: {
+    CREATED_ID: [{name: 'CREATED_ID'}],
+    CREATED_BY: [{name: 'CREATED_BY'}],
+    CREATION_DATE: [{name: 'CREATION_DATE'}],
+    CREATED_BY_IP: [{name: 'CREATED_BY_IP'}],
+    CREATED_FULL_NAME: [{name: 'CREATED_FULL_NAME'}],
+    LAST_UPDATED_ID: [{name: 'LAST_UPDATED_ID'}],
+    LAST_UPDATED_BY: [{name: 'LAST_UPDATED_BY'}],
+    LAST_UPDATE_DATE: [{name: 'LAST_UPDATE_DATE'}],
+    LAST_UPDATED_BY_IP: [{name: 'LAST_UPDATED_BY_IP'}],
+    LAST_UPDATED_FULL_NAME: [{name: 'LAST_UPDATED_FULL_NAME'}]
+  }
+#IDE SDK依赖-end
+
+# 工作流配置
+approflow:
+  sdk:
+    callback:
+      enabled: ${srm.ide.flow.sdk.callback.enabled}
+      auth:
+        type: ${srm.ide.flow.sdk.callback.auth.type}
+        param:
+          privateKey: ${srm.ide.flow.sdk.callback.auth.privateKey}
+    interfaze:
+      enabled: ${srm.ide.flow.sdk.interfaze.enabled}
+      providerName: ${srm.ide.flow.sdk.interfaze.providerName}
+      version: ${srm.ide.flow.sdk.interfaze.version}
+      baseUrl: ${srm.ide.flow.sdk.interfaze.baseUrl}
+      auth:
+        type: ${srm.ide.flow.sdk.interfaze.auth.type}
+        param:
+          baseUrl: ${srm.ide.flow.sdk.interfaze.auth.baseUrl}
+          clientId: ${srm.ide.flow.sdk.interfaze.auth.clientId}
+          clientSecret: ${srm.ide.flow.sdk.interfaze.auth.clientSecret}
+
+# mql配置
+meiql:
+  class:
+    # MeiQL默认的序列化
+    json: com.midea.cloud.srm.ql.jackson.SrmJacksonSerialize
+  permission:
+    # 启用权限控制，不启用将使用旧的接口权限拦截方式
+    enable: true
+    # 拦截的url前缀，与meiql.apiPath保持一致
+    prex: /api-ql
+    # 功能点code中type,action的分隔符，默认是#,
+    splitChar: '#'
+    # 当前用户权限信息缓存模式，支持jvm|redis
+    # jvm(默认): 用户权限缓存到jvm里面，会自动淘汰30分钟未有操作的用户数据
+    # redis: 用户权限缓存到redis，使用的是spring的redisTemplate，如果要使用redis，需要主应用本身就配置了spring redis
+    cacheMode: jvm
+  debug: true
+  nacos:
+    serverAddr: ${srm.nacos.url}
+    namespace: ${srm.nacos.namespace}
+    group: srm
+    enable: true
+    username: nacos
+    # password: d9R-_m3lRP5~
+    password: nacos
+srm:
+  #srm 地址
+  baseUrl: https://srm-dev.hmmr.ru/
+  openApi:
+    #OpenApi V1相关配置
+    v1:
+      apps:
+        #SRM产品+PJ模块
+        prd:
+          appId: uI6NPQXWO59y0L6pRcyEcoHbuHsrxG5B
+          appSecret: tLskJjHsOWzHbr450V97QQcrrafIUSFuueD6pbfagummqyMd
+          timeoutIn: 7200
+          interceptors:
+            - url: /**
+              bean: principalV1Interceptor
+        #ipaas
+        ipaas:
+          appId: lR2SshOh9XngE2Dg3TzPqbP3XCU03496
+          appSecret: pC7087oqDQZme83dHLwJd8Iddb3Tmr12xdI7fh3mhNTh9VNW
+          timeoutIn: 7200
+          interceptors:
+            - url: /**
+              bean: principalV1Interceptor
+    v2:
+      apps:
+      #SRM+PJ
+        prd:
+          appId: y9G4V0zvm5Y2qNhTXba5cR8NZu5SPVpk
+          appSecret: Q2M8eROUo2l2UJ1LXvS1b7grVNK7z7FnX9YF0ExKpU2WwDHF
+          timeoutIn: 7200
+          interceptors:
+            - url: /**
+              bean: principalV2Interceptor
+        #ipaas
+        ipaas:
+          appId: lR2SshOh9XngE2Dg3TzPqbP3XCU03496
+          appSecret: pC7087oqDQZme83dHLwJd8Iddb3Tmr12xdI7fh
+        #流程引擎
+        mflow:
+          appId: sQuq3nfarfwhNEdJ3c0w3kPdvvuSvHIa
+          appSecret: wwIBXMOj7COuhyRT7khhfrTvOA36rhW1hya9oPpsmPCvpSZm
+          timeoutIn: 1576800000
+          interceptors:
+            - url: /api/v2/cgi-user/token/grant
+              bean: cgiUserInterceptor
+              params:
+                userName: super
+            - url: /**
+              bean: principalV2Interceptor
+bpm:
+  #调价申请
+  tjsq:
+    processGroupId2: obj_ce90e4f060d04cdcab73099c3309ec62
+  #发布审批
+  fbsp:
+    processGroupId: obj_bcb4f63520ca443ea275b6bdea281448
+    processGroupId2: obj_edf04631f70d46c3b838355d0108bc0c
+    appId: com.awspaas.user.apps.app20230971602
+    #附件路径
+    addressPath: https://srm-dev.hmmr.ru/cloud-srm/api-pj/external/file/download?
+  #资质审查
+  zzsc:
+    processGroupId: obj_56a76d1f69b34fcabd1eb78d071a35f2
+    processGroupId2: obj_14b6e4f630ef4ced9b34a036877dd563
+    appId: com.awspaas.user.apps.app20230971602
+    #附件路径
+    addressPath: https://srm-dev.hmmr.ru/cloud-srm/api-pj/external/file/download?
+  #资质受限
+  zzsx:
+    processGroupId: obj_316d1c4fd8144a84b4f1ab97ced49dc9
+    processGroupId2: obj_b77c29d606fa4d58a2f6e82328a17eaa
+  #供应商绿色通道(公司)
+  lstdgs:
+    processGroupId: obj_a28c7170395e42c3b3aef46810da3591
+    processGroupId2: obj_edf04631f70d46c3b838355d0108bc0c
+  #供应商绿色通道(个人)
+  lstdgr:
+    processGroupId: obj_19752e3e5b484bf1b58a6f5f2e202754
+    processGroupId2: obj_edf04631f70d46c3b838355d0108bc0c
+  #寻源需求
+  xqxy:
+    processGroupId: obj_7f70ec5e76e64884bd51434b67e9b020
+    processGroupId2: obj_edf04631f70d46c3b838355d0108bc0c
+  #招标资料递交
+  zbzldj:
+    processGroupId: obj_0d58ac5e0e154173b6d00dfa9a8cb1a5
+    processGroupId2: obj_11f847619d60427f80bcb911bd28c956
+  #推荐供应商
+  tjgys:
+    processGroupId: obj_df2d4938c55741bf80c771691764e894
+    processGroupId2: obj_13ef27f24c7b481b85a9d6ac1d1ccd78
+  #专家申请
+  zjsq:
+    processGroupId: obj_a90f62ea155c4c62b36098f05a88a744
+    processGroupId2: obj_edf04631f70d46c3b838355d0108bc0c
+  #专家升级
+  zjsj:
+    processGroupId: obj_e6f6172b91824e8c8780bde0c034bc09
+    processGroupId2: obj_edf04631f70d46c3b838355d0108bc0c
+  #专家绿色通道审批
+  zjlstdsp:
+    processGroupId: obj_d3aae24dc8fc495cbac39453f4dc5dae
+    processGroupId2: obj_edf04631f70d46c3b838355d0108bc0c
+  #借阅申请审批
+  jysqsp:
+    processGroupId: obj_a645c2595602405b8616cd8e6ed4833a
+    processGroupId2: obj_6af11ab1a8ae416aab907a835c07c0ee
+  #临采定价单
+  lcdjd:
+    processGroupId: obj_2abb68c9a16a4cae814d63461ea3c131
+    processGroupId2: obj_a09d130c2345403ca2414ac549f6686b
+  #询比价定价审批
+  xbjdjsp:
+    processGroupId2: obj_b402e9b048a64de2b73e322066dba0f6
+  #临采需求申请单
+  lcxqsqd:
+    processGroupId: obj_09822fecd396455d87255a9181591975
+    processGroupId2: obj_2d2ec6feebd94732931f98f1647b9930
+  #提报策划方案
+  tbchfa:
+    processGroupId: obj_5198ba258f884b64bcefc5ebfbc9e852
+    processGroupId2: obj_b10e7d62bd4d4b14a42c047ea4d08c3a
+  #黑名单解除
+  hmdjc:
+    processGroupId: obj_5bfa1d25ad094a8ab1f1fdf645c6b0ca
+    processGroupId2: obj_edf04631f70d46c3b838355d0108bc0c
+
+#供应商黑名单
+  GYSHMD:
+    processGroupId: obj_7e7f043a3a0a4dc380cb2910a3f1e8ab
+    processGroupId2: obj_edf04631f70d46c3b838355d0108bc0c
+    MB: black  
+    #附件路径
+    fileDownloadPath: https://srm-dev.hmmr.ru/cloud-srm/api-pj/external/file/download?
+#招标需求申请取消  
+  XQSQQX:
+    processGroupId: obj_f850785ae2ab404185a4473702d02b41  
+    processGroupId2: obj_677eadf4516a444d8b39f95c691a2778
+    MB: MQL_PR_SOU_REQ_CANCEL_INIT
+#招标需求变更
+  XQBG:
+    processGroupId: obj_26a892a32b5c46b38dfc1441606f82ad
+    processGroupId2: obj_ca4ab68b9027476bab2464432b0c5c46   
+    MB: MQL_PR_SOU_REQUIREMENT_CHANGE
+#招募审批  
+  ZMSP:
+    processGroupId: obj_d8b1edbbaa9d47938b54f97d6284d444
+    processGroupId2: obj_754763f7e79e4cce8c660c7cfcbf2085
+    MB : RECRUIT
+#考察申请  
+  KCSQ:
+    processGroupId: obj_edf04631f70d46c3b838355d0108bc0c
+    processGroupId2: obj_788f63ea6f1149528ed6fa8483911569 
+    MB: INSPECT_APPLY
+#考察报告  
+  KCBG:
+    processGroupId: obj_76751aae1b9d494e938d8becd331450f
+    processGroupId2: obj_83e8c873c5da4ea59fb34fd75bb5ba97 
+    MB: INSPECT_REPORT
+ #中落标通知  
+  ZLBTZ:
+    processGroupId: obj_d99f841043824e76a475a9d5f75788ca
+    processGroupId2: obj_02a2cf791a7445c7a69b4af8b91d383c   
+    MB: SOU_TN
+  #中落标废弃申请  
+  ZLBFQSQ:
+    processGroupId: obj_916c199be7bd4fe4b100f55da4ef9f59
+    processGroupId2: obj_67c83d24e3584f44812abf5018986ba8   
+    MB: SOU_ATN 
+  #采购需求申请  
+  CGXQSQ:
+    processGroupId:  
+   #定标审批单  
+  DBSPD:
+    processGroupId: obj_1ce1be20b6e0458ba60050e85b6bc5fa
+    processGroupId2: obj_14b6e4f630ef4ced9b34a036877dd563
+    dbfw_url: https://gwapi.gwm.cn/pre/public/flow/dw/bo/updateDwBoData 
+   #定标废弃申请  
+  DBFQSQ:
+    processGroupId: obj_411037e11b1c4f5897861897b0c0a5fc
+    processGroupId2: obj_02848b2966b14a03a77fcb6a644ab5ec
+ #特殊招标计划
+  TSZBJH:
+    processGroupId: obj_dc1d14260307436d9c7eb1737762ae87
+    processGroupId2: obj_edf04631f70d46c3b838355d0108bc0c
+    BM: MQL_PR_SOU_REQUIREMENT_INIT
+#正常招标计划
+  ZCZBJH:
+    processGroupId: obj_fcfd04f27e924fa3a0c8eab5a07cb077
+    processGroupId2: obj_d988efc9b9ba41a0b1a3e1ab2e17b9ce 
+    MB: MQL_PR_SOU_REQUIREMENT_INIT
+#招标申请
+  ZBJH:
+    processGroupId: obj_dc1d14260307436d9c7eb1737762ae87
+    processGroupId2: obj_edf04631f70d46c3b838355d0108bc0c
+#发布审批-竞价管理
+  JJGL:
+    processGroupId: obj_bcb4f63520ca443ea275b6bdea281448
+    processGroupId2: obj_edf04631f70d46c3b838355d0108bc0c
+    BM: BIDDING_SUBMIT
+#提交定商定价结果审批-编制定标结果
+  BZDBJG:
+    processGroupId: obj_eee532da03e44620af0f129df807ee7d
+    processGroupId2: obj_f11e78406a714cb4a8a4b4285069ac55
+    BM: BIDDING_RESULT   
+#中标通知审批
+  ZBTZSP:
+    processGroupId: obj_92e7cb34f7d541d9ae14e60a1e07b58e
+    processGroupId2: obj_a4509eb3234a43e2966fafaf3b744dbe
+    BM: BIDDING_SUCCESS
+#临采合同审批
+  LCHTSP:
+    processGroupId: obj_1ca4205929c64627bc290a48dc416418
+    processGroupId2: obj_edf04631f70d46c3b838355d0108bc0c
+    appId: com.awspaas.user.apps.app20230971602
+  #合同终止
+  HTZZ:
+    processGroupId: obj_2ce47d60114a4e31875fac35a92f59f7
+    processGroupId2: obj_5c959ddaf7254ef5974a322092c99774
+    appId: com.awspaas.user.apps.app20230971602
+  #合同验收  
+  HTYS:
+    processGroupId: obj_dbb60bd2719946b09b8aa108b0fa36ec
+    processGroupId2: obj_5a0a131de52546b88c65966dede7f537
+    appId: com.awspaas.user.apps.app20230971602         
+  jixiao:
+    processGroupId: obj_295afd9ddfa14c2da50ea816e3de68f7
+    processGroupId2: obj_edf04631f70d46c3b838355d0108bc0c
+#eas系统对接
+eas:
+  #登录参数
+  login:
+    #登录认证地址
+    loginUrl: http://10.255.52.96:6894/ormrpc/services/EASLogin?wsdl
+    #用户名 user
+    user: user
+    #密码 kduser
+    password: user123
+    #对接系统标识，固定：
+    slnName: eas
+    #数据中心，固定值：KDTEST
+    dcName: lc003
+    #语言
+    language: L2
+    #固定值：2
+    dbType: 2
+  #业务接口地址
+  targetEndpointAddress: http://10.255.52.96:6894/ormrpc/services/WSSRMInterfaceServiceFacade
+  namespace: http://login.webservice.bos.kingdee.com
+  deliveryNoteAddress: http://10.255.52.96:6894/ormrpc/services/WSSyncPurOrderBillFacade
+  invoiceNoticeAddress: http://10.255.52.96:6894/ormrpc/services/WSWSPaybillWebFacade
+  actualStockAddress: http://10.255.52.96:6894/ormrpc/services/WSWSInventory
+
+#gscp系统对接
+gscp:
+  username: EPS
+  password: EPSshaicha.1
+  grant_type: client_credentials
+  scope: INTERNAL
+  tokenUrl: http://gscp.gwmtest.cn/AuthServer/oauth/token
+  import-screeningUrl: http://gscp.gwmtest.cn/api/asm-screening-api/v1/import-screening
+  import-screening-accountId: 1
+  import-screening-profileId: 63f0b54d-81ec-4b49-aeca-cdebbf66fc90
+  import-screening-datasetId: 1003
+sap:
+  #sap系统环境地址
+  sapSysUrl: 'http://sap-qas-app.hmmr.ru:60000'
+  #认证
+  sAPAuthorization: 'Basic U1lTX0lOVEVHUkE6U0BwMTIzNDU2Nzg5'
+  cookie: 'SAP_SESSIONID_S4Q_800=bEQtLWlgGlNBzFysuCt76ORgNpXvjBHvqPEADCnyC-0%3d; sap-usercontext=sap-client=800'
+  #汇率查询
+  ExchangeRateSetApi: '/sap/opu/odata/sap/ZPURCHASEORDER_API_SRV/ExchangeRateSet'
+  #物料删除
+  deleteMaterialApi: '/sap/opu/odata/sap/ZPURCHASEORDER_API_SRV/MasterMaterialDataSet'
+  #物料新增或修改
+  saveOrUpdateMaterialApi: '/sap/opu/odata/sap/ZPURCHASEORDER_API_SRV/MasterMaterialDataSet'
+  #新增供应商
+  createSupplier: '/sap/opu/odata/sap/ZPURCHASEORDER_API_SRV/SupplierSet'
+  #推送订单
+  pushOrderApi: '/sap/opu/odata/sap/ZPURCHASEORDER_API_SRV/A_PurchaseOrder'
+  #删除订单
+  deleteOrderApi: '/sap/opu/odata/sap/ZPURCHASEORDER_API_SRV/A_PurchaseOrder'
+gwm:
+  #沙盒
+  appkey: 85X2XXT7MAXX
+  secret: 021f2270513c462aab6453e37d15dfd8
+  #正式
+  #appkey: 9T61T6M3M840
+  #secret: f1584bb0f58849a79afa8e3540bb3366
+  bpm:
+  #SRM组织角色推送bpm
+  src-system: com.awspaas.user.apps.app20230971602
+  api-username: GW00244106
+  #来源系统
+  opersource: RUS_SRM
+  #系统地址
+  gwmSysUrl: https://gwapi.gwm.cn/sandbox
+  url:
+    #MDM分页查询物料品类
+    #沙盒
+    category: /mdm/Nonproductionmaterials/material-category/page
+    #正式
+    #category: https://gwapi.gwm.cn/rest/mdm/Nonproductionmaterials/material-category/page
+    #MDM生成非生产物料编码
+    generateMaterialCode: /mdm/Nonproductionmaterials/nonproductive-material/generateMaterialCode
+    #MDM新增非生产物料
+    pushMaterial: /mdm/Nonproductionmaterials/nonproductive-material
+    #非生产物料主数据
+    material-url: /mdm/Nonproductionmaterials/nonproductive-material/page
+    #新增OA申请编号、供应商编码等信息
+    createSupplierApi: /mdm/supplierinfo/supplierinfo/createSupplier?sap-client=800
+    #修改供应商信息
+    supplierinfoEditApi: /mdm/supplierinfo/supplierinfo/edit
+    #发送工作通知
+    msgDingdingWorkNoticesApi: /msg/dingding/workNotices
+    #获取工作通知结果
+    msgDingdingWorkNoticesResultApi: /msg/dingding/workNotices

@@ -1,0 +1,15 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "OrgJournal:meicloud_usrm_cloud_biz_supplier.ceea_sup_auth_org_journal": {
+    "keyField": "orgJournalId",
+    "fields": {
+      "orgJournalId": "Long",
+      "formId": "Long",
+      "formType": "String",
+      "vendorId": "Long",
+      "orgId": "Long",
+      "@include": ":BaseFields"
+    }
+  }
+}

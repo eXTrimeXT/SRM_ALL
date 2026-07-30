@@ -1,0 +1,18 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "OrgCompanyBank:meicloud_usrm_cloud_biz_base.scc_base_org_company_bank": {
+    "keyField": "companyBankId",
+    "fields": {
+      "companyBankId": "Long",
+      "organizationId": "Long",
+      "bankNum": "String",
+      "bankName": "String",
+      "branchBankNum": "String",
+      "branchBankName": "String",
+      "accountName": "String",
+      "bankAccount": "String",
+      "@include": ":BaseFields"
+    }
+  }
+}

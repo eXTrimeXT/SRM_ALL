@@ -1,0 +1,19 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "FlowInstanceRecord:scc_flow_instance_record": {
+    "keyField": "flowInstanceRecordId",
+    "fields": {
+      "flowInstanceRecordId": "Long",
+      "businessId": "Long",
+      "templateCode": "String",
+      "businessData": "String",
+      "instanceId": "String",
+      "flowData": "String",
+      "flowStatus": "String",
+      "dealStatus": "String",
+      "dealDate": "Date",
+      "@include": ":BaseFields"
+    }
+  }
+}

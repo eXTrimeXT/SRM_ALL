@@ -1,0 +1,23 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "Organization:meicloud_usrm_cloud_biz_base.scc_base_organization": {
+    "keyField": "organizationId",
+    "fields": {
+      "organizationId": "Long",
+      "organizationTypeId": "Long",
+      "organizationTypeCode": "String",
+      "organizationTypeName": "String",
+      "organizationName": "String",
+      "organizationCode": "String",
+      "parentOrganizationIds": "String",
+      "organizationRegion": "String",
+      "defaultInv": "String",
+      "enabled": "String",
+      "startDate": "LocalDate",
+      "endDate": "LocalDate",
+      "erpOrgId": "String",
+      "@include": ":BaseFields"
+    }
+  }
+}

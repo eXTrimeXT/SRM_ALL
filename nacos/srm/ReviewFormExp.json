@@ -1,0 +1,15 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "ReviewFormExp:meicloud_usrm_cloud_biz_supplier.scc_sup_auth_review_form_exp": {
+    "keyField": "reviewFormExpId",
+    "fields": {
+      "reviewFormExpId": "Long",
+      "reviewFormId": "Long",
+      "vendorId": "Long",
+      "reviewReason": "String",
+      "reasonExplain": "String",
+      "@include": ":BaseFields"
+    }
+  }
+}

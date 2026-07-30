@@ -1,0 +1,24 @@
+{
+  "_version": "1.0",
+  "_type": "CUSTOM",
+  "PerPlan:scc_cont_per_plan": {
+    "repository": "perPlanExtRepository",
+    "keyField" : "perPlanId",
+    "fields":{
+      "extHrSectorCode": "String:创建人所属板块代码",
+      "extHrSectorId": "Long:创建人所属板块ID",
+      "extHrSectorName": "String:创建人所属板块名称",
+      "extHrDeptName": "String:创建人所属部门名称",
+      "extHrDeptId": "Long:创建人所属部门Id",
+      "extHrDeptCode": "String:创建人所属部门代码",
+      "extHrCompanyName": "String:创建人所属公司名称",
+      "extHrCompanyId": "Long:创建人所属公司Id",
+      "extHrCompanyCode": "String:创建人所属公司代码",
+      "extCancelBy":"String:取消人",
+      "extCancelDesc":"String:取消说明",
+      "extCancelFileId":"Long:取消附件id",
+      "extCancelFileName":"String:取消附件名称",
+      "extCancelTime":"Date:取消时间"
+    }
+  }
+}

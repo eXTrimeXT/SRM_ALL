@@ -1,0 +1,51 @@
+# meiql:
+#   nacos:
+#     serverAddr: http://nacos-cs.dev:8848
+#     namespace: dev
+#     group: srm
+#     enable: true
+#     username: ${global.nacos.user}
+#     password: ${global.nacos.password}
+#   schemaFile:
+#     - path:classpath*:meiql-schema/*.json
+#     - nacos:PurchaseCategory.json
+#     - nacos:Organization.json
+#     - nacos:Site.json
+#     - nacos:OrgCompany.json
+#     - nacos:OrgCompanyBank.json
+#     - nacos:OrgCompanyAddress.json
+#     - nacos:OrgCompanyPerson.json
+#     - nacos:FlowInstanceRecord.json
+#     - nacos:OrganizationRelation.json
+#     - nacos:OrgInvoiceInfo.json
+#     - nacos:OrgCollectInfo.json
+#     - nacos:PurchaseExchangeRate.json
+#     - nacos:OrganizationUser.json
+#     - nacos:SccBaseSceneFile.json
+
+srm:
+  sms:
+    channel:
+      default:
+        serverTypeCode: dahan
+        regionId: cn-hangzhou
+        endPoint: http://www.dh3t.com/json/sms/Submit
+        accessKey: 3449136
+        accessKeySecret: 8428d58c780b0d072925f5183495de38
+        signName: 【长城汽车】
+gwm:
+  appkey: 85X2XXT7MAXX
+  secret: 021f2270513c462aab6453e37d15dfd8
+#  appkey: 850T8A7B9648
+#  secret: acfae103027447838b0c019ca278b0e6
+  #生产appKey,短信只有生产接口，本地测试配置，不配置这个prdAppkey默认获取appkey
+  prdAppkey: 6SS4T6X52X40
+  #生产secret,短信只有生产接口，本地测试配置，不配置这个prdSecret默认获取secret
+  prdSecret: 4c35a4eed7824afdb3f988b51ec42a54
+  # sendSmsUrl: https://gwapi.gwm.cn/rest/public/pubqc/api/tripartite/capability/notification
+  #短信作废
+  sendSmsUrl: https://gwapi.gwm.cn/rest/public/pubqc/api/tripartite/capability/notification3
+  sendEmailUrl: https://gwapi.gwm.cn/sandbox/rd/email/send/text
+  srcSystem: com.awspaas.user.apps.app20230971602
+#appkey: X63T8A0BM648
+#  secret: 00cc14bc145a43dc816fa5750a0a7324
