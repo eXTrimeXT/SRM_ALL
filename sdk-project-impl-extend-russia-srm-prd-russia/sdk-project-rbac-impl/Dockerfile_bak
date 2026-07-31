@@ -15,5 +15,7 @@ RUN zip -r -u /home/apps/app.jar BOOT-INF/classes/com/midea/cloud/* -n jar
 
 COPY ./target/sdk-project-rbac-impl*.jar /home/apps/plugins
 
-ENTRYPOINT sh run.sh app.jar
+#ENTRYPOINT sh run.sh app.jar
+ENTRYPOINT ["sh", "run.sh", "app.jar"]
+
 

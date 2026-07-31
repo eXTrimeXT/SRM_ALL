@@ -99,57 +99,29 @@
 #java ${ARGU_OPTS} ${JAVA_OPTS} -jar ${app_jar} ${APP_OPTS}
 
 #!/bin/bash
-
 export LANG="en_US.UTF-8"
-CURR_DIR=`pwd`
-cd `dirname "$0"`
-WORK_HOME=`pwd`
 app_jar=$1
 
-echo "Work Home: ${WORK_HOME}"
-
-# 1. ЖЕСТКО задаем JAVA_OPTS с host.docker.internal (без условий if)
+# Базовые JVM настройки (включая дешифратор, который работает внутри этого Docker-образа)
 JAVA_OPTS="-agentlib:ByteCodeDecryptor \
 -Djasypt.encryptor.password=gn4^Qa0k+WyeCkKt \
--Dspring.cloud.nacos.config.server-addr=10.168.154.42:8848 \
+-Dspring.cloud.nacos.config.server-addr=http://10.168.154.42:8848 \
 -Dspring.cloud.nacos.config.username=nacos \
 -Dspring.cloud.nacos.config.password=nacos \
--Dspring.cloud.nacos.discovery.server-addr=10.168.154.42:8848 \
+-Dspring.cloud.nacos.discovery.server-addr=http://10.168.154.42:8848 \
 -Dspring.cloud.nacos.discovery.username=nacos \
 -Dspring.cloud.nacos.discovery.password=nacos \
--Dglobal.nacos.url=10.168.154.42:8848 \
+-Dglobal.nacos.url=http://10.168.154.42:8848 \
 -Dglobal.nacos.user=nacos \
 -Dglobal.nacos.password=nacos \
 -Xms500m -Xmx500m -Xss256k"
 
-# 2. Если были дополнительные JAVA_INIT_OPTS, просто добавляем их в конец
-if [ -n "$JAVA_INIT_OPTS" ]; then
-   JAVA_OPTS="$JAVA_OPTS $JAVA_INIT_OPTS"
+APP_OPTS="--spring.profiles.active=dev --spring.cloud.nacos.config.namespace=dev"
+
+# ВАЖНО: Для ШЛЮЗА (gateway) отключаем автоконфигурацию БД, иначе он упадет
+if [[ "$app_jar" == *"gateway"* ]]; then
+    APP_OPTS="$APP_OPTS --spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration"
 fi
 
-echo "JAVA_OPTS: ${JAVA_OPTS}"
-
-ARGU_OPTS=$ARGU_OPTS
-echo "ARGU_OPTS: ${ARGU_OPTS}"
-
-# 3. APP_INIT_OPTS также используем host.docker.internal
-APP_INIT_OPTS="--spring.profiles.active=dev \
---spring.cloud.nacos.config.server-addr=10.168.154.42:8848 \
---spring.cloud.nacos.config.username=nacos \
---spring.cloud.nacos.config.password=nacos \
---spring.cloud.nacos.config.namespace=dev \
---spring.cloud.nacos.discovery.server-addr=10.168.154.42:8848 \
---spring.cloud.nacos.discovery.username=nacos \
---spring.cloud.nacos.discovery.password=nacos \
---debug"
-
-APP_OPTS="$APP_OPTS $APP_INIT_OPTS"
-echo "APP_OPTS: ${APP_OPTS}"
-
-echo "starting..."
-
-RUN_CMD="java ${ARGU_OPTS} ${JAVA_OPTS} -jar $app_jar $APP_OPTS"
-echo "RUN_CMD: $RUN_CMD"
-
-# Запуск
-java ${ARGU_OPTS} ${JAVA_OPTS} -jar ${app_jar} ${APP_OPTS}
+echo "Starting $app_jar with opts: $APP_OPTS"
+java $JAVA_OPTS -jar /apps/$app_jar $APP_OPTS

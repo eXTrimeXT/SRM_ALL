@@ -11,8 +11,6 @@ APP_INIT_OPTS="--spring.profiles.active=dev --spring.cloud.nacos.config.server-a
 docker build -t srm-biz-pj .
 ```
 
-
 ```bash
-docker run -d --name srm-biz-pj-container -p 8845:8845 srm-biz-pj
+docker run -d --name srm-biz-pj -p 8845:8845 srm-biz-pj
 ```
-

@@ -1,0 +1,69 @@
+services:
+  srm-pj:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        JAR_FILE: ./cloud-biz-pj/target/cloud-biz-pj-boot.jar
+    container_name: srm-pj
+    ports:
+      - "8845:8845"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command:
+      - "java"
+      - "-agentlib:ByteCodeDecryptor"
+      - "-Djasypt.encryptor.password=gn4^Qa0k+WyeCkKt"
+      - "-Dspring.cloud.nacos.config.server-addr=10.168.154.42:8848"
+      - "-Dspring.cloud.nacos.config.username=nacos"
+      - "-Dspring.cloud.nacos.config.password=nacos"
+      - "-Dspring.cloud.nacos.discovery.server-addr=10.168.154.42:8848"
+      - "-Dspring.cloud.nacos.discovery.username=nacos"
+      - "-Dspring.cloud.nacos.discovery.password=nacos"
+      - "-Dglobal.nacos.url=http://10.168.154.42:8848"
+      - "-Dglobal.nacos.user=nacos"
+      - "-Dglobal.nacos.password=nacos"
+      - "-Xms500m"
+      - "-Xmx500m"
+      - "-Xss256k"
+      - "-jar"
+      - "/apps/app.jar"
+      - "--spring.profiles.active=dev"
+      - "--spring.cloud.nacos.config.namespace=dev"
+    restart: unless-stopped
+
+  srm-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        JAR_FILE: ./cloud-biz-gateway-pj/target/cloud-biz-gateway-pj-boot.jar
+    container_name: srm-gateway
+    ports:
+      - "9005:9005"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command:
+      - "java"
+      - "-agentlib:ByteCodeDecryptor"
+      - "-Djasypt.encryptor.password=gn4^Qa0k+WyeCkKt"
+      - "-Dspring.cloud.nacos.config.server-addr=10.168.154.42:8848"
+      - "-Dspring.cloud.nacos.config.username=nacos"
+      - "-Dspring.cloud.nacos.config.password=nacos"
+      - "-Dspring.cloud.nacos.discovery.server-addr=10.168.154.42:8848"
+      - "-Dspring.cloud.nacos.discovery.username=nacos"
+      - "-Dspring.cloud.nacos.discovery.password=nacos"
+      - "-Dglobal.nacos.url=http://10.168.154.42:8848"
+      - "-Dglobal.nacos.user=nacos"
+      - "-Dglobal.nacos.password=nacos"
+      - "-Xms500m"
+      - "-Xmx500m"
+      - "-Xss256k"
+      - "-jar"
+      - "/apps/app.jar"
+      - "--spring.profiles.active=dev"
+      - "--spring.cloud.nacos.config.namespace=dev"
+      - "--spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration"
+    depends_on:
+      - srm-pj
+    restart: unless-stopped

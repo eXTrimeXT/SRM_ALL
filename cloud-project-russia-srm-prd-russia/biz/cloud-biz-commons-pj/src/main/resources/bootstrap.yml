@@ -46,9 +46,9 @@ server:
 #    lease-renewal-interval-in-seconds: 5
 #    prefer-ip-address: true
 #    instance-id: ${spring.cloud.client.hostname}:${spring.cloud.client.ip-address}:${server.port}
-jasypt:
-  encryptor:
-    algorithm: PBEWithMD5AndDES
-    iv-generator-classname: org.jasypt.iv.NoIvGenerator
-    bean: sm4Encryptor #指定使用sm4算法
+#jasypt:
+#  encryptor:
+#    algorithm: PBEWithMD5AndDES
+#    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+#    bean: sm4Encryptor #指定使用sm4算法
 

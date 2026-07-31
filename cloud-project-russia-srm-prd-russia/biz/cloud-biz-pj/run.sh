@@ -132,9 +132,21 @@ app_jar=$1
 
 echo "Work Home: ${WORK_HOME}"
 
-# 1. ЖЕСТКО задаем JAVA_OPTS с host.docker.internal (без условий if)
+# 1. ЖЕСТКО задаем JAVA_OPTS
+#JAVA_OPTS="-agentlib:ByteCodeDecryptor \
+#-Djasypt.encryptor.password=gn4^Qa0k+WyeCkKt \
+#-Dspring.cloud.nacos.config.server-addr=10.168.154.42:8848 \
+#-Dspring.cloud.nacos.config.username=nacos \
+#-Dspring.cloud.nacos.config.password=nacos \
+#-Dspring.cloud.nacos.discovery.server-addr=10.168.154.42:8848 \
+#-Dspring.cloud.nacos.discovery.username=nacos \
+#-Dspring.cloud.nacos.discovery.password=nacos \
+#-Dglobal.nacos.url=10.168.154.42:8848 \
+#-Dglobal.nacos.user=nacos \
+#-Dglobal.nacos.password=nacos \
+#-Xms500m -Xmx500m -Xss256k"
+
 JAVA_OPTS="-agentlib:ByteCodeDecryptor \
--Djasypt.encryptor.password=gn4^Qa0k+WyeCkKt \
 -Dspring.cloud.nacos.config.server-addr=10.168.154.42:8848 \
 -Dspring.cloud.nacos.config.username=nacos \
 -Dspring.cloud.nacos.config.password=nacos \
@@ -143,8 +155,7 @@ JAVA_OPTS="-agentlib:ByteCodeDecryptor \
 -Dspring.cloud.nacos.discovery.password=nacos \
 -Dglobal.nacos.url=10.168.154.42:8848 \
 -Dglobal.nacos.user=nacos \
--Dglobal.nacos.password=nacos \
--Xms500m -Xmx500m -Xss256k"
+-Dglobal.nacos.password=nacos"
 
 # 2. Если были дополнительные JAVA_INIT_OPTS, просто добавляем их в конец
 if [ -n "$JAVA_INIT_OPTS" ]; then

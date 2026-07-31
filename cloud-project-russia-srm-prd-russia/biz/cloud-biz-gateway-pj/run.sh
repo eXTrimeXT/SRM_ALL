@@ -10,13 +10,13 @@ echo "Work Home: ${WORK_HOME}"
 
 JAVA_OPTS="-agentlib:ByteCodeDecryptor \
 -Djasypt.encryptor.password=gn4^Qa0k+WyeCkKt \
--Dspring.cloud.nacos.config.server-addr=host.docker.internal:8848 \
+-Dspring.cloud.nacos.config.server-addr=10.168.154.42:8848 \
 -Dspring.cloud.nacos.config.username=nacos \
 -Dspring.cloud.nacos.config.password=nacos \
--Dspring.cloud.nacos.discovery.server-addr=host.docker.internal:8848 \
+-Dspring.cloud.nacos.discovery.server-addr=10.168.154.42:8848 \
 -Dspring.cloud.nacos.discovery.username=nacos \
 -Dspring.cloud.nacos.discovery.password=nacos \
--Dglobal.nacos.url=http://host.docker.internal:8848 \
+-Dglobal.nacos.url=10.168.154.42:8848 \
 -Dglobal.nacos.user=nacos \
 -Dglobal.nacos.password=nacos \
 -Xms500m -Xmx500m -Xss256k"
@@ -31,13 +31,15 @@ ARGU_OPTS=$ARGU_OPTS
 echo "ARGU_OPTS: ${ARGU_OPTS}"
 
 APP_INIT_OPTS="--spring.profiles.active=dev \
---spring.cloud.nacos.config.server-addr=host.docker.internal:8848 \
+--spring.cloud.nacos.config.server-addr=10.168.154.42:8848 \
 --spring.cloud.nacos.config.username=nacos \
 --spring.cloud.nacos.config.password=nacos \
 --spring.cloud.nacos.config.namespace=dev \
---spring.cloud.nacos.discovery.server-addr=host.docker.internal:8848 \
+--spring.cloud.nacos.discovery.server-addr=10.168.154.42:8848 \
 --spring.cloud.nacos.discovery.username=nacos \
---spring.cloud.nacos.discovery.password=nacos"
+--spring.cloud.nacos.discovery.password=nacos \
+--spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration \
+--debug"
 
 APP_OPTS="$APP_OPTS $APP_INIT_OPTS"
 echo "APP_OPTS: ${APP_OPTS}"
