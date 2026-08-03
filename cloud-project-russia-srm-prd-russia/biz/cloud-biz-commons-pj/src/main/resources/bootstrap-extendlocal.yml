@@ -7,11 +7,11 @@ spring:
     nacos:
       discovery:
         # 命名空间，注册到srm-dockeruat环境
-        namespace: dev
+        namespace: uat
         # 注册中心地址
 #        server-addr: http://10.246.99.228:8848
         server-addr: http://10.168.154.42:8848
-        group: dev
+        group: uat
         metadata:
           # feign微服务调用路由策略标签分组
           routingTag: local
@@ -21,7 +21,7 @@ spring:
 #        password: ENC(1bee7a35864e8a2ce35bf7a044c16ea8820ea668c578f9dc24d466078a3f64c3)
       config:
         # 命名空间，获取srm-dockeruat命名空间的配置文件
-        namespace: dev
+        namespace: uat
         group: srm
         # 配置中心地址
 #        server-addr: http://10.246.99.228:8848

@@ -285,6 +285,12 @@
             <version>1.1.2404.2</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.mideacloud</groupId>
+            <artifactId>mideacloud-common-objectx</artifactId>
+            <version>2.13.3</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

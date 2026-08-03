@@ -1,0 +1,14 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "OrganizationRelation:scc_base_organization_rel": {
+    "keyField": "relId",
+    "repository": "crudRepository",
+    "fields": {
+      "relId": "Long",
+      "organizationId": "Long",
+      "parentOrganizationId": "Long",
+      "@include": ":BaseFields"
+    }
+  }
+}

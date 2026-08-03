@@ -44,7 +44,7 @@
 		<appender-ref ref="console"/>
 		<appender-ref ref="app"/>
 	</root>
-	<springProfile name="DEV">
+	<springProfile name="UAT">
 		<logger name="com.apache.ibatis" level="DEBUG" additivity="false">
 			<appender-ref ref="console"/>
 		</logger>

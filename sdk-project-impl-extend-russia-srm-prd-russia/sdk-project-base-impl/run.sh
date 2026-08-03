@@ -118,7 +118,7 @@ JAVA_OPTS="-agentlib:ByteCodeDecryptor \
 -Dglobal.nacos.password=nacos \
 -Xms500m -Xmx500m -Xss256k"
 
-APP_OPTS="--spring.profiles.active=dev --spring.cloud.nacos.config.namespace=dev"
+APP_OPTS="--spring.profiles.active=uat --spring.cloud.nacos.config.namespace=uat"
 
 # ВАЖНО: Для ШЛЮЗА (gateway) отключаем автоконфигурацию БД, иначе он упадет
 if [[ "$app_jar" == *"gateway"* ]]; then

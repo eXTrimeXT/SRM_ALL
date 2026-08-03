@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.base.organization.mapper.PjBasePermissionMapper">
+
+    <select id="listUp" resultType="com.midea.cloud.srm.model.base.organization.entity.Organization">
+        select *
+        from scc_base_organization sbo
+        where sbo.ORGANIZATION_ID in (
+            select sbor.PARENT_ORGANIZATION_ID
+            from scc_base_organization_rel sbor
+            where sbor.ORGANIZATION_ID in
+            <foreach collection="list" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        )
+    </select>
+    <select id="listDown" resultType="com.midea.cloud.srm.model.base.organization.entity.Organization">
+        select *
+        from scc_base_organization sbo
+        where sbo.ORGANIZATION_ID in (
+        select sbor.ORGANIZATION_ID
+        from scc_base_organization_rel sbor
+        where sbor.PARENT_ORGANIZATION_ID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        )
+    </select>
+</mapper>

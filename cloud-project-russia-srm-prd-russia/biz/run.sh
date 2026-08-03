@@ -17,7 +17,7 @@ JAVA_OPTS="-agentlib:ByteCodeDecryptor \
 -Xms500m -Xmx500m -Xss256k"
 
 # Общие параметры приложения
-APP_OPTS="--spring.profiles.active=dev --spring.cloud.nacos.config.namespace=dev"
+APP_OPTS="--spring.profiles.active=uat --spring.cloud.nacos.config.namespace=uat"
 
 # ВАЖНО: Отключаем автоконфигурацию БД для Шлюза, иначе он упадет с ошибкой DataSource
 GATEWAY_OPTS="$APP_OPTS --spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration"

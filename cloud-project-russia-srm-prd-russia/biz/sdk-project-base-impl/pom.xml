@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>sdk-project-impl</artifactId>
+        <groupId>com.midea</groupId>
+        <version>${revision}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>sdk-project-base-impl</artifactId>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.midea</groupId>
+            <artifactId>sdk-project-entity</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.midea</groupId>
+            <artifactId>cloud-biz-base-extend</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gwm</groupId>
+            <artifactId>gwm-open-sdk</artifactId>
+            <version>1.0.6</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/gwm-open-sdk-1.0.6.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.midea</groupId>
+            <artifactId>sdk-mg-base-interface</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.midea</groupId>
+            <artifactId>cloud-biz-api-pj</artifactId>
+            <version>1.0-russia-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.googlecode.aviator</groupId>
+                    <artifactId>aviator</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.midea</groupId>
+            <artifactId>cloud-biz-commons-pj</artifactId>
+            <version>1.0-russia-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.googlecode.aviator</groupId>
+                    <artifactId>aviator</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>lib</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+                <targetPath>../</targetPath>
+            </resource>
+            <resource>
+                <directory>../sdk-project-entity/target/classes/</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+                <targetPath>../sdk-project-entity</targetPath>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.2</version>
+                <executions>
+                    <execution>
+                        <!-- unpack任务标识符，unpack是将依赖从仓库中解压到指定目录 -->
+                        <id>unpack</id>
+                        <!-- unpack任务默认执行阶段 -->
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <!-- 目标功能：unpack -->
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.midea</groupId>
+                                    <artifactId>sdk-project-entity</artifactId>
+                                    <version>${project.version}</version>
+                                    <!-- 设置为false，依赖解压到目录时不会进行覆盖，设置为true则会覆盖 -->
+                                    <overWrite>false</overWrite>
+                                    <!-- 目标class文件输出目录-->
+                                    <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.midea</groupId>
+                                    <artifactId>cloud-biz-api-pj</artifactId>
+                                    <version>1.0-russia-SNAPSHOT</version>
+                                    <!-- 设置为false，依赖解压到目录时不会进行覆盖，设置为true则会覆盖 -->
+                                    <overWrite>false</overWrite>
+                                    <!-- 目标class文件输出目录-->
+                                    <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.midea</groupId>
+                                    <artifactId>cloud-biz-commons-pj</artifactId>
+                                    <version>1.0-russia-SNAPSHOT</version>
+                                    <!-- 设置为false，依赖解压到目录时不会进行覆盖，设置为true则会覆盖 -->
+                                    <overWrite>false</overWrite>
+                                    <!-- 目标class文件输出目录-->
+                                    <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

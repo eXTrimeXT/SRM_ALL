@@ -10,7 +10,7 @@ spring:
         namespace: srm-uat
         # 注册中心地址
         server-addr: http://10.246.99.232:8848
-        group: dev
+        group: uat
         metadata:
           # feign微服务调用路由策略标签分组
           routingTag: local

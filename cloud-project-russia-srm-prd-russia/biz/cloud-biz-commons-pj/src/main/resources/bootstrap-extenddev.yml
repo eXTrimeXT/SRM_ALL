@@ -2,25 +2,25 @@
 spring:
   cloud:
     config:
-      profile: dev
+      profile: uat
     #      name: application-extenddockeruat,${spring.application.name}
     nacos:
       discovery:
         # 命名空间，注册到srm-dockeruat环境
-        namespace: dev
+        namespace: uat
         # 注册中心地址
 #        server-addr: http://10.168.130.194:30204
         server-addr: http://10.168.154.42:8848
-        group: dev
+        group: uat
         metadata:
           # feign微服务调用路由策略标签分组
-          routingTag: dev
+          routingTag: uat
         username: nacos
 #        password: d9R-_m3lRP5~
         password: nacos
       config:
         # 命名空间，获取srm-dockeruat命名空间的配置文件
-        namespace: dev
+        namespace: uat
         group: srm
         # 配置中心地址
         server-addr: http://10.168.154.42:8848

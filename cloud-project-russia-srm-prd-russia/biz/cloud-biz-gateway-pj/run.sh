@@ -30,11 +30,11 @@ echo "JAVA_OPTS: ${JAVA_OPTS}"
 ARGU_OPTS=$ARGU_OPTS
 echo "ARGU_OPTS: ${ARGU_OPTS}"
 
-APP_INIT_OPTS="--spring.profiles.active=dev \
+APP_INIT_OPTS="--spring.profiles.active=uat \
 --spring.cloud.nacos.config.server-addr=10.168.154.42:8848 \
 --spring.cloud.nacos.config.username=nacos \
 --spring.cloud.nacos.config.password=nacos \
---spring.cloud.nacos.config.namespace=dev \
+--spring.cloud.nacos.config.namespace=uat \
 --spring.cloud.nacos.discovery.server-addr=10.168.154.42:8848 \
 --spring.cloud.nacos.discovery.username=nacos \
 --spring.cloud.nacos.discovery.password=nacos \

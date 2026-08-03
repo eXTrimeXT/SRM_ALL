@@ -1,19 +1,23 @@
 services:
-  srm-pj:
+  # 1. Модуль Base (критически важен для /api-base/ запросов)
+  srm-base:
     build:
-      context: .
+      context: ./sdk-project-base-impl  # Указываем на папку с модулем
       dockerfile: Dockerfile
-      args:
-        JAR_FILE: ./cloud-biz-pj/target/cloud-biz-pj-boot.jar
-    container_name: srm-pj
+    container_name: srm-base
     ports:
-      - "8845:8845"
+      - "8831:8831"  # Стандартный порт для base модуля
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    environment:
+      - SERVER_PORT=8831
+      - SPRING_APPLICATION_NAME=cloud-biz-base  # Имя сервиса в Nacos
+    # Передаем команду запуска напрямую, минуя run.sh
     command:
       - "java"
       - "-agentlib:ByteCodeDecryptor"
-      - "-Djasypt.encryptor.password=gn4^Qa0k+WyeCkKt"
+#      - "-Djasypt.encryptor.password=gn4^Qa0k+WyeCkKt"
+      - "-Djasypt.encryptor.password=b-Q0Z7_q~H-g~~-X"
       - "-Dspring.cloud.nacos.config.server-addr=10.168.154.42:8848"
       - "-Dspring.cloud.nacos.config.username=nacos"
       - "-Dspring.cloud.nacos.config.password=nacos"
@@ -27,11 +31,14 @@ services:
       - "-Xmx500m"
       - "-Xss256k"
       - "-jar"
-      - "/apps/app.jar"
+      - "/home/apps/app.jar" # <-- путь /home/apps/, а не /apps/
       - "--spring.profiles.active=dev"
       - "--spring.cloud.nacos.config.namespace=dev"
+      - "--server.port=8831"
     restart: unless-stopped
 
+  # 2. Модуль PJ
+  # 3. Модуль Gateway
   srm-gateway:
     build:
       context: .
@@ -46,7 +53,8 @@ services:
     command:
       - "java"
       - "-agentlib:ByteCodeDecryptor"
-      - "-Djasypt.encryptor.password=gn4^Qa0k+WyeCkKt"
+      #      - "-Djasypt.encryptor.password=gn4^Qa0k+WyeCkKt"
+      - "-Djasypt.encryptor.password=b-Q0Z7_q~H-g~~-X"
       - "-Dspring.cloud.nacos.config.server-addr=10.168.154.42:8848"
       - "-Dspring.cloud.nacos.config.username=nacos"
       - "-Dspring.cloud.nacos.config.password=nacos"
@@ -64,6 +72,42 @@ services:
       - "--spring.profiles.active=dev"
       - "--spring.cloud.nacos.config.namespace=dev"
       - "--spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration"
-    depends_on:
-      - srm-pj
+#    depends_on:
+#      - srm-base
+    restart: unless-stopped
+
+  srm-pj:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        JAR_FILE: ./cloud-biz-pj/target/cloud-biz-pj-boot.jar
+    container_name: srm-pj
+    ports:
+      - "8845:8845"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command:
+      - "java"
+      - "-agentlib:ByteCodeDecryptor"
+      #      - "-Djasypt.encryptor.password=gn4^Qa0k+WyeCkKt"
+      - "-Djasypt.encryptor.password=b-Q0Z7_q~H-g~~-X"
+      - "-Dspring.cloud.nacos.config.server-addr=10.168.154.42:8848"
+      - "-Dspring.cloud.nacos.config.username=nacos"
+      - "-Dspring.cloud.nacos.config.password=nacos"
+      - "-Dspring.cloud.nacos.discovery.server-addr=10.168.154.42:8848"
+      - "-Dspring.cloud.nacos.discovery.username=nacos"
+      - "-Dspring.cloud.nacos.discovery.password=nacos"
+      - "-Dglobal.nacos.url=http://10.168.154.42:8848"
+      - "-Dglobal.nacos.user=nacos"
+      - "-Dglobal.nacos.password=nacos"
+      - "-Xms500m"
+      - "-Xmx500m"
+      - "-Xss256k"
+      - "-jar"
+      - "/apps/app.jar"
+      - "--spring.profiles.active=dev"
+      - "--spring.cloud.nacos.config.namespace=dev"
+#    depends_on:
+#      - srm-gateway
     restart: unless-stopped

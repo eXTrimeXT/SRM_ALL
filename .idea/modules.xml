@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/SRM.iml" filepath="$PROJECT_DIR$/.idea/SRM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cloud-project-russia-srm-prd-russia/cloud-srm.iml" filepath="$PROJECT_DIR$/cloud-project-russia-srm-prd-russia/cloud-srm.iml" />
     </modules>
   </component>
 </project>
