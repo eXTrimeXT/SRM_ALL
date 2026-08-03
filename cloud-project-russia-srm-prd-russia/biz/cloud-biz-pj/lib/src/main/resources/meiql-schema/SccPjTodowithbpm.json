@@ -1,0 +1,16 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "SccPjTodowithbpm:scc_pj_todowithbpm": {
+    "keyField": "todoId",
+    "fields": {
+      "todoId" : "Long:主键",
+      "businessId" : "Long:业务单据id",
+      "businessType" : "String:流程模板编码",
+      "processTitle" : "String:标题",
+      "todoUsername" : "String:待办人账号",
+      "todoStatus" : "String:状态：todo-待办 havedone-已办",
+      "@include": ":BaseFields"
+    }
+  }
+}

@@ -28,7 +28,7 @@ public class MqlSouOrderSignUpInfoVO extends BaseObjectX {
     private SouVendor vendor;
 
     @ApiModelProperty("报名附件信息")
-    private List<com.midea.cloud.srm.model.pj.sou.mqlapi.sourcing.vo.signup.MqlSouSignUpFileVO> signUpFileList;
+    private List<MqlSouSignUpFileVO> signUpFileList;
 
     public static MqlSouOrderSignUpInfoVO convertMqlVO(SouVendor vendor, List<SouFile> outerFileList, List<SouSignUpFile> signUpFileList) {
         MqlSouOrderSignUpInfoVO vo = new MqlSouOrderSignUpInfoVO();
@@ -37,7 +37,7 @@ public class MqlSouOrderSignUpInfoVO extends BaseObjectX {
             Map<Long/* souFileId */, SouFile> souFileMap = outerFileList.stream()
                     .collect(Collectors.toMap(SouFile::getSouFileId, Function.identity()));
             signUpFileList.forEach(signUpFile -> {
-                com.midea.cloud.srm.model.pj.sou.mqlapi.sourcing.vo.signup.MqlSouSignUpFileVO f = SouObjectXUtil.convertTargetObj(signUpFile, MqlSouSignUpFileVO.class);
+                MqlSouSignUpFileVO f = SouObjectXUtil.convertTargetObj(signUpFile, MqlSouSignUpFileVO.class);
                 vo.getSignUpFileList().add(f);
 
                 if (signUpFile.getSouFileId() != null) {

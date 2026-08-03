@@ -1,0 +1,82 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "SccPjApiPaymentHeadIntf:scc_pj_api_payment_head_intf": {
+    "keyField": "paymentIntfId",
+    "fields": {
+      "paymentIntfId": "Long:主键",
+      "creator": "String:创建者工号",
+      "sysFlag": "String:系统标识",
+      "corporationCode": "String:公司代码",
+      "currencyName": "String:公司名称",
+      "paymentDate": "String:时间",
+      "requestNote": "String:申请说明",
+      "organizationCode": "String:组织代码",
+      "currencyCode": "String:业务货币代码",
+      "fileFlag": "String:对接文件",
+      "paymentType": "String:单据类型",
+      "processSerialNum": "String:处理序号",
+      "processStatus": "String:处理状态，PENDING：未处理，COMPLETED：处理完成，PROCESSING：处理中，ERROR：处理错误，RETRY：需重试",
+      "processMessage": "String:处理信息",
+      "processDate": "Date:处理时间",
+      "processGroupId": "Long:处理批次号",
+      "@include": ":BaseFields"
+    }
+  },
+  "SccPjApiPaymentLineIntf:scc_pj_api_payment_line_intf": {
+    "keyField": "paymentLineIntfId",
+    "fields": {
+      "paymentLineIntfId": "Long:主键",
+      "paymentIntfId": "Long:外键",
+      "xh": "Integer:序号",
+      "profitCenterCode": "String:利润中心代码",
+      "profitCenterName": "String:利润中心名称",
+      "costCenterCode": "String:成本中心代码",
+      "costCenterName": "String:成本中心名称",
+      "supplyCode": "String:供应商代码",
+      "supplyName": "String:供应商",
+      "paymentNatureName": "String:付款性质名称",
+      "accountsPayableAmount": "BigDecimal:应付账款账面金额",
+      "customerSupplyEnum": "String:付款对象类型",
+      "receiveTypeStatus": "String:收款方类型",
+      "paymentDate": "String:付款日期",
+      "paymentMethod": "String:付款方式",
+      "totalAmount": "BigDecimal:付款金额",
+      "paymentMoney": "BigDecimal:支付金额",
+      "receivingBankName": "String:收款银行名称",
+      "bankLinkNumber": "String:收款银行联行号",
+      "receivingBankAccount": "String:收款银行账号",
+      "arrivedTicketAmount": "BigDecimal:已到票金额",
+      "receiverCode": "String:收款方代码",
+      "receiverName": "String:收款方名称",
+      "paymentNote": "String:支付说明",
+      "onlyKey": "String:唯一标识（uuid生成）",
+      "processSerialNum": "String:处理序号",
+      "processStatus": "String:处理状态，PENDING：未处理，COMPLETED：处理完成，PROCESSING：处理中，ERROR：处理错误，RETRY：需重试",
+      "processMessage": "String:处理信息",
+      "processDate": "Date:处理时间",
+      "processGroupId": "Long:处理批次号",
+      "@include": ":BaseFields"
+    }
+  },
+  "SccPjApiPaymentResultIntf:scc_pj_api_payment_result_intf": {
+    "keyField": "paymentResultIntfId",
+    "fields": {
+      "paymentResultIntfId" : "Long:主键",
+      "paymentIntfId" : "Long:外键",
+      "status" : "String:状态",
+      "success" : "String:是否成功",
+      "statusCode" : "String:状态码",
+      "message" : "String:消息",
+      "orderNo" : "String:单据号",
+      "requestItemId" : "String:支付行项目唯一标识",
+      "itemNum" : "Integer:支付序号",
+      "processSerialNum" : "String:处理序号",
+      "processStatus" : "String:处理状态，PENDING：未处理，COMPLETED：处理完成，PROCESSING：处理中，ERROR：处理错误，RETRY：需重试",
+      "processMessage" : "String:处理信息",
+      "processDate" : "Date:处理时间",
+      "processGroupId" : "Long:处理批次号",
+      "@include": ":BaseFields"
+    }
+  }
+}

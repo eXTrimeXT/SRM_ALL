@@ -1,0 +1,12 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "MeiqlTest:meicloud_usrm_cloud_biz_supplier.scc_sup_meiql_test": {
+    "keyField": "rowId",
+    "fields": {
+      "rowId": "Long",
+      "test": "String",
+      "@include": ":BaseFields"
+    }
+  }
+}

@@ -36,7 +36,7 @@ public class SouOrderFile extends BaseEntity<SouOrderFile> {
     @TableField("PROJECT_ID")
     private Long projectId;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouOrder#getOrderId */
+    /** @see SouOrder#getOrderId */
     @TableField("ORDER_ID")
     @ApiModelProperty("报价头ID")
     private Long orderId;
@@ -46,7 +46,7 @@ public class SouOrderFile extends BaseEntity<SouOrderFile> {
     @ApiModelProperty("配置文件Id")
     private Long souFileConfigId;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouOrder#getVendorId */
+    /** @see SouOrder#getVendorId */
     @TableField("VENDOR_ID")
     @ApiModelProperty("供应商ID")
     private Long vendorId;

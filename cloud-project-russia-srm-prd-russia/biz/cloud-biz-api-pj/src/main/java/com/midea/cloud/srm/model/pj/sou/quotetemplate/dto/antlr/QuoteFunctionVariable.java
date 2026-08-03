@@ -18,7 +18,7 @@ public class QuoteFunctionVariable {
     private String originName;
 
     /** 变量类型 */
-    private com.midea.cloud.srm.model.pj.sou.quotetemplate.dto.antlr.QuoteFunctionVarType type;
+    private QuoteFunctionVarType type;
 
     public QuoteFunctionVariable(String varName, String originName, QuoteFunctionVarType type) {
         this.varName = varName;

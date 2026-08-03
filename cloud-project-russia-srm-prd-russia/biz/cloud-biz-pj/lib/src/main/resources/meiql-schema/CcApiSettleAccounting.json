@@ -1,0 +1,146 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "SccPjApiAcountHeadIntf:scc_pj_api_acount_head_intf": {
+    "keyField": "acountingIntfId",
+    "fields": {
+      "acountingIntfId": "Long:主键",
+      "systemCode": "String:系统编码",
+      "businessNo": "String:业务单据号",
+      "reqSn": "String:请求流水号",
+      "needApprove": "String:是否需审批",
+      "saleType": "String:销售类型（01-服务销售，02-资产销售，10-其他）",
+      "orgCode": "String:销售组织编码",
+      "deptCode": "String:经办部门编码",
+      "deptName": "String:经办部门名称",
+      "createUserNo": "String:创建人工号",
+      "createUserName": "String:创建人姓名",
+      "createTime": "String:创建时间",
+      "settleExplain": "String:结算说明",
+      "accountUserNo": "String:记账人工号",
+      "accountUserName": "String:记账人姓名",
+      "processSerialNum": "String:处理序号",
+      "processStatus": "String:处理状态，PENDING：未处理，COMPLETED：处理完成，PROCESSING：处理中，ERROR：处理错误，RETRY：需重试",
+      "processMessage": "String:处理信息",
+      "processDate": "Date:处理时间",
+      "processGroupId": "Long:处理批次号",
+      "@include": ":BaseFields"
+    }
+  },
+  "SccPjApiAcountBaseIntf:scc_pj_api_acount_base_intf": {
+    "keyField": "baseIntfId",
+    "fields": {
+      "baseIntfId": "Long:主键",
+      "acountingIntfId": "Long:外键",
+      "itemNo": "String:行号，一次请求不可重复",
+      "partnerType": "String:客商类型（1-客户，2-供应商）",
+      "partnerCode": "String:客商编码",
+      "partnerName": "String:客商名称",
+      "profitCenterCode": "String:利润中心编码",
+      "profitCenterName": "String:利润中心名称",
+      "costCenterCode": "String:成本中心编码",
+      "costCenterName": "String:成本中心名称",
+      "documentExplain": "String:单据说明",
+      "containTax": "String:是否含税（true-含税，false-不含税）",
+      "processSerialNum": "String:处理序号",
+      "processStatus": "String:处理状态，PENDING：未处理，COMPLETED：处理完成，PROCESSING：处理中，ERROR：处理错误，RETRY：需重试",
+      "processMessage": "String:处理信息",
+      "processDate": "Date:处理时间",
+      "processGroupId": "Long:处理批次号",
+      "@include": ":BaseFields"
+    }
+  },
+  "SccPjApiAcountSettleIntf:scc_pj_api_acount_settle_intf": {
+    "keyField": "settleIntfId",
+    "fields": {
+      "settleIntfId": "Long:主键",
+      "acountingIntfId": "Long:外键",
+      "serviceCode": "String:服务编码，不同结算明细不能重复",
+      "taxRate": "String:税率",
+      "taxClassifyCode": "String:税收分类编码",
+      "processSerialNum": "String:处理序号",
+      "processStatus": "String:处理状态，PENDING：未处理，COMPLETED：处理完成，PROCESSING：处理中，ERROR：处理错误，RETRY：需重试",
+      "processMessage": "String:处理信息",
+      "processDate": "Date:处理时间",
+      "processGroupId": "Long:处理批次号",
+      "@include": ":BaseFields"
+    }
+  },
+  "SccPjApiAcountSetinfoIntf:scc_pj_api_acount_setinfo_intf": {
+    "keyField": "settleInfoIntfId",
+    "fields": {
+      "settleInfoIntfId": "Long:主键",
+      "acountingIntfId": "Long:外键-头",
+      "settleIntfId": "Long:外键-结算明细",
+      "businessCode": "String:业务编码",
+      "specsModel": "String:规格型号",
+      "settleNumber": "BigDecimal:结算数量",
+      "price": "BigDecimal:单价",
+      "unit": "String:单位",
+      "discountFlag": "String:折扣标识（true-折扣，false-不折扣）",
+      "discountAmount": "BigDecimal:折扣金额，折扣标识为true时，必填",
+      "remarks": "String:备注",
+      "@include": ":BaseFields"
+    }
+  },
+  "SccPjApiAcountCostIntf:scc_pj_api_acount_cost_intf": {
+    "keyField": "costIntfId",
+    "fields": {
+      "costIntfId": "Long:主键",
+      "acountingIntfId": "Long:外键",
+      "serviceCode": "String:服务编码",
+      "coExpenseClassifyCode": "String:结转费用分类编码",
+      "costAmount": "BigDecimal:结转金额",
+      "costCenterCode": "String:成本中心编码",
+      "costCenterName": "String:成本中心名称",
+      "orderNo": "String:订单号",
+      "orderName": "String:订单名称",
+      "devType": "String:研发类型",
+      "carCode": "String:车型编码",
+      "layCode": "String:投放形式编码",
+      "remarks": "String:备注",
+      "processSerialNum": "String:处理序号",
+      "processStatus": "String:处理状态，PENDING：未处理，COMPLETED：处理完成，PROCESSING：处理中，ERROR：处理错误，RETRY：需重试",
+      "processMessage": "String:处理信息",
+      "processDate": "Date:处理时间",
+      "processGroupId": "Long:处理批次号",
+      "@include": ":BaseFields"
+    }
+  },
+  "SccPjApiAcountAttachIntf:scc_pj_api_acount_attach_intf": {
+    "keyField": "attachIntfId",
+    "fields": {
+      "attachIntfId": "Long:主键",
+      "acountingIntfId": "Long:外键",
+      "attachName": "String:附件名称",
+      "attachUrl": "String:附件链接",
+      "processSerialNum": "String:处理序号",
+      "processStatus": "String:处理状态，PENDING：未处理，COMPLETED：处理完成，PROCESSING：处理中，ERROR：处理错误，RETRY：需重试",
+      "processMessage": "String:处理信息",
+      "processDate": "Date:处理时间",
+      "processGroupId": "Long:处理批次号",
+      "@include": ":BaseFields"
+    }
+  },
+  "SccPjApiAcountRespIntf:scc_pj_api_acount_resp_intf": {
+    "keyField": "respIntfId",
+    "fields": {
+      "respIntfId": "Long:主键",
+      "acountingIntfId": "Long:外键",
+      "systemCode": "String:系统编码",
+      "businessNo": "String:业务单据号",
+      "reqSn": "String:请求流水号",
+      "settleDocumentCode": "String:结算单据编码",
+      "itemNo": "Integer:行号，对应请求中baseInfo中的itemNo",
+      "voucherNo": "String:凭证号，多个凭证号以英文“,”分隔",
+      "year": "String:凭证年",
+      "companyCode": "String:公司代码",
+      "processSerialNum": "String:处理序号",
+      "processStatus": "String:处理状态，PENDING：未处理，COMPLETED：处理完成，PROCESSING：处理中，ERROR：处理错误，RETRY：需重试",
+      "processMessage": "String:处理信息",
+      "processDate": "Date:处理时间",
+      "processGroupId": "Long:处理批次号",
+      "@include": ":BaseFields"
+    }
+  }
+}

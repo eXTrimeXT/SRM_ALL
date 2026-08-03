@@ -1,0 +1,17 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "SapCompanyIntf:scc_pj_sap_company_intf": {
+    "keyField": "sapCompanyIntfId",
+    "fields": {
+      "sapCompanyIntfId": "Long",
+      "orgCode": "String:供应商编码",
+      "supState": "String:供应商来源状态（ADD新增 UPDATE 修改）",
+      "processStatus": "String:处理状态，PENDING：未处理，COMPLETED：处理完成，ERROR：处理错误",
+      "processMessage": "String:处理信息",
+      "processDate": "Date:处理时间",
+      "appNum": "Long:重试次数（超过三次不再重试）",
+      "@include": ":BaseFields"
+    }
+  }
+}

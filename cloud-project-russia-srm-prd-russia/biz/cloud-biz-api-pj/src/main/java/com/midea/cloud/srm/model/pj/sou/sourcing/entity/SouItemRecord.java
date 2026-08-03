@@ -44,7 +44,7 @@ public class SouItemRecord extends BaseEntity<SouItemRecord> {
     @ApiModelProperty("批次号")
     private String batchNo;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getSouItemId */
+    /** @see SouItem#getSouItemId */
     @TableField("SOU_ITEM_ID")
     @ApiModelProperty("物料需求ID")
     private Long souItemId;
@@ -66,32 +66,32 @@ public class SouItemRecord extends BaseEntity<SouItemRecord> {
     private Date refreshTime;
 
     // ----------------------------------------------------- 组织信息(冗余-方便展示) ----------------------------------------------------
-    /** @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getOrgOuId */
+    /** @see SouItem#getOrgOuId */
     @ApiModelProperty("业务实体ID")
     @TableField("ORG_OU_ID")
     private Long orgOuId;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getOrgOuCode */
+    /** @see SouItem#getOrgOuCode */
     @ApiModelProperty("业务实体编码")
     @TableField("ORG_OU_CODE")
     private String orgOuCode;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getOrgOuName */
+    /** @see SouItem#getOrgOuName */
     @ApiModelProperty("业务实体名称")
     @TableField("ORG_OU_NAME")
     private String orgOuName;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getOrgInvId */
+    /** @see SouItem#getOrgInvId */
     @ApiModelProperty("库存组织ID")
     @TableField("ORG_INV_ID")
     private Long orgInvId;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getOrgInvCode */
+    /** @see SouItem#getOrgInvCode */
     @ApiModelProperty("库存组织编码")
     @TableField("ORG_INV_CODE")
     private String orgInvCode;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getOrgInvName */
+    /** @see SouItem#getOrgInvName */
     @ApiModelProperty("库存组织名称")
     @TableField("ORG_INV_NAME")
     private String orgInvName;

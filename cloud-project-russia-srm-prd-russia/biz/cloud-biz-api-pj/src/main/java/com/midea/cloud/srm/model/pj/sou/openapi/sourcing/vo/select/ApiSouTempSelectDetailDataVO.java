@@ -57,7 +57,7 @@ public class ApiSouTempSelectDetailDataVO extends BaseObjectX {
      * @param souQuoteTempBatchDataVO
      * @param souVendorList
      */
-    public static void covertSouTempSelectDetailDataList(List<com.midea.cloud.srm.model.pj.sou.openapi.sourcing.vo.select.ApiSouTempSelectDataVO> souTempSelectDataVOList,
+    public static void covertSouTempSelectDetailDataList(List<ApiSouTempSelectDataVO> souTempSelectDataVOList,
                                                      SouQuoteTempBatchDataVO souQuoteTempBatchDataVO,
                                                      List<SouVendor> souVendorList,
                                                      Map<Long/* fieldId */, List<Long/* attrId */>> refAttrIdsByFieldIds,
@@ -101,7 +101,7 @@ public class ApiSouTempSelectDetailDataVO extends BaseObjectX {
                             Object value = attrFieldQuoteData.get(field.getFieldId().toString());
                             // 字段转换
                             value = field.convertDictFileValue(value, dictItemMap);
-                            dynamicColData.put(com.midea.cloud.srm.model.pj.sou.openapi.sourcing.vo.select.ApiSouTempSelectVO.DynamicCol.PROP_COMMON_PART_FIELD_QUOTE_VALUE + field.getFieldId(), value);
+                            dynamicColData.put(ApiSouTempSelectVO.DynamicCol.PROP_COMMON_PART_FIELD_QUOTE_VALUE + field.getFieldId(), value);
                         }
                         ApiSouTempSelectDetailDataVO souTempSelectDetailDataVO = new ApiSouTempSelectDetailDataVO();
                         souTempSelectDetailDataVO.setVendorId(souVendor.getVendorId());
@@ -116,9 +116,9 @@ public class ApiSouTempSelectDetailDataVO extends BaseObjectX {
             selectDataVO.setSouTempSelectDetailDataVOList(souTempSelectDetailDataVOList);
 
             // 设置分项明细的动态列
-            List<com.midea.cloud.srm.model.pj.sou.openapi.sourcing.vo.select.ApiSouTempSelectVO.DynamicCol> dynamicColList = new ArrayList<>();
+            List<ApiSouTempSelectVO.DynamicCol> dynamicColList = new ArrayList<>();
             for (SouQuoteTempField field : fieldList) {
-                dynamicColList.add(new com.midea.cloud.srm.model.pj.sou.openapi.sourcing.vo.select.ApiSouTempSelectVO.DynamicCol(ApiSouTempSelectVO.DynamicCol.PROP_COMMON_PART_FIELD_QUOTE_VALUE + field.getFieldId(), field.getFieldName()));
+                dynamicColList.add(new ApiSouTempSelectVO.DynamicCol(ApiSouTempSelectVO.DynamicCol.PROP_COMMON_PART_FIELD_QUOTE_VALUE + field.getFieldId(), field.getFieldName()));
             }
             selectDataVO.setSouTempSelectDetailDynamicColList(dynamicColList);
         }

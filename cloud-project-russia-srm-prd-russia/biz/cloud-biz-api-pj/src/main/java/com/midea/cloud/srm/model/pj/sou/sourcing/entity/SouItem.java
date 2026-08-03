@@ -31,7 +31,7 @@ public class SouItem extends BaseEntity<SouItem> {
     private Long souItemId;
 
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouProject#getProjectId
+     * @see SouProject#getProjectId
      */
     @ApiModelProperty("寻源核心-询价单ID")
     @TableField("PROJECT_ID")
@@ -161,14 +161,14 @@ public class SouItem extends BaseEntity<SouItem> {
 
     // --------------------------------------------------------- 关联上游单据 --------------------------------------------------------
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouProject#getSourceFromType
+     * @see SouProject#getSourceFromType
      */
     @ApiModelProperty("来源类型(冗余字段) [字典：SOU_SOURCE_FROM_TYPE]")
     @TableField("SOURCE_FROM_TYPE")
     private String sourceFromType;
 
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouProject#getSourceFromId
+     * @see SouProject#getSourceFromId
      */
     @ApiModelProperty("来源单据ID(冗余字段)")
     @TableField("SOURCE_FROM_ID")

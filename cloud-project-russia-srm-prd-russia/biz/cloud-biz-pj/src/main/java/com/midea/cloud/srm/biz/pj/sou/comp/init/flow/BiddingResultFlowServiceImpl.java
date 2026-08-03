@@ -402,12 +402,12 @@ public class BiddingResultFlowServiceImpl implements IFlowBusinessCallbackServic
 
     public List<Map<String, Object>> dealFileList(Long fileId)  {
 
-        com.midea.cloud.srm.model.file.upload.entity.Fileupload fileupload = new com.midea.cloud.srm.model.file.upload.entity.Fileupload();
+        Fileupload fileupload = new Fileupload();
         fileupload.setFileuploadId(fileId);
         fileupload.setPageNum(1);
         fileupload.setPageSize(1);
         PageInfo<Fileupload> fileuploads = fileCenterClient.listPage(fileupload,"N");
-        List<com.midea.cloud.srm.model.file.upload.entity.Fileupload> list = fileuploads.getList();
+        List<Fileupload> list = fileuploads.getList();
 
         List<Map<String, Object>> fileList = new ArrayList<>();
         list.forEach(e -> {

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlResolve -->
+<mapper namespace="com.midea.cloud.srm.biz.pj.sou.sourcing.order.dao.SouOrderMapper">
+
+
+    <select id="listOrders" resultType="com.midea.cloud.srm.model.pj.sou.openapi.sourcing.vo.order.ApiSouOrderQueryVO">
+        SELECT
+            sou_project.PROJECT_ID,             <!-- 寻源单ID -->
+            sou_project.PROCESS_CONFIG_ID,      <!-- 流程配置ID -->
+            sou_project.SOU_NO,                 <!-- 寻源单号 -->
+            sou_project.SOU_NAME,               <!-- 寻源单标题 -->
+            sou_project.CURRENT_ROUND,          <!-- 当前轮次 -->
+            sou_project.PUBLISH_SCOPE,          <!-- 发布范围 -->
+            sou_project.PROJECT_STATUS,         <!-- 寻源单状态 -->
+            sou_project.SIGN_UP_END_TIME,       <!-- 报名截止时间 -->
+            sou_project.ORDER_START_TIME,       <!-- 报价开始时间 -->
+            sou_project.ORDER_END_TIME,         <!-- 报价截止时间 -->
+            sou_project.PUBLISH_TIME,           <!-- 发布时间 -->
+            sou_project.ALLOW_WITHDRAW,         <!-- 是否允许撤回报价 -->
+            sou_project.CREATED_BY,             <!-- 创建人 -->
+            sou_project.ext_Project_No,             <!-- 招标编号 -->
+            sou_order.ORDER_STATUS,             <!-- 报价状态 -->
+            vendor.JOIN_ROUND,                  <!-- 供应商加入的轮次 -->
+            case when vendor.SIGN_UP_STATUS is null then 'NO_SIGN_UP' else vendor.SIGN_UP_STATUS end sign_up_status <!-- 报名状态 -->
+        FROM scc_sou_project sou_project
+        JOIN scc_sou_vendor vendor
+        on vendor.PROJECT_ID = sou_project.PROJECT_ID and vendor.VENDOR_ID = #{queryParam.vendorId}
+        LEFT JOIN scc_sou_order sou_order
+        ON sou_project.PROJECT_ID = sou_order.PROJECT_ID
+            AND sou_order.VENDOR_ID = #{queryParam.vendorId}
+
+        WHERE
+            sou_project.PROJECT_STATUS NOT IN ('DRAFT') <!-- 拟定的不能查询出来 -->
+        <if test="souType != null"> <!-- 寻源类型 -->
+            and sou_project.SOU_TYPE = #{souType}
+        </if>
+        <if test="queryParam.souNo != null and queryParam.souNo.length() > 0"> <!-- 寻源单号 -->
+            AND sou_project.SOU_NO LIKE concat('%', concat(#{queryParam.souNo}, '%'))
+        </if>
+        <if test="queryParam.souName != null and queryParam.souName.length() > 0"> <!-- 寻源单名称 -->
+            AND sou_project.SOU_NAME LIKE concat('%', concat(#{queryParam.souName}, '%'))
+        </if>
+        <if test="queryParam.projectStatus != null"> <!-- 寻源单状态 -->
+            AND sou_project.PROJECT_STATUS = #{queryParam.projectStatus}
+        </if>
+        <if test="queryParam.signUpStatus != null and queryParam.signUpStatus.name().equals('NO_SIGN_UP')"> <!-- 报名状态(未报名) -->
+            AND (
+                vendor.SIGN_UP_STATUS is null
+                OR
+                vendor.SIGN_UP_STATUS = #{queryParam.signUpStatus}
+            )
+        </if>
+        <if test="queryParam.signUpStatus != null and !queryParam.signUpStatus.name().equals('NO_SIGN_UP')"> <!-- 报名状态(其他) -->
+            AND vendor.SIGN_UP_STATUS = #{queryParam.signUpStatus}
+        </if>
+        <if test="queryParam.publishScope != null"> <!-- 发布范围 -->
+            AND sou_project.PUBLISH_SCOPE = #{queryParam.publishScope}
+        </if>
+        <!-- 如果是公开招标则所有供应商均能看到；如果是邀请招标，供应商只能看到自己被邀请的单据 -->
+        <!-- 而且考虑到界面上有物料查询，如果是邀请招标，供应商必须要对指定物料有报价权限才能够看到询价单 -->
+        AND ( EXISTS( SELECT * FROM scc_sou_item sou_item where sou_item.project_id = sou_project.project_id
+            <if test="queryParam.itemDesc != null and queryParam.itemDesc.length() > 0"> <!-- 物料名称 -->
+                AND sou_item.ITEM_DESC LIKE concat('%', concat(#{queryParam.itemDesc}, '%'))
+            </if>
+            )
+            OR sou_project.PUBLISH_SCOPE = 'INVITE_TENDER'
+            AND EXISTS(
+                SELECT PROJECT_ID
+                FROM scc_sou_vendor
+                WHERE PROJECT_ID = sou_project.PROJECT_ID
+                    AND VENDOR_ID = #{queryParam.vendorId}
+                <if test="queryParam.itemId != null"> <!-- 物料ID -->
+                    AND EXISTS (
+                        SELECT sou_item.SOU_ITEM_ID
+                        FROM scc_sou_item sou_item
+                        WHERE sou_item.PROJECT_ID = sou_project.PROJECT_ID
+                        AND sou_item.ITEM_ID = #{queryParam.itemId}
+                    )
+                </if>
+                <if test="queryParam.itemDesc != null and queryParam.itemDesc.length() > 0"> <!-- 物料名称 -->
+                    AND EXISTS (
+                        SELECT sou_item.SOU_ITEM_ID
+                        FROM scc_sou_item sou_item
+                        WHERE sou_item.PROJECT_ID = sou_project.PROJECT_ID
+                        AND sou_item.ITEM_DESC LIKE concat('%', concat(#{queryParam.itemDesc}, '%'))
+                    )
+                </if>
+            )
+        )
+        <!-- 下面进行报价单状态筛选 -->
+        <if test="queryParam.orderStatus != null">
+            <if test="queryParam.orderStatus.name().equals('DRAFT')"> <!-- 待报价:要么不存在报价单，要么最新的报价单是待报价状态 -->
+                AND (
+                    sou_order.PROJECT_ID IS NULL
+                    OR
+                    sou_order.ORDER_STATUS = 'DRAFT'
+                )
+            </if>
+            <!-- 已报价、已撤回、已作废  SouOrderStatusEnum-->
+            <if test="queryParam.orderStatus.name().equals('SUBMISSION') or queryParam.orderStatus.name().equals('WITHDRAW') or queryParam.orderStatus.name().equals('CANCEL')">
+                AND sou_order.ORDER_STATUS = #{queryParam.orderStatus}
+            </if>
+            <!-- 价格确认相关状态：待添加 -->
+        </if>
+        order by sou_project.SOU_NO desc
+    </select>
+
+</mapper>

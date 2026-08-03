@@ -18,11 +18,11 @@ public enum SouGroupOperateAuthEnum {
     /**
      * 商务开标
      */
-    SOU_BUSINESS_OPEN(com.midea.cloud.srm.model.pj.sou.sourcing.enums.SouTypeEnum.DEFAULT.name()),
+    SOU_BUSINESS_OPEN(SouTypeEnum.DEFAULT.name()),
     /**
      * 技术开标
      */
-    SOU_TECH_OPEN(com.midea.cloud.srm.model.pj.sou.sourcing.enums.SouTypeEnum.DEFAULT.name()),
+    SOU_TECH_OPEN(SouTypeEnum.DEFAULT.name()),
     /**
      * 报价解密
      */

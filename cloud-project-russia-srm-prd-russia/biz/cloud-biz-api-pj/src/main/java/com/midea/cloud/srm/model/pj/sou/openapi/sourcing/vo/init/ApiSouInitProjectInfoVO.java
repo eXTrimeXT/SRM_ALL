@@ -24,7 +24,7 @@ public class ApiSouInitProjectInfoVO extends SouProject {
     @ApiModelProperty("流程配置信息")
     private SouProcessConfig processConfig;
     @ApiModelProperty("流程节点信息")
-    private List<com.midea.cloud.srm.model.pj.sou.openapi.sourcing.vo.init.ApiSouProcessNodeVO> processNodeList;
+    private List<ApiSouProcessNodeVO> processNodeList;
     @ApiModelProperty("可用币种")
     private List<SouCurrency> currencyList;
     @ApiModelProperty("内部/外部附件")

@@ -43,7 +43,7 @@ public class InqSouSelectionManagementWebVO {
     private Integer currentRoundQuotedCtn;
 
     @ApiModelProperty("供应商报价单信息集合")
-    private List<com.midea.cloud.srm.model.pj.sou.inq.vo.webapi.select.InqSouOrderTrackingWebVO> trackingList;
+    private List<InqSouOrderTrackingWebVO> trackingList;
 
     /**
      * 转换方法
@@ -71,8 +71,8 @@ public class InqSouSelectionManagementWebVO {
             Map<Long/* vendorId */, SouOrder> souOrderMap = currentRoundQuoteHeaderList.stream()
                     .collect(Collectors.toMap(SouOrder::getVendorId, Function.identity()));
 
-            List<com.midea.cloud.srm.model.pj.sou.inq.vo.webapi.select.InqSouOrderTrackingWebVO> trackingList = new ArrayList<>(vendorList.size());
-            com.midea.cloud.srm.model.pj.sou.inq.vo.webapi.select.InqSouOrderTrackingWebVO vo;
+            List<InqSouOrderTrackingWebVO> trackingList = new ArrayList<>(vendorList.size());
+            InqSouOrderTrackingWebVO vo;
             SouOrder souOrder;
             for (SouVendor vendor : vendorList) {
                 vo = new InqSouOrderTrackingWebVO();

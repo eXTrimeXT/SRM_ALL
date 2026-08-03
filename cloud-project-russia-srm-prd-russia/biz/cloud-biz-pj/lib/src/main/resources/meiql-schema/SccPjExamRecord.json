@@ -1,0 +1,19 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "SccPjExamRecord:scc_pj_exam_record": {
+    "keyField": "examRecordId",
+    "fields": {
+      "examRecordId" : "Long:主键",
+      "trainId" : "String:培训ID",
+      "userId" : "String:账号ID",
+      "username" : "String:账号",
+      "nickname" : "String:昵称",
+      "studentNo" : "String:学员编号",
+      "completed" : "String:是否完成(YES NO)",
+      "completedDate" : "Date:完成时间",
+      "companyId" : "String:公司ID",
+      "@include": ":BaseFields"
+    }
+  }
+}

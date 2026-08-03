@@ -31,7 +31,7 @@ public class MqlSouSignUpVendorVO extends SouVendor {
     @ApiModelProperty("公司信息")
     private CompanyInfo companyInfo;
     @ApiModelProperty("供应商报名附件")
-    private List<com.midea.cloud.srm.model.pj.sou.mqlapi.sourcing.vo.signup.MqlSouSignUpFileVO> signUpFileList;
+    private List<MqlSouSignUpFileVO> signUpFileList;
 
     public static MqlSouSignUpVendorVO convertMqlVO(@Nullable SouVendor vendor,
                                                     List<SouFile> souFileList,
@@ -54,7 +54,7 @@ public class MqlSouSignUpVendorVO extends SouVendor {
                     .collect(Collectors.toMap(SouSignUpFile::getSouFileId, Function.identity()));
             souFileList.sort(Comparator.comparing(SouFile::getSortIndex));
             for (SouFile souFile : souFileList) {
-                com.midea.cloud.srm.model.pj.sou.mqlapi.sourcing.vo.signup.MqlSouSignUpFileVO fileVO = SouObjectXUtil.convertTargetObj(souFile, com.midea.cloud.srm.model.pj.sou.mqlapi.sourcing.vo.signup.MqlSouSignUpFileVO.class);
+                MqlSouSignUpFileVO fileVO = SouObjectXUtil.convertTargetObj(souFile, MqlSouSignUpFileVO.class);
                 vo.getSignUpFileList().add(fileVO);
 
                 SouSignUpFile signUpFile = signUpFileMap.get(souFile.getSouFileId());
@@ -64,7 +64,7 @@ public class MqlSouSignUpVendorVO extends SouVendor {
             }
             for (SouSignUpFile signUpFile : signUpFileList) {
                 if (signUpFile.getSouFileId() != null) { continue; }
-                com.midea.cloud.srm.model.pj.sou.mqlapi.sourcing.vo.signup.MqlSouSignUpFileVO fileVO = SouObjectXUtil.convertTargetObj(signUpFile, MqlSouSignUpFileVO.class);
+                MqlSouSignUpFileVO fileVO = SouObjectXUtil.convertTargetObj(signUpFile, MqlSouSignUpFileVO.class);
                 vo.getSignUpFileList().add(fileVO);
             }
         }

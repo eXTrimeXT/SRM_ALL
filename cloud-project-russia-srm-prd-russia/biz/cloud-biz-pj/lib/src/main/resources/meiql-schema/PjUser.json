@@ -1,0 +1,39 @@
+{
+  "_version": "1.0",
+  "_type": "custom",
+  "SccPjUser:scc_pj_user": {
+    "keyField": "rowId",
+    "fields": {
+      "rowId": "Long:用户ID",
+      "id": "Long:HR用户ID",
+      "personnelNo": "String:员工工号",
+      "isFormal": "Integer:是否正式员工,2:非正式工,1:正式工",
+      "isForeign": "Integer:是否外籍,0:否,1:是",
+      "chineseName": "String:中文姓名",
+      "sex": "Integer:性别,1:男,2:女",
+      "groupId": "Long:所在组织ID",
+      "englishName": "String:英文名称",
+      "duty": "String:职务 举例:董事长,本部长,总经理,科长",
+      "position": "String:职位 举例:组长,班长,秘书,文员,董事长",
+      "state": "Integer:人员状态,1:在职,2:离职",
+      "updateTime": "Date:HR更新时间",
+      "groupName": "String:组织ID对应的名称",
+      "dutyName": "String:职务名称",
+      "positionName": "String:职位名称",
+      "isDelete": "String:是否删除",
+      "createdId": "Long:创建人ID",
+      "createdBy": "String:创建人",
+      "creationDate": "Date:创建时间",
+      "createdByIp": "String:创建人IP",
+      "createdFullName": "String:创建人姓名",
+      "lastUpdatedId": "Long:最后更新人ID",
+      "lastUpdatedBy": "String:更新人",
+      "lastUpdateDate": "Date:最后更新时间",
+      "lastUpdatedByIp": "String:最后更新人IP",
+      "lastUpdatedFullName": "String:最后更新人姓名",
+      "tenantId": "String:租户ID",
+      "version": "Long:版本号",
+      "iamAddFlag": "String:创建IAM账号标识"
+    }
+  }
+}

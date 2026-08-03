@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ApiSouTechProgressGroupDetailVO extends com.midea.cloud.srm.model.pj.sou.openapi.sourcing.vo.tech.ApiSouTechVendorOrderVO {
+public class ApiSouTechProgressGroupDetailVO extends ApiSouTechVendorOrderVO {
 
     @ApiModelProperty("技术评分头信息")
     private SouTechScoreHead techScoreHead;
@@ -42,7 +42,7 @@ public class ApiSouTechProgressGroupDetailVO extends com.midea.cloud.srm.model.p
                                                                List<SouScoreRuleLine> scoreRuleTempLineList,
                                                                @Nullable SouTechScoreHead techScoreHead,
                                                                List<SouTechScoreLine> techScoreLineList) {
-        com.midea.cloud.srm.model.pj.sou.openapi.sourcing.vo.tech.ApiSouTechVendorOrderVO tempVO = ApiSouTechVendorOrderVO.convertApiVO(vendor, companyInfo, techFileConfigList, orderFileList);
+        ApiSouTechVendorOrderVO tempVO = ApiSouTechVendorOrderVO.convertApiVO(vendor, companyInfo, techFileConfigList, orderFileList);
 
         ApiSouTechProgressGroupDetailVO vo = SouObjectXUtil.convertTargetObj(tempVO, ApiSouTechProgressGroupDetailVO.class);
         // 技术评分头信息

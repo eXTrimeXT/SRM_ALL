@@ -63,22 +63,22 @@ public class CompSouOrderItemHis extends ExtCompSouOrderItemHis {
     private Integer round;
 
     // ----------------------------------------------------------- 提交人信息 --------------------------------------------------------------
-    /** @see com.midea.cloud.srm.model.pj.sou.comp.entity.CompSouOrderItem#getSubmitById */
+    /** @see CompSouOrderItem#getSubmitById */
     @ApiModelProperty("提交人ID")
     @TableField("SUBMIT_BY_ID")
     private Long submitById;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.comp.entity.CompSouOrderItem#getSubmitBy */
+    /** @see CompSouOrderItem#getSubmitBy */
     @ApiModelProperty("提交人账号")
     @TableField("SUBMIT_BY")
     private String submitBy;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.comp.entity.CompSouOrderItem#getSubmitByIp */
+    /** @see CompSouOrderItem#getSubmitByIp */
     @ApiModelProperty("提交人IP")
     @TableField("SUBMIT_BY_IP")
     private String submitByIp;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.comp.entity.CompSouOrderItem#getSubmitFullName */
+    /** @see CompSouOrderItem#getSubmitFullName */
     @ApiModelProperty("提交人昵称")
     @TableField("SUBMIT_FULL_NAME")
     private String submitFullName;

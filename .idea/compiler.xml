@@ -13,10 +13,12 @@
         <module name="cm-main" />
         <module name="sdk-project-rbac-impl" />
         <module name="rbac-main" />
+        <module name="cloud-biz-feign-pj (1)" />
         <module name="perf-main" />
         <module name="sdk-project-price-impl" />
         <module name="sdk-project-sou-impl" />
         <module name="gateway-main" />
+        <module name="cloud-biz-commons-pj (1)" />
         <module name="supplier-main" />
         <module name="cloud-biz-feign-pj" />
         <module name="cloud-biz-commons-pj" />
@@ -35,6 +37,7 @@
         <module name="sdk-project-base-impl" />
         <module name="sdk-project-report-impl" />
         <module name="cloud-biz-pj" />
+        <module name="cloud-biz-api-pj (1)" />
       </profile>
     </annotationProcessing>
   </component>
@@ -43,8 +46,11 @@
       <module name="base-main" options="-parameters" />
       <module name="cloud-biz" options="-parameters" />
       <module name="cloud-biz-api-pj" options="-parameters" />
+      <module name="cloud-biz-api-pj (1)" options="-parameters" />
       <module name="cloud-biz-commons-pj" options="-parameters" />
+      <module name="cloud-biz-commons-pj (1)" options="-parameters" />
       <module name="cloud-biz-feign-pj" options="-parameters" />
+      <module name="cloud-biz-feign-pj (1)" options="-parameters" />
       <module name="cloud-biz-gateway-pj" options="-parameters" />
       <module name="cloud-biz-pj" options="-parameters" />
       <module name="cloud-srm" options="-parameters" />

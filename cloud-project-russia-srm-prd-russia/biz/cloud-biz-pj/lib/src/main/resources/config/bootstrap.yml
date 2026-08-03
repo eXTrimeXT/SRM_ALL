@@ -1,0 +1,114 @@
+spring:
+  application:
+    name: cloud-biz-pj
+  cloud:
+    nacos:
+      config:
+        prefix: srm-biz-pj
+server:
+  port: 8845
+
+cloud:
+  scc:
+    flyway:
+      # 公共配置项，覆盖：flywayList中相同的配置项
+      common:
+        driverClassName: com.mysql.jdbc.Driver
+        username: ${srm.db.common.username}
+        password: ${srm.db.common.password}
+        minimumIdle: 0
+        maximumPoolSize: 100
+        # 是否开启修复
+        needRepair: false
+        baseline-on-migrate: true
+        baseline-version: 1.0.0
+        encoding: UTF-8
+        out-of-order: true
+        clean-disabled: true
+        validate-on-migrate: false
+        sql-migration-separator: _
+        placeholder-prefix: "_${"
+        placeholders:
+          placeholder_database_cloud_biz_base: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_base}
+          placeholder_database_cloud_biz_cost: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_cost}
+          placeholder_database_cloud_biz_supplier: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_supplier}
+          placeholder_database_cloud_biz_bidding: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_bidding}
+          placeholder_database_cloud_biz_supplier_cooperate: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_supplier_cooperate}
+          placeholder_database_cloud_biz_inquiry: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_inquiry}
+          placeholder_database_cloud_biz_competition: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_competition}
+          placeholder_database_cloud_biz_sou: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_sou}
+          placeholder_database_cloud_rbac: ${srm.db.schemaPrefix}${srm.schema.cloud_rbac}
+          placeholder_database_cloud_biz_contract: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_contract}
+          placeholder_database_cloud_biz_performance: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_performance}
+          placeholder_database_cloud_biz_api: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_api}
+          placeholder_database_cloud_biz_bargaining: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_bargaining}
+          placeholder_database_cloud_biz_price: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_price}
+          placeholder_database_cloud_biz_report: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_report}
+          placeholder_database_cloud_biz_ppap: ${srm.db.schemaPrefix}${srm.schema.cloud_biz_ppap}
+      flywaySimpleList:
+        - enabled: true
+          url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_base}?${srm.db.connectParam}
+          locations:
+            - classpath:${srm.flyway.locationPrefix}/cloud_biz_base
+          table: flyway_schema_base_pj
+        - enabled: true
+          url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_contract}?${srm.db.connectParam}
+          locations:
+            - classpath:${srm.flyway.locationPrefix}/cloud_biz_contract
+          table: flyway_schema_contract_pj
+        - enabled: true
+          url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_cost}?${srm.db.connectParam}
+          locations:
+            - classpath:${srm.flyway.locationPrefix}/cloud_biz_cost
+          table: flyway_schema_cost_pj
+        - enabled: true
+          url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_inquiry}?${srm.db.connectParam}
+          locations:
+            - classpath:${srm.flyway.locationPrefix}/cloud_biz_inquiry
+          table: flyway_schema_inquiry_pj
+        - enabled: true
+          url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_performance}?${srm.db.connectParam}
+          locations:
+            - classpath:${srm.flyway.locationPrefix}/cloud_biz_performance
+          table: flyway_schema_performance_pj
+        - enabled: true
+          url: ${spring.datasource.url}
+          locations:
+            - classpath:${srm.flyway.locationPrefix}/cloud_biz_pj
+          table: flyway_schema_pj
+        - enabled: true
+          url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_ppap}?${srm.db.connectParam}
+          locations:
+            - classpath:${srm.flyway.locationPrefix}/cloud_biz_ppap
+          table: flyway_schema_ppap_pj
+        - enabled: true
+          url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_price}?${srm.db.connectParam}
+          locations:
+            - classpath:${srm.flyway.locationPrefix}/cloud_biz_price
+          table: flyway_schema_price_pj
+        - enabled: true
+          url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_report}?${srm.db.connectParam}
+          locations:
+            - classpath:${srm.flyway.locationPrefix}/cloud_biz_report
+          table: flyway_schema_report_pj
+        - enabled: true
+          url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_sou}?${srm.db.connectParam}
+          locations:
+            - classpath:${srm.flyway.locationPrefix}/cloud_biz_sou
+          table: flyway_schema_sou_pj
+        - enabled: true
+          url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_supplier}?${srm.db.connectParam}
+          locations:
+            - classpath:${srm.flyway.locationPrefix}/cloud_biz_supplier
+          table: flyway_schema_supplier_pj
+        - enabled: true
+          url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_biz_supplier_cooperate}?${srm.db.connectParam}
+          locations:
+            - classpath:${srm.flyway.locationPrefix}/cloud_biz_supplier_cooperate
+          table: flyway_schema_supplier_cooperate_pj
+        - enabled: true
+          url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}${srm.schema.cloud_rbac}?${srm.db.connectParam}
+          locations:
+            - classpath:${srm.flyway.locationPrefix}/cloud_rbac
+          table: flyway_schema_rbac_pj
+

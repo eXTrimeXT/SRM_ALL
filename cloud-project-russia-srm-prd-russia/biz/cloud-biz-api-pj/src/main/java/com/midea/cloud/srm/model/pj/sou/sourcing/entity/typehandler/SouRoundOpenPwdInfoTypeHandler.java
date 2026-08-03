@@ -17,33 +17,33 @@ import java.util.Map;
  * @author zhangwk12@midea.com
  * @since 2022/11/02
  */
-public class SouRoundOpenPwdInfoTypeHandler extends BaseTypeHandler<Map<String/* operateAuth */, com.midea.cloud.srm.model.pj.sou.sourcing.entity.typehandler.SouPwdInfoVO>> {
+public class SouRoundOpenPwdInfoTypeHandler extends BaseTypeHandler<Map<String/* operateAuth */, SouPwdInfoVO>> {
 
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, Map<String/* operateAuth */, com.midea.cloud.srm.model.pj.sou.sourcing.entity.typehandler.SouPwdInfoVO> vars, JdbcType jdbcType) throws SQLException {
+    public void setNonNullParameter(PreparedStatement ps, int i, Map<String/* operateAuth */, SouPwdInfoVO> vars, JdbcType jdbcType) throws SQLException {
         ps.setString(i, JSON.toJSONString(vars));
     }
 
     @Override
-    public Map<String/* operateAuth */, com.midea.cloud.srm.model.pj.sou.sourcing.entity.typehandler.SouPwdInfoVO> getNullableResult(ResultSet rs, String columnName) throws SQLException {
+    public Map<String/* operateAuth */, SouPwdInfoVO> getNullableResult(ResultSet rs, String columnName) throws SQLException {
         String columnValue = rs.getString(columnName);
         return this.parseValue(columnValue);
     }
 
     @Override
-    public Map<String/* operateAuth */, com.midea.cloud.srm.model.pj.sou.sourcing.entity.typehandler.SouPwdInfoVO> getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+    public Map<String/* operateAuth */, SouPwdInfoVO> getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
         String columnValue = rs.getString(columnIndex);
         return this.parseValue(columnValue);
     }
 
     @Override
-    public Map<String/* operateAuth */, com.midea.cloud.srm.model.pj.sou.sourcing.entity.typehandler.SouPwdInfoVO> getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+    public Map<String/* operateAuth */, SouPwdInfoVO> getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
         String columnValue = cs.getString(columnIndex);
         return this.parseValue(columnValue);
     }
 
     @Nullable
-    private Map<String/* operateAuth */, com.midea.cloud.srm.model.pj.sou.sourcing.entity.typehandler.SouPwdInfoVO> parseValue(@Nullable String value) {
+    private Map<String/* operateAuth */, SouPwdInfoVO> parseValue(@Nullable String value) {
         if (value == null) {
             return null;
         } else {

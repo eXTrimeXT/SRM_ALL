@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midea.cloud.srm.biz.pj.baseregions.mapper.BaseRegionMapper">
+
+    <select id="queryRegion" parameterType="map" resultType="com.midea.cloud.srm.model.base.region.entity.Region">
+        SELECT r.REGION_ID, r.AREA_NAME, r.PARENT_ID, r.SAP_AREA_CODE
+        FROM meicloud_usrm_cloud_biz_base.scc_base_region r
+        <where>
+            <if test="regionId != null and regionId != ''"> and r.REGION_ID=#{regionId}</if>
+            <if test="regionIdList != null and regionIdList.size() > 0">
+                and r.REGION_ID IN
+                <foreach collection="regionIdList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+</mapper>

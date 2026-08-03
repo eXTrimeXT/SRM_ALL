@@ -28,7 +28,7 @@ public class MqlSouItemRecordLatestVO extends BaseObjectX {
     @ApiModelProperty("删除数量")
     private Integer deleteCnt;
     @ApiModelProperty("最新的物料变更信息")
-    private List<com.midea.cloud.srm.model.pj.sou.mqlapi.sourcing.vo.control.MqlSouItemRecordVO> recordList;
+    private List<MqlSouItemRecordVO> recordList;
 
     public static MqlSouItemRecordLatestVO convertMqlVO(List<SouItemRecord> recordList) {
         MqlSouItemRecordLatestVO vo = new MqlSouItemRecordLatestVO();

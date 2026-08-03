@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: ${srm.db.urlPrefix}/${srm.db.schemaPrefix}api?${srm.db.connectParam}
+  flyway:
+    # flyway自动配置 true 开启
+    enabled: false
+
+mybatis-plus:
+  type-aliases-package: com.midea.cloud.srm.model.pj
+
+# meicloud:
+#   paas:
+#     audit:
+#       enable: false
+
+server:
+  servlet:
+    context-path: /api-pj
+# 小鹏接口启用状态
+  #xiaopeng:
+    # interface:
+    #status: false

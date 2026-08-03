@@ -30,13 +30,13 @@ import java.util.List;
 public class CompSouHallOrderItemPriceVO extends BaseObjectX {
 
     @ApiModelProperty("最新实时报价排名")
-    private List<com.midea.cloud.srm.model.pj.sou.comp.vo.webapi.hall.CompSouHallOrderItemRankVO> rankList;
+    private List<CompSouHallOrderItemRankVO> rankList;
 
     @ApiModelProperty("价格走势")
     private List<CompSouHallOrderItemPriceTrendVO> trendList;
 
     @ApiModelProperty("报价列表(供应商在指定轮次的历史报价记录)")
-    private List<com.midea.cloud.srm.model.pj.sou.comp.vo.webapi.hall.CompSouHallOrderItemHisVO> hisList;
+    private List<CompSouHallOrderItemHisVO> hisList;
 
     /**
      * 便捷方法

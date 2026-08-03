@@ -46,7 +46,7 @@ public class SouOrderItem extends BaseEntity<SouOrderItem> {
     private Long projectId;
 
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getSouItemId
+     * @see SouItem#getSouItemId
      */
     @TableField("SOU_ITEM_ID")
     @ApiModelProperty("物料需求ID")
@@ -60,7 +60,7 @@ public class SouOrderItem extends BaseEntity<SouOrderItem> {
     private Long vendorId;
 
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouOrder#getOrderId
+     * @see SouOrder#getOrderId
      */
     @TableField("ORDER_ID")
     @ApiModelProperty("报价单ID")
@@ -99,14 +99,14 @@ public class SouOrderItem extends BaseEntity<SouOrderItem> {
     private BigDecimal echelonPrice;
 
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouOrder#getRound
+     * @see SouOrder#getRound
      */
     @TableField("ROUND")
     @ApiModelProperty("报价轮次(冗余字段)")
     private Integer round;
 
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouOrder#getOrderStatus
+     * @see SouOrder#getOrderStatus
      */
     @TableField("ORDER_STATUS")
     @ApiModelProperty("报价单状态(冗余字段)")
@@ -125,63 +125,63 @@ public class SouOrderItem extends BaseEntity<SouOrderItem> {
 
     // ---------------------------------------------------------- 冗余物料信息 ----------------------------------------------------------
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getItemGroup
+     * @see SouItem#getItemGroup
      */
     @TableField("ITEM_GROUP")
     @ApiModelProperty("物料组合(冗余字段)")
     private String itemGroup;
 
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getNoCodeItem
+     * @see SouItem#getNoCodeItem
      */
     @TableField("NO_CODE_ITEM")
     @ApiModelProperty("是否无料号物料")
     private Enable noCodeItem;
 
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getItemId
+     * @see SouItem#getItemId
      */
     @TableField("ITEM_ID")
     @ApiModelProperty("物料ID")
     private Long itemId;
 
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getItemCode
+     * @see SouItem#getItemCode
      */
     @TableField("ITEM_CODE")
     @ApiModelProperty("物料编码")
     private String itemCode;
 
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getItemDesc
+     * @see SouItem#getItemDesc
      */
     @TableField("ITEM_DESC")
     @ApiModelProperty("物料名称")
     private String itemDesc;
 
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getUnit
+     * @see SouItem#getUnit
      */
     @TableField("UNIT")
     @ApiModelProperty("单位")
     private String unit;
 
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getCategoryId
+     * @see SouItem#getCategoryId
      */
     @TableField("CATEGORY_ID")
     @ApiModelProperty("品类ID")
     private Long categoryId;
 
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getCategoryCode
+     * @see SouItem#getCategoryCode
      */
     @TableField("CATEGORY_CODE")
     @ApiModelProperty("品类编码")
     private String categoryCode;
 
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getCategoryName
+     * @see SouItem#getCategoryName
      */
     @TableField("CATEGORY_NAME")
     @ApiModelProperty("品类名称")

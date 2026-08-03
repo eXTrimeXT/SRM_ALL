@@ -75,7 +75,7 @@ public class SouSupplierScoreManage extends BaseEntity<SouSupplierScoreManage> {
     @TableField("SOU_TYPE")
     private String souType;
     /**
-     * @see com.midea.cloud.srm.model.pj.sou.score.entity.SouScoreDimension#getScoreDimensionId()
+     * @see SouScoreDimension#getScoreDimensionId()
      */
     @ApiModelProperty("评分维度表ID")
     @TableField("SCORE_DIMENSION_ID")

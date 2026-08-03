@@ -29,7 +29,7 @@ public class SouVendorAuth extends BaseEntity<SouVendorAuth> {
     @TableId("VENDOR_AUTH_ID")
     private Long vendorAuthId;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouVendor#getSouVendorId */
+    /** @see SouVendor#getSouVendorId */
     @ApiModelProperty("供应商表ID")
     @TableField("SOU_VENDOR_ID")
     private Long souVendorId;
@@ -39,7 +39,7 @@ public class SouVendorAuth extends BaseEntity<SouVendorAuth> {
     @TableField("PROJECT_ID")
     private Long projectId;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getSouItemId */
+    /** @see SouItem#getSouItemId */
     @ApiModelProperty("物料需求ID")
     @TableField("SOU_ITEM_ID")
     private Long souItemId;
@@ -58,27 +58,27 @@ public class SouVendorAuth extends BaseEntity<SouVendorAuth> {
     @ApiModelProperty("物料ID(冗余字段)")
     private Long itemId;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getItemCode */
+    /** @see SouItem#getItemCode */
     @TableField("ITEM_CODE")
     @ApiModelProperty("物料编码(冗余字段)")
     private String itemCode;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getItemDesc */
+    /** @see SouItem#getItemDesc */
     @TableField("ITEM_DESC")
     @ApiModelProperty("物料名称(冗余字段)")
     private String itemDesc;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getUnit */
+    /** @see SouItem#getUnit */
     @TableField("UNIT")
     @ApiModelProperty("单位(冗余字段)")
     private String unit;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getCategoryId */
+    /** @see SouItem#getCategoryId */
     @TableField("CATEGORY_ID")
     @ApiModelProperty("品类ID(冗余字段)")
     private Long categoryId;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.sourcing.entity.SouItem#getCategoryCode */
+    /** @see SouItem#getCategoryCode */
     @TableField("CATEGORY_CODE")
     @ApiModelProperty("品类编码(冗余字段)")
     private String categoryCode;

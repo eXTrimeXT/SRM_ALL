@@ -31,17 +31,17 @@ public class InqSouOrderItem extends ExtInqSouOrderItem {
     @ApiModelProperty("报价单ID")
     private Long orderId;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.inq.entity.InqSouItem#getIsFormula */
+    /** @see InqSouItem#getIsFormula */
     @TableField("IS_FORMULA")
     @ApiModelProperty("是否公式报价(冗余字段)")
     private Enable isFormula;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.inq.entity.InqSouItem#getFormulaId */
+    /** @see InqSouItem#getFormulaId */
     @TableField("FORMULA_ID")
     @ApiModelProperty("公式ID(冗余字段)")
     private Long formulaId;
 
-    /** @see com.midea.cloud.srm.model.pj.sou.inq.entity.InqSouItem#getFormulaName */
+    /** @see InqSouItem#getFormulaName */
     @TableField("FORMULA_NAME")
     @ApiModelProperty("公式名称(冗余字段)")
     private String formulaName;

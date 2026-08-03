@@ -67,7 +67,7 @@ public class ApiSouTempSelectDataVO extends BaseObjectX {
     @ApiModelProperty("分项明细数据")
     private List<ApiSouTempSelectDetailDataVO> souTempSelectDetailDataVOList;
     @ApiModelProperty("分项明细动态列")
-    private List<com.midea.cloud.srm.model.pj.sou.openapi.sourcing.vo.select.ApiSouTempSelectVO.DynamicCol> souTempSelectDetailDynamicColList;
+    private List<ApiSouTempSelectVO.DynamicCol> souTempSelectDetailDynamicColList;
     @ApiModelProperty("异常提示")
     private String errorMessage;
 

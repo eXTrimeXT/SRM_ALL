@@ -59,11 +59,11 @@ public class BankOpenReturnDto {
 
     private Cmscloud Cmscloud;
 
-    public void setCmscloud(BankOpenReturnDto.Cmscloud cmscloud) {
+    public void setCmscloud(Cmscloud cmscloud) {
         Cmscloud = cmscloud;
     }
 
-    public BankOpenReturnDto.Cmscloud getCmscloud() {
+    public Cmscloud getCmscloud() {
         return Cmscloud;
     }
 

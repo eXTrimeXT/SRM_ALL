@@ -18,31 +18,14 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableZuulProxy
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages = {
-        "com.mideacloud.common.util.keystore",
-        "com.mideacloud.common.user",
-        "com.mideacloud.common.impl.user",
+        "com.mideacloud.common.util.keystore", "com.mideacloud.common.user", "com.mideacloud.common.impl.user",
         "com.midea.cloud.gateway",
         "com.midea.cloud.common.autoconfigure",
         "com.midea.cloud.component",
         "com.midea.cloud.srm.webservice",
         "com.midea.cloud.srm.websocket",
-        "com.midea.cloud.project",
-//})
-
-//        "com.mideacloud.common.util.keystore",
-//        "com.mideacloud.common.user",
-//        "com.mideacloud.common.impl.user",
-//        "com.midea.cloud.common.autoconfigure",
-//        "com.midea.cloud.common.environment",
-//        "com.midea.cloud.common.open",
-//        "com.midea.cloud.common.sync",
-//        "com.midea.cloud.gateway",
-//        "com.midea.cloud.component",
-//        "com.midea.cloud.srm.websocket",
-//        "com.midea.cloud.project",
-//        "com.midea.cloud.srm.saudit"
+        "com.midea.cloud.project"
 })
-
 @Slf4j
 public class GatewayApplication {
 
