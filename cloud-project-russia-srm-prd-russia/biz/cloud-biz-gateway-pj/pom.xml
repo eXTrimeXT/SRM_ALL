@@ -37,6 +37,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>com.midea</groupId>
+            <artifactId>cloud-biz-commons-extend</artifactId>
+            <version>meiqing-V3.0.11.1</version>
+        </dependency>
+
         <dependency>
             <groupId>com.midea</groupId>
             <artifactId>base-component-extend</artifactId>

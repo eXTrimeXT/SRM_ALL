@@ -13,12 +13,10 @@
         <module name="cm-main" />
         <module name="sdk-project-rbac-impl" />
         <module name="rbac-main" />
-        <module name="cloud-biz-feign-pj (1)" />
         <module name="perf-main" />
         <module name="sdk-project-price-impl" />
         <module name="sdk-project-sou-impl" />
         <module name="gateway-main" />
-        <module name="cloud-biz-commons-pj (1)" />
         <module name="supplier-main" />
         <module name="cloud-biz-feign-pj" />
         <module name="cloud-biz-commons-pj" />
@@ -37,9 +35,13 @@
         <module name="sdk-project-base-impl" />
         <module name="sdk-project-report-impl" />
         <module name="cloud-biz-pj" />
-        <module name="cloud-biz-api-pj (1)" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="cloud-biz-api-pj (1)" target="1.8" />
+      <module name="cloud-biz-commons-pj (1)" target="1.8" />
+      <module name="cloud-biz-feign-pj (1)" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
