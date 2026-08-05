@@ -4,6 +4,7 @@ oasis:
   restapi: 
     client: 
       type: extIdeFlowEventService
+#      type: default
 #ipaas系统相关
 ipaas:
   #系统接口地址

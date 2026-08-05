@@ -36,7 +36,7 @@ spec:
             pathType: Prefix
           - backend:
               service:
-                  name: srm-java-reduce-{{ .Values.global.env }}
+                name: srm-java-reduce-{{ .Values.global.env }}
                 port:
                   number: 8060
             path: /api-rd
