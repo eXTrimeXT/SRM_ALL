@@ -55,8 +55,5 @@ public class ExtIdeFlowEventServiceStub implements IWorkflowEventService {
     public List<Long> readTask(List<Long> idList) {
         return Collections.emptyList();
     }
-
-    // ВАЖНО: После вставки этого кода нажмите Alt+Enter на имени класса
-    // и выберите "Implement methods" для генерации всех методов интерфейса.
     // В каждом сгенерированном методе оставьте return null / return false / return Collections.emptyList()
 }
