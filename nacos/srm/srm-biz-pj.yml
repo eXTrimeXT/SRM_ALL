@@ -30,16 +30,15 @@ rocketmq:
       groupName: srm-project-review-test
       topic: SRM_PROJECT_REVIEW_TOPIC
     sunHonestyMqConsumer:
-      namesrvAddr: 10.246.101.217:9876
+      namesrvAddr: 10.168.130.50:9876
       groupName: srm-student-center-test
       topic: lcs_train_student
 gwm:
-  appkey: 85X2XXT7MAXX
+  appkey: X63T8A0BM648
   appId: com.awspaas.user.apps.srm20240129
-  secret: 021f2270513c462aab6453e37d15dfd8
-  #来源系统
-  opersource: RUS_SRM
+  secret: 00cc14bc145a43dc816fa5750a0a7324
   preappkey: 850T8A7B9648
+  preappkey2: com.awspaas.user.apps.srm20240129
   presecret: acfae103027447838b0c019ca278b0e6
   srmbpmTodoGroupId: obj_17a51da90e80426b96370ff570114d70
   #营业执照OCR识别URL
@@ -61,7 +60,7 @@ gwm:
     #通过公共token获取用户信息接口
     getUserInfoByTokenUrl: http://auth.test.paas.gwm.cn/authenticate/getUserInfoByToken
     #jwt token互信登录
-    verifyTokenUrl: https://srm-cnp-bdtest.gwm.cn/cloud-srm/sys/verifyToken
+    verifyTokenUrl: http://srm-cnp-bdtest.gwmit.cn/cloud-srm/sys/verifyToken
     #平台code
     platform_code: 692e8def19081157c0c6cbfbce95ed95
   #阿里云资源名称
@@ -70,13 +69,13 @@ gwm:
   #   roleArn: acs:ram::1743748119189675:role/srm-role-xingzhou41394
   #知识大脑
   gwkb:
-    appkey: 58f916def80d4fa2bea51027b9def100
-    secret: 6d4ad22e46424b27a5ddc78b37a1efab
+    appkey: 450276de3e6f51706f5a2c0c8165e760
+    secret: a1cdbaba2c8139deda3eb94d26af4410
     login-url: https://gwkb-test.gwm.cn/prod-api/auth/login
     fileCompare-url: https://gwkb-test.gwm.cn/prod-api/mindmatrix/fileCompare/getSRMResult
     bidReviewPush-url: https://gwkb-test.gwm.cn/prod-api/mindmatrix/bidReview/push
     bidReviewScanFile-url: https://gwkb-test.gwm.cn/prod-api/mindmatrix/bidReview/getParseFailedFileList
-    bidReviewItemsQuotation-url: https://gwkb-test.gwm.cn/prod-api/mindmatrix/bidReview/getItemsQuotation
+    bidReviewItemsQuotation-url: https://gwkb-test.gwm.cn/prod-api/mindmatrix/im/bidReview/getItemsQuotation
   bpm:
     #SRM组织角色推送bpm
     src-system: com.awspaas.user.apps.app20230971602
@@ -87,7 +86,7 @@ gwm:
     # 开放平台-资金系统查询服务-支行信息（联行号）查询
     branchBankSyncFromOpen-url: https://gwapi.gwm.cn/rest/fd/fund/fd/fund/zj/serach/api/dtxg/cc/BASE-0117
 
-      # 阳光诚信自助平台-用户同步测试url
+    # 阳光诚信自助平台-用户同步测试url
     sunHonestySysPushUser-url: http://10.251.84.14/api/open/receiveUserServer
     # 阳光诚信自助平台-单点认证获取code
     sunHonestySys-getPreAuthCode-url: http://10.251.84.14/api/getPreAuthCode
@@ -96,8 +95,8 @@ gwm:
     # 阳光诚信自助平台-加密key
     sunHonestySys-encryptKey: 483bf82e315b4600
     # 阳光诚信自助平台-单点认证平台url
-    sunHonestySys-externalSso-url: http://10.251.84.14:8089/externalSso?code=%s&platformCode=%s&redirectUrl=trainingTasks?id=643
-
+    sunHonestySys-externalSso-url: http://10.251.84.14:8089/externalSso?code=%s&platformCode=%s&redirectUrl=trainingTasks?id=631
+    
     #DataWorks数据服务-供应商360视图-根据供应商ids获取对应参与率、中标率、被邀请率
     getSupplierWinningRateByVendoridOrCode-url: http://bc474ee84e4245cc86b911b7549894f6.apigateway.res.cloud.gwm.cn/sc/srm/getSupplierWinningRateByVendorId?appCode=414ddb6d1aeb4db2963de3dddf193935&vendor_id=%s
     #DataWorks数据服务-供应商360视图-供应商历史合作信息-项目品类投标中标信息
@@ -123,17 +122,6 @@ gwm:
     # flow-update: https://gwapi.gwm.cn/rest/public/flow/native/updateBoData
     # 提交流程
     flow-resubmit: https://gwapi.gwm.cn/pre/public/flow/native/resubmitProcess
-    #新版流程对接接口
-    #发起流程
-    startProcessByCategoty-url: https://gwapi.gwm.cn/pre/public/flow/thirdSys/startProcessByCategoty
-    #退回任务
-    rollBackTask-url: https://gwapi.gwm.cn/pre/public/flow/thirdSys/rollBackTask
-    #转办任务
-    forwardTask-url: https://gwapi.gwm.cn/pre/public/flow/thirdSys/forwardTask
-    #提交任务
-    commitTask-url: https://gwapi.gwm.cn/pre/public/flow/thirdSys/commitTask
-    #预执行接口
-    predict-url: https://bpmuat.gwm.cn/bpmapi/process/predict
     # flow-resubmit: https://gwapi.gwm.cn/rest/public/flow/native/resubmitProcess
     # 获取审批历史
     process-comment-info: https://gwapi.gwm.cn/pre/public/flow/common/comment/getCommentAndTodoTaskList
@@ -144,7 +132,7 @@ gwm:
     #申请供应商编码
     create-supplier: https://gwapi.gwm.cn/sandbox/mdm/supplierinfo/supplierinfo/createSupplier
     #create-supplier: https://gwapi.gwm.cn/rest/mdm/supplierinfo/supplierinfo/createSupplier
-     #创建供应商主数据视图
+    #创建供应商主数据视图
     create-supplierview: https://gwapi.gwm.cn/sandbox/pd/product/api/erp/material/gateway/gwm-controller/sapWebService/createSuppliCompanyView
     #create-supplierview: https://gwapi.gwm.cn/rest/pd/product/api/erp/material/gateway/gwm-controller/sapWebService/createSuppliCompanyView
     #根据名称查询供应商信息
@@ -163,15 +151,22 @@ gwm:
     company-aqc: http://10.255.128.79:81/gwm_ips/rest/SrmPassUtil/searchCompany
     #品类
     category: https://gwapi.gwm.cn/sandbox/mdm/Nonproductionmaterials/material-category/page
-    #category: https://gwapi.gwm.cn/rest/mdm/Nonproductionmaterials/material-category/page
+    # #鉴权接口获取令牌
+    # findToken-url: http://gscp.gwmtest.cn/AuthServer/oauth/token
+    # #鉴权接口获取令牌username 
+    # findTokenUsername: DPS
+    # #鉴权接口获取令牌password 
+    # findTokenPassword: DPSshaicha.1
+    # #筛查接口
+    # import-screening: http://gscp.gwmtest.cn/api/asm-screening-api/v1/import-screening 
     #鉴权接口获取令牌
-    findToken-url: http://gscp.gwmtest.cn/AuthServer/oauth/token
+    findToken-url: http://gscp.gwm.cn/AuthServer/oauth/token
     #鉴权接口获取令牌username 
-    findTokenUsername: DPS
+    findTokenUsername: EPS
     #鉴权接口获取令牌password 
-    findTokenPassword: DPSshaicha.1
+    findTokenPassword: EPSshaicha.1
     #筛查接口
-    import-screening: http://gscp.gwmtest.cn/api/asm-screening-api/v1/import-screening 
+    import-screening: http://gscp.gwm.cn/api/asm-screening-api/v1/import-screening
     #筛查接口机构
     import-screening-accountId: 1003
     #筛查接口数据集ID
@@ -184,12 +179,17 @@ gwm:
     #飞书消息-发送工作通知接口 url
     feishu-workNotices-url: https://gwapi.gwm.cn/sandbox/public/news/msg/fs-msg-info/send-batch-msg
     #开放平台短信下发
-    sms-notice-url: https://gwapi.gwm.cn/rest/public/pubqc/api/tripartite/capability/notification
+    # sms-notice-url: https://gwapi.gwm.cn/rest/public/pubqc/api/tripartite/capability/notification
+    #短信作废
+    sms-notice-url: https://gwapi.gwm.cn/rest/public/pubqc/api/tripartite/capability/notification3
     #大汉三通短信下发-短信下发 url
-    sms-Submit-url: http://www.dh3t.com/json/sms/Submit
+#    sms-Submit-url: http://www.dh3t.com/json/sms/Submit
+    #短信作废
+    sms-Submit-url: http://www.dh3t.com/json/sms/Submit3
     #短信下发-用户账号 
-    # sms-Submit-account:  3449136
-    sms-Submit-account:  111111
+    # sms-Submit-account:  
+    #短信作废
+    sms-Submit-account:  11111
     #短信下发-密码 
     sms-Submit-password: To82Tiq9
     #短信下发-短信签名
@@ -205,6 +205,17 @@ gwm:
     flowCategory-create: https://gwapi.gwm.cn/pre/public/flow/native/createProcessByCategory
     #发起人撤回流程
     flow-rollBack: https://gwapi.gwm.cn/pre/public/flow/native/rollBackProcess
+    #新版流程对接接口
+    #发起流程
+    startProcessByCategoty-url: https://gwapi.gwm.cn/pre/public/flow/thirdSys/startProcessByCategoty
+    #退回任务
+    rollBackTask-url: https://gwapi.gwm.cn/pre/public/flow/thirdSys/rollBackTask
+    #转办任务
+    forwardTask-url: https://gwapi.gwm.cn/pre/public/flow/thirdSys/forwardTask
+    #提交任务
+    commitTask-url: https://gwapi.gwm.cn/pre/public/flow/thirdSys/commitTask
+    #预执行接口
+    predict-url: https://bpmuat.gwm.cn/bpmapi/process/predict
     #契约锁-多文件创建合同文档接口url
     contractLock-createbyfiles: http://10.255.128.120:8182/
     #契约锁-accessKey
@@ -216,6 +227,7 @@ gwm:
     #组织角色
     organizationRole: https://gwapi.gwm.cn/pre/public/flow/dw/bo/updateDwBoData
     #汇率列表接口
+    # price-rate-url: https://gwapi.gwm.cn/sandbox/mdm/exchangerate/rate/page
     price-rate-url: https://gwapi.gwm.cn/rest/mdm/exchangerate/rate/page
     #内部供应商查询
     internalSupplier-url: https://gwapi.gwm.cn/rest/fd/fdqc/fi/md/com/fi/com/getLegalCompanyByCreditCode
@@ -237,14 +249,11 @@ gwm:
     #查询子公司组织树
     org-companyPageByParentId: https://gwapi.gwm.cn/sandbox/hr/staff/roster/open/organization/company/getOrgTreeByParentId
     #认领结果查询接口
-    #claimUrl: https://gwapi.gwm.cn/sandbox/fd/fund/fd/fund/zj/serach/api/dtxg/cc/ARMG-1002
-    claimUrl: https://gwapi.gwm.cn/pre/fd/fund/fd/fund/zj/serach/api/dtxg/cc/ARMG-1002
+    claimUrl: https://gwapi.gwm.cn/sandbox/fd/fund/fd/fund/zj/serach/api/dtxg/cc/ARMG-1002
     #应收单撤销查询接口
-    #receivableUrl: https://gwapi.gwm.cn/sandbox/fd/fund/fd/fund/zj/serach/api/dtxg/cc/ARMG-1003
-    receivableUrl: https://gwapi.gwm.cn/pre/fd/fund/fd/fund/zj/serach/api/dtxg/cc/ARMG-1003
+    receivableUrl: https://gwapi.gwm.cn/sandbox/fd/fund/fd/fund/zj/serach/api/dtxg/cc/ARMG-1003
     #接收应收单信息接口
-    #receiveUrl: https://gwapi.gwm.cn/sandbox/fd/fund/fd/fund/zj/serach/api/dtxg/cc/ARMG-1001
-    receiveUrl: https://gwapi.gwm.cn/pre/fd/fund/fd/fund/zj/serach/api/dtxg/cc/ARMG-1001
+    receiveUrl: https://gwapi.gwm.cn/sandbox/fd/fund/fd/fund/zj/serach/api/dtxg/cc/ARMG-1001
     #创建第三方待办任务
     createEAITaskInstanceUrl: https://gwapi.gwm.cn/sandbox/public/bpm/portal/api/customAPI/task/createEAITaskInstance
     #完成第三方待办任务
@@ -253,6 +262,8 @@ gwm:
     createInvoiceUrl: https://gwapi.gwm.cn/sandbox/fd/sif/sale/settle/api/cwgxsettle/sale/settle/create/invoice
     #结算结果查询
     settleResultUrl: https://gwapi.gwm.cn/sandbox/fd/sif/sale/settle/api/cwgxsettle/sale/settle/result
+    #文件解密
+    fileDecryptUrl: https://gwapi.gwm.cn/sandbox/sec/cdg/file_decrypt
     #推送采购订单到EDM
     edmPurOrderPushUrl: http://edmqa-cnp-bdtest.gwmit.cn/scim-edm-service/scim-edm-sparepart/SRM/receiveOrder
     #EDM草稿信息回传接口
@@ -263,10 +274,10 @@ gwm:
     settleAccounting: https://gwapi.gwm.cn/sandbox/fd/sif/sale/settle/api/cwgxsettle/sale/settle/accounting
 ipaas:
   flow:
-    api: http://ipaas-cnp-bduat.gwmit.cn/flow/api/
+    api: http://ipaas-cnp-bdtest.gwmit.cn/flow/api/
     gscp_token_url: AuthServer/oauth/token
     gscp_import_screening_url: api/asm-screening-api/v1/import-screening
-    
+
 #用于api-pj/external/file/download接口鉴权
 downloadFile:
   #外围系统身份标识，多个系统以英文;间隔
@@ -276,12 +287,12 @@ downloadFile:
 
 # meiql:
 #   nacos:
-#     serverAddr: ${srm.nacos.url}
-#     namespace: ${srm.nacos.namespace}
+#     serverAddr: 10.246.99.231:8848
+#     namespace: dev
 #     group: srm
 #     enable: true
-#     username: ${srm.nacos.user}
-#     password: ${srm.nacos.password}
 #   schemaFile:
 #     - path:classpath*:meiql-schema/*.json
+#   behaviorFile:
+#     - path:classpath*:meiql-schema/*.xml
     #- nacos:MeiqlTest.json

@@ -45,8 +45,8 @@ meicloud:
             WHERE create_time >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 3 MONTH), '%Y-%m-01')
             GROUP BY DATE_FORMAT(create_time, '%Y-%m');
         - name: audit_monthly_count
-          cron: 0 10 1 * * ?
-          collector: auditMonthlyTotalCollector
+            cron: 0 10 1 * * ?
+            collector: auditMonthlyTotalCollector
         - name: bpmp_material_count
           cron: 0 10 1 * * ?
           dataSource: bpmp

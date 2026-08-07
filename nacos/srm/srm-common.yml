@@ -1,10 +1,16 @@
+# Отключение шифрования ошибок для локальной разработки
+coreencrypt:
+  filter:
+    globalHandle:
+      encrypt: false
+
 apaas:
   tableSchema: meicloud_apaas_workflow
 oasis:
   restapi: 
     client: 
       type: extIdeFlowEventService
-#      type: default
+      # type: default
 #ipaas系统相关
 ipaas:
   #系统接口地址
@@ -17,9 +23,12 @@ logging:
   level:
     com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver: WARN
     springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator: WARN
-    srm: info
+    srm: debug
     com.midea: debug
     com.midea.cloud.meiql: DEBUG
+    org.springframework.boot.autoconfigure: DEBUG
+    com.midea.cloud.oasis: DEBUG
+    com.midea.cloud.ide: DEBUG
   file: logs/${spring.application.name}.log
   #config: classpath:logback-spring.xml
   config: classpath:logback-local.xml
@@ -212,7 +221,6 @@ cloud:
           "com.midea.cloud.srm.biz.pj.changchengapi.bpm.mapper.CommitTaskParamMapper.selectOne": -1
           "com.midea.cloud.srm.biz.pj.changchengapi.bpm.mapper.BpmNewFlagMapper.selectOne": -1
           "com.midea.cloud.srm.base.flow.mapper.ExtFlowMapper.queryActInstances": -1
-          "com.midea.cloud.srm.sup.ext.register.mapper.MessagePromptMapper.getMessagePromptMessage": -1
     database:
       prefix: ${srm.db.schemaPrefix}
       # suffix: ${srm.db.schemaSuffix}
@@ -338,6 +346,7 @@ security:
   oauth2:
     resource:
       prefer-token-info: false
+      # prefer-token-info: true
 ribbon:
   ConnectTimeout: 500000
   ReadTimeout: 600000
@@ -432,7 +441,8 @@ meicloud:
       # 控制台地址
       register-address: ${srm.url.apaas}
       log-writer:
-        type: http
+        # type: http
+        type: logger
 #    ies:
 #      upload: 
 #        type: oss
@@ -516,8 +526,7 @@ meiql:
     group: srm
     enable: true
     username: nacos
-    # password: d9R-_m3lRP5~
-    password: nacos
+    password: ${srm.nacos.password}
 srm:
   #srm 地址
   baseUrl: https://srm-dev.hmmr.ru/
@@ -770,7 +779,6 @@ eas:
   deliveryNoteAddress: http://10.255.52.96:6894/ormrpc/services/WSSyncPurOrderBillFacade
   invoiceNoticeAddress: http://10.255.52.96:6894/ormrpc/services/WSWSPaybillWebFacade
   actualStockAddress: http://10.255.52.96:6894/ormrpc/services/WSWSInventory
-
 #gscp系统对接
 gscp:
   username: EPS
@@ -782,6 +790,8 @@ gscp:
   import-screening-accountId: 1
   import-screening-profileId: 63f0b54d-81ec-4b49-aeca-cdebbf66fc90
   import-screening-datasetId: 1003
+
+
 sap:
   #sap系统环境地址
   sapSysUrl: 'http://sap-qas-app.hmmr.ru:60000'
@@ -795,7 +805,7 @@ sap:
   #物料新增或修改
   saveOrUpdateMaterialApi: '/sap/opu/odata/sap/ZPURCHASEORDER_API_SRV/MasterMaterialDataSet'
   #新增供应商
-  createSupplier: '/sap/opu/odata/sap/ZPURCHASEORDER_API_SRV/SupplierSet'
+  createSupplier: '/sap/opu/odata/sap/ZPURCHASEORDER_API_SRV/SupplierSet?sap-client=800'
   #推送订单
   pushOrderApi: '/sap/opu/odata/sap/ZPURCHASEORDER_API_SRV/A_PurchaseOrder'
   #删除订单
@@ -828,7 +838,7 @@ gwm:
     #非生产物料主数据
     material-url: /mdm/Nonproductionmaterials/nonproductive-material/page
     #新增OA申请编号、供应商编码等信息
-    createSupplierApi: /mdm/supplierinfo/supplierinfo/createSupplier?sap-client=800
+    createSupplierApi: /mdm/supplierinfo/supplierinfo/createSupplier
     #修改供应商信息
     supplierinfoEditApi: /mdm/supplierinfo/supplierinfo/edit
     #发送工作通知

@@ -31,4 +31,4 @@ bpm:
 #     - nacos:ExtContractMaterial.json
 #     - nacos:ExtContractPartner.json
 #     - nacos:ExtPerPlan.json
-#     #- nacos:MeiqlTest.json
+    #- nacos:MeiqlTest.json

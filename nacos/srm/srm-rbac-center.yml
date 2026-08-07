@@ -1,6 +1,6 @@
 # meiql:
 #   nacos:
-#     serverAddr: nacos-cs.dev:8848
+#     serverAddr: http://10.168.130.194:30204
 #     namespace: dev
 #     group: srm
 #     enable: true

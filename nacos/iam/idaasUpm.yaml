@@ -91,7 +91,8 @@ meicloud:
       accessKeyId: ${global.minio.accessKey}
       accessKeySecret: ${global.minio.secretKey}
       repository: 
-        type: local
+        # local
+        type: dev 
       prefixChar: iam-${global.env}
       maxMByte: 5    
 server:
