@@ -140,13 +140,13 @@ export default defineConfig(({ mode }) => {
             rewrite: (path) => path.replace(/^\/question/, '')
           },
           // 👇 Жестко прописываем локальный Gateway 👇
-          '/cloud-srm': 'http://localhost:8845',
-          '/srm/cloud-srm': 'http://localhost:8845',
-          '/oasis': 'http://localhost:8845',
-          '/public-access': 'http://localhost:8845',
-          '/ihr-corehr': 'http://localhost:8845',
-          '/lcdp': 'http://localhost:8845',
-          '/api-cm-v2': 'http://localhost:8845'
+          '/cloud-srm': 'http://localhost:9005',
+          '/srm/cloud-srm': 'http://localhost:9005',
+          '/oasis': 'http://localhost:9005',
+          '/public-access': 'http://localhost:9005',
+          '/ihr-corehr': 'http://localhost:9005',
+          '/lcdp': 'http://localhost:9005',
+          '/api-cm-v2': 'http://localhost:9005'
         }
       })
     ]
