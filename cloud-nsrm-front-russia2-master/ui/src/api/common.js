@@ -44,7 +44,8 @@ export function getFileInfo (id) {
 
 export function getCurrentKey () {
   return http({
-    url: '/api-base/common/currentKey',
+    // url: '/api-base/common/currentKey',
+    url: '/api-base/common/publicKey',
     method: 'GET',
     params: {}
   })

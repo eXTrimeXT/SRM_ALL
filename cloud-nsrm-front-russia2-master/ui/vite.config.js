@@ -125,6 +125,7 @@ export default defineConfig(({ mode }) => {
         //   // 3、VPN+现场联调后端本地电脑: 放开注释 -> 修改本地ipass启动IP端口
         //   // '/ssc/workflow/cloud-srm': 'http://10.18.4.29:37001'
         // }
+
         proxy: {
           '/ide': 'https://ide-sit1.meicloud.com',
           '/egg': env.VUE_APP_BASE_URL,
@@ -139,14 +140,14 @@ export default defineConfig(({ mode }) => {
             changeOrigin: true,
             rewrite: (path) => path.replace(/^\/question/, '')
           },
-          // 👇 Жестко прописываем локальный Gateway 👇
-          '/cloud-srm': 'http://localhost:9005',
-          '/srm/cloud-srm': 'http://localhost:9005',
-          '/oasis': 'http://localhost:9005',
-          '/public-access': 'http://localhost:9005',
-          '/ihr-corehr': 'http://localhost:9005',
-          '/lcdp': 'http://localhost:9005',
-          '/api-cm-v2': 'http://localhost:9005'
+          // Жестко прописываем локальный Gateway
+          '/cloud-srm': 'http://10.168.154.42:9005',
+          '/srm/cloud-srm': 'http://10.168.154.42:9005'
+          // '/oasis': 'http://10.168.154.42:9005',
+          // '/public-access': 'http://10.168.154.42:9005',
+          // '/ihr-corehr': 'http://10.168.154.42:9005',
+          // '/lcdp': 'http://10.168.154.42:9005',
+          // '/api-cm-v2': 'http://10.168.154.42:9005'
         }
       })
     ]

@@ -661,7 +661,7 @@ export default {
       return {
         username: [{ required: true, validator: this.validateUsername }],
         password: [{ required: true, message: this.$t('vendorMod.enterPass') }]
-      } 
+      }
     },
     isPC () {
       return this.$store.getters.isPC && this.$store.getters.device !== 'device-xs'
@@ -1112,7 +1112,7 @@ export default {
           const { data } = await getPassPublicKey()
           this.passPublicKey = data
           let resData = await this.$http({
-            url: '/api-rbac/rbac-anon/sys/pj/login',
+            url: '/api-rbac/rbac-anon/sys/login',
             method: 'POST',
             data: qs.stringify({
               language: this.$i18n.locale,

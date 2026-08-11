@@ -242,7 +242,7 @@ export default {
           const { data } = await getPassPublicKey()
           this.passPublicKey = data
           let resData = await this.$http({
-            url: '/api-rbac/rbac-anon/sys/pj/login',
+            url: '/api-rbac/rbac-anon/sys/login',
             method: 'POST',
             data: qs.stringify({
               language: this.$i18n.locale,
