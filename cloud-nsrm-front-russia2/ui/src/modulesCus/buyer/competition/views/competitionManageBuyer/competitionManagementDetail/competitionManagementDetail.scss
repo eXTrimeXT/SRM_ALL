@@ -1,0 +1,32 @@
+.competition-detail-wrapper {
+  ::v-deep .container-right-tabs {
+    height: 100%;
+
+    > {
+      .el-tabs__header {
+        display: none;
+      }
+
+      .el-tabs__content {
+        padding: 0 10px 10PX 10px;
+        box-sizing: border-box;
+        height: 100%;
+
+        .el-tab-pane {
+          height: 100%;
+          overflow-y: auto;
+          overflow-x: hidden;
+          padding-top: 10px;
+        }
+      }
+    }
+  }
+
+  .main-header {
+    border: none;
+  }
+
+  .flex-container-right {
+    position: relative;
+  }
+}

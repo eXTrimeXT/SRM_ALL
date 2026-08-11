@@ -1,0 +1,100 @@
+
+.query-form-container-config.form-info-config-page[data-v-b518da7c]{
+  border: 0;
+  padding: 0;
+}
+.query-form-container-config.form-info-config-page .el-form[data-v-b518da7c]{
+  padding-top: 16px;
+  margin: 0;
+}
+.vue-treeselect__label[data-v-b518da7c] {
+  font-size: 12px;
+  font-weight: 400;
+}
+.form-info-config-page .el-form-item--small .el-form-item__content[data-v-b518da7c] {
+  height: 28px !important;
+  line-height: 28px !important;
+}
+.form-info-config-page .el-form-item__label[data-v-b518da7c] {
+  padding-right: 8px;
+  white-space: normal;
+  line-height: 15px !important;
+  vertical-align: middle;
+  max-height: 30px;
+  float: none !important;
+  display: inline-block !important;
+  width: 35% !important;
+  /* 自适应用这两行 */
+  /* max-width: 55%;
+  width: auto !important; */
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* display: -webkit-box; */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.form-info-config-page .el-form-item__content[data-v-b518da7c] {
+  vertical-align: middle;
+  display: inline-block;
+  margin-left: 0 !important;
+  width: 65% !important;
+  box-sizing: border-box;
+  /* 自适应开启 */
+  /* flex: 1; */
+}
+.input_group__append .el-input-group__append[data-v-b518da7c]{
+  padding: 0 12px;
+  text-align: center;
+}
+.the_el_input_group__append[data-v-b518da7c] {
+  padding: 8px 0px;
+  min-width: 20px;
+  text-align: center;
+}
+.query-form-container-config[data-v-b518da7c] {
+  height: 62px;
+  position: relative;
+  overflow: hidden;
+}
+.query-form-container-config .el-form[data-v-b518da7c] {
+  padding-right: 215px;
+  margin-top: 0px;
+}
+.query-form-container-config .btnGroup[data-v-b518da7c] {
+  position: absolute;
+  top: 16px;
+  right: 0px;
+  z-index: 994;
+}
+.query-form-container-config .btnGroup .toggleBtn[data-v-b518da7c] {
+  font-size: 12px;
+  min-width: 50px;
+  padding-left: 0;
+  padding-right: 0;
+  color: #51555B;
+}
+.query-form-container-config .btnGroup .searchBtn[data-v-b518da7c],
+.query-form-container-config .btnGroup .resetBtn[data-v-b518da7c] {
+  padding: 8px 6px;
+  width: 58px;
+}
+.query-form-container-config .el-form .el-row .el-form-item[data-v-b518da7c]:first-child {
+  margin-bottom: 16px;
+  /* 自适应开启 */
+}
+.query-form-container-config.form-info-config-page[data-v-b518da7c] {
+  border-right: 0;
+  border-left: 0;
+  border-top: 0;
+  flex: none;
+}
+.query-form-container-config.form-info-config-page .hiddenCol[data-v-b518da7c] {
+  display: none;
+}
+.formExpand[data-v-b518da7c] {
+  height: auto !important;
+}
+.btnExpand i[data-v-b518da7c] {
+  transform: rotate(180deg);
+}

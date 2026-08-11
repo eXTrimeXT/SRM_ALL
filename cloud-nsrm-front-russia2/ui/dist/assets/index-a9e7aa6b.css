@@ -1,0 +1,31 @@
+.the_announcements_wrapper .form-incontainer[data-v-a58a1669] {
+  height: 400px;
+  overflow: auto;
+}
+.the_announcements_wrapper .download-link-wrap .download-link-item[data-v-a58a1669] {
+  color: #1890ff;
+}
+.the_announcements_wrapper .download-link-wrap .close-icon[data-v-a58a1669] {
+  font-weight: bold;
+  cursor: pointer;
+}
+.the_announcements_wrapper .notice-vendor[data-v-a58a1669] {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #ddd;
+  min-height: 30px;
+  padding: 5px 5px 0 5px;
+  align-items: center;
+  position: relative;
+}
+.the_announcements_wrapper .notice-vendor .tag[data-v-a58a1669] {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+.the_announcements_wrapper .validator-notice[data-v-a58a1669] {
+  color: #ff4949;
+  font-size: 12px;
+  position: absolute;
+  bottom: -21px;
+  right: 0;
+}

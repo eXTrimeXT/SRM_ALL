@@ -1,0 +1,59 @@
+.inlineFormClass[data-v-ea204634] {
+  margin-top: 20px;
+  text-align: right;
+}
+[data-v-ea204634] .the_quick_search {
+  white-space: normal;
+  position: relative;
+}
+[data-v-ea204634] .the_quick_search .el-input-group__append {
+  padding-right: 8px;
+}
+[data-v-ea204634] .the_quick_search .the_quick_select {
+  display: block;
+  padding: 0;
+}
+[data-v-ea204634] .the_quick_search .the_quick_select .el-input__suffix {
+  right: 30px;
+}
+[data-v-ea204634] .the_quick_search .the_quick_select .el-input__suffix .el-input__icon {
+  width: 16px;
+}
+[data-v-ea204634] .the_quick_search .el-form-item {
+  margin-bottom: 0;
+}
+[data-v-ea204634] .the_quick_search .quick-search-btn {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  right: 2px;
+  padding: 4px 6px !important;
+  border: none;
+  min-width: 20px;
+  margin: 0 !important;
+}.estimating-price-edit[data-v-bb3be294] {
+  padding-bottom: 40px;
+}
+.element-type-total[data-v-bb3be294] {
+  display: flex;
+  margin-bottom: 15px;
+}
+.element-type-total .label[data-v-bb3be294] {
+  text-align: right;
+  line-height: 32px;
+  padding-right: 15px;
+}
+.element-type-total .value[data-v-bb3be294] {
+  width: 200px;
+}.estimating_price_list .order-uploader[data-v-0dc14932] {
+  display: inline-block;
+  margin: 0 10px;
+}
+.estimating_price_list .block[data-v-0dc14932] {
+  display: flex;
+  justify-content: center;
+}
+.estimating_price_list .el-table th > .cell {
+  display: flex;
+  justify-content: center;
+}

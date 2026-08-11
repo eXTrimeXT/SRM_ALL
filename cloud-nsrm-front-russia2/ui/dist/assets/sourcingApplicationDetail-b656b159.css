@@ -1,0 +1,29 @@
+.the-sourcingApplicationDetail-detail .input-number-precision[data-v-2c332fbb] {
+  width: 100%;
+}
+.the-sourcingApplicationDetail-detail .input-number-precision[data-v-2c332fbb] .el-input__inner {
+  text-align: left;
+  padding-left: 8px;
+}
+.the-sourcingApplicationDetail-detail .form-item-line[data-v-2c332fbb] {
+  display: flex;
+  align-items: center;
+}
+.the-sourcingApplicationDetail-detail .input-prefix[data-v-2c332fbb] .el-input__inner {
+  padding-left: 40px;
+}
+.the-sourcingApplicationDetail-detail[data-v-2c332fbb] .el-select__tags {
+  overflow-x: auto;
+  flex-wrap: nowrap;
+}
+.the-sourcingApplicationDetail-detail[data-v-2c332fbb] .el-tag--mini {
+  height: 16px;
+  line-height: 16px;
+}
+.the-sourcingApplicationDetail-detail .ml10[data-v-2c332fbb] {
+  margin-left: 10px;
+}.province-select-block ul.el-select-dropdown__list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+}

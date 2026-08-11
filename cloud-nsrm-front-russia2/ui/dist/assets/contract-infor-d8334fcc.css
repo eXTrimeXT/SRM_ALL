@@ -1,0 +1,41 @@
+.write-tip[data-v-9e5381ce] {
+  color: #AAAAAA;
+}
+.search-po[data-v-9e5381ce] {
+  float: right;
+  cursor: pointer;
+  line-height: 28px;
+}
+[data-v-9e5381ce] .el-dialog__header {
+  display: block;
+}
+.addition-header[data-v-9e5381ce] {
+  padding: 8px 0 8px 8px;
+  margin-bottom: 8px;
+  background-color: rgb(247, 247, 247);
+}
+.header-btn[data-v-9e5381ce] {
+  margin-bottom: 8px;
+  display: flex;
+}
+.header-btn .header-search[data-v-9e5381ce] {
+  width: 100%;
+  margin: 0 !important;
+  display: flex;
+  justify-content: flex-end;
+}
+.header-btn .header-search .search-label[data-v-9e5381ce] {
+  width: 98px;
+  line-height: 28px;
+  text-align: right;
+  margin-right: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.marginL-16[data-v-9e5381ce] {
+  margin-left: 16px;
+}
+.padding-16[data-v-9e5381ce] {
+  padding-right: 16px;
+}

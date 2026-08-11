@@ -1,0 +1,24 @@
+.form-fill-style[data-v-4085fe27] {
+  padding: 15px;
+}
+.tabItem[data-v-4085fe27] {
+  padding: 10px;
+  position: relative;
+  margin-bottom: 50px;
+}
+.tabItem .optDiv[data-v-4085fe27] {
+  padding: 10px 0;
+}
+.tabItem .optDiv .el-switch[data-v-4085fe27],
+.tabItem .optDiv .el-button[data-v-4085fe27] {
+  margin-right: 10px;
+}
+.tabItem .addTabBtn[data-v-4085fe27] {
+  position: absolute;
+  right: 10px;
+  top: 9px;
+  z-index: 100;
+}
+.page-bar[data-v-4085fe27] {
+  height: auto !important;
+}

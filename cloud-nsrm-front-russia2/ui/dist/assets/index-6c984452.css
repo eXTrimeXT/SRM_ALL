@@ -1,0 +1,38 @@
+[data-v-3d92d157] .el-table th.gutter,[data-v-3d92d157] .el-table colgroup.gutter {
+  width: 0px !important;
+}
+[data-v-3d92d157] .el-table__body {
+  width: 100% !important;
+}
+[data-v-3d92d157] .el-table__header colgroup col[name="gutter"] {
+  display: table-cell !important;
+}
+.inviteVendorEdit[data-v-3d92d157] {
+  height: 100%;
+}
+.inviteVendorEdit .sub_header[data-v-3d92d157] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.inviteVendorEdit .el-table .el-date-editor[data-v-3d92d157] {
+  width: 135px;
+}
+.inviteVendorEdit .base-form[data-v-3d92d157] {
+  padding: 15px 30px 0;
+}
+.inviteVendorEdit .toRequired[data-v-3d92d157] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.inviteVendorEdit .edit_cond[data-v-3d92d157] {
+  color: #23adf4;
+  cursor: pointer;
+}
+.btnNick[data-v-3d92d157] {
+  width: 94px;
+  margin-left: 10px;
+}
+.commonPad[data-v-3d92d157] {
+  display: flex;
+  margin-bottom: 5px;
+}

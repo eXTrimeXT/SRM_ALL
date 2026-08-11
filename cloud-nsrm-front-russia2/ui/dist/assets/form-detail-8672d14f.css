@@ -1,0 +1,40 @@
+.list-page-query[data-v-62ebf5c2] {
+  padding: 0;
+}
+.list-page-query[data-v-62ebf5c2] .el-form-item__label {
+  width: auto !important;
+}
+.list-page-query[data-v-62ebf5c2] .el-form-item__content {
+  width: 100% !important;
+}
+.the_el_input_group__append[data-v-62ebf5c2] {
+  padding: 8px 0px;
+  min-width: 20px;
+  text-align: center;
+}
+.el-form[data-v-62ebf5c2] {
+  margin-top: -6px;
+}
+.el-form .el-row .el-form-item[data-v-62ebf5c2]:first-child {
+  margin-bottom: 10px;
+}
+.list-page-query[data-v-62ebf5c2] {
+  padding-top: 0;
+  border-right: 0;
+  border-left: 0;
+  border-top: 0;
+  flex: none;
+}
+.list-page-query .hiddenCol[data-v-62ebf5c2] {
+  display: none;
+}
+.btnExpand i[data-v-62ebf5c2] {
+  transform: rotate(180deg);
+}
+.input-number-precision[data-v-62ebf5c2] {
+  width: 100%;
+}
+.input-number-precision[data-v-62ebf5c2] .el-input__inner {
+  text-align: left;
+  padding-left: 8px;
+}

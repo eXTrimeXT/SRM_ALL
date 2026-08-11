@@ -1,0 +1,252 @@
+.main-stepOne[data-v-7091cfb2] {
+  position: relative;
+}
+.main-stepOne .boxs[data-v-7091cfb2] {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.main-stepOne .boxs .mainFont[data-v-7091cfb2] {
+  font-size: 24px;
+  font-weight: 500;
+  color: #393E45;
+}
+.main-stepOne .boxs .margin[data-v-7091cfb2] {
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+.main-stepOne .boxs .icon-red[data-v-7091cfb2] {
+  color: #FF4A4D;
+}
+.main-stepOne .boxs .icon-big[data-v-7091cfb2] {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 13px;
+}
+.main-stepOne .boxs .greyFont[data-v-7091cfb2] {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #96999C;
+}
+.main-stepOne .boxs .button-click[data-v-7091cfb2] {
+  width: 80px;
+  height: 30px;
+  background: #FFFFFF;
+  border: 1px solid #96999C;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  color: #393E45;
+  line-height: 20px;
+  margin-top: 21px;
+  cursor: pointer;
+}.main-stepOne[data-v-ecbb8ebe] {
+  position: relative;
+}
+.main-stepOne .boxs[data-v-ecbb8ebe] {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.main-stepOne .boxs .mainFont[data-v-ecbb8ebe] {
+  font-weight: 500;
+  font-size: 24px;
+  color: #393E45;
+}
+.main-stepOne .boxs .margin[data-v-ecbb8ebe] {
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+.main-stepOne .boxs .icon-green[data-v-ecbb8ebe] {
+  color: #52C718;
+}
+.main-stepOne .boxs .icon-big[data-v-ecbb8ebe] {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 13px;
+}
+.main-stepOne .boxs .greyFont[data-v-ecbb8ebe] {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #96999C;
+}
+.main-stepOne .boxs .button-click[data-v-ecbb8ebe] {
+  margin-top: 21px;
+}.companyNature[data-v-01fe2707] {
+  position: relative;
+}
+.boxs-row[data-v-01fe2707] {
+  width: 50%;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}.boxs_success[data-v-4b225613] {
+  background: #F6FBF4;
+  border: 1px solid #A8DD92;
+}
+.boxs_rejected[data-v-4b225613] {
+  background: #FEF5F6;
+  border: 1px solid #FB9EA3;
+  padding: 12px 23px !important;
+  height: 92px !important;
+}
+.boxs_submitted[data-v-4b225613] {
+  background: #FEFAF4;
+  border: 1px solid #FAD295;
+}
+.boxs_heater[data-v-4b225613] {
+  border-radius: 4px;
+  height: 82px;
+  margin-right: 220px;
+  padding: 21px 23px;
+}
+.boxs_heater span[data-v-4b225613] {
+  font-size: 14px;
+  color: #393E45;
+  line-height: 16px;
+  font-weight: 500;
+  margin-left: 5px;
+}
+.boxs_heater .small_font[data-v-4b225613] {
+  font-size: 12px;
+  color: #51555B;
+  line-height: 20px;
+  margin: 5px 23px;
+}
+.el-icon-circle-check[data-v-4b225613] {
+  font-size: 18px;
+  color: #52C718;
+  float: left;
+}
+.el-icon-circle-close[data-v-4b225613] {
+  font-size: 18px;
+  color: #FF4A4D;
+  float: left;
+}
+.el-icon-warning-outline[data-v-4b225613] {
+  font-size: 18px;
+  color: #FAAE16;
+  float: left;
+}
+.comInfosteps[data-v-4b225613] {
+  padding: 12px 0px 12px 0;
+}[data-v-dcd42026] .rel-form-select .el-form-item__label {
+  float: initial;
+}
+[data-v-dcd42026] .comInfosteps {
+  margin-right: 18%;
+}
+.companyInfo-sec[data-v-dcd42026] {
+  min-height: 100%;
+}
+.companyInfo-sec .comInfosteps[data-v-dcd42026] {
+  padding: 12px 4%;
+}
+.companyInfo-sec .info-fill-area[data-v-dcd42026] {
+  padding: 20px 220px 20px 0;
+}
+.companyInfo-sec .overseasRelation[data-v-dcd42026] {
+  padding-top: 100px;
+  width: 50%;
+  margin: 0 auto;
+}
+.companyInfo-sec .companyInfoFill[data-v-dcd42026] {
+  padding-right: 0;
+  padding-bottom: 40px;
+}
+.companyInfo-sec .submitSuccess[data-v-dcd42026] {
+  padding-top: 100px;
+  text-align: center;
+}
+.companyInfo-sec .submitSuccess .success-icon-tip[data-v-dcd42026] {
+  font-size: 28px;
+  color: #13ce66;
+}
+.companyInfo-sec .submitSuccess .success-icon-word[data-v-dcd42026] {
+  font-size: 16px;
+  line-height: 40px;
+}
+.companyInfo-sec .submitSuccess .success-icon-des[data-v-dcd42026] {
+  font-size: 14px;
+  color: #666;
+}
+.companyInfo-sec .info-fill-progress[data-v-dcd42026] {
+  position: absolute;
+  width: 210px;
+  top: 0;
+  right: 0px;
+  bottom: 0px;
+  background: #fff;
+}
+.companyInfo-sec .info-fill-progress .progressTitle[data-v-dcd42026] {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 30px;
+  background: #f7f9fa;
+  font-size: 14px;
+}
+.companyInfo-sec .info-fill-progress .progressCont[data-v-dcd42026] {
+  padding: 6px;
+}
+.companyInfo-sec .info-fill-progress .progressCont .progressItem[data-v-dcd42026] {
+  padding: 8px 10px;
+  border-radius: 3px;
+}
+.companyInfo-sec .info-fill-progress .progressCont .progressItem .progress-title[data-v-dcd42026] {
+  font-size: 14px;
+}
+.companyInfo-sec .info-fill-progress .progressCont .progressItem .progress-bar[data-v-dcd42026] {
+  height: 15px;
+}
+.companyInfo-sec .info-fill-progress .progressCont .progressItem.current[data-v-dcd42026] {
+  background: #f5f5f5;
+}
+.companyInfo-sec.widthCtrl .comInfosteps[data-v-dcd42026] {
+  width: 75.5%;
+}
+.companyInfo-sec .opt-row[data-v-dcd42026] {
+  margin-bottom: 10px;
+}
+.companyInfo-sec .el-steps.comInfosteps .el-step__title[data-v-dcd42026] {
+  font-size: 14px;
+}
+.download-link-wrap .close-icon[data-v-dcd42026] {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+}
+.info-fill-progress .el-progress-bar[data-v-dcd42026] {
+  padding-right: 70px;
+  margin-right: -70px;
+}
+.left_div p[data-v-dcd42026] {
+  margin: 0 0 8px 0 !important;
+}
+.businessLicenseFileIdNull .el-upload .el-button.upload-file-btn[data-v-dcd42026] {
+  border-color: red;
+}
+.required[data-v-dcd42026] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.dimension[data-v-dcd42026] > :first-child {
+  display: none;
+}
+.app-main-container[data-v-dcd42026] {
+  padding: 0 0 0 10px;
+}
+.redFont[data-v-dcd42026] {
+  color: red;
+  margin-right: 3px;
+}
+[data-v-dcd42026] .categoryName .el-input__inner::-webkit-input-placeholder {
+  color: #303133 !important;
+}

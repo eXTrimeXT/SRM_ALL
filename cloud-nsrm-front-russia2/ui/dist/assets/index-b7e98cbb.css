@@ -1,0 +1,22 @@
+.studyDemoPage .section[data-v-7d3e8072] {
+  padding: 5px;
+}
+.studyDemoPage .formStyle[data-v-7d3e8072] {
+  width: 400px;
+}
+.studyDemoPage .divRad[data-v-7d3e8072] {
+  width: 100px;
+  height: 50px;
+  background: red;
+}
+.studyDemoPage .divBlue[data-v-7d3e8072] {
+  background: blue;
+}
+.studyDemoPage .b[data-v-7d3e8072] {
+  height: 200px;
+  background: blue;
+}
+.studyDemoPage #a[data-v-7d3e8072] {
+  height: 100px;
+  background: blue;
+}

@@ -1,0 +1,48 @@
+.list-page-query[data-v-422186c1] .el-form-item__label {
+  text-align: right !important;
+}
+.the-purchaseApplicationDetail-detail .sub_header[data-v-422186c1] {
+  padding: 4px 11px;
+  background: #eee;
+}
+.the-purchaseApplicationDetail-detail .input-with-select .el-input-group__prepend[data-v-422186c1] {
+  background-color: #fff;
+}
+.the-purchaseApplicationDetail-detail .isDisabledimport[data-v-422186c1] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.the-purchaseApplicationDetail-detail .the_btn_wrapper[data-v-422186c1] {
+  display: inline-block;
+  width: 111px;
+}
+.the-purchaseApplicationDetail-detail .btn_line[data-v-422186c1] {
+  display: flex;
+  margin: 0 0 8px 0;
+}
+.the-purchaseApplicationDetail-detail .el-tooltip[data-v-422186c1] .el-button {
+  min-width: 56px;
+  font-size: 14px;
+  border-radius: 2px;
+  padding: 8px 16px;
+}
+.the-purchaseApplicationDetail-detail .topComment[data-v-422186c1] {
+  margin-top: 15px;
+  text-align: right;
+}
+.the-purchaseApplicationDetail-detail .input-number-precision[data-v-422186c1] {
+  width: 100%;
+}
+.the-purchaseApplicationDetail-detail .input-number-precision[data-v-422186c1] .el-input__inner {
+  text-align: left;
+  padding-left: 8px;
+}
+[data-v-422186c1] .el-table td.el-table__cell .el-form-item__content {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.toRequired[data-v-422186c1] {
+  color: #ff4949;
+  padding-right: 2px;
+}

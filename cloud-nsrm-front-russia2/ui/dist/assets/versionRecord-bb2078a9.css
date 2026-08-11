@@ -1,0 +1,18 @@
+.header .header-row[data-v-9d92f526] {
+  display: flex;
+  align-items: center;
+}
+.header .header-row .header-item + .header-item[data-v-9d92f526] {
+  margin-left: 20px;
+}
+.table[data-v-9d92f526] {
+  margin-top: 10px;
+}
+.mt-10[data-v-9d92f526] {
+  margin-top: 10px;
+}.red[data-v-1720ffe9] {
+  color: red;
+}
+.mg-10[data-v-1720ffe9] {
+  margin: 10px 0;
+}

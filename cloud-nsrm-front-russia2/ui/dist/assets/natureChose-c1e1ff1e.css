@@ -1,0 +1,44 @@
+.box-warp[data-v-c902c299] {
+  display: flex;
+}
+.box-warp .box-one[data-v-c902c299] {
+  width: 32%;
+  height: 116px;
+  background: #FFFFFF;
+  border: 1px solid #B9BABD;
+  border-radius: 2px;
+  margin: 0 1%;
+  cursor: pointer;
+  display: flex;
+}
+.box-warp .box-one .box-center[data-v-c902c299] {
+  margin: 16px 27px 0 13px;
+}
+.box-warp .box-one .box-center .blueOne[data-v-c902c299] {
+  font-size: 16px;
+  color: #161C24;
+  line-height: 24px;
+  font-weight: 500;
+}
+.box-warp .box-one .box-center .comments[data-v-c902c299] {
+  font-size: 12px;
+  color: #73777C;
+  line-height: 20px;
+}
+.box-warp .box-one img[data-v-c902c299] {
+  width: 48px;
+  height: 42px;
+  margin: 16px 0 0 16px;
+}
+.box-warp .box-one .title[data-v-c902c299] {
+  font-size: 20px;
+}
+.box-warp .clickClass[data-v-c902c299] {
+  background-image: url("/srm/assets/frame-024134fd.svg");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  border: 1px solid #0077FF;
+}
+.box-warp .clickClass .blueOne[data-v-c902c299] {
+  color: #0077FF !important;
+}

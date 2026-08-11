@@ -1,0 +1,7 @@
+.bargain-flow-configure-wrapper[data-v-fef943c8] .configure-table {
+  width: 100%;
+  overflow: auto;
+}
+.bargain-flow-configure-wrapper[data-v-fef943c8] .configure-table .el-checkbox {
+  pointer-events: none;
+}

@@ -1,0 +1,429 @@
+.slide-verify[data-v-76fdba4f] {
+  position: relative;
+  width: 310px;
+  overflow: hidden;
+}
+.slide-verify-block[data-v-76fdba4f] {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.bottom[data-v-76fdba4f] {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  color: rgb(126, 126, 126);
+}
+.bottom .slide-verify-refresh-icon[data-v-76fdba4f] {
+  top: 0;
+  right: 0;
+  width: 34px;
+  height: 34px;
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 34px;
+  color: rgb(126, 126, 126);
+  text-align: center;
+  cursor: pointer;
+  background-size: 34px 471px;
+}
+.bottom .slide-verify-refresh-icons[data-v-76fdba4f] {
+  top: 0;
+  right: 0;
+  width: 34px;
+  height: 34px;
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 34px;
+  color: rgb(126, 126, 126);
+  text-align: center;
+  cursor: pointer;
+  background-size: 34px 471px;
+}
+.bottom .slide-verify-refresh-icon[data-v-76fdba4f]:hover {
+  transition: all 0.2s ease-in-out;
+  transform: rotate(180deg);
+}
+.slide-verify-slider[data-v-76fdba4f] {
+  position: relative;
+  width: 310px;
+  height: 40px;
+  line-height: 40px;
+  color: #cacacb;
+  text-align: center;
+  background: #f4f5f6;
+  border: 1px solid #e4e7eb;
+}
+.slide-verify-slider.hidden[data-v-76fdba4f] {
+  visibility: hidden;
+}
+.slide-verify-slider-mask[data-v-76fdba4f] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 40px;
+  background: #d1e9fe;
+  border: 0 solid #1991fa;
+}
+.slide-verify-slider-mask-item[data-v-76fdba4f] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 40px;
+  cursor: pointer;
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  transition: background 0.2s linear;
+}
+.slide-verify-slider-mask-item[data-v-76fdba4f]:hover {
+  background: #1991fa;
+}
+.slide-verify-slider-mask-item-icon[data-v-76fdba4f] {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  width: 28px;
+  height: 24px;
+  font-size: 22px;
+  line-height: 12px;
+  color: #ddd;
+  text-align: center;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAKZJREFUOE+t08EOgjAMxvGvezsXzr4EvJjuCu6d5O7RmmgwS6S2HeVK8uO/0RKCHwr2oILzUi8P4umc82r5uAVkItz5iWkYTkVDTeAXYZSUeMx/an0gAK2W5qWydozd90JtPyjUHgL37jYGbGrDQAArGGMMSCgJn3E6Cr6r2oHvB5uqdqzcg73dlbSGPlCo6in8uStpu/TCW71uf9CyoipoQVxH9oIvlTty/VSuilEAAAAASUVORK5CYII=");
+  background-position: center;
+  background-size: 100% 100%;
+}
+.slide-verify-info[data-v-76fdba4f] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  text-align: center;
+  background-color: #52ccba;
+}
+.container-active .slide-verify-slider-mask-item[data-v-76fdba4f] {
+  top: -1px;
+  height: 38px;
+  border: 1px solid #1991fa;
+}
+.container-active .slide-verify-slider-mask[data-v-76fdba4f] {
+  height: 38px;
+  border-width: 1px;
+}
+.container-success .slide-verify-slider-mask-item[data-v-76fdba4f] {
+  top: -1px;
+  height: 38px;
+  background-color: #52ccba !important;
+  border: 1px solid #52ccba;
+}
+.container-success .slide-verify-slider-mask[data-v-76fdba4f] {
+  height: 38px;
+  background-color: #d2f4ef;
+  border: 1px solid #52ccba;
+}
+.container-success .slide-verify-slider-mask-item-icon[data-v-76fdba4f] {
+  background-position: 0 0 !important;
+}
+.slide-verify-slider-text[data-v-76fdba4f] {
+  font-size: 12px;
+}
+.container-active .slide-verify-slider-text[data-v-76fdba4f],
+.container-success .slide-verify-slider-text[data-v-76fdba4f] {
+  display: none;
+}.forget-password-page[data-v-3dc8ae81] {
+  height: 100%;
+  background-image: url("/srm/assets/reg-bulletinBoard-080c27fe.png");
+  background-repeat: no-repeat;
+  background-size: 100% 180px;
+  background-color: #edeff2;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 64px;
+}
+.forget-password-page .forget-password-main .forget-header[data-v-3dc8ae81] {
+  height: 120px;
+  position: relative;
+  z-index: 1;
+}
+.forget-password-page .forget-password-main .forget-header img[data-v-3dc8ae81] {
+  border: none;
+}
+.forget-password-page .forget-password-main .forget-header img.reg-logo[data-v-3dc8ae81] {
+  position: absolute;
+  left: 2px;
+  top: 20px;
+}
+.forget-password-page .forget-password-main .forget-header .reg-title[data-v-3dc8ae81] {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  left: 0;
+  right: 0;
+  top: 45px;
+  font-size: 24px;
+  line-height: 32px;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+.forget-password-page .forget-password-main .forget-content[data-v-3dc8ae81] {
+  background: #FFFFFF;
+  padding: 32px 16px;
+}
+.forget-password-page .forget-password-footer[data-v-3dc8ae81] {
+  position: fixed;
+  width: 100%;
+  padding: 10px 0px;
+  left: 0;
+  bottom: 0;
+  transition: padding-left 0.28s;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: 0 -1px 2px 0 rgba(182, 182, 182, 0.5);
+  overflow: hidden;
+  z-index: 999;
+}
+.forget-password-page .forget-password-footer .footer-inner[data-v-3dc8ae81] {
+  text-align: right;
+}
+.forget-password-page .pwd-check-config[data-v-3dc8ae81] {
+  padding: 5px 0 16px;
+}
+.forget-password-page .pwd-check-config p[data-v-3dc8ae81] {
+  font-size: 12px;
+  color: #96999C;
+  line-height: 18px;
+  margin: 0;
+}
+.forget-password-page .pwd-check-config p i[data-v-3dc8ae81] {
+  margin-right: 5px;
+}
+.forget-password-page .pwd-check-config p.errorStyle[data-v-3dc8ae81] {
+  color: #FF4A4D;
+}
+.forget-password-page .pwd-check-config p.successStyle[data-v-3dc8ae81] {
+  color: #52C718;
+}
+.forget-password-page .pass-rules[data-v-3dc8ae81] {
+  border-left: 1px solid #D8D8D8;
+  padding-left: 48px;
+}
+.forget-password-page .pass-rules .pass-rules-title[data-v-3dc8ae81] {
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #161C24;
+  line-height: 24px;
+}
+.forget-password-page .pass-rules p[data-v-3dc8ae81] {
+  font-size: 12px;
+  color: #73777C;
+  line-height: 24px;
+  margin: 0;
+  position: relative;
+  padding-left: 10px;
+}
+.forget-password-page .pass-rules p[data-v-3dc8ae81]::before {
+  content: " ";
+  font-size: 0px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #dedede;
+  position: absolute;
+  left: 2px;
+  top: 10px;
+}
+.inner-content[data-v-3dc8ae81] {
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  margin: auto;
+}
+.verify-type-style[data-v-3dc8ae81] {
+  width: 200px;
+  height: 36px;
+  background: #F6F6F6;
+  border-radius: 18px;
+  padding: 4px;
+  text-align: center;
+  margin: 0 auto 28px;
+}
+.page-title[data-v-3dc8ae81] {
+  font-size: 24px;
+  color: #393e45;
+  margin: 48px;
+  text-align: center;
+}
+.steps[data-v-3dc8ae81] {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.back[data-v-3dc8ae81] {
+  padding: 16px 0 0 16px;
+  cursor: pointer;
+  color: #393e45;
+  font-size: 14px;
+}
+.back span[data-v-3dc8ae81] {
+  margin-left: 4px;
+}
+.forget-password-form[data-v-3dc8ae81] {
+  width: 380px;
+  margin: 0 auto;
+}
+.forget-password-form.reset-pass-form[data-v-3dc8ae81] {
+  margin: 0 48px 0 auto !important;
+}
+.account-sec[data-v-3dc8ae81] {
+  margin-top: 30px;
+  padding-bottom: 30px;
+}
+.btn-sec[data-v-3dc8ae81] {
+  width: 100%;
+  text-align: center;
+}
+.resetSuccess[data-v-3dc8ae81] {
+  text-align: center;
+}
+.success-icon[data-v-3dc8ae81] {
+  width: 80px;
+  height: 80px;
+  background: rgba(82, 187, 38, 0.2);
+  padding: 10px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+.success-icon i[data-v-3dc8ae81] {
+  font-size: 60px;
+  color: #52C718;
+}
+.account-name[data-v-3dc8ae81] {
+  height: 32px;
+  line-height: 32px;
+}
+.username-span[data-v-3dc8ae81]::before {
+  content: "*";
+  font-size: 14px;
+  color: #FF4A4D;
+  line-height: 22px;
+  font-weight: 400;
+}.forget-password-page .el-button {
+  border-radius: 2px;
+}
+.forget-password-page .el-input .el-input__inner {
+  height: 32px !important;
+  line-height: 32px !important;
+  min-height: 32px !important;
+  font-size: 14px;
+  color: #51555B;
+  border-radius: 2px;
+}
+.forget-password-page .el-input .el-input__inner:focus {
+  outline: 0;
+  border-color: #0077ff;
+}
+.forget-password-page .el-input .el-input__inner:hover {
+  border-color: #0077ff;
+}
+.forget-password-page .el-input .el-input__inner::placeholder {
+  color: #96999C;
+}
+.forget-password-page .el-input.is-disabled .el-input__inner:hover {
+  border-color: #DCDDDE;
+}
+.forget-password-page .account-form-content .el-form {
+  width: 380px;
+  margin: 0 auto;
+}
+.forget-password-page .account-form-content .el-form .el-form-item__label {
+  line-height: 32px;
+}
+.forget-password-page .account-form-content .el-form .el-form-item {
+  margin-bottom: 24px;
+}
+.forget-password-page .account-form-content .el-form .el-form-item .el-input.el-input--small {
+  height: 32px;
+}
+.forget-password-page .account-form-content .el-form .el-form-item .el-input.el-input--small .el-input__inner {
+  height: 32px;
+}
+.forget-password-page .account-form-content .el-form .el-form-item .el-button {
+  height: 32px;
+  height: 32px;
+}
+.forget-password-page .account-form-content .el-form .el-form-item .el-button.to-login {
+  float: right;
+}
+.forget-password-page .verify-type-tow .send-reg-code {
+  padding-left: 5px;
+}
+.forget-password-page .verify-type-tow .send-reg-code > .el-button {
+  width: 100%;
+}
+.forget-password-page .verify-type-style .verify-type-style-radio .el-radio-button {
+  border: none;
+  background: none;
+  border-radius: 16px;
+  font-size: 14px;
+}
+.forget-password-page .verify-type-style .verify-type-style-radio .el-radio-button.is-active .el-radio-button__inner, .forget-password-page .verify-type-style .verify-type-style-radio .el-radio-button:hover .el-radio-button__inner {
+  background: #FFFFFF;
+  border-radius: 16px;
+  font-weight: 500;
+  color: #0077FF;
+  font-weight: 500;
+}
+.forget-password-page .verify-type-style .verify-type-style-radio .el-radio-button .el-radio-button:not(:first-child):hover {
+  border: none;
+}
+.forget-password-page .verify-type-style .verify-type-style-radio .el-radio-button .el-radio-button__inner {
+  border: 0;
+  background: none;
+  height: 28px;
+  line-height: 20px;
+  padding: 4px 20px;
+}
+.forget-password-page .verify-type-style .verify-type-style-radio .el-radio-button .el-radio-button__inner:hover {
+  border: 0;
+  background: none;
+}
+.forget-password-page .verify-type-style .verify-type-style-radio .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+  box-shadow: none;
+}
+.forget-password-page .verify-type-style .verify-type-style-radio .el-radio-button:not(:first-child):hover::before {
+  display: none;
+}
+.forget-password-page .passwordInput .el-input__suffix {
+  line-height: 32px;
+}
+.el-form-item .el-input__inner {
+  border: 1px solid #DCDDDE;
+}
+@media screen and (max-width: 1199px) {
+.forget-password-page .forget-password-main {
+    padding: 0 16px;
+}
+.forget-password-page .forget-password-main .forget-header {
+    height: 110px;
+}
+.forget-password-page .footer-inner {
+    padding: 0px 16px;
+}
+}
+@media screen and (max-width: 500px) {
+.forget-password-page .account-form-content .el-form {
+    width: 100% !important;
+}
+}
+@media only screen and (max-width: 768px) {
+.forget-password-main .updata-pass .el-col-sm-24 .update-pass-form {
+    margin: 0px auto 50px !important;
+}
+.forget-password-main .updata-pass .el-col-sm-24 .pass-rules {
+    border: 0;
+    padding-bottom: 50px;
+}
+}

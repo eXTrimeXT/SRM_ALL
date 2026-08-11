@@ -1,0 +1,245 @@
+
+.formClassAll .el-select,.formClassAll .el-input-all,.formClassAll .el-date-editor,.formClassAll .el-input-group{
+  width: 60% !important;
+}
+.formClassAll form{
+  padding-left: 18px
+}
+.changeTitle{
+  background-color: #F6F6F6;
+  font-size: 14px ;
+  color: #393E45 ;
+  overflow: hidden;
+  line-height: 40px;
+  margin-bottom:20px;
+  font-weight: 400;
+}
+.changeTitle i{
+  width: 4px;
+  height: 18px;
+  background-color: #0077FF;
+  margin: 11px 10px 11px 16px;
+  display: block;
+  float: left;
+}
+
+.formClassAll .el-select,.formClassAll .el-input-all,.formClassAll .el-date-editor,.formClassAll .el-input-group{
+  width: 320px !important;
+}
+.formClassAll form{
+  padding-left: 18px
+}
+.changeTitle{
+  background-color: #F6F6F6;
+  font-size: 14px ;
+  color: #393E45 ;
+  overflow: hidden;
+  line-height: 40px;
+  margin-bottom:20px;
+  font-weight: 400;
+}
+.changeTitle i{
+  width: 4px;
+  height: 18px;
+  background-color: #0077FF;
+  margin: 11px 10px 11px 16px;
+  display: block;
+  float: left;
+}
+
+.formClassAll .el-select,.formClassAll .el-input-all,.formClassAll .el-date-editor,.formClassAll .el-input-group{
+  width: 320px !important;
+}
+.formClassAll form{
+  padding-left: 18px
+}
+.changeTitle{
+  background-color: #F6F6F6;
+  font-size: 14px ;
+  color: #393E45 ;
+  overflow: hidden;
+  line-height: 40px;
+  margin-bottom:20px;
+  font-weight: 400;
+}
+.changeTitle i{
+  width: 4px;
+  height: 18px;
+  background-color: #0077FF;
+  margin: 11px 10px 11px 16px;
+  display: block;
+  float: left;
+}
+
+.formClassAll form{
+  padding-left: 18px
+}
+.changeTitle{
+  background-color: #F6F6F6;
+  font-size: 14px ;
+  color: #393E45 ;
+  overflow: hidden;
+  line-height: 40px;
+  margin-bottom:20px;
+  font-weight: 400;
+}
+.changeTitle i{
+  width: 4px;
+  height: 18px;
+  background-color: #0077FF;
+  margin: 11px 10px 11px 16px;
+  display: block;
+  float: left;
+}
+
+.formClassAll form{
+  padding-left: 18px
+}
+.changeTitle{
+  background-color: #F6F6F6;
+  font-size: 14px ;
+  color: #393E45 ;
+  overflow: hidden;
+  line-height: 40px;
+  margin-bottom:20px;
+  font-weight: 400;
+}
+.changeTitle i{
+  width: 4px;
+  height: 18px;
+  background-color: #0077FF;
+  margin: 11px 10px 11px 16px;
+  display: block;
+  float: left;
+}
+
+
+
+.formClassAll form{
+  padding-left: 18px
+}
+.changeTitle{
+  background-color: #F6F6F6;
+  font-size: 14px ;
+  color: #393E45 ;
+  overflow: hidden;
+  line-height: 40px;
+  margin-bottom:20px;
+  font-weight: 400;
+}
+.changeTitle i{
+  width: 4px;
+  height: 18px;
+  background-color: #0077FF;
+  margin: 11px 10px 11px 16px;
+  display: block;
+  float: left;
+}
+
+/*.formClassAll .el-select,.formClassAll .el-input-all,.formClassAll .el-date-editor,.formClassAll .el-input-group{*/
+/*  width: 320px !important;*/
+/*}*/
+.formClassAll form{
+  padding-left: 18px
+}
+.changeTitle{
+  background-color: #F6F6F6;
+  font-size: 14px ;
+  color: #393E45 ;
+  overflow: hidden;
+  line-height: 40px;
+  margin-bottom:20px;
+  font-weight: 400;
+}
+.changeTitle i{
+  width: 4px;
+  height: 18px;
+  background-color: #0077FF;
+  margin: 11px 10px 11px 16px;
+  display: block;
+  float: left;
+}
+[data-v-e5e7a61e] .el-tab-pane {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+[data-v-e5e7a61e] .redColorFont input {
+  color: red !important;
+}
+.app-main .el-container[data-v-e5e7a61e] {
+  overflow: auto;
+}
+.changeTab[data-v-e5e7a61e] {
+  margin-top: 18px;
+}
+.formClassAll[data-v-e5e7a61e] {
+  width: 50%;
+  padding: 10px 10px 10px 0;
+}
+.formClassAll form[data-v-e5e7a61e] {
+  padding-left: 18px;
+}
+.changeTitle[data-v-e5e7a61e] {
+  background-color: #F6F6F6;
+  font-size: 14px;
+  color: #393E45;
+  overflow: hidden;
+  line-height: 40px;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+.changeTitleTop[data-v-e5e7a61e] {
+  margin-top: 10px;
+}
+.changeTitle i[data-v-e5e7a61e] {
+  width: 4px;
+  height: 18px;
+  background-color: #0077FF;
+  margin: 11px 10px 11px 16px;
+  display: block;
+  float: left;
+}
+[data-v-e5e7a61e] .formClassAll .el-select,[data-v-e5e7a61e] .formClassAll .el-input-all,[data-v-e5e7a61e] .formClassAll .el-date-editor,[data-v-e5e7a61e] .formClassAll .el-input-group {
+  width: 60%;
+}
+.enable4MChangeDetail[data-v-e5e7a61e] {
+  position: absolute;
+  top: 5px;
+  left: 89px;
+}
+.formClassWrap[data-v-e5e7a61e] {
+  display: flex;
+}
+[data-v-e5e7a61e] .topComment {
+  text-align: center;
+  margin-top: 10px;
+}
+[data-v-e5e7a61e] .toRequired {
+  color: #ff4949;
+  padding-right: 4px;
+  margin-left: 6px;
+}
+[data-v-e5e7a61e] .the-vendorInfoChangeDetail-detail .sub_header {
+  margin: 0 0 10px;
+}
+[data-v-e5e7a61e] .the-vendorInfoChangeDetail-detail .el-table .el-date-editor {
+  width: 135px;
+}
+[data-v-e5e7a61e] .companyInfoFillChange {
+  padding-bottom: 40px;
+}
+[data-v-e5e7a61e] .the_info_message_wrapper .el-form-item__content {
+  line-height: 14px;
+}
+[data-v-e5e7a61e] .vue-treeselect__multi-value-item.vue-treeselect__multi-value-item-new {
+  background: #efd9df;
+}
+[data-v-e5e7a61e] .el-form .vue-treeselect__control {
+  height: 30px !important;
+}
+[data-v-e5e7a61e] .el-checkbox:last-of-type {
+  height: 30px !important;
+}
+.operating-logs[data-v-e5e7a61e] {
+  margin-bottom: 20px;
+}

@@ -1,0 +1,281 @@
+import {
+  expression, i18nExpression
+} from "@meicloud/render-engine"
+import {yearMonthDaySelectorSegment} from "lib@/components/render-engine";
+
+
+export const companyInfo = {
+  companyInfo: {
+    type: 'void',
+    'x-component': 'CollapseItem',
+    'x-visible': true,
+    'x-component-props': {
+      title: i18nExpression('vendorMod.enterpriseThreeCertificates'),
+    },
+    'x-query-engine-skip': true,
+    properties: {
+      div: {
+        type: 'void',
+        'x-component': 'div',
+        'x-component-props': {
+          class: 'companyInfo'
+        },
+        properties: {
+          // 营业执照上传
+          businessLicense: {
+            type: 'string',
+            'x-hidden': true
+          },
+          'businessLicenseFileId': {
+            type: 'string',
+            'x-component': 'SrmCommonFile',
+            'x-component-props': {
+              'readonly': expression(`$form.query('state').get('data').$disabled`),
+              'list-type': "picture-card",
+              style: {
+                'width': '33%',
+                'padding-right': '25px'
+              },
+              'defaultFile': {
+                fileId: expression(`$self.value`),
+                fileName: expression(`$form.query('businessLicense').get('value')`)
+              },
+              'dragger-options': {
+                width: '100%',
+                height: '345px'
+              },
+              'limit': 1,
+              'drag': 'drag',
+              '@on-change': expression(`({ file }) => {
+                  console.log(file, 'file')
+                  if (!file) {
+                    $form.query('.businessLicenseFileId').take().value = null
+                    $form.query('.businessLicense').take().value = null
+                    return false
+                  }
+                  const { fileId, fileName } = file || {}
+                  // 判断是否需要OCR识别 境内供应商 && 开启OCR
+                  if ($form.query('.overseasRelation').take().value === 'INSIDE') {
+                    // 读取图片信息
+                    app.$http({
+                      url: '/api-base/ocr/recognizeLcImage',
+                      method: 'GET',
+                      params: { fileuploadId: fileId },
+                      loading: true
+                    })
+                      .then(res => {
+                        let licenseData = res.data
+                        $form.query('.companyName').take().value = licenseData.companyName
+                        $form.query('.legalPerson').take().value = licenseData.legalPerson
+                        $form.query('.lcCode').take().value = licenseData.lcCode
+                        $form.query('.registeredCapital').take().value = licenseData.registeredCapital
+                        $form.query('.registCurrency').take().value = licenseData.registCurrency
+                        $form.query('.companyAddress').take().value = licenseData.companyAddress
+                        $form.query('.businessScope').take().value = licenseData.businessScope
+                        $form.query('.registrationAuthority').take().value = licenseData.registrationAuthority
+                        $form.query('.companyCreationDate').take().value = licenseData.companyCreationDate
+                        // $form.query('.businessDate').take().value =[licenseData.businessStartDate, licenseData.businessEndDate]
+                      })
+                      .catch(err => {
+                        console.log(err)
+                      })
+                  }
+                  $form.query('.businessLicenseFileId').take().value = fileId.toString()
+                  $form.query('.businessLicense').take().value = fileName
+          }`)
+            },
+            title: ''
+          },
+          layout: {
+            type: 'void',
+            'x-decorator': 'FormLayout',
+            'x-decorator-props': {
+              layout: 'vertical',
+              style: {
+                'width': '67%',
+                'padding-left': '20px'
+              }
+            },
+            'x-component': 'FormGrid',
+            'x-component-props': {
+              maxColumns: 2,
+              columnGap: 32,
+              rowGap: 0
+            },
+            properties: {
+              // 企业名称
+              'companyName': {
+                type: 'string',
+                'x-decorator': 'FormItem',
+                'x-component': 'Input',
+                title: expression(`$t('vendorMod.companyName')`),
+                'x-component-props': {
+                  'disabled': expression(`$form.query('state').get('data').$disabled`)
+                },
+                'x-validator': {
+                  required: true,
+                  message: i18nExpression('vendorMod.msgCompanyName')
+                }
+              },
+              // 法人代表
+              legalPerson: {
+                type: 'string',
+                'x-decorator': 'FormItem',
+                'x-component': 'Input',
+                title: expression(`$t('vendorMod.legalPerson')`),
+                'x-component-props': {
+                  'disabled': expression(`$form.query('state').get('data').$disabled`)
+                },
+                'x-validator': {
+                  required: true,
+                  message: i18nExpression('vendorMod.msgLegalPerson')
+                }
+              },
+              // 统一社会信用代码
+              lcCode: {
+                type: 'string',
+                'x-visible': expression(`$form.query('.overseasRelation').take().value == 'INSIDE'`),
+                'x-decorator': 'FormItem',
+                'x-component': 'Input',
+                title: expression(`$t('vendorMod.lcCode')`),
+                'x-component-props': {
+                  'disabled': expression(`$form.query('state').get('data').$disabled`)
+                },
+                'x-validator': {
+                  required: expression(`$form.query('.overseasRelation').take().value == 'INSIDE'`),
+                  message: i18nExpression('vendorMod.msgLcCode')
+                }
+              },
+              // 营业执照号
+              businessLicenseNo: {
+                type: 'string',
+                'x-visible': expression(`$form.query('.overseasRelation').take().value == 'OUT'`),
+                'x-decorator': 'FormItem',
+                'x-component': 'Input',
+                title: expression(`$t('vendorMod.lcCode2')`),
+                'x-component-props': {
+                  'disabled': expression(`$form.query('state').get('data').$disabled`)
+                }
+              },
+              // 币种
+              registCurrency: {
+                type: 'string',
+                'x-hidden': true
+              },
+              // 注册资本(万)
+              registeredCapital: {
+                type: 'number',
+                'x-visible': expression(`$form.query('.companyType').take().value != 'GETI'`),
+                'x-decorator': 'FormItem',
+                'x-component': 'Input',
+                title: expression(`$t('vendorMod.registeredCapital')`),
+                'x-component-props': {
+                  'disabled': expression(`$form.query('state').get('data').$disabled`),
+                  class:"input-with-select"
+                },
+                'x-content': {
+                  append: expression(`observer(
+                {
+                render(h) {
+                  const targetField = $self.query('.registCurrency').take()
+                  return h(DictSelect, {
+                    props: {
+                      value: targetField.value,
+                      code: 'currency'
+                    }, on: {
+                      'change-value': (value) => {
+                        targetField.value = value
+                      }
+                    }
+                  })
+                }
+              }
+              )
+            `)
+                },
+                'x-validator': {
+                  required: expression(`!['GETI','FEIYINGLI'].includes($form.query('.companyType').take().value)`),
+                  message: i18nExpression('vendorMod.msgRegisteredCapital')
+                }
+              },
+              // 成立日期
+              companyCreationDate: {
+                ...yearMonthDaySelectorSegment,
+                default: null,
+                'x-decorator': 'FormItem',
+                'x-component-props': {
+                  ...yearMonthDaySelectorSegment['x-component-props'],
+                  'value-format': 'yyyy-MM-dd',
+                  'disabled': expression(`$form.query('state').get('data').$disabled`)
+                },
+                title: expression(`$t('vendorMod.creationDate')`),
+                'x-validator': {
+                  required: expression(`!['FEIYINGLI'].includes($form.query('.companyType').take().value)`),
+                  message: i18nExpression('vendorMod.msgCreationDate')
+                }
+              },
+              businessStartDate: {
+                type: 'date',
+                'x-hidden': true
+              },
+              businessEndDate: {
+                type: 'date',
+                'x-hidden': true
+              },
+              // 营业期限
+              businessDate: {
+                type: 'string',
+                'x-component': 'DatePicker',
+                'x-decorator': 'FormItem',
+                'x-component-props': {
+                  ...yearMonthDaySelectorSegment['x-component-props'],
+                  type: 'daterange',
+                  'disabled': expression(`$form.query('state').get('data').$disabled`)
+                },
+                title: expression(`$t('vendorMod.dateBusiness')`),
+                'x-validator': {
+                  required: expression(`!['FEIYINGLI'].includes($form.query('.companyType').take().value)`),
+                  message: i18nExpression('vendorMod.msgCreationDate')
+                }
+              },
+              // 企业简称
+              companyShortName: {
+                type: 'string',
+                'x-decorator': 'FormItem',
+                'x-component': 'Input',
+                title: expression(`$t('vendorMod.companyShortName')`),
+                'x-component-props': {
+                  'disabled': expression(`$form.query('state').get('data').$disabled`)
+                }
+              },
+              // 登记机关
+              registrationAuthority: {
+                type: 'string',
+                'x-decorator': 'FormItem',
+                'x-component': 'Input',
+                title: expression(`$t('vendorMod.registrationAuthority')`),
+                'x-component-props': {
+                  'disabled': expression(`$form.query('state').get('data').$disabled`)
+                }
+              },
+              // 营业范围
+              businessScope: {
+                type: 'string',
+                'x-decorator': 'FormItem',
+                'x-component': 'Input',
+                'x-decorator-props': {
+                  gridSpan: 2
+                },
+                title: expression(`$t('vendorMod.businessScope')`),
+                'x-component-props': {
+                  'disabled': expression(`$form.query('state').get('data').$disabled`),
+                  type:"textarea"
+                }
+              },
+            }
+          }
+        }
+      }
+    }
+  }
+}

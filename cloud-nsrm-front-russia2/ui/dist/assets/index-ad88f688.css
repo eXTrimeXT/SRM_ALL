@@ -1,0 +1,12 @@
+.the-vendorEffectDetail-detail .el-table .el-date-editor[data-v-7ce32fa1] {
+  width: 135px;
+}
+.the-vendorEffectDetail-detail .el-collapse-item__content > .el-button[data-v-7ce32fa1] {
+  margin-bottom: 5px;
+}
+.noShow[data-v-7ce32fa1] > :first-child {
+  display: none;
+}
+[data-v-7ce32fa1] .el-form-item__label {
+  float: initial;
+}

@@ -1,0 +1,69 @@
+// base color
+$blue: #324157;
+$light-blue: #3A71A8;
+$red: #C03639;
+$pink: #E65D6E;
+$green: #30B08F;
+$tiffany: #4AB7BD;
+$yellow: #FEC171;
+$panGreen: #30B08F;
+
+// sidebar
+$menuText: #D9D9D9;
+$menuActiveText: #FFFFFF;
+$subMenuActiveText: #FFFFFF; // https://github.com/ElemeFE/element/issues/12951
+
+$menuBg: #1E212E;
+$menuHover: #1E212E;
+
+$subMenuBg: #2a2e40;
+$subMenuHover: #2a2e40;
+$menuActiveBg: #0077FF;
+
+// 主题主色
+$primary-color: #0077FF;
+$success-color: #13ce66;
+$warning-color: #FAA51F;
+$danger-color: #F25353;
+$disabled-color: #C0C4CC;
+$black-color: #000000;
+$white-color: #FFFFFF;
+// 输入框
+$placeholder-color: #393E45; // #C5C6C8; // 占位符
+$input-color: #393E45; // 字体颜色
+$input-border-color: #96999C; // 边框颜色
+$input-hover-border-color: #2994FF; // hover边框颜色
+$input-focus-border-color: #2994FF; // focus边框颜色
+$input-focus-box-shadow-color: rgba(9, 126, 193, 0.20);
+$input-error-color: #FF4A4D; // input报错颜色
+$input-error-focus-box-shadow-color: rgba(255, 74, 77, 0.2); // input报错focus阴影
+$input-disabled-border-color: #DCDDDE; // input禁用边框
+$input-disabled-color: #393E45; // input禁用字体颜色
+$input-disabled-bg: #F6F6F6; // input禁用输入框底色
+$input-icon-color: #96999C; // 输入框icon颜色
+$input-label-color: #161C24; // 输入框label颜色
+
+$required-color: #FF4A4D; // 其他地方需要使用必填色提示
+
+$common-font-color: '#161C24'; // 通用字体颜色
+
+
+// 侧边栏导航布局
+$sideBarWidth: 190px;
+$collapseWidth: 52px;
+
+// the :export directive is the magic sauce for webpack
+// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+:export {
+  menuText: $menuText;
+  menuActiveText: $menuActiveText;
+  subMenuActiveText: $subMenuActiveText;
+  menuBg: $menuBg;
+  menuHover: $menuHover;
+  subMenuBg: $subMenuBg;
+  subMenuHover: $subMenuHover;
+  sideBarWidth: $sideBarWidth;
+  collapseWidth: $collapseWidth;
+  primary-color: $primary-color;
+  menuActiveBg: $menuActiveBg;
+}

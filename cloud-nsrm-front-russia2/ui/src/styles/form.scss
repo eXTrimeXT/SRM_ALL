@@ -1,0 +1,253 @@
+@import "./variables.scss";
+
+.srm-body {
+  // .el-input__inner {
+  //   padding-left: 8px;
+  //   padding-right: 8px;
+  //   height: 30px;
+  //   line-height: 30px;
+  //   min-height: 30px;
+  //   background: #FFFFFF;
+  //   border-radius: 4px;
+  //   border: 1px solid $input-border-color;
+  //   color: $input-color;
+
+  //   &:hover {
+  //     border-color: $input-hover-border-color;
+  //   }
+
+  //   &:focus {
+  //     border-color: $input-focus-border-color;
+  //     box-shadow: 0 0 0 2px $input-focus-box-shadow-color;
+  //   }
+
+  //   &::placeholder {
+  //     color: $placeholder-color;
+  //   }
+  // }
+
+  // .el-textarea:hover .el-textarea__inner,
+  // .el-select:hover .el-input__inner,
+  // .el-input:hover .el-input__inner {
+  //   border-color: $input-hover-border-color;
+  // }
+
+  // .el-textarea__inner {
+  //   padding-left: 8px;
+  //   padding-right: 8px;
+  //   border-color: $input-border-color;
+
+  //   &:hover {
+  //     border-color: $input-hover-border-color;
+  //   }
+
+  //   &:focus {
+  //     border-color: $input-focus-border-color;
+  //     box-shadow: 0 0 0 2px $input-focus-box-shadow-color;
+  //   }
+  // }
+
+  // .el-checkbox__input .el-checkbox__inner {
+  //   border-color: $input-hover-border-color;
+  // }
+
+  .el-checkbox__input.is-disabled.is-checked .el-checkbox__inner {
+    // background-color: $input-disabled-bg;
+    // border-color: $input-hover-border-color;
+  }
+
+  .el-checkbox__input.is-disabled.is-checked .el-checkbox__inner::after {
+    // border-color: $input-hover-border-color;
+  }
+
+
+  .el-input.is-disabled .el-input__inner,
+  .el-textarea.is-disabled .el-textarea__inner,
+  .el-range-editor.is-disabled,
+  .el-range-editor.is-disabled .el-range-input,
+  .el-range-editor.is-disabled .el-range-separator,
+  .el-checkbox__input.is-disabled+span.el-checkbox__label,
+  .el-radio.is-disabled .el-radio__label {
+    color: $input-disabled-color;
+    border-color: $input-disabled-border-color;
+    // -webkit-text-fill-color: $input-disabled-color;
+    opacity: 1;
+  }
+
+  // 设置和input 一样得行高
+  .el-radio,
+  .el-checkbox,
+  .el-switch {
+    line-height: 28px;
+  }
+
+  .formCheckbox {
+    line-height: 28px;
+  }
+
+  // .el-date-editor .el-range__icon,
+  // .el-date-editor .el-range-separator {
+  //   color: $input-icon-color;
+  //   line-height: 22px;
+  // }
+
+  .el-range-editor.is-disabled:focus,
+  .el-range-editor.is-disabled:hover {
+    border-color: $input-disabled-border-color;
+  }
+
+  .el-range-editor.is-disabled input {
+    color: $input-disabled-color;
+  }
+
+  .el-input-group {
+
+    //   .el-input-group__append,
+    //   .el-input-group__prepend {
+    //     border-color: $input-border-color;
+    //     color: $input-color;
+    //     position: relative;
+    //     z-index: 1;
+
+    //     &:hover {
+    //       border-color: $input-hover-border-color;
+    //     }
+
+    //     .el-input__inner {
+    //       border: transparent;
+
+    //       &:focus {
+    //         box-shadow: none;
+    //         border-color: $input-border-color;
+    //       }
+    //     }
+    //   }
+
+    //   >.el-input__inner {
+    //     border-right-color: $input-border-color;
+    //     position: relative;
+    //     z-index: 2;
+    //   }
+
+    &.is-disabled {
+
+      .el-input-group__append,
+      .el-input-group__prepend {
+        border-color: $input-disabled-border-color;
+      }
+    }
+  }
+
+  // .el-input--suffix .el-input__inner {
+  //   padding-right: 28px;
+  // }
+
+  // fix date-picker ui bug in filter-item
+  .el-range-editor.el-input__inner {
+    display: inline-flex !important;
+  }
+
+  // to fix el-date-picker css style
+  .el-range-separator {
+    box-sizing: content-box;
+  }
+
+  .el-form-item .el-form-item__error {
+    padding-top: 0px;
+  }
+
+  .el-form--label-top .el-form-item__label {
+    padding-bottom: 0;
+    line-height: 24px;
+  }
+
+  .form-fill-style .el-form-item__label {
+    width: 100%;
+    text-align: left;
+    line-height: 24px;
+  }
+
+  .el-form-item__content,
+  .el-form-item--mini .el-form-item__content {
+    line-height: normal;
+  }
+
+  .form-fill-style .el-form-item__content .c-upload-file {
+    display: block;
+  }
+
+  // .el-form-item__content .el-form-item__error {
+  //   right: 0;
+  //   text-align: right;
+  //   color: $input-error-color;
+  // }
+
+  .el-form-item__content .el-checkbox {
+    // line-height: 30px;
+  }
+
+  .el-form-item__label {
+    font-size: 12px;
+    font-weight: normal;
+    white-space: nowrap;
+    color: $input-label-color;
+  }
+
+  // .el-form-item {
+  //   &.is-error {
+
+  //     .el-input__inner,
+  //     .el-textarea__inner {
+  //       border-color: $input-error-color;
+
+  //       &:focus {
+  //         border-color: $input-error-color;
+  //         box-shadow: 0 0 0 2px $input-error-focus-box-shadow-color;
+  //       }
+  //     }
+
+  //     .el-input-group {
+
+  //       .el-input-group__append,
+  //       .el-input-group__prepend {
+  //         color: $input-color;
+
+  //         .el-input__inner {
+  //           border: transparent;
+
+  //           &:focus {
+  //             box-shadow: none;
+  //             border-color: $input-border-color;
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
+  // .el-form-item.is-required:not(.is-no-asterisk)>.el-form-item__label:before,
+  // .el-form-item.is-required:not(.is-no-asterisk) .el-form-item__label-wrap>.el-form-item__label:before {
+  //   color: $input-error-color;
+  // }
+
+  // 下拉icon 颜色
+  // .el-select .el-input .el-select__caret {
+  //   color: $input-icon-color;
+  // }
+
+  // .el-input__suffix {
+  //   height: 30px;
+  //   color: $input-icon-color;
+  //   border-radius: 0 4px 4px 0;
+  //   overflow: hidden;
+  //   right: 2px;
+  // }
+
+  // .el-input__prefix {
+  //   color: $input-icon-color;
+
+  //   .el-input__icon {
+  //     color: $input-icon-color;
+  //   }
+  // }
+}

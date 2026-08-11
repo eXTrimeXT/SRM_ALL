@@ -1,0 +1,34 @@
+.setting-button {
+  font-size: 12px;
+  cursor: pointer;
+  width: auto;
+  height: 20px;
+  line-height: 20px;
+  color: #161C24;
+  overflow: hidden;
+}
+.setting-button .setting-icon-operation {
+  margin-right: 2px;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+.custom-table-footer {
+  text-align: right;
+}
+
+.tips {
+  color: red;
+  padding-bottom: 10px;
+}
+
+.drag-block {
+  cursor: move;
+}.vxe-base-table[data-v-9ab94843] {
+  position: relative;
+}
+.custom-table[data-v-9ab94843] {
+  position: absolute;
+  right: 0px;
+  top: -30px;
+}

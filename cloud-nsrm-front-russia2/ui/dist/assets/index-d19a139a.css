@@ -1,0 +1,26 @@
+[data-v-1d4a914d] .is-scrolling-none {
+  height: 250px !important;
+}
+.the_catSelect-wrap[data-v-1d4a914d] {
+  margin-right: 5px;
+}
+.mb10[data-v-1d4a914d] {
+  margin-bottom: 5px;
+}
+.el-divider[data-v-1d4a914d] {
+  margin: 0;
+}
+.paginationWrap[data-v-1d4a914d] {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+[data-v-1d4a914d] .smallInput>input {
+  height: 24px;
+  line-height: 24px;
+  min-height: 24px;
+}
+.checkboxCon[data-v-1d4a914d] {
+  width: 100%;
+  text-align: center;
+}

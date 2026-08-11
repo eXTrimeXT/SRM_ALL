@@ -1,0 +1,17 @@
+.wrapper[data-v-300f7a7f] {
+  padding-bottom: 40px;
+}
+.toRequired[data-v-300f7a7f] {
+  color: red;
+}
+.btn[data-v-300f7a7f] {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding-left: 8px;
+  height: 30px;
+}
+.btn.gray[data-v-300f7a7f] {
+  background-color: #F5F7FA;
+  cursor: not-allowed;
+}

@@ -1,0 +1,104 @@
+.subtitle[data-v-4ededd68] {
+  display: block;
+  line-height: 30px;
+}
+.form-container[data-v-4ededd68] {
+  padding: 15px;
+  height: 100%;
+  overflow: auto;
+}
+.allTree[data-v-4ededd68] {
+  height: 57vh;
+  overflow: auto;
+}
+.buttonAddAndReduce[data-v-4ededd68] {
+  color: #96999C;
+  font-size: 18px;
+  line-height: 28px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+.tree-title[data-v-4ededd68] {
+  padding: 5px 0;
+  font-weight: bold;
+}[data-v-dce0b22f] .el-input-group__prepend {
+  background-color: #FFFFFF;
+}
+[data-v-dce0b22f] .el-tabs__content {
+  padding: 16px;
+  border: 1px solid #cccccc;
+}
+[data-v-dce0b22f] .el-tabs__header {
+  margin: 0;
+}
+.removeLanguage[data-v-dce0b22f] {
+  margin: -10px 0 !important;
+}
+.the_functionMaintenance_wrapper .menuAccessCtrl[data-v-dce0b22f] {
+  border: 1px solid #dfe6ec;
+}
+.form-roleContainer .main-header[data-v-dce0b22f] {
+  background-color: #f2f2f2;
+}
+.form-roleContainer .roleNames .el-row .el-form-item[data-v-dce0b22f]:first-child {
+  margin-bottom: 10px !important;
+}
+.form-roleContainer .roleNames .el-col[data-v-dce0b22f] {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+.menuAccessCtrl[data-v-dce0b22f] .el-tree {
+  overflow-y: auto;
+  max-height: 222px;
+}
+.form-roleContainer .el-row.roleNames .el-form-item[data-v-dce0b22f]:first-child {
+  margin-bottom: 10px !important;
+}
+.roleLanguages-required[data-v-dce0b22f]:before {
+  content: "*";
+  color: #ff4949;
+  margin-right: 4px;
+}
+.borderStyle[data-v-dce0b22f] {
+  border: 1px solid #ebebeb;
+  border-top: 0;
+  border-bottom: 0;
+}
+.buttonAddAndReduce[data-v-dce0b22f] {
+  color: #96999C;
+  font-size: 18px;
+  margin: 5px 0 0 12px;
+  cursor: pointer;
+}.the_functionMaintenance_wrapper .menuAccessCtrl[data-v-d7c69127] {
+  border: 1px solid #dfe6ec;
+}
+.form-roleContainer[data-v-d7c69127] {
+  padding: 0 10px;
+}
+.form-roleContainer .main-header[data-v-d7c69127] {
+  background-color: #f2f2f2;
+}
+.form-roleContainer .roleNames .el-row .el-form-item[data-v-d7c69127]:first-child {
+  margin-bottom: 10px !important;
+}
+.form-roleContainer .roleNames .el-col[data-v-d7c69127] {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+.menuAccessCtrl[data-v-d7c69127] .el-tree {
+  overflow-y: auto;
+  max-height: 222px;
+}
+.form-roleContainer .el-row.roleNames .el-form-item[data-v-d7c69127]:first-child {
+  margin-bottom: 10px !important;
+}
+.roleLanguages-required[data-v-d7c69127]:before {
+  content: "*";
+  color: #ff4949;
+  margin-right: 4px;
+}
+.borderStyle[data-v-d7c69127] {
+  border: 1px solid #ebebeb;
+  border-top: 0;
+  border-bottom: 0;
+}

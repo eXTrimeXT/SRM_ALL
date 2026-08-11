@@ -1,0 +1,73 @@
+@mixin arrowArocess() {
+    .status-list-block {
+        margin-bottom: 10px;
+      }
+    
+      .status-list {
+        display: flex;
+        padding: 0
+      }
+    
+      .status-list li {
+        position: relative;
+        background: #FAFBFB;
+        line-height: 36px;
+        flex: 1;
+        list-style-type: none;
+        text-align: center;
+        border: 1px solid #DCDDDE;
+        border-right: none;
+        border-left: none;
+        overflow: hidden;
+        cursor: pointer;
+      }
+    
+      .status-list i:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -25px;
+        width: 36px;
+        height: 36px;
+        background-color: #FAFBFB;
+        border-color: #DCDDDE;
+        border-style: solid;
+        border-width: 1px 1px 0 0;
+        transform: rotateZ(45deg) skew(20deg, 20deg);
+        z-index: 10;
+      }
+    
+      .status-list li:first-child {
+        border-left: 1px solid #DCDDDE;
+      }
+    
+      .status-list li:last-child {
+        border-right: 1px solid #DCDDDE;
+      }
+    
+      .status-list li:first-child i:before{
+        display: none;
+      }
+      .status-list li:hover {
+        background-color: #E7F2FF;
+        border-color: #0077FF;
+        color: #0077FF;
+      }
+      .status-list li:hover i:before{
+        border-color: #0077FF;
+      }
+      .status-list li:hover+li i:before {
+        background-color: #E7F2FF;
+        border-color: #0077FF;
+      }
+    
+      .status-list li.status-active {
+        background-color: #0077FF;
+        border-color: #0077FF;
+        color: #FFFFFF;
+      }
+      .status-list li.status-active+li i:before {
+        background-color: #0077FF;
+        border-color: #0077FF;
+      }
+  }

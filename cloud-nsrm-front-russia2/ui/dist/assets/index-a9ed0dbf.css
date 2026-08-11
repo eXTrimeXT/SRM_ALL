@@ -1,0 +1,8 @@
+
+.siteReviewPlanConfirm .render-form-container__fixed-footer{
+  padding-top:0px
+}
+.dialogMain .el-dialog__body {
+  max-height: 363px;
+  overflow: auto;
+}

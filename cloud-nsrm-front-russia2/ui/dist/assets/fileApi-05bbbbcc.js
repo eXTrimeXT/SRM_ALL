@@ -1,0 +1,1 @@
+import{h as http}from"./index-6b6051d8.js";const sceneFileCompApi={sceneFileListAll:async data=>http({url:"/api-base/base/scene_file/listAll",method:"POST",data,loading:!1}),sceneTemplateListAll:async data=>http({url:"/api-base/base/scene_template/listAll",method:"POST",data,loading:!1})};export{sceneFileCompApi as s};

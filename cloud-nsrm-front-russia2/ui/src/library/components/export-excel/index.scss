@@ -1,0 +1,35 @@
+.setting-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.custom-footer {
+  // display: flex;
+  // flex-direction: row-reverse;
+  text-align: right;
+}
+
+.submit-button {
+  margin-right: 15px;
+}
+
+.tips {
+  color: red;
+  padding-bottom: 10px;
+}
+
+.export-excel {
+  display: inline-block;
+}
+
+.lang_ru_RU {
+  .exportFooter {
+    .el-form-item__label {
+      white-space: pre-wrap !important;
+      line-height: 14px !important;
+    }
+  }
+}
+

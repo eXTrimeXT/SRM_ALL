@@ -1,0 +1,6 @@
+allowBuilds:
+  '@formily/vue': false
+  core-js: false
+  esbuild: false
+  husky: false
+  vue-demi: false

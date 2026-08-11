@@ -1,0 +1,12 @@
+FROM reg.meicloud.com:40443/iam-std/nginx:1.21.4_v1.0
+
+#定义镜像nginx的工作路径，必填。各自产品可自定义其他路径
+
+WORKDIR /apps/svr/cloud_srm_application/ui/srm/
+
+#复制编译后的前端代码到工作区路径，必填。dist为当前路径下的文件夹，根据实际情况配置。
+
+COPY deploy_temp_supplier/ /apps/svr/cloud_srm_application/ui/srm/
+
+#RUN unzip -o -d /apps/svr/cloud_srm_application/ui /apps/svr/cloud_srm_application/ui/dist.zip
+RUN ["unzip","dist.zip"]

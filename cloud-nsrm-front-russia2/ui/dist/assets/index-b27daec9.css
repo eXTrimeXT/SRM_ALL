@@ -1,0 +1,18 @@
+.report_container[data-v-6fc27c1f] {
+  height: 100%;
+}
+.report_iframe[data-v-6fc27c1f] {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border: 0;
+  top: 0;
+  bottom: 0;
+}
+.list-item[data-v-6fc27c1f] {
+  list-style: none;
+}
+.iframe_wrapper[data-v-6fc27c1f] {
+  position: relative;
+  height: 100%;
+}

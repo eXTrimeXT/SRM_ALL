@@ -1,0 +1,17 @@
+.the-advancePaymentDetail-detail .form-container2[data-v-ba281e8f] {
+  padding: 5px;
+}
+.the-advancePaymentDetail-detail .btn_line[data-v-ba281e8f] {
+  margin: 0 0 10px 0;
+}
+.the-advancePaymentDetail-detail .toRequired[data-v-ba281e8f] {
+  color: #ff4949;
+  padding-right: 2px;
+}
+.the-advancePaymentDetail-detail .input-number-precision[data-v-ba281e8f] {
+  width: 100%;
+}
+.the-advancePaymentDetail-detail .input-number-precision[data-v-ba281e8f] .el-input__inner {
+  text-align: left;
+  padding-left: 8px;
+}

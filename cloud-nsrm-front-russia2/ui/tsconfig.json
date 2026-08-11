@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": false,
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true,
+    "types": [
+      "vitest",
+      "vite/client",
+      "vite-plugin-pages/client",
+      "vite-plugin-vue-layouts/client"
+    ],
+    "paths": {
+      "@/*": ["src/*"],
+      "mod@/*": ["src/modules/*"],
+      "mods@/*": ["src/modules/supplier/*"],
+      "modb@/*": ["src/modules/buyer/*"],
+      "assets@/*": ["src/assets/*"],
+      "comps@/*": ["src/components/*"],
+      "lib@/*": ["src/library/*"],
+      "modc@/*": ["src/modulesCus/*"],
+      "modcb@/*": ["src/modulesCus/buyer/*"],
+      "modcs@/*": ["src/modulesCus/supplier/*"],
+    }
+  },
+  "vueCompilerOptions": {
+    "target": 2.7
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "unocss.config.ts"],
+  "exclude": ["dist", "node_modules", "cypress"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

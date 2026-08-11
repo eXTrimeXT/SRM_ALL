@@ -1,0 +1,12 @@
+.basic_price_wrapper .order-uploader[data-v-33b9a31b] {
+  display: inline-block;
+  margin: 0 10px;
+}
+.basic_price_wrapper .block[data-v-33b9a31b] {
+  display: flex;
+  justify-content: center;
+}
+.basic_price_wrapper .el-table th > .cell {
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,12 @@
+.the_dict_wrapper[data-v-5a62f84c] {
+  border-top: 1px solid #eee;
+}
+.the_dict_wrapper[data-v-5a62f84c] aside {
+  line-height: 16px !important;
+}
+.the_dict_wrapper[data-v-5a62f84c] .el-table th > .cell {
+  display: inline-block;
+  white-space: nowrap;
+  word-break: keep-all;
+  text-overflow: unset;
+}
