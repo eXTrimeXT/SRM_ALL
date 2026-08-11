@@ -1,6 +1,0 @@
-::v-deep .contractPaymentType .render-pix-form-item-layout-vertical .render-pix-form-item-label * {
-  line-height: 35px;
-}
-::v-deep .contractPaymentType .render-pix-form-item-layout-vertical .render-pix-form-item-label-content {
-  min-height: 35px;
-}

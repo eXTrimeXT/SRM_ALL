@@ -1,9 +1,0 @@
-.light-blue {
-  background-color: #f4b7b8 !important;
-}
-.hidden-default-background .el-table__body .light-blue.hover-row td {
-  background-color: #f4b7b8 !important;
-}
-.set-all-select-btn .cell {
-  visibility: hidden;
-}

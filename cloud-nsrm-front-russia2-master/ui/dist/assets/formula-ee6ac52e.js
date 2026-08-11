@@ -1,1 +1,0 @@
-import{h as http}from"./index-6b6051d8.js";const formulaHttp={getMaterialFormulaRelateInfos:async payload=>http({url:"/api-base/bid/pricing-formula/getMaterialFormulaRelateInfos",method:"POST",data:payload,loading:!0})};export{formulaHttp as f};
